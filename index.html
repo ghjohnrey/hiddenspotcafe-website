@@ -6,170 +6,200 @@
 <title>Hidden Spot Cafe – Potion Lab</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0a0a12, #050509 70%);
-  color: #eaeaf0;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:radial-gradient(circle at top,#0a0a12,#050509 70%);
+  color:#eaeaf0;
 }
 
-header {
-  text-align: center;
-  padding: 60px 20px;
+header{
+  text-align:center;
+  padding:60px 20px;
 }
 
-h1 { font-size: 40px; margin-bottom: 10px; }
+h1{font-size:40px;margin-bottom:10px;}
 
-.section { padding: 40px 20px; text-align: center; }
+.section{padding:40px 20px;text-align:center;}
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 35px;
-  max-width: 1000px;
-  margin: auto;
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:35px;
+  max-width:1000px;
+  margin:auto;
 }
 
-.card {
-  background: rgba(20,20,35,0.8);
-  padding: 20px;
-  border-radius: 18px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: 0.3s ease;
+.card{
+  position:relative;
+  background:rgba(20,20,35,0.85);
+  padding:20px;
+  border-radius:18px;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,0.05);
+  transition:0.3s ease;
+  overflow:hidden;
 }
 
-.card:hover { transform: translateY(-6px); }
+.card:hover{transform:translateY(-6px);}
 
-.drink-img {
-  width: 140px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 14px;
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#ff2e63;
+  color:white;
+  padding:5px 10px;
+  font-size:12px;
+  border-radius:20px;
 }
 
-.price { font-weight: bold; margin-top: 8px; color: #ffd369; }
-
-.quantity {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  gap: 10px;
+.drink-img{
+  width:140px;
+  height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  transition:0.3s ease;
 }
 
-.quantity button {
-  background: #a855f7;
-  border: none;
-  color: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
+.price{font-weight:bold;margin-top:8px;color:#ffd369;}
+
+.stock{
+  font-size:13px;
+  margin-top:5px;
+  color:#aaa;
 }
 
-.quantity span { min-width: 20px; display: inline-block; }
-
-.cart-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #111;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+.quantity{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:10px;
+  gap:10px;
 }
 
-.cart-bar button {
-  background: #a855f7;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 30px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+.quantity button{
+  background:#a855f7;
+  border:none;
+  color:white;
+  width:28px;
+  height:28px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:16px;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
+.quantity span{
+  min-width:20px;
+  display:inline-block;
 }
 
-.modal-content {
-  background: #1a1a2e;
-  padding: 30px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
+.love.active img{box-shadow:0 0 30px #ff2e63;}
+
+.glitter{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  animation:floatUp 2s linear forwards;
 }
 
-.modal input, .modal select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: none;
+@keyframes floatUp{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-80px);opacity:0;}
 }
 
-.modal button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 20px;
-  border: none;
-  background: #a855f7;
-  color: white;
-  cursor: pointer;
+.cart-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#111;
+  padding:15px;
+  text-align:center;
 }
 
-.confirmation {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  animation: fadeIn 0.4s ease;
+.cart-bar button{
+  background:#a855f7;
+  border:none;
+  padding:12px 25px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
 }
 
-.confirmation h2 {
-  color: #a855f7;
-  font-size: 28px;
-  margin-bottom: 10px;
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
 }
 
-.sparkle {
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  animation: sparkleAnim 1.5s linear forwards;
+.modal-content{
+  background:#1a1a2e;
+  padding:30px;
+  border-radius:16px;
+  width:90%;
+  max-width:400px;
 }
 
-@keyframes sparkleAnim {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-120px); opacity: 0; }
+.modal input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.modal button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:20px;
+  border:none;
+  background:#a855f7;
+  color:white;
+  cursor:pointer;
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  margin-top: 80px;
-  color: #777;
+.confirmation{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.confirmation h2{color:#a855f7;}
+
+.admin-counter{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+  color:#aaa;
+}
+
+.map-section{
+  margin:60px 0;
+}
+
+iframe{
+  width:100%;
+  height:350px;
+  border:none;
+  border-radius:15px;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  margin-top:60px;
+  color:#777;
 }
 </style>
 </head>
@@ -178,70 +208,22 @@ footer {
 
 <header>
   <h1>Hidden Spot Cafe</h1>
-  <p>Potions ₱49 ✨ Pickup Only</p>
+  <p>Tap to Transform – Elixir ₱39 | Potion ₱49 ✨</p>
 </header>
 
 <section class="section">
-  <h2>Select Your Potion</h2>
   <div class="products">
 
-    <div class="card">
-      <img src="love-potion.png" class="drink-img">
-      <h3>Love Potion</h3>
-      <p>Strawberry – Magical infusion.</p>
-      <p class="price">₱49</p>
+    <div class="card love" onclick="togglePotion(this,'love')">
+      <div class="badge">Best Seller</div>
+      <img src="love.png" class="drink-img">
+      <h3>Love Elixir</h3>
+      <p class="price">₱39</p>
+      <div class="stock" id="stock-love">Stock: 20</div>
       <div class="quantity">
-        <button onclick="changeQty('love',-1)">-</button>
+        <button onclick="event.stopPropagation(); changeQty('love',-1)">-</button>
         <span id="love">0</span>
-        <button onclick="changeQty('love',1)">+</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="sun-potion.png" class="drink-img">
-      <h3>Sun Potion</h3>
-      <p>Mango – Golden enchantment.</p>
-      <p class="price">₱49</p>
-      <div class="quantity">
-        <button onclick="changeQty('sun',-1)">-</button>
-        <span id="sun">0</span>
-        <button onclick="changeQty('sun',1)">+</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="emerald-potion.png" class="drink-img">
-      <h3>Emerald Potion</h3>
-      <p>Green Apple – Forest spirit.</p>
-      <p class="price">₱49</p>
-      <div class="quantity">
-        <button onclick="changeQty('emerald',-1)">-</button>
-        <span id="emerald">0</span>
-        <button onclick="changeQty('emerald',1)">+</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="night-potion.png" class="drink-img">
-      <h3>Night Potion</h3>
-      <p>Blueberry – Shadow essence.</p>
-      <p class="price">₱49</p>
-      <div class="quantity">
-        <button onclick="changeQty('night',-1)">-</button>
-        <span id="night">0</span>
-        <button onclick="changeQty('night',1)">+</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="moon-potion.png" class="drink-img">
-      <h3>Moon Potion</h3>
-      <p>Lychee – Lunar glow.</p>
-      <p class="price">₱49</p>
-      <div class="quantity">
-        <button onclick="changeQty('moon',-1)">-</button>
-        <span id="moon">0</span>
-        <button onclick="changeQty('moon',1)">+</button>
+        <button onclick="event.stopPropagation(); changeQty('love',1)">+</button>
       </div>
     </div>
 
@@ -255,20 +237,9 @@ footer {
 
 <div class="modal" id="checkoutModal">
   <div class="modal-content">
-    <h3>Pickup Details</h3>
-    <input type="text" id="custName" placeholder="Your Name" required>
-    <input type="tel" id="custPhone" placeholder="Phone Number" required>
-    <select id="pickupTime">
-      <option value="">Select Pickup Time</option>
-      <option>2:30 PM</option>
-      <option>3:00 PM</option>
-      <option>3:30 PM</option>
-      <option>4:00 PM</option>
-      <option>4:30 PM</option>
-      <option>5:00 PM</option>
-      <option>5:30 PM</option>
-      <option>6:00 PM</option>
-    </select>
+    <h3>Your Details</h3>
+    <input type="text" id="custName" placeholder="Your Name">
+    <input type="tel" id="custPhone" placeholder="Phone Number">
     <button onclick="sendOrder()">Place Order</button>
     <button onclick="closeCheckout()">Cancel</button>
   </div>
@@ -276,108 +247,118 @@ footer {
 
 <div class="confirmation" id="confirmation">
   <h2>✨ Order Sent Successfully! ✨</h2>
-  <p>Please confirm your order in Messenger.</p>
+  <p>Please confirm in Messenger.</p>
 </div>
+
+<div class="admin-counter">
+  Total Orders Received: <span id="orderCount">0</span>
+</div>
+
+<section class="map-section">
+  <h2 style="text-align:center;">Find Us Here</h2>
+  <iframe 
+  src="https://www.google.com/maps?q=Hidden%20Spot%20Cafe&output=embed">
+  </iframe>
+</section>
 
 <footer>
   © 2026 Hidden Spot Cafe
 </footer>
 
 <script>
-const price = 49;
+const prices={elixir:39,potion:49};
+const state={love:"elixir"};
+let inventory={love:20};
+let orderCount=localStorage.getItem("orders")||0;
+document.getElementById("orderCount").innerText=orderCount;
 
-function changeQty(id, amount) {
-  const el = document.getElementById(id);
-  let value = parseInt(el.innerText);
-  value += amount;
-  if (value < 0) value = 0;
-  el.innerText = value;
+function togglePotion(card,id){
+  const img=card.querySelector("img");
+  const title=card.querySelector("h3");
+  const price=card.querySelector(".price");
+
+  if(state[id]==="elixir"){
+    state[id]="potion";
+    card.classList.add("active");
+    img.src=id+"-potion.png";
+    title.innerText="Love Potion";
+    price.innerText="₱49";
+    startGlitter(card);
+  }else{
+    state[id]="elixir";
+    card.classList.remove("active");
+    img.src=id+".png";
+    title.innerText="Love Elixir";
+    price.innerText="₱39";
+  }
   updateTotal();
 }
 
-function updateTotal() {
-  const ids = ["love","sun","emerald","night","moon"];
-  let total = 0;
-  ids.forEach(id=>{
-    total += parseInt(document.getElementById(id).innerText) * price;
-  });
-  document.getElementById("totalText").innerText = "Total: ₱" + total;
+function startGlitter(card){
+  for(let i=0;i<8;i++){
+    const g=document.createElement("div");
+    g.className="glitter";
+    g.style.left=Math.random()*150+"px";
+    g.style.bottom="20px";
+    card.appendChild(g);
+    setTimeout(()=>g.remove(),2000);
+  }
 }
 
-function openCheckout() {
-  document.getElementById("checkoutModal").style.display = "flex";
-}
-
-function closeCheckout() {
-  document.getElementById("checkoutModal").style.display = "none";
-}
-
-function sendOrder() {
-  const name = document.getElementById("custName").value.trim();
-  const phone = document.getElementById("custPhone").value.trim();
-  const pickup = document.getElementById("pickupTime").value;
-
-  if (!name || !phone || !pickup) {
-    alert("Please complete all fields.");
+function changeQty(id,amount){
+  let qty=parseInt(document.getElementById(id).innerText);
+  qty+=amount;
+  if(qty<0)qty=0;
+  if(qty>inventory[id]){
+    alert("Not enough stock!");
     return;
   }
-
-  const items = ["love","sun","emerald","night","moon"];
-  let message = "Hello Hidden Spot Cafe!\n\nPickup Order\n";
-  message += "Name: " + name + "\n";
-  message += "Phone: " + phone + "\n";
-  message += "Pickup Time: " + pickup + "\n\nOrder:\n";
-
-  let total = 0;
-  items.forEach(id=>{
-    const qty = parseInt(document.getElementById(id).innerText);
-    if (qty > 0) {
-      message += qty + " " + id.charAt(0).toUpperCase()+id.slice(1) + " Potion\n";
-      total += qty * price;
-    }
-  });
-
-  if (total === 0) {
-    alert("Please select at least 1 potion.");
-    return;
-  }
-
-  message += "\nTotal: ₱" + total;
-
-  const url = "https://m.me/hiddenspotcafe?text=" + encodeURIComponent(message);
-  window.open(url, "_blank");
-
-  showConfirmation();
-  resetCart();
+  document.getElementById(id).innerText=qty;
+  updateTotal();
 }
 
-function resetCart() {
-  ["love","sun","emerald","night","moon"].forEach(id=>{
-    document.getElementById(id).innerText = "0";
-  });
-  document.getElementById("custName").value = "";
-  document.getElementById("custPhone").value = "";
-  document.getElementById("pickupTime").value = "";
+function updateTotal(){
+  let qty=parseInt(document.getElementById("love").innerText);
+  let total=qty*prices[state.love];
+  document.getElementById("totalText").innerText="Total: ₱"+total;
+}
+
+function openCheckout(){
+  document.getElementById("checkoutModal").style.display="flex";
+}
+
+function closeCheckout(){
+  document.getElementById("checkoutModal").style.display="none";
+}
+
+function sendOrder(){
+  const name=document.getElementById("custName").value.trim();
+  const phone=document.getElementById("custPhone").value.trim();
+  const qty=parseInt(document.getElementById("love").innerText);
+
+  if(!name||!phone){alert("Complete all fields");return;}
+  if(qty===0){alert("Select at least 1 item");return;}
+
+  let message="Hello Hidden Spot Cafe!\n\nOrder Details:\n";
+  message+="Name: "+name+"\nPhone: "+phone+"\n\n";
+  message+=qty+" Love "+state.love+"\n";
+  message+="Total: ₱"+(qty*prices[state.love]);
+
+  window.open("https://m.me/hiddenspotcafe?text="+encodeURIComponent(message),"_blank");
+
+  inventory.love-=qty;
+  document.getElementById("stock-love").innerText="Stock: "+inventory.love;
+
+  orderCount++;
+  localStorage.setItem("orders",orderCount);
+  document.getElementById("orderCount").innerText=orderCount;
+
+  document.getElementById("confirmation").style.display="flex";
+  setTimeout(()=>document.getElementById("confirmation").style.display="none",2500);
+
+  document.getElementById("love").innerText="0";
   updateTotal();
   closeCheckout();
-}
-
-function showConfirmation() {
-  const confirmBox = document.getElementById("confirmation");
-  confirmBox.style.display = "flex";
-
-  for (let i = 0; i < 20; i++) {
-    const spark = document.createElement("div");
-    spark.className = "sparkle";
-    spark.style.left = Math.random() * window.innerWidth + "px";
-    spark.style.top = window.innerHeight/2 + "px";
-    document.body.appendChild(spark);
-    setTimeout(()=> spark.remove(),1500);
-  }
-
-  setTimeout(()=> {
-    confirmBox.style.display = "none";
-  }, 2500);
 }
 </script>
 
