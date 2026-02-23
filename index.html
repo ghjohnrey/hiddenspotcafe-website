@@ -17,6 +17,22 @@ header{text-align:center;padding:60px 20px;}
 h1{font-size:40px;margin-bottom:10px;}
 .section{padding:40px 20px;text-align:center;}
 
+.message-btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 25px;
+  background:#a855f7;
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:bold;
+  transition:0.3s ease;
+}
+.message-btn:hover{
+  background:#c084fc;
+  transform:scale(1.05);
+}
+
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
@@ -154,13 +170,6 @@ h1{font-size:40px;margin-bottom:10px;}
   flex-direction:column;
 }
 
-.admin-counter{
-  text-align:center;
-  margin-top:20px;
-  font-size:14px;
-  color:#aaa;
-}
-
 .map-section{margin:60px 0;}
 iframe{
   width:100%;
@@ -183,6 +192,9 @@ footer{
 <header>
   <h1>Hidden Spot Cafe</h1>
   <p>Tap to Transform – Elixir ₱39 | Potion ₱49 ✨</p>
+  <a href="https://m.me/hiddenspotcafe" target="_blank" class="message-btn">
+    Message Us First
+  </a>
 </header>
 
 <section class="section">
@@ -208,13 +220,9 @@ footer{
   <h2>✨ Order Sent Successfully! ✨</h2>
 </div>
 
-<div class="admin-counter">
-  Total Orders Received: <span id="orderCount">0</span>
-</div>
-
 <section class="map-section">
   <h2 style="text-align:center;">Find Us Here</h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d574.1323279836208!2d121.05635209165193!3d14.525596024106317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771863287407!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d574.1323279836208!2d121.05635209165193!3d14.525596024106317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771863287407!5m2!1sen!2sph" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
 <footer>
@@ -224,9 +232,7 @@ footer{
 <script>
 const products=["love","sun","emerald","night","moon"];
 const prices={elixir:39,potion:49};
-let state={},inventory={},orderCount=localStorage.getItem("orders")||0;
-
-document.getElementById("orderCount").innerText=orderCount;
+let state={},inventory={};
 
 const container=document.getElementById("productContainer");
 
@@ -333,10 +339,6 @@ function sendOrder(){
 
   message+="\nTotal: ₱"+total;
   window.open("https://m.me/hiddenspotcafe?text="+encodeURIComponent(message),"_blank");
-
-  orderCount++;
-  localStorage.setItem("orders",orderCount);
-  document.getElementById("orderCount").innerText=orderCount;
 
   document.getElementById("confirmation").style.display="flex";
   setTimeout(()=>document.getElementById("confirmation").style.display="none",2500);
