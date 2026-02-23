@@ -86,15 +86,16 @@ h1 {
 .img-wrapper::before {
   content: "";
   position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 180px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(150,0,255,0.3), transparent 70%);
-  filter: blur(30px);
+  top: -60px;
+  left: -60px;
+  width: 260px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(180,0,255,0.5), transparent 70%);
+  filter: blur(50px);
   opacity: 0;
   transition: 0.4s ease;
-  z-index: 1;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .card.active .img-wrapper::before {
