@@ -17,10 +17,7 @@ header {
   padding: 60px 20px;
 }
 
-h1 {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+h1 { font-size: 40px; margin-bottom: 10px; }
 
 .section {
   padding: 40px 20px;
@@ -47,9 +44,7 @@ h1 {
   overflow: visible;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-}
+.card:hover { transform: translateY(-6px); }
 
 .drink-img {
   width: 140px;
@@ -59,25 +54,16 @@ h1 {
   transition: 0.3s ease;
 }
 
-.card.morph img {
-  transform: scale(1.15);
-  opacity: 0;
-}
+.card.morph img { transform: scale(1.15); opacity: 0; }
 
-/* Flavor Glow */
 .love.active img { box-shadow: 0 0 35px #ff2e63; }
 .sun.active img { box-shadow: 0 0 35px #ffb703; }
 .emerald.active img { box-shadow: 0 0 35px #2ecc71; }
 .night.active img { box-shadow: 0 0 35px #5a189a; }
 .moon.active img { box-shadow: 0 0 35px #f8c8dc; }
 
-.price {
-  font-weight: bold;
-  margin-top: 8px;
-  color: #ffd369;
-}
+.price { font-weight: bold; margin-top: 8px; color: #ffd369; }
 
-/* Glitter */
 .glitter {
   position: absolute;
   width: 6px;
@@ -93,7 +79,27 @@ h1 {
   to { transform: translateY(-80px); opacity: 0; }
 }
 
-/* 🔮 Floating Orb */
+/* MAP SECTION */
+.map-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.map-container {
+  max-width: 900px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(168,85,247,0.4);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 400px;
+  border: 0;
+}
+
+/* Orb */
 .chat-orb {
   position: fixed;
   bottom: 30px;
@@ -102,8 +108,7 @@ h1 {
   height: 75px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #ffffff, #a855f7 40%, #5a189a 70%);
-  box-shadow: 0 0 20px #a855f7,
-              0 0 40px #7b2ff7;
+  box-shadow: 0 0 20px #a855f7, 0 0 40px #7b2ff7;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,25 +119,12 @@ h1 {
   transition: 0.3s ease;
 }
 
-.chat-orb:hover {
-  transform: scale(1.15);
-}
-
-/* Floating motion */
 @keyframes floatOrb {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
 }
 
-/* Stronger glow at night */
-.night-glow {
-  box-shadow: 0 0 30px #ff00ff,
-              0 0 60px #a855f7,
-              0 0 100px rgba(255,0,255,0.8);
-}
-
-/* Online Indicator */
 .online-indicator {
   position: absolute;
   bottom: -5px;
@@ -143,7 +135,6 @@ h1 {
   padding: 4px 6px;
   border-radius: 10px;
   font-weight: bold;
-  box-shadow: 0 0 10px #00ff88;
 }
 
 footer {
@@ -164,69 +155,22 @@ footer {
 
 <section class="section">
   <h2>Tap to Transform</h2>
-
   <div class="products">
+    <!-- Keep your existing 5 cards here unchanged -->
+  </div>
+</section>
 
-    <div class="card love"
-    onclick="togglePotion(this,'Love Elixir','Love Potion',
-    'Strawberry – Sweet and refreshing.',
-    'Strawberry – Infused with magic dust.',
-    'love.png','love-potion.png')">
+<!-- 📍 MAP SECTION -->
+<section class="map-section">
+  <h2>📍 Find Our Secret Spot</h2>
+  <p>3rd Floor – Visit us daily 2:30PM – 6:30PM</p>
 
-      <img src="love.png" class="drink-img">
-      <h3>Love Elixir</h3>
-      <p class="desc">Strawberry – Sweet and refreshing.</p>
-      <p class="price">₱39</p>
-    </div>
-
-    <div class="card sun"
-    onclick="togglePotion(this,'Sun Elixir','Sun Potion',
-    'Mango – Tropical and energizing.',
-    'Mango – Blazing golden enchantment.',
-    'sun.png','sun-potion.png')">
-
-      <img src="sun.png" class="drink-img">
-      <h3>Sun Elixir</h3>
-      <p class="desc">Mango – Tropical and energizing.</p>
-      <p class="price">₱39</p>
-    </div>
-
-    <div class="card emerald"
-    onclick="togglePotion(this,'Emerald Elixir','Emerald Potion',
-    'Green Apple – Crisp and fizzy.',
-    'Green Apple – Forest spirit infusion.',
-    'emerald.png','emerald-potion.png')">
-
-      <img src="emerald.png" class="drink-img">
-      <h3>Emerald Elixir</h3>
-      <p class="desc">Green Apple – Crisp and fizzy.</p>
-      <p class="price">₱39</p>
-    </div>
-
-    <div class="card night"
-    onclick="togglePotion(this,'Night Elixir','Night Potion',
-    'Blueberry – Bold and vibrant.',
-    'Blueberry – Shadow realm essence.',
-    'night.png','night-potion.png')">
-
-      <img src="night.png" class="drink-img">
-      <h3>Night Elixir</h3>
-      <p class="desc">Blueberry – Bold and vibrant.</p>
-      <p class="price">₱39</p>
-    </div>
-
-    <div class="card moon"
-    onclick="togglePotion(this,'Moon Elixir','Moon Potion',
-    'Lychee – Smooth and refreshing.',
-    'Lychee – Lunar glow transformation.',
-    'moon.png','moon-potion.png')">
-
-      <img src="moon.png" class="drink-img">
-      <h3>Moon Elixir</h3>
-      <p class="desc">Lychee – Smooth and refreshing.</p>
-      <p class="price">₱39</p>
-    </div>
-
+  <div class="map-container">
+    <iframe
+      src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d574.1323279836208!2d121.05635209165193!3d14.525596024106317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771863287407!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
   </div>
 </section>
 
@@ -234,7 +178,6 @@ footer {
   © 2026 Hidden Spot – Potion Lab
 </footer>
 
-<!-- 🔮 Chat Orb -->
 <a href="https://m.me/hiddenspotcafe" target="_blank" class="chat-orb" id="chatOrb">
   💬
   <div class="online-indicator">Online</div>
@@ -242,7 +185,6 @@ footer {
 
 <script>
 function togglePotion(card, baseName, potionName, baseDesc, potionDesc, baseImg, potionImg) {
-
   const img = card.querySelector("img");
   const title = card.querySelector("h3");
   const desc = card.querySelector(".desc");
@@ -251,14 +193,12 @@ function togglePotion(card, baseName, potionName, baseDesc, potionDesc, baseImg,
   card.classList.add("morph");
 
   setTimeout(() => {
-
     if (!card.classList.contains("active")) {
       card.classList.add("active");
       img.src = potionImg;
       title.innerText = potionName;
       desc.innerText = potionDesc;
       price.innerText = "₱49";
-      startGlitter(card);
     } else {
       card.classList.remove("active");
       img.src = baseImg;
@@ -266,34 +206,8 @@ function togglePotion(card, baseName, potionName, baseDesc, potionDesc, baseImg,
       desc.innerText = baseDesc;
       price.innerText = "₱39";
     }
-
     card.classList.remove("morph");
-
   }, 200);
-}
-
-function startGlitter(card) {
-  for (let i = 0; i < 12; i++) {
-    const glitter = document.createElement("div");
-    glitter.classList.add("glitter");
-    glitter.style.left = Math.random() * 120 + "px";
-    glitter.style.bottom = "20px";
-    card.appendChild(glitter);
-    setTimeout(() => glitter.remove(), 2000);
-  }
-}
-
-/* Orb Sound */
-document.getElementById("chatOrb").addEventListener("click", function() {
-  const sound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
-  sound.volume = 0.4;
-  sound.play();
-});
-
-/* Stronger glow at night */
-const hour = new Date().getHours();
-if (hour >= 18 || hour <= 6) {
-  document.getElementById("chatOrb").classList.add("night-glow");
 }
 </script>
 
