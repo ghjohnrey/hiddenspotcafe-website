@@ -14,41 +14,33 @@ body {
 
 header {
   text-align: center;
-  padding: 70px 20px;
-  background: linear-gradient(180deg, #0f0f1a, #07070d);
+  padding: 60px 20px;
 }
 
 h1 {
-  font-size: 42px;
+  font-size: 40px;
   margin-bottom: 10px;
-  letter-spacing: 2px;
-  color: #ffffff;
-}
-
-.tagline {
-  font-size: 18px;
-  color: #9fa6ff;
 }
 
 .section {
-  padding: 60px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 35px;
+  max-width: 1000px;
   margin: auto;
 }
 
 .card {
   position: relative;
   background: rgba(20,20,35,0.8);
-  padding: 25px;
+  padding: 20px;
   border-radius: 18px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.05);
   cursor: pointer;
   transition: 0.3s ease;
@@ -56,7 +48,7 @@ h1 {
 }
 
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 .img-wrapper {
@@ -64,105 +56,53 @@ h1 {
   display: inline-block;
 }
 
-/* Glass reflection */
-.img-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 25%;
-  width: 30%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.4),
-    rgba(255,255,255,0.05)
-  );
-  transform: skewX(-20deg);
-  border-radius: 14px;
-  pointer-events: none;
-}
-
-/* Smoke aura */
-.img-wrapper::before {
-  content: "";
-  position: absolute;
-  top: -60px;
-  left: -60px;
-  width: 260px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(180,0,255,0.5), transparent 70%);
-  filter: blur(50px);
-  opacity: 0;
-  transition: 0.4s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.card.active .img-wrapper::before {
-  opacity: 1;
-}
-
 .drink-img {
   width: 140px;
   height: 180px;
   object-fit: cover;
   border-radius: 14px;
-  position: relative;
-  z-index: 2;
   transition: 0.4s ease;
 }
 
-/* Flavor Glow */
-.love.active img { box-shadow: 0 0 40px #ff2e63; }
-.sun.active img { box-shadow: 0 0 40px #ffb703; }
-.emerald.active img { box-shadow: 0 0 40px #2ecc71; }
-.night.active img { box-shadow: 0 0 40px #5a189a; }
-.moon.active img { box-shadow: 0 0 40px #f8c8dc; }
+/* Morph animation */
+.card.morph img {
+  transform: scale(1.1);
+  opacity: 0;
+}
+
+/* Glow per flavor */
+.love.active img { box-shadow: 0 0 35px #ff2e63; }
+.sun.active img { box-shadow: 0 0 35px #ffb703; }
+.emerald.active img { box-shadow: 0 0 35px #2ecc71; }
+.night.active img { box-shadow: 0 0 35px #5a189a; }
+.moon.active img { box-shadow: 0 0 35px #f8c8dc; }
 
 .price {
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 8px;
   color: #ffd369;
 }
 
-/* Sparkles */
-.sparkle {
+/* Glitter particles */
+.glitter {
   position: absolute;
   width: 6px;
   height: 6px;
   background: white;
   border-radius: 50%;
+  pointer-events: none;
   animation: floatUp 2s linear forwards;
 }
 
 @keyframes floatUp {
   from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-100px); opacity: 0; }
-}
-
-/* Flash text */
-.potion-text {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #d0aaff;
-  animation: flashText 1.5s ease forwards;
-}
-
-@keyframes flashText {
-  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-  30% { opacity: 1; }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { transform: translateY(-80px); opacity: 0; }
 }
 
 footer {
   text-align: center;
-  padding: 30px;
-  background: #050509;
+  padding: 25px;
   margin-top: 40px;
-  font-size: 14px;
   color: #777;
 }
 </style>
@@ -172,66 +112,95 @@ footer {
 
 <header>
   <h1>Hidden Spot</h1>
-  <p class="tagline">🧪 Secret Potion Lab on the 3rd Floor</p>
-  <p>Elixirs starting at ₱39 | Upgrade to Potion +₱10 ✨</p>
-  <p>Open Daily 2:30PM – 6:30PM</p>
+  <p>Elixirs ₱39 | Upgrade to Potion ₱49 ✨</p>
 </header>
 
 <section class="section">
-  <h2>Our Elixirs (Tap to Activate Potion)</h2>
+  <h2>Tap to Transform</h2>
 
   <div class="products">
 
-    <div class="card love" onclick="togglePotion(this)">
+    <!-- LOVE -->
+    <div class="card love"
+    onclick="togglePotion(this,
+    'Love Elixir','Love Potion',
+    'Strawberry – Sweet and refreshing.',
+    'Strawberry – Infused with magic dust.',
+    'love.png','love-potion.png')">
+
       <div class="img-wrapper">
         <img src="love.png" class="drink-img">
       </div>
       <h3>Love Elixir</h3>
-      <p>Strawberry – Sweet and refreshing.</p>
+      <p class="desc">Strawberry – Sweet and refreshing.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card sun" onclick="togglePotion(this)">
+    <!-- SUN -->
+    <div class="card sun"
+    onclick="togglePotion(this,
+    'Sun Elixir','Sun Potion',
+    'Mango – Tropical and energizing.',
+    'Mango – Blazing golden enchantment.',
+    'sun.png','sun-potion.png')">
+
       <div class="img-wrapper">
         <img src="sun.png" class="drink-img">
       </div>
       <h3>Sun Elixir</h3>
-      <p>Mango – Tropical and energizing.</p>
+      <p class="desc">Mango – Tropical and energizing.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card emerald" onclick="togglePotion(this)">
+    <!-- EMERALD -->
+    <div class="card emerald"
+    onclick="togglePotion(this,
+    'Emerald Elixir','Emerald Potion',
+    'Green Apple – Crisp and fizzy.',
+    'Green Apple – Forest spirit infusion.',
+    'emerald.png','emerald-potion.png')">
+
       <div class="img-wrapper">
         <img src="emerald.png" class="drink-img">
       </div>
       <h3>Emerald Elixir</h3>
-      <p>Green Apple – Crisp and fizzy.</p>
+      <p class="desc">Green Apple – Crisp and fizzy.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card night" onclick="togglePotion(this)">
+    <!-- NIGHT -->
+    <div class="card night"
+    onclick="togglePotion(this,
+    'Night Elixir','Night Potion',
+    'Blueberry – Bold and vibrant.',
+    'Blueberry – Shadow realm essence.',
+    'night.png','night-potion.png')">
+
       <div class="img-wrapper">
         <img src="night.png" class="drink-img">
       </div>
       <h3>Night Elixir</h3>
-      <p>Blueberry – Bold and vibrant.</p>
+      <p class="desc">Blueberry – Bold and vibrant.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card moon" onclick="togglePotion(this)">
+    <!-- MOON -->
+    <div class="card moon"
+    onclick="togglePotion(this,
+    'Moon Elixir','Moon Potion',
+    'Lychee – Smooth and refreshing.',
+    'Lychee – Lunar glow transformation.',
+    'moon.png','moon-potion.png')">
+
       <div class="img-wrapper">
         <img src="moon.png" class="drink-img">
       </div>
       <h3>Moon Elixir</h3>
-      <p>Lychee – Smooth and refreshing.</p>
+      <p class="desc">Lychee – Smooth and refreshing.</p>
       <p class="price">₱39</p>
     </div>
 
   </div>
-
-  <p style="margin-top:30px;color:#ffd369;">
-    ✨ Upgrade any Elixir to a Potion +₱10 (Magic Dust)
-  </p>
 </section>
 
 <footer>
@@ -239,27 +208,48 @@ footer {
 </footer>
 
 <script>
-function togglePotion(card) {
-  card.classList.toggle("active");
+function togglePotion(card, baseName, potionName, baseDesc, potionDesc, baseImg, potionImg) {
 
-  for (let i = 0; i < 10; i++) {
-    const sparkle = document.createElement("div");
-    sparkle.classList.add("sparkle");
-    sparkle.style.left = Math.random() * 200 + "px";
-    sparkle.style.bottom = "20px";
-    card.appendChild(sparkle);
-    setTimeout(() => sparkle.remove(), 2000);
+  const img = card.querySelector("img");
+  const title = card.querySelector("h3");
+  const desc = card.querySelector(".desc");
+  const price = card.querySelector(".price");
+
+  card.classList.add("morph");
+
+  setTimeout(() => {
+
+    if (!card.classList.contains("active")) {
+      card.classList.add("active");
+      img.src = potionImg;
+      title.innerText = potionName;
+      desc.innerText = potionDesc;
+      price.innerText = "₱49";
+
+      startGlitter(card);
+
+    } else {
+      card.classList.remove("active");
+      img.src = baseImg;
+      title.innerText = baseName;
+      desc.innerText = baseDesc;
+      price.innerText = "₱39";
+    }
+
+    card.classList.remove("morph");
+
+  }, 200);
+}
+
+function startGlitter(card) {
+  for (let i = 0; i < 12; i++) {
+    const glitter = document.createElement("div");
+    glitter.classList.add("glitter");
+    glitter.style.left = Math.random() * 120 + "px";
+    glitter.style.bottom = "20px";
+    card.appendChild(glitter);
+    setTimeout(() => glitter.remove(), 2000);
   }
-
-  const text = document.createElement("div");
-  text.classList.add("potion-text");
-  text.innerText = "Potion Activated ✨";
-  card.appendChild(text);
-  setTimeout(() => text.remove(), 1500);
-
-  const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
-  audio.volume = 0.3;
-  audio.play();
 }
 </script>
 
