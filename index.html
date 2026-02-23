@@ -60,6 +60,20 @@
     box-shadow: 0 0 25px rgba(120,120,255,0.15);
   }
 
+  .drink-img {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.4s ease;
+  }
+
+  .potion {
+    box-shadow: 0 0 35px rgba(150,0,255,0.8);
+    transform: scale(1.05);
+  }
+
   .price {
     font-weight: bold;
     margin-top: 10px;
@@ -72,17 +86,6 @@
     color: #ffd369;
   }
 
-  .button {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 25px;
-    background: linear-gradient(90deg, #6a00ff, #b100ff);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-  }
-
   footer {
     text-align: center;
     padding: 30px;
@@ -90,45 +93,6 @@
     margin-top: 40px;
     font-size: 14px;
     color: #777;
-  }
-
-  /* Drink Visual */
-
-  .drink {
-    width: 90px;
-    height: 150px;
-    margin: 0 auto 15px auto;
-    border-radius: 0 0 20px 20px;
-    position: relative;
-    transition: all 0.4s ease;
-    box-shadow: inset 0 -10px 25px rgba(0,0,0,0.6);
-  }
-
-  .strawberry { background: linear-gradient(#a0002b, #ff2e63); }
-  .mango { background: linear-gradient(#b36b00, #ffb703); }
-  .apple { background: linear-gradient(#006d3c, #2ecc71); }
-  .blueberry { background: linear-gradient(#240046, #5a189a); }
-  .lychee { background: linear-gradient(#702963, #f8c8dc); }
-
-  .drink::after {
-    content: "";
-    position: absolute;
-    top: 15%;
-    left: 15%;
-    width: 70%;
-    height: 50%;
-    background: rgba(255,255,255,0.08);
-    border-radius: 50%;
-  }
-
-  .potion {
-    animation: darkShimmer 1.2s infinite alternate;
-    box-shadow: 0 0 30px rgba(150,0,255,0.6);
-  }
-
-  @keyframes darkShimmer {
-    from { filter: brightness(1); }
-    to { filter: brightness(1.4) saturate(1.6); }
   }
 
   /* Sparkles */
@@ -151,7 +115,7 @@
 
   .potion-text {
     position: absolute;
-    top: -25px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 14px;
@@ -175,9 +139,6 @@
   <p class="tagline">🧪 Secret Potion Lab on the 3rd Floor</p>
   <p>Elixirs starting at ₱39 | Upgrade to Potion +₱10 ✨</p>
   <p>Open Daily 2:30PM – 6:30PM</p>
-  <a href="https://m.me/hiddenspotcafe" class="button" target="_blank">
-    Message the Potion Lab
-  </a>
 </header>
 
 <section class="section">
@@ -186,35 +147,35 @@
   <div class="products">
 
     <div class="card" onclick="togglePotion(this)">
-      <div class="drink strawberry"></div>
+      <img src="love.jpg" class="drink-img">
       <h3>Love Elixir</h3>
       <p>Strawberry – Sweet and refreshing.</p>
       <p class="price">₱39</p>
     </div>
 
     <div class="card" onclick="togglePotion(this)">
-      <div class="drink mango"></div>
+      <img src="sun.jpg" class="drink-img">
       <h3>Sun Elixir</h3>
       <p>Mango – Tropical and energizing.</p>
       <p class="price">₱39</p>
     </div>
 
     <div class="card" onclick="togglePotion(this)">
-      <div class="drink apple"></div>
+      <img src="emerald.jpg" class="drink-img">
       <h3>Emerald Elixir</h3>
       <p>Green Apple – Crisp and fizzy.</p>
       <p class="price">₱39</p>
     </div>
 
     <div class="card" onclick="togglePotion(this)">
-      <div class="drink blueberry"></div>
+      <img src="night.jpg" class="drink-img">
       <h3>Night Elixir</h3>
       <p>Blueberry – Bold and vibrant.</p>
       <p class="price">₱39</p>
     </div>
 
     <div class="card" onclick="togglePotion(this)">
-      <div class="drink lychee"></div>
+      <img src="moon.jpg" class="drink-img">
       <h3>Moon Elixir</h3>
       <p>Lychee – Smooth and refreshing.</p>
       <p class="price">₱39</p>
@@ -231,27 +192,24 @@
 
 <script>
 function togglePotion(card) {
-  const drink = card.querySelector('.drink');
-  drink.classList.toggle('potion');
+  const img = card.querySelector('.drink-img');
+  img.classList.toggle('potion');
 
-  // Sparkles
   for (let i = 0; i < 8; i++) {
     const sparkle = document.createElement('div');
     sparkle.classList.add('sparkle');
-    sparkle.style.left = Math.random() * 90 + "px";
+    sparkle.style.left = Math.random() * 200 + "px";
     sparkle.style.bottom = "20px";
     card.appendChild(sparkle);
     setTimeout(() => sparkle.remove(), 2000);
   }
 
-  // Flash text
   const text = document.createElement('div');
   text.classList.add('potion-text');
   text.innerText = "Potion Activated ✨";
   card.appendChild(text);
   setTimeout(() => text.remove(), 1500);
 
-  // Sound
   const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
   audio.volume = 0.3;
   audio.play();
