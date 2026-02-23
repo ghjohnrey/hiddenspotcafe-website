@@ -13,20 +13,15 @@ body{
   color:#eaeaf0;
 }
 
-header{
-  text-align:center;
-  padding:60px 20px;
-}
-
+header{text-align:center;padding:60px 20px;}
 h1{font-size:40px;margin-bottom:10px;}
-
 .section{padding:40px 20px;text-align:center;}
 
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:35px;
-  max-width:1000px;
+  max-width:1200px;
   margin:auto;
 }
 
@@ -40,7 +35,6 @@ h1{font-size:40px;margin-bottom:10px;}
   transition:0.3s ease;
   overflow:hidden;
 }
-
 .card:hover{transform:translateY(-6px);}
 
 .badge{
@@ -63,12 +57,7 @@ h1{font-size:40px;margin-bottom:10px;}
 }
 
 .price{font-weight:bold;margin-top:8px;color:#ffd369;}
-
-.stock{
-  font-size:13px;
-  margin-top:5px;
-  color:#aaa;
-}
+.stock{font-size:13px;margin-top:5px;color:#aaa;}
 
 .quantity{
   display:flex;
@@ -77,7 +66,6 @@ h1{font-size:40px;margin-bottom:10px;}
   margin-top:10px;
   gap:10px;
 }
-
 .quantity button{
   background:#a855f7;
   border:none;
@@ -88,13 +76,9 @@ h1{font-size:40px;margin-bottom:10px;}
   cursor:pointer;
   font-size:16px;
 }
+.quantity span{min-width:20px;display:inline-block;}
 
-.quantity span{
-  min-width:20px;
-  display:inline-block;
-}
-
-.love.active img{box-shadow:0 0 30px #ff2e63;}
+.active img{box-shadow:0 0 30px #a855f7;}
 
 .glitter{
   position:absolute;
@@ -104,7 +88,6 @@ h1{font-size:40px;margin-bottom:10px;}
   border-radius:50%;
   animation:floatUp 2s linear forwards;
 }
-
 @keyframes floatUp{
   from{transform:translateY(0);opacity:1;}
   to{transform:translateY(-80px);opacity:0;}
@@ -119,7 +102,6 @@ h1{font-size:40px;margin-bottom:10px;}
   padding:15px;
   text-align:center;
 }
-
 .cart-bar button{
   background:#a855f7;
   border:none;
@@ -137,7 +119,6 @@ h1{font-size:40px;margin-bottom:10px;}
   justify-content:center;
   align-items:center;
 }
-
 .modal-content{
   background:#1a1a2e;
   padding:30px;
@@ -145,7 +126,6 @@ h1{font-size:40px;margin-bottom:10px;}
   width:90%;
   max-width:400px;
 }
-
 .modal input{
   width:100%;
   padding:10px;
@@ -153,7 +133,6 @@ h1{font-size:40px;margin-bottom:10px;}
   border-radius:8px;
   border:none;
 }
-
 .modal button{
   width:100%;
   padding:12px;
@@ -175,8 +154,6 @@ h1{font-size:40px;margin-bottom:10px;}
   flex-direction:column;
 }
 
-.confirmation h2{color:#a855f7;}
-
 .admin-counter{
   text-align:center;
   margin-top:20px;
@@ -184,10 +161,7 @@ h1{font-size:40px;margin-bottom:10px;}
   color:#aaa;
 }
 
-.map-section{
-  margin:60px 0;
-}
-
+.map-section{margin:60px 0;}
 iframe{
   width:100%;
   height:350px;
@@ -212,22 +186,7 @@ footer{
 </header>
 
 <section class="section">
-  <div class="products">
-
-    <div class="card love" onclick="togglePotion(this,'love')">
-      <div class="badge">Best Seller</div>
-      <img src="love.png" class="drink-img">
-      <h3>Love Elixir</h3>
-      <p class="price">₱39</p>
-      <div class="stock" id="stock-love">Stock: 20</div>
-      <div class="quantity">
-        <button onclick="event.stopPropagation(); changeQty('love',-1)">-</button>
-        <span id="love">0</span>
-        <button onclick="event.stopPropagation(); changeQty('love',1)">+</button>
-      </div>
-    </div>
-
-  </div>
+  <div class="products" id="productContainer"></div>
 </section>
 
 <div class="cart-bar">
@@ -247,7 +206,6 @@ footer{
 
 <div class="confirmation" id="confirmation">
   <h2>✨ Order Sent Successfully! ✨</h2>
-  <p>Please confirm in Messenger.</p>
 </div>
 
 <div class="admin-counter">
@@ -256,9 +214,7 @@ footer{
 
 <section class="map-section">
   <h2 style="text-align:center;">Find Us Here</h2>
-  <iframe 
-  src="https://www.google.com/maps?q=Hidden%20Spot%20Cafe&output=embed">
-  </iframe>
+  <iframe src="https://www.google.com/maps?q=Hidden%20Spot%20Cafe&output=embed"></iframe>
 </section>
 
 <footer>
@@ -266,11 +222,38 @@ footer{
 </footer>
 
 <script>
+const products=["love","sun","emerald","night","moon"];
 const prices={elixir:39,potion:49};
-const state={love:"elixir"};
-let inventory={love:20};
-let orderCount=localStorage.getItem("orders")||0;
+let state={},inventory={},orderCount=localStorage.getItem("orders")||0;
+
 document.getElementById("orderCount").innerText=orderCount;
+
+const container=document.getElementById("productContainer");
+
+products.forEach(id=>{
+  state[id]="elixir";
+  inventory[id]=20;
+
+  const card=document.createElement("div");
+  card.className="card";
+  card.onclick=()=>togglePotion(card,id);
+
+  card.innerHTML=`
+    ${id==="love"?'<div class="badge">Best Seller</div>':''}
+    <img src="${id}.png" class="drink-img">
+    <h3>${capitalize(id)} Elixir</h3>
+    <p class="price">₱39</p>
+    <div class="stock" id="stock-${id}">Stock: 20</div>
+    <div class="quantity">
+      <button onclick="event.stopPropagation(); changeQty('${id}',-1)">-</button>
+      <span id="${id}">0</span>
+      <button onclick="event.stopPropagation(); changeQty('${id}',1)">+</button>
+    </div>
+  `;
+  container.appendChild(card);
+});
+
+function capitalize(str){return str.charAt(0).toUpperCase()+str.slice(1);}
 
 function togglePotion(card,id){
   const img=card.querySelector("img");
@@ -281,14 +264,14 @@ function togglePotion(card,id){
     state[id]="potion";
     card.classList.add("active");
     img.src=id+"-potion.png";
-    title.innerText="Love Potion";
+    title.innerText=capitalize(id)+" Potion";
     price.innerText="₱49";
     startGlitter(card);
   }else{
     state[id]="elixir";
     card.classList.remove("active");
     img.src=id+".png";
-    title.innerText="Love Elixir";
+    title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱39";
   }
   updateTotal();
@@ -309,45 +292,47 @@ function changeQty(id,amount){
   let qty=parseInt(document.getElementById(id).innerText);
   qty+=amount;
   if(qty<0)qty=0;
-  if(qty>inventory[id]){
-    alert("Not enough stock!");
-    return;
-  }
+  if(qty>inventory[id]){alert("Not enough stock!");return;}
   document.getElementById(id).innerText=qty;
   updateTotal();
 }
 
 function updateTotal(){
-  let qty=parseInt(document.getElementById("love").innerText);
-  let total=qty*prices[state.love];
+  let total=0;
+  products.forEach(id=>{
+    let qty=parseInt(document.getElementById(id).innerText);
+    total+=qty*prices[state[id]];
+  });
   document.getElementById("totalText").innerText="Total: ₱"+total;
 }
 
-function openCheckout(){
-  document.getElementById("checkoutModal").style.display="flex";
-}
-
-function closeCheckout(){
-  document.getElementById("checkoutModal").style.display="none";
-}
+function openCheckout(){document.getElementById("checkoutModal").style.display="flex";}
+function closeCheckout(){document.getElementById("checkoutModal").style.display="none";}
 
 function sendOrder(){
   const name=document.getElementById("custName").value.trim();
   const phone=document.getElementById("custPhone").value.trim();
-  const qty=parseInt(document.getElementById("love").innerText);
-
   if(!name||!phone){alert("Complete all fields");return;}
-  if(qty===0){alert("Select at least 1 item");return;}
 
   let message="Hello Hidden Spot Cafe!\n\nOrder Details:\n";
   message+="Name: "+name+"\nPhone: "+phone+"\n\n";
-  message+=qty+" Love "+state.love+"\n";
-  message+="Total: ₱"+(qty*prices[state.love]);
 
+  let total=0;
+  products.forEach(id=>{
+    let qty=parseInt(document.getElementById(id).innerText);
+    if(qty>0){
+      message+=qty+" "+capitalize(id)+" "+state[id]+"\n";
+      total+=qty*prices[state[id]];
+      inventory[id]-=qty;
+      document.getElementById("stock-"+id).innerText="Stock: "+inventory[id];
+      document.getElementById(id).innerText=0;
+    }
+  });
+
+  if(total===0){alert("Select at least 1 item");return;}
+
+  message+="\nTotal: ₱"+total;
   window.open("https://m.me/hiddenspotcafe?text="+encodeURIComponent(message),"_blank");
-
-  inventory.love-=qty;
-  document.getElementById("stock-love").innerText="Stock: "+inventory.love;
 
   orderCount++;
   localStorage.setItem("orders",orderCount);
@@ -356,7 +341,6 @@ function sendOrder(){
   document.getElementById("confirmation").style.display="flex";
   setTimeout(()=>document.getElementById("confirmation").style.display="none",2500);
 
-  document.getElementById("love").innerText="0";
   updateTotal();
   closeCheckout();
 }
