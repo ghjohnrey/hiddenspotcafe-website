@@ -45,47 +45,31 @@ h1 {
 
 .card {
   position: relative;
-  overflow: visible;
   background: rgba(20,20,35,0.8);
   padding: 25px;
   border-radius: 18px;
   backdrop-filter: blur(10px);
-  transition: transform 0.3s ease;
   border: 1px solid rgba(255,255,255,0.05);
   cursor: pointer;
-  perspective: 1000px;
+  transition: 0.3s ease;
+  overflow: visible;
 }
 
 .card:hover {
   transform: translateY(-8px);
 }
 
-/* Image container */
-
 .img-wrapper {
   position: relative;
   display: inline-block;
 }
 
-/* Glow base */
-
-.drink-img {
-  width: 140px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 14px;
-  transition: 0.4s ease;
-  position: relative;
-  z-index: 2;
-}
-
-/* Glass reflection overlay */
-
+/* Glass reflection */
 .img-wrapper::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 20%;
+  left: 25%;
   width: 30%;
   height: 100%;
   background: linear-gradient(
@@ -99,7 +83,6 @@ h1 {
 }
 
 /* Smoke aura */
-
 .img-wrapper::before {
   content: "";
   position: absolute;
@@ -108,9 +91,9 @@ h1 {
   width: 180px;
   height: 220px;
   background: radial-gradient(circle, rgba(150,0,255,0.3), transparent 70%);
-  filter: blur(25px);
+  filter: blur(30px);
   opacity: 0;
-  transition: 0.5s ease;
+  transition: 0.4s ease;
   z-index: 1;
 }
 
@@ -118,8 +101,17 @@ h1 {
   opacity: 1;
 }
 
-/* Colored glow per flavor */
+.drink-img {
+  width: 140px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  position: relative;
+  z-index: 2;
+  transition: 0.4s ease;
+}
 
+/* Flavor Glow */
 .love.active img { box-shadow: 0 0 40px #ff2e63; }
 .sun.active img { box-shadow: 0 0 40px #ffb703; }
 .emerald.active img { box-shadow: 0 0 40px #2ecc71; }
@@ -133,7 +125,6 @@ h1 {
 }
 
 /* Sparkles */
-
 .sparkle {
   position: absolute;
   width: 6px;
@@ -149,7 +140,6 @@ h1 {
 }
 
 /* Flash text */
-
 .potion-text {
   position: absolute;
   top: -20px;
@@ -191,36 +181,46 @@ footer {
 
   <div class="products">
 
-    <div class="card" onclick="togglePotion(this)">
-      <img src="love.png" class="drink-img">
+    <div class="card love" onclick="togglePotion(this)">
+      <div class="img-wrapper">
+        <img src="love.png" class="drink-img">
+      </div>
       <h3>Love Elixir</h3>
       <p>Strawberry – Sweet and refreshing.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card" onclick="togglePotion(this)">
-      <img src="sun.png" class="drink-img">
+    <div class="card sun" onclick="togglePotion(this)">
+      <div class="img-wrapper">
+        <img src="sun.png" class="drink-img">
+      </div>
       <h3>Sun Elixir</h3>
       <p>Mango – Tropical and energizing.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card" onclick="togglePotion(this)">
-      <img src="emerald.png" class="drink-img">
+    <div class="card emerald" onclick="togglePotion(this)">
+      <div class="img-wrapper">
+        <img src="emerald.png" class="drink-img">
+      </div>
       <h3>Emerald Elixir</h3>
       <p>Green Apple – Crisp and fizzy.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card" onclick="togglePotion(this)">
-      <img src="night.png" class="drink-img">
+    <div class="card night" onclick="togglePotion(this)">
+      <div class="img-wrapper">
+        <img src="night.png" class="drink-img">
+      </div>
       <h3>Night Elixir</h3>
       <p>Blueberry – Bold and vibrant.</p>
       <p class="price">₱39</p>
     </div>
 
-    <div class="card" onclick="togglePotion(this)">
-      <img src="moon.png" class="drink-img">
+    <div class="card moon" onclick="togglePotion(this)">
+      <div class="img-wrapper">
+        <img src="moon.png" class="drink-img">
+      </div>
       <h3>Moon Elixir</h3>
       <p>Lychee – Smooth and refreshing.</p>
       <p class="price">₱39</p>
@@ -228,7 +228,9 @@ footer {
 
   </div>
 
-  <p class="upgrade">✨ Upgrade any Elixir to a Potion +₱10 (Magic Dust)</p>
+  <p style="margin-top:30px;color:#ffd369;">
+    ✨ Upgrade any Elixir to a Potion +₱10 (Magic Dust)
+  </p>
 </section>
 
 <footer>
@@ -237,20 +239,19 @@ footer {
 
 <script>
 function togglePotion(card) {
-  const img = card.querySelector('.drink-img');
-  img.classList.toggle('potion');
+  card.classList.toggle("active");
 
-  for (let i = 0; i < 8; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.classList.add('sparkle');
+  for (let i = 0; i < 10; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
     sparkle.style.left = Math.random() * 200 + "px";
     sparkle.style.bottom = "20px";
     card.appendChild(sparkle);
     setTimeout(() => sparkle.remove(), 2000);
   }
 
-  const text = document.createElement('div');
-  text.classList.add('potion-text');
+  const text = document.createElement("div");
+  text.classList.add("potion-text");
   text.innerText = "Potion Activated ✨";
   card.appendChild(text);
   setTimeout(() => text.remove(), 1500);
