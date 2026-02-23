@@ -5,130 +5,175 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #0a0a12, #050509 70%);
-    color: #eaeaf0;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0a0a12, #050509 70%);
+  color: #eaeaf0;
+}
 
-  header {
-    text-align: center;
-    padding: 70px 20px;
-    background: linear-gradient(180deg, #0f0f1a, #07070d);
-  }
+header {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(180deg, #0f0f1a, #07070d);
+}
 
-  h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    color: #ffffff;
-  }
+h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
 
-  .tagline {
-    font-size: 18px;
-    color: #9fa6ff;
-  }
+.tagline {
+  font-size: 18px;
+  color: #9fa6ff;
+}
 
-  .section {
-    padding: 60px 20px;
-    text-align: center;
-  }
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
 
-  .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1100px;
-    margin: auto;
-  }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1100px;
+  margin: auto;
+}
 
-  .card {
-    position: relative;
-    overflow: hidden;
-    background: rgba(20,20,35,0.8);
-    padding: 25px;
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.05);
-    cursor: pointer;
-  }
+.card {
+  position: relative;
+  overflow: visible;
+  background: rgba(20,20,35,0.8);
+  padding: 25px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  perspective: 1000px;
+}
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(120,120,255,0.15);
-  }
+.card:hover {
+  transform: translateY(-8px);
+}
 
-  .drink-img {
-    width: 120px;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    transition: 0.4s ease;
-  }
+/* Image container */
 
-  .potion {
-    box-shadow: 0 0 35px rgba(150,0,255,0.8);
-    transform: scale(1.05);
-  }
+.img-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
-  .price {
-    font-weight: bold;
-    margin-top: 10px;
-    color: #ffd369;
-  }
+/* Glow base */
 
-  .upgrade {
-    margin-top: 30px;
-    font-size: 18px;
-    color: #ffd369;
-  }
+.drink-img {
+  width: 140px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
 
-  footer {
-    text-align: center;
-    padding: 30px;
-    background: #050509;
-    margin-top: 40px;
-    font-size: 14px;
-    color: #777;
-  }
+/* Glass reflection overlay */
 
-  /* Sparkles */
+.img-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.05)
+  );
+  transform: skewX(-20deg);
+  border-radius: 14px;
+  pointer-events: none;
+}
 
-  .sparkle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    animation: floatUp 2s linear forwards;
-  }
+/* Smoke aura */
 
-  @keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-80px); opacity: 0; }
-  }
+.img-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 180px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(150,0,255,0.3), transparent 70%);
+  filter: blur(25px);
+  opacity: 0;
+  transition: 0.5s ease;
+  z-index: 1;
+}
 
-  /* Flash Text */
+.card.active .img-wrapper::before {
+  opacity: 1;
+}
 
-  .potion-text {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    color: #d0aaff;
-    animation: flashText 1.5s ease forwards;
-  }
+/* Colored glow per flavor */
 
-  @keyframes flashText {
-    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    30% { opacity: 1; }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-  }
+.love.active img { box-shadow: 0 0 40px #ff2e63; }
+.sun.active img { box-shadow: 0 0 40px #ffb703; }
+.emerald.active img { box-shadow: 0 0 40px #2ecc71; }
+.night.active img { box-shadow: 0 0 40px #5a189a; }
+.moon.active img { box-shadow: 0 0 40px #f8c8dc; }
 
+.price {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #ffd369;
+}
+
+/* Sparkles */
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100px); opacity: 0; }
+}
+
+/* Flash text */
+
+.potion-text {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #d0aaff;
+  animation: flashText 1.5s ease forwards;
+}
+
+@keyframes flashText {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #050509;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #777;
+}
 </style>
 </head>
 
