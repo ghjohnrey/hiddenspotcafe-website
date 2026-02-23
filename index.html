@@ -127,6 +127,50 @@
     from { filter: brightness(1); }
     to { filter: brightness(1.4) saturate(1.6); }
   }
+  /* Floating Particles */
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-80px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Potion Activated Text */
+.potion-text {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #d0aaff;
+  opacity: 0;
+  animation: flashText 1.5s ease forwards;
+}
+
+@keyframes flashText {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+}
 
 </style>
 
@@ -202,7 +246,36 @@
 <script>
 function togglePotion(card) {
   const drink = card.querySelector('.drink');
+
   drink.classList.toggle('potion');
+
+  // Create sparkle particles
+  for (let i = 0; i < 8; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = Math.random() * 80 + "px";
+    sparkle.style.bottom = "20px";
+    card.appendChild(sparkle);
+
+    setTimeout(() => {
+      sparkle.remove();
+    }, 2000);
+  }
+
+  // Flash text
+  const text = document.createElement('div');
+  text.classList.add('potion-text');
+  text.innerText = "Potion Activated ✨";
+  card.appendChild(text);
+
+  setTimeout(() => {
+    text.remove();
+  }, 1500);
+
+  // Play magic sound
+  const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
+  audio.volume = 0.3;
+  audio.play();
 }
 </script>
 </body>
