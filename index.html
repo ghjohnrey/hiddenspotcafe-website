@@ -3,83 +3,133 @@
 <head>
   <title>Hidden Spot – Potion Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0f0f1a;
-      color: #f5f5f5;
-    }
+  
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #0a0a12, #050509 70%);
+    color: #eaeaf0;
+  }
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #1b1b2f, #162447);
-    }
+  header {
+    text-align: center;
+    padding: 70px 20px;
+    background: linear-gradient(180deg, #0f0f1a, #07070d);
+  }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
+  h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    color: #ffffff;
+  }
 
-    .tagline {
-      font-size: 18px;
-      color: #cfcfff;
-    }
+  .tagline {
+    font-size: 18px;
+    color: #9fa6ff;
+  }
 
-    .section {
-      padding: 50px 20px;
-      text-align: center;
-    }
+  .section {
+    padding: 60px 20px;
+    text-align: center;
+  }
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: auto;
+  }
 
-    .card {
-      background: #1b1b2f;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
+  .card {
+    background: rgba(20,20,35,0.8);
+    padding: 25px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
 
-    .price {
-      font-weight: bold;
-      margin-top: 10px;
-      color: #ffd369;
-    }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(120,120,255,0.15);
+  }
 
-    .upgrade {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #ffd369;
-    }
+  .price {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ffd369;
+  }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #111;
-      margin-top: 40px;
-      font-size: 14px;
-      color: #aaa;
-    }
+  .upgrade {
+    margin-top: 30px;
+    font-size: 18px;
+    color: #ffd369;
+  }
 
-    .button {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 12px 25px;
-      background-color: #ffd369;
-      color: #111;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-  </style>
+  .button {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background: linear-gradient(90deg, #6a00ff, #b100ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    background: #050509;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #777;
+  }
+
+  /* Drink Visuals */
+
+  .drink {
+    width: 90px;
+    height: 150px;
+    margin: 0 auto 15px auto;
+    border-radius: 0 0 20px 20px;
+    position: relative;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 -10px 25px rgba(0,0,0,0.6);
+  }
+
+  .strawberry { background: linear-gradient(#a0002b, #ff2e63); }
+  .mango { background: linear-gradient(#b36b00, #ffb703); }
+  .apple { background: linear-gradient(#006d3c, #2ecc71); }
+  .blueberry { background: linear-gradient(#240046, #5a189a); }
+  .lychee { background: linear-gradient(#702963, #f8c8dc); }
+
+  .drink::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 50%;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+
+  .potion {
+    animation: darkShimmer 1.2s infinite alternate;
+    box-shadow: 0 0 30px rgba(150,0,255,0.6);
+  }
+
+  @keyframes darkShimmer {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.4) saturate(1.6); }
+  }
+
+</style>
+
 </head>
 
 <body>
@@ -148,5 +198,12 @@
     © 2026 Hidden Spot – Potion Lab | 3rd Floor | Message before visiting
   </footer>
 
+
+<script>
+function togglePotion(card) {
+  const drink = card.querySelector('.drink');
+  drink.classList.toggle('potion');
+}
+</script>
 </body>
 </html>
