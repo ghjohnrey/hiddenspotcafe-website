@@ -17,6 +17,7 @@ header{text-align:center;padding:60px 20px;}
 h1{font-size:40px;margin-bottom:10px;}
 .section{padding:40px 20px;text-align:center;}
 
+/* Pulsing Message Button */
 .message-btn{
   display:inline-block;
   margin-top:20px;
@@ -26,10 +27,15 @@ h1{font-size:40px;margin-bottom:10px;}
   text-decoration:none;
   border-radius:30px;
   font-weight:bold;
+  animation:pulse 2s infinite;
   transition:0.3s ease;
 }
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(168,85,247,0.7);}
+  70%{box-shadow:0 0 0 20px rgba(168,85,247,0);}
+  100%{box-shadow:0 0 0 0 rgba(168,85,247,0);}
+}
 .message-btn:hover{
-  background:#c084fc;
   transform:scale(1.05);
 }
 
@@ -107,6 +113,19 @@ h1{font-size:40px;margin-bottom:10px;}
 @keyframes floatUp{
   from{transform:translateY(0);opacity:1;}
   to{transform:translateY(-80px);opacity:0;}
+}
+
+.package-section{
+  margin:40px auto;
+  max-width:800px;
+  text-align:center;
+}
+.package-card{
+  background:#141428;
+  padding:20px;
+  margin:15px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
 }
 
 .cart-bar{
@@ -196,6 +215,18 @@ footer{
     Message Us First
   </a>
 </header>
+
+<section class="package-section">
+  <h2>Barkada Packages</h2>
+  <div class="package-card">
+    <h3>🧭 Adventure Package</h3>
+    <p>5 Elixirs for ₱179</p>
+  </div>
+  <div class="package-card">
+    <h3>✨ Magical Package</h3>
+    <p>Buy 4 Potions, Get 1 Free</p>
+  </div>
+</section>
 
 <section class="section">
   <div class="products" id="productContainer"></div>
@@ -305,10 +336,26 @@ function changeQty(id,amount){
 
 function updateTotal(){
   let total=0;
+  let potionCount=0;
+  let elixirCount=0;
+
   products.forEach(id=>{
     let qty=parseInt(document.getElementById(id).innerText);
+    if(state[id]==="potion") potionCount+=qty;
+    if(state[id]==="elixir") elixirCount+=qty;
     total+=qty*prices[state[id]];
   });
+
+  if(potionCount>=5){
+    let free=Math.floor(potionCount/5);
+    total-=free*49;
+  }
+
+  if(elixirCount>=5){
+    let bundle=Math.floor(elixirCount/5);
+    total-=bundle*(39*5-179);
+  }
+
   document.getElementById("totalText").innerText="Total: ₱"+total;
 }
 
@@ -323,19 +370,17 @@ function sendOrder(){
   let message="Hello Hidden Spot Cafe!\n\nOrder Details:\n";
   message+="Name: "+name+"\nPhone: "+phone+"\n\n";
 
-  let total=0;
+  let total=document.getElementById("totalText").innerText.replace("Total: ₱","");
+
   products.forEach(id=>{
     let qty=parseInt(document.getElementById(id).innerText);
     if(qty>0){
       message+=qty+" "+capitalize(id)+" "+state[id]+"\n";
-      total+=qty*prices[state[id]];
       inventory[id]-=qty;
       document.getElementById("stock-"+id).innerText="Stock: "+inventory[id];
       document.getElementById(id).innerText=0;
     }
   });
-
-  if(total===0){alert("Select at least 1 item");return;}
 
   message+="\nTotal: ₱"+total;
   window.open("https://m.me/hiddenspotcafe?text="+encodeURIComponent(message),"_blank");
