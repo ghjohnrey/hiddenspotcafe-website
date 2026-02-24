@@ -62,7 +62,34 @@ body{
 
    =============================== */   
    
+/* ===============================
+   SUBTLE HEADER SPARKLE LAYER
+=============================== */
 
+.sparkle {
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:0.4;
+  animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%   { opacity:0.1; transform:scale(1); }
+  50%  { opacity:0.6; transform:scale(1.4); }
+  100% { opacity:0.1; transform:scale(1); }
+}
+
+/* Make header able to hold sparkles */
+header{
+  position:relative;
+  overflow:hidden;
+}
+
+   
+   
 /* ===============================
    HEADER WITH MAGICAL BANNER
    =============================== */
@@ -399,6 +426,31 @@ function startGlitter(card){
     setTimeout(()=>g.remove(),2000);
   }
 }
+
+
+/* ===============================
+   GENERATE SUBTLE HEADER SPARKLES
+=============================== */
+
+function createSparkles(){
+
+  const header = document.querySelector("header");
+
+  for(let i=0;i<25;i++){   // small number = subtle
+    const s = document.createElement("div");
+    s.className="sparkle";
+
+    s.style.top = Math.random()*100 + "%";
+    s.style.left = Math.random()*100 + "%";
+
+    s.style.animationDelay = Math.random()*4 + "s";
+    s.style.opacity = Math.random()*0.4;
+
+    header.appendChild(s);
+  }
+}
+
+createSparkles();
 
 </script>
 
