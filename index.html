@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,7 @@
 
 /* ===============================
    GLOBAL PAGE STYLING
-   =============================== */
+=============================== */
 
 body{
   margin:0;
@@ -20,8 +19,8 @@ body{
 }
 
 /* ===============================
-   HEADER WITH MAGICAL BANNER
-   =============================== */
+   HEADER WITH MAGIC BACKGROUND
+=============================== */
 
 header{
   text-align:center;
@@ -46,7 +45,7 @@ h1{
 
 /* ===============================
    MESSAGE BUTTON
-   =============================== */
+=============================== */
 
 .message-btn{
   display:inline-block;
@@ -73,7 +72,7 @@ h1{
 
 /* ===============================
    PRODUCT GRID
-   =============================== */
+=============================== */
 
 .products{
   display:grid;
@@ -85,7 +84,7 @@ h1{
 
 /* ===============================
    PRODUCT CARD
-   =============================== */
+=============================== */
 
 .card{
   position:relative;
@@ -135,8 +134,8 @@ h1{
 }
 
 /* ===============================
-   GLITTER ANIMATION
-   =============================== */
+   GLITTER
+=============================== */
 
 .glitter{
   position:absolute;
@@ -153,8 +152,8 @@ h1{
 }
 
 /* ===============================
-   PACKAGE SECTION
-   =============================== */
+   PACKAGE
+=============================== */
 
 .package-section{
   margin:40px auto;
@@ -178,7 +177,7 @@ h1{
 
 /* ===============================
    MAP
-   =============================== */
+=============================== */
 
 .map-section{
   margin:60px 0;
@@ -193,7 +192,7 @@ iframe{
 
 /* ===============================
    FOOTER
-   =============================== */
+=============================== */
 
 footer{
   text-align:center;
@@ -242,26 +241,13 @@ footer a{
 <section class="section">
   <h2>About Our ✨Elixirs & Potions 🧪</h2>
   <p style="max-width:800px;margin:20px auto;color:#ccc;line-height:1.6;">
-    At <strong>Hidden Spot Cafe – 🧪Potion Lab</strong>, every drink is a 
-    fun, fantasy-inspired sparkling refreshment crafted to look magical 
-    while tasting fruity and bright.
-  </p>
-  <ul style="list-style:none;padding:0;color:#bbb;line-height:1.8;">
-    <li>✨ Chilled purified ice</li>
-    <li>✨ Sparkling soda</li>
-    <li>✨ Fruit-flavored syrup</li>
-    <li>✨ Fruit jelly</li>
-    <li>🧪 Optional edible shimmer (food-grade glitter)</li>
-    <li>✨ ALL in 16oz Cup (473ml)</li>
-  </ul>
-  <p style="font-weight:bold;margin-top:20px;color:#ffd369;">
     Magical in appearance. Refreshing in taste.
   </p>
 </section>
 
 <section class="map-section">
   <h2 style="text-align:center;">Discover Us Here</h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771843042431!5m2!1sen!2sph"></iframe>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph"></iframe>
 </section>
 
 <footer>
@@ -272,7 +258,7 @@ footer a{
 
 <script>
 
-/* DRINK DESCRIPTIONS */
+/* DESCRIPTIONS */
 const descriptions={
 love:"Sweet strawberry soda with real fruit bits. Bright and refreshing.",
 sun:"Tropical mango blend with a smooth, sunny finish.",
@@ -319,6 +305,21 @@ function capitalize(str){
   return str.charAt(0).toUpperCase()+str.slice(1);
 }
 
+/* TYPEWRITER ANIMATION */
+function typeWriter(element,newText,speed=15){
+
+  element.innerText="";
+  let i=0;
+
+  const typing=setInterval(()=>{
+    element.innerText+=newText.charAt(i);
+    i++;
+    if(i>=newText.length){
+      clearInterval(typing);
+    }
+  },speed);
+}
+
 function togglePotion(card,id){
 
   const img=card.querySelector("img");
@@ -331,7 +332,7 @@ function togglePotion(card,id){
     img.src=id+"-potion.png";
     title.innerText=capitalize(id)+" Potion";
     price.innerText="₱"+prices.potion;
-    desc.innerText=descriptions[id]+potionExtra;
+    typeWriter(desc,descriptions[id]+potionExtra);
     img.style.boxShadow="0 0 35px "+glowColors[id];
     startGlitter(card);
   }
@@ -340,7 +341,7 @@ function togglePotion(card,id){
     img.src=id+".png";
     title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱"+prices.elixir;
-    desc.innerText=descriptions[id];
+    typeWriter(desc,descriptions[id]);
     img.style.boxShadow="none";
   }
 }
