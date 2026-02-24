@@ -13,6 +13,7 @@
 
 /* ===============================
    GLOBAL PAGE STYLING
+   Controls overall look of the page
    =============================== */
 
 body{
@@ -42,7 +43,7 @@ h1{
 }
 
 /* ===============================
-   MESSAGE BUTTON
+   MESSAGE BUTTON (Messenger CTA)
    =============================== */
 
 .message-btn{
@@ -69,7 +70,7 @@ h1{
 }
 
 /* ===============================
-   PRODUCT GRID
+   PRODUCT GRID LAYOUT
    =============================== */
 
 .products{
@@ -81,7 +82,7 @@ h1{
 }
 
 /* ===============================
-   PRODUCT CARD
+   PRODUCT CARD STYLING
    =============================== */
 
 .card{
@@ -131,38 +132,12 @@ h1{
   min-height:40px;
 }
 
-.stock{
-  font-size:13px;
-  margin-top:5px;
-  color:#aaa;
-}
-
-.quantity{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:10px;
-  gap:10px;
-}
-
-.quantity button{
-  background:#a855f7;
-  border:none;
-  color:white;
-  width:28px;
-  height:28px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:16px;
-}
-
-/* Keep active class but remove fixed purple glow */
 .active img{
   box-shadow:none;
 }
 
 /* ===============================
-   GLITTER
+   GLITTER ANIMATION (Potion Mode)
    =============================== */
 
 .glitter{
@@ -210,7 +185,7 @@ h1{
 }
 
 /* ===============================
-   MAP
+   MAP SECTION
    =============================== */
 
 .map-section{
@@ -274,44 +249,9 @@ footer a{
   <div class="products" id="productContainer"></div>
 </section>
 
-<!-- ===============================
-     ABOUT OUR DRINKS SECTION
-     =============================== -->
-
-<section class="section">
-  <h2>About Our Elixirs & Potions ✨</h2>
-  <p style="max-width:800px;margin:20px auto;color:#ccc;line-height:1.6;">
-    At <strong>Hidden Spot Cafe – 🧪Potion Lab</strong>, every drink is a 
-    fun, fantasy-inspired sparkling refreshment crafted to look magical 
-    while tasting fruity and bright.
-  </p>
-
-  <p style="max-width:800px;margin:20px auto;color:#bbb;line-height:1.6;">
-    Our “Elixirs” and “Potions” are fizzy fruit beverages made with:
-  </p>
-
-  <ul style="list-style:none;padding:0;color:#bbb;line-height:1.8;">
-    <li>✨ Chilled purified ice</li>
-    <li>✨ Sparkling soda</li>
-    <li>✨ Fruit-flavored syrup</li>
-    <li>✨ Fruit jelly</li>
-    <li>🧪 Optional edible shimmer (food-grade glitter)</li>
-  </ul>
-
-  <p style="max-width:800px;margin:25px auto;color:#aaa;line-height:1.6;">
-    The transformation effect is part of the experience — the colors,
-    sparkle, and glow are designed to bring imagination to life while
-    using safe, food-grade ingredients.
-  </p>
-
-  <p style="font-weight:bold;margin-top:20px;color:#ffd369;">
-    Magical in appearance. Refreshing in taste.
-  </p>
-</section>
-
 <section class="map-section">
   <h2 style="text-align:center;">Discover Us Here</h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771843042431!5m2!1sen!2sph" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771843042431!5m2!1sen!2sph"></iframe>
 </section>
 
 <footer>
@@ -322,7 +262,10 @@ footer a{
 
 <script>
 
-/* Drink descriptions */
+/* ==========================================
+   BASE DRINK DESCRIPTIONS (Elixir Mode)
+   ========================================== */
+
 const descriptions={
 love:"Sweet strawberry soda with real fruit bits. Bright and refreshing.",
 sun:"Tropical mango blend with a smooth, sunny finish.",
@@ -331,7 +274,10 @@ night:"Deep blueberry fizz with a cool fruity twist.",
 moon:"Light lychee sparkle with a smooth floral touch."
 };
 
-/* Glow colors per elixir */
+/* Extra text added only in Potion mode */
+const potionExtra=" Transformed into potion. Infused with magical dust.";
+
+/* Glow colors per drink */
 const glowColors={
 love:"#ff4d6d",
 sun:"#ffb703",
@@ -342,12 +288,16 @@ moon:"#c77dff"
 
 const products=["love","sun","emerald","night","moon"];
 const prices={elixir:39,potion:49};
-let state={},inventory={};
+let state={};
+
 const container=document.getElementById("productContainer");
+
+/* ==========================================
+   GENERATE PRODUCT CARDS
+   ========================================== */
 
 products.forEach(id=>{
   state[id]="elixir";
-  inventory[id]=20;
 
   const card=document.createElement("div");
   card.className="card";
@@ -358,45 +308,61 @@ products.forEach(id=>{
     <img src="${id}.png" class="drink-img">
     <h3>${capitalize(id)} Elixir</h3>
     <p class="desc">${descriptions[id]}</p>
-    <p class="price">₱39</p>
+    <p class="price">₱${prices.elixir}</p>
   `;
 
   container.appendChild(card);
 });
 
+/* Capitalizes first letter */
 function capitalize(str){
   return str.charAt(0).toUpperCase()+str.slice(1);
 }
+
+/* ==========================================
+   TOGGLE ELIXIR ↔ POTION
+   Adds/removes extra description text
+   ========================================== */
 
 function togglePotion(card,id){
 
   const img=card.querySelector("img");
   const title=card.querySelector("h3");
   const price=card.querySelector(".price");
+  const desc=card.querySelector(".desc");
 
   if(state[id]==="elixir"){
     state[id]="potion";
-    card.classList.add("active");
+
     img.src=id+"-potion.png";
     title.innerText=capitalize(id)+" Potion";
-    price.innerText="₱49";
+    price.innerText="₱"+prices.potion;
 
-    /* Apply dynamic glow color based on drink */
+    /* Add extra sentence to description */
+    desc.innerText=descriptions[id]+potionExtra;
+
+    /* Apply glow */
     img.style.boxShadow="0 0 35px "+glowColors[id];
 
     startGlitter(card);
   }
   else{
     state[id]="elixir";
-    card.classList.remove("active");
+
     img.src=id+".png";
     title.innerText=capitalize(id)+" Elixir";
-    price.innerText="₱39";
+    price.innerText="₱"+prices.elixir;
 
-    /* Remove glow when switching back */
+    /* Revert to original description */
+    desc.innerText=descriptions[id];
+
     img.style.boxShadow="none";
   }
 }
+
+/* ==========================================
+   GLITTER EFFECT
+   ========================================== */
 
 function startGlitter(card){
   for(let i=0;i<8;i++){
