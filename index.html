@@ -97,7 +97,10 @@ h1{font-size:40px;margin-bottom:10px;}
   font-size:16px;
 }
 
-.active img{box-shadow:0 0 30px #a855f7;}
+/* Glow will now be dynamic via JS */
+.active img{
+  box-shadow:0 0 30px #a855f7;
+}
 
 .glitter{
   position:absolute;
@@ -201,6 +204,14 @@ night:"Deep blueberry fizz with a cool fruity twist.",
 moon:"Light lychee sparkle with a smooth floral touch."
 };
 
+const glowColors={
+love:"#ff4d6d",
+sun:"#ffb703",
+emerald:"#2ecc71",
+night:"#4361ee",
+moon:"#c77dff"
+};
+
 const products=["love","sun","emerald","night","moon"];
 const prices={elixir:39,potion:49};
 let state={},inventory={};
@@ -237,6 +248,10 @@ function togglePotion(card,id){
     img.src=id+"-potion.png";
     title.innerText=capitalize(id)+" Potion";
     price.innerText="₱49";
+
+    // Dynamic Glow Color
+    img.style.boxShadow="0 0 35px "+glowColors[id];
+
     startGlitter(card);
   }else{
     state[id]="elixir";
@@ -244,6 +259,8 @@ function togglePotion(card,id){
     img.src=id+".png";
     title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱39";
+
+    img.style.boxShadow="none";
   }
 }
 
