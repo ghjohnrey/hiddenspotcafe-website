@@ -1,4 +1,4 @@
-<script>
+
 
 /* DRINK DESCRIPTIONS */
 const descriptions={
@@ -109,5 +109,5 @@ function createSparkles(){
 
 createSparkles();
 
-</script>
+
 
