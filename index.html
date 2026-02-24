@@ -6,13 +6,8 @@
 
 <head>
 <meta charset="UTF-8">
-<!-- Allows special characters like ₱ and emojis to display properly -->
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Makes the website responsive on mobile devices -->
-
 <title>Hidden Spot Cafe – Potion Lab</title>
-<!-- The title shown on browser tab -->
 
 <style>
 
@@ -21,11 +16,10 @@
    =============================== */
 
 body{
-  margin:0; /* Removes default browser spacing */
-  font-family:Arial, sans-serif; /* Sets clean modern font */
+  margin:0;
+  font-family:Arial, sans-serif;
   background:radial-gradient(circle at top,#0a0a12,#050509 70%);
-  /* Dark magical gradient background */
-  color:#eaeaf0; /* Default light text color */
+  color:#eaeaf0;
 }
 
 /* ===============================
@@ -33,8 +27,8 @@ body{
    =============================== */
 
 header{
-  text-align:center; /* Centers text */
-  padding:60px 20px; /* Space inside header */
+  text-align:center;
+  padding:60px 20px;
 }
 
 h1{
@@ -48,52 +42,46 @@ h1{
 }
 
 /* ===============================
-   MESSAGE BUTTON (Messenger link)
+   MESSAGE BUTTON
    =============================== */
 
 .message-btn{
   display:inline-block;
   margin-top:20px;
   padding:12px 25px;
-  background:#a855f7; /* Purple button */
+  background:#a855f7;
   color:white;
   text-decoration:none;
-  border-radius:30px; /* Rounded button */
+  border-radius:30px;
   font-weight:bold;
-  animation:pulse 2s infinite; /* Glowing pulse animation */
+  animation:pulse 2s infinite;
   transition:0.3s ease;
 }
 
-/* Pulse animation makes glowing ripple effect */
 @keyframes pulse{
   0%{box-shadow:0 0 0 0 rgba(168,85,247,0.7);}
   70%{box-shadow:0 0 0 20px rgba(168,85,247,0);}
   100%{box-shadow:0 0 0 0 rgba(168,85,247,0);}
 }
 
-/* Slight grow effect when hovering */
 .message-btn:hover{
   transform:scale(1.05);
 }
 
 /* ===============================
-   PRODUCT GRID LAYOUT
+   PRODUCT GRID
    =============================== */
 
 .products{
-  display:grid; 
-  /* Creates responsive grid layout */
-
+  display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  /* Automatically adjusts number of columns */
-
   gap:35px;
   max-width:1200px;
   margin:auto;
 }
 
 /* ===============================
-   PRODUCT CARD DESIGN
+   PRODUCT CARD
    =============================== */
 
 .card{
@@ -107,12 +95,10 @@ h1{
   overflow:hidden;
 }
 
-/* Lift card when hovering */
 .card:hover{
   transform:translateY(-6px);
 }
 
-/* Best Seller badge styling */
 .badge{
   position:absolute;
   top:10px;
@@ -124,7 +110,6 @@ h1{
   border-radius:20px;
 }
 
-/* Drink image styling */
 .drink-img{
   width:140px;
   height:180px;
@@ -133,14 +118,12 @@ h1{
   transition:0.3s ease;
 }
 
-/* Price styling */
 .price{
   font-weight:bold;
   margin-top:8px;
   color:#ffd369;
 }
 
-/* Description styling */
 .desc{
   font-size:14px;
   color:#bbb;
@@ -148,14 +131,12 @@ h1{
   min-height:40px;
 }
 
-/* Stock text styling (not currently displayed visually but reserved) */
 .stock{
   font-size:13px;
   margin-top:5px;
   color:#aaa;
 }
 
-/* Quantity controls (currently unused visually) */
 .quantity{
   display:flex;
   justify-content:center;
@@ -175,13 +156,13 @@ h1{
   font-size:16px;
 }
 
-/* When card is active (Potion mode), image glows */
+/* Keep active class but remove fixed purple glow */
 .active img{
-  box-shadow:0 0 30px #a855f7;
+  box-shadow:none;
 }
 
 /* ===============================
-   GLITTER ANIMATION
+   GLITTER
    =============================== */
 
 .glitter{
@@ -193,7 +174,6 @@ h1{
   animation:floatUp 2s linear forwards;
 }
 
-/* Glitter floats upward and fades */
 @keyframes floatUp{
   from{
     transform:translateY(0);
@@ -224,21 +204,19 @@ h1{
   transition:0.4s ease;
 }
 
-/* Glow effect when hovering package */
 .package-card:hover{
   transform:scale(1.05);
   box-shadow:0 0 25px rgba(168,85,247,0.6);
 }
 
 /* ===============================
-   MAP SECTION
+   MAP
    =============================== */
 
 .map-section{
   margin:60px 0;
 }
 
-/* Embedded Google map styling */
 iframe{
   width:100%;
   height:350px;
@@ -269,23 +247,14 @@ footer a{
 
 <body>
 
-<!-- ===============================
-     HEADER CONTENT
-     =============================== -->
-
 <header>
   <h1>Hidden Spot Cafe</h1>
   <p>Tap to Transform – Elixir ₱39 | Potion ₱49 ✨</p>
 
-  <!-- Messenger link button -->
   <a href="https://m.me/hiddenspotcafe" target="_blank" class="message-btn">
     Message Us First
   </a>
 </header>
-
-<!-- ===============================
-     BARKADA PACKAGES SECTION
-     =============================== -->
 
 <section class="package-section">
   <h2>Barkada Packages</h2>
@@ -301,29 +270,14 @@ footer a{
   </div>
 </section>
 
-<!-- ===============================
-     PRODUCTS WILL BE GENERATED HERE
-     =============================== -->
-
 <section class="section">
   <div class="products" id="productContainer"></div>
-  <!-- JavaScript automatically inserts product cards here -->
 </section>
-
-<!-- ===============================
-     GOOGLE MAP LOCATION
-     =============================== -->
 
 <section class="map-section">
   <h2 style="text-align:center;">Find Us Here</h2>
-
-  <!-- Embedded Google Maps iframe -->
   <iframe src="https://www.google.com/maps/embed?pb=..." allowfullscreen="" loading="lazy"></iframe>
 </section>
-
-<!-- ===============================
-     FOOTER
-     =============================== -->
 
 <footer>
   <p>Located on the 3rd Floor – Message us before visiting</p>
@@ -333,11 +287,7 @@ footer a{
 
 <script>
 
-/* ===============================
-   PRODUCT DATA
-   =============================== */
-
-/* Descriptions for each drink */
+/* Drink descriptions */
 const descriptions={
 love:"Sweet strawberry soda with real fruit bits. Bright and refreshing.",
 sun:"Tropical mango blend with a smooth, sunny finish.",
@@ -346,34 +296,28 @@ night:"Deep blueberry fizz with a cool fruity twist.",
 moon:"Light lychee sparkle with a smooth floral touch."
 };
 
-/* Product IDs */
+/* Glow colors per elixir */
+const glowColors={
+love:"#ff4d6d",
+sun:"#ffb703",
+emerald:"#2ecc71",
+night:"#4361ee",
+moon:"#c77dff"
+};
+
 const products=["love","sun","emerald","night","moon"];
-
-/* Pricing object */
 const prices={elixir:39,potion:49};
-
-/* Tracks current state (elixir or potion) */
 let state={},inventory={};
-
-/* Gets the container where products will appear */
 const container=document.getElementById("productContainer");
 
-/* ===============================
-   AUTO GENERATE PRODUCT CARDS
-   =============================== */
-
 products.forEach(id=>{
-
-  state[id]="elixir"; /* Default state */
-  inventory[id]=20;   /* Starting inventory */
+  state[id]="elixir";
+  inventory[id]=20;
 
   const card=document.createElement("div");
   card.className="card";
-
-  /* When card is clicked, toggle between Elixir and Potion */
   card.onclick=()=>togglePotion(card,id);
 
-  /* HTML inside each card */
   card.innerHTML=`
     ${id==="love"?'<div class="badge">Best Seller</div>':''}
     <img src="${id}.png" class="drink-img">
@@ -385,15 +329,9 @@ products.forEach(id=>{
   container.appendChild(card);
 });
 
-/* Capitalizes first letter of product name */
 function capitalize(str){
   return str.charAt(0).toUpperCase()+str.slice(1);
 }
-
-/* ===============================
-   TOGGLE FUNCTION
-   Switches between Elixir and Potion
-   =============================== */
 
 function togglePotion(card,id){
 
@@ -401,42 +339,37 @@ function togglePotion(card,id){
   const title=card.querySelector("h3");
   const price=card.querySelector(".price");
 
-  /* If currently Elixir, switch to Potion */
   if(state[id]==="elixir"){
     state[id]="potion";
-    card.classList.add("active"); /* Adds glow */
-    img.src=id+"-potion.png"; /* Changes image */
+    card.classList.add("active");
+    img.src=id+"-potion.png";
     title.innerText=capitalize(id)+" Potion";
     price.innerText="₱49";
-    startGlitter(card); /* Start glitter animation */
+
+    /* Apply dynamic glow color based on drink */
+    img.style.boxShadow="0 0 35px "+glowColors[id];
+
+    startGlitter(card);
   }
   else{
-    /* Switch back to Elixir */
     state[id]="elixir";
     card.classList.remove("active");
     img.src=id+".png";
     title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱39";
+
+    /* Remove glow when switching back */
+    img.style.boxShadow="none";
   }
 }
-
-/* ===============================
-   GLITTER EFFECT FUNCTION
-   Creates 8 floating sparkles
-   =============================== */
 
 function startGlitter(card){
   for(let i=0;i<8;i++){
     const g=document.createElement("div");
     g.className="glitter";
-
-    /* Random horizontal position */
     g.style.left=Math.random()*150+"px";
     g.style.bottom="20px";
-
     card.appendChild(g);
-
-    /* Removes glitter after animation finishes */
     setTimeout(()=>g.remove(),2000);
   }
 }
