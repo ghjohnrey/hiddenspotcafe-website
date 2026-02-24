@@ -400,11 +400,11 @@ function togglePotion(card,id){
    ========================================== */
 
 function startGlitter(card){
-  for(let i=0;i<8;i++){
+  for(let i=0;i<20;i++){
     const g=document.createElement("div");
     g.className="glitter";
-    g.style.left=Math.random()*150+"px";
-    g.style.bottom="20px";
+    g.style.left=Math.random()*400+"px";
+    g.style.bottom="50px";
     card.appendChild(g);
     setTimeout(()=>g.remove(),2000);
   }
