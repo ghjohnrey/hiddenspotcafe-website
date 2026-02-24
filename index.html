@@ -280,6 +280,7 @@ moon:"#c77dff"
 const products=["love","sun","emerald","night","moon"];
 const prices={elixir:39,potion:49};
 let state={};
+let typingInterval=null; // prevents overlap
 
 const container=document.getElementById("productContainer");
 
@@ -305,18 +306,26 @@ function capitalize(str){
   return str.charAt(0).toUpperCase()+str.slice(1);
 }
 
-/* TYPEWRITER ANIMATION */
-function typeWriter(element,newText,speed=15){
+/* FIXED TYPEWRITER */
+function typeWriter(element,newText,speed=18){
+
+  // Stop any previous animation
+  if(typingInterval){
+    clearInterval(typingInterval);
+  }
 
   element.innerText="";
-  let i=0;
+  let index=0;
 
-  const typing=setInterval(()=>{
-    element.innerText+=newText.charAt(i);
-    i++;
-    if(i>=newText.length){
-      clearInterval(typing);
+  typingInterval=setInterval(()=>{
+    element.innerText += newText[index];
+    index++;
+
+    if(index >= newText.length){
+      clearInterval(typingInterval);
+      typingInterval=null;
     }
+
   },speed);
 }
 
@@ -332,7 +341,9 @@ function togglePotion(card,id){
     img.src=id+"-potion.png";
     title.innerText=capitalize(id)+" Potion";
     price.innerText="₱"+prices.potion;
-    typeWriter(desc,descriptions[id]+potionExtra);
+
+    typeWriter(desc, descriptions[id] + potionExtra);
+
     img.style.boxShadow="0 0 35px "+glowColors[id];
     startGlitter(card);
   }
@@ -341,7 +352,9 @@ function togglePotion(card,id){
     img.src=id+".png";
     title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱"+prices.elixir;
-    typeWriter(desc,descriptions[id]);
+
+    typeWriter(desc, descriptions[id]);
+
     img.style.boxShadow="none";
   }
 }
@@ -358,6 +371,5 @@ function startGlitter(card){
 }
 
 </script>
-
 </body>
 </html>
