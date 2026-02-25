@@ -34,7 +34,7 @@ products.forEach(id=>{
 
   card.innerHTML=`
     ${id==="love"?'<div class="badge">Best Seller</div>':''}
-    <img src="${id}.png" class="drink-img">
+    <img src="assets/images/drinks/${id}.png" class="drink-img">
     <h3>${capitalize(id)} Elixir</h3>
     <p class="desc">${descriptions[id]}</p>
     <p class="price">₱${prices.elixir}</p>
@@ -56,7 +56,7 @@ function togglePotion(card,id){
 
   if(state[id]==="elixir"){
     state[id]="potion";
-    img.src=id+"-potion.png";
+    img.src=`assets/images/drinks/${id}-potion.png`;
     title.innerText=capitalize(id)+" Potion";
     price.innerText="₱"+prices.potion;
     desc.innerText=descriptions[id]+potionExtra;
@@ -65,7 +65,7 @@ function togglePotion(card,id){
   }
   else{
     state[id]="elixir";
-    img.src=id+".png";
+    img.src=`assets/images/drinks/${id}.png`;
     title.innerText=capitalize(id)+" Elixir";
     price.innerText="₱"+prices.elixir;
     desc.innerText=descriptions[id];
