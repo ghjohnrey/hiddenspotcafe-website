@@ -92,7 +92,7 @@ header{
     url("assets/images/banners/magic-banner.png");
   background-size:cover;
   background-position:center;
-  background-repeat:no-repeat;
+  background-repeat:no-repeat; 
 }
 
 
@@ -140,6 +140,96 @@ h1{
 .message-btn:hover{
   transform:scale(1.05);
 }
+
+/* ===============================
+   PREMIUM GLASS NAVBAR
+=============================== */
+
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+
+  background:rgba(15,15,25,0.65);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  transition:0.3s ease;
+}
+
+/* Add shadow when scrolling */
+.navbar.scrolled{
+  background:rgba(10,10,20,0.9);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.nav-container{
+  max-width:1200px;
+  margin:auto;
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-weight:bold;
+  font-size:18px;
+  letter-spacing:1px;
+  color:#ffffff;
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+}
+
+.nav-link{
+  position:relative;
+  text-decoration:none;
+  color:#c9c9ff;
+  font-weight:500;
+  transition:0.3s ease;
+}
+
+/* Smooth hover glow */
+.nav-link:hover{
+  color:#ffffff;
+}
+
+/* Elegant underline animation */
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,#a855f7,#c77dff);
+  transition:0.3s ease;
+}
+
+.nav-link:hover::after{
+  width:100%;
+}
+
+/* Active page highlight */
+.nav-link.active{
+  color:#ffffff;
+}
+
+.nav-link.active::after{
+  width:100%;
+}
+
+/* Prevent header from hiding */
+header{
+  margin-top:85px;
+}
+
 
 /* ===============================
    PRODUCT GRID
