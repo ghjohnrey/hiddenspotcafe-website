@@ -310,13 +310,20 @@ html{
     text-align:center;
     gap:20px;
     padding:20px 0;
+
     max-height:0;
     overflow:hidden;
+
+    opacity:0;               /* fully hidden */
+    pointer-events:none;     /* not clickable */
+
     transition:0.4s ease;
   }
 
   .nav-links.active{
     max-height:300px;
+    opacity:1;               /* visible */
+    pointer-events:auto;     /* clickable */
   }
 
   .hamburger{
