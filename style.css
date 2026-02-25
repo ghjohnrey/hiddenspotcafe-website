@@ -175,7 +175,7 @@ h1{
   align-items:center;
 }
 
-.logo{
+.nav-container{
   font-weight:bold;
   font-size:18px;
   letter-spacing:1px;
@@ -228,6 +228,117 @@ h1{
 /* Prevent header from hiding */
 header{
   margin-top:85px;
+}
+
+/* ===============================
+   PREMIUM NAVBAR ENHANCEMENT
+=============================== */
+
+/* Animated top accent line */
+.nav-accent{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:3px;
+  background:linear-gradient(90deg,#a855f7,#ff4d6d,#2ecc71,#4361ee,#c77dff);
+  background-size:400% 400%;
+  animation:gradientMove 8s linear infinite;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* Logo shimmer 
+.nav-container{
+  font-weight:bold;
+  font-size:18px;
+  color:#ffffff;
+  position:relative;
+  overflow:hidden;
+}*/
+
+.nav-container::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-75%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
+  animation:shine 5s infinite;
+}
+
+@keyframes shine{
+  0%{left:-75%;}
+  50%{left:125%;}
+  100%{left:125%;}
+}
+
+/* Smooth scroll */
+html{
+  scroll-behavior:smooth;
+}
+
+/* Hamburger menu */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.hamburger span{
+  width:25px;
+  height:3px;
+  background:white;
+  transition:0.3s ease;
+}
+
+/* Mobile styles */
+@media (max-width:768px){
+
+  .nav-links{
+    position:absolute;
+    top:70px;
+    right:0;
+    width:100%;
+    background:rgba(10,10,20,0.95);
+    flex-direction:column;
+    text-align:center;
+    gap:20px;
+    padding:20px 0;
+    max-height:0;
+    overflow:hidden;
+    transition:0.4s ease;
+  }
+
+  .nav-links.active{
+    max-height:300px;
+  }
+
+  .hamburger{
+    display:flex;
+  }
+}
+
+/* ===============================
+   NAVBAR LOGO IMAGE
+=============================== */
+
+.nav-container img{
+  height: 40px;
+  width:auto;
+  display:block;
+  transition:0.3s ease;
+}
+
+/* Subtle hover glow */
+.nav-container img:hover{
+  transform:scale(1.05);
+  filter:drop-shadow(0 0 8px rgba(255,255,255,0.3));
 }
 
 

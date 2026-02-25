@@ -122,5 +122,37 @@ window.addEventListener("scroll", function(){
   }
 });
 
+/* ===============================
+   NAVBAR PREMIUM INTERACTIONS
+=============================== */
+
+// Scroll shadow
+window.addEventListener("scroll", function(){
+  const navbar = document.querySelector(".navbar");
+  if(window.scrollY > 30){
+    navbar.classList.add("scrolled");
+  }else{
+    navbar.classList.remove("scrolled");
+  }
+});
+
+// Mobile toggle
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", function(){
+  navLinks.classList.toggle("active");
+});
+
+// Auto highlight active link
+const currentPath = window.location.pathname;
+const links = document.querySelectorAll(".nav-link");
+
+links.forEach(link=>{
+  if(link.getAttribute("href") === currentPath){
+    link.classList.add("active");
+  }
+});
+
 
 
