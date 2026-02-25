@@ -109,18 +109,6 @@ function createSparkles(){
 
 createSparkles();
 
-/* ===============================
-   NAVBAR SCROLL SHADOW EFFECT
-=============================== */
-
-window.addEventListener("scroll", function(){
-  const navbar = document.querySelector(".navbar");
-  if(window.scrollY > 30){
-    navbar.classList.add("scrolled");
-  }else{
-    navbar.classList.remove("scrolled");
-  }
-});
 
 /* ===============================
    NAVBAR PREMIUM INTERACTIONS
@@ -142,6 +130,7 @@ const navLinks = document.getElementById("navLinks");
 
 hamburger.addEventListener("click", function(){
   navLinks.classList.toggle("active");
+  hamburger.classList.toggle("open");  // <-- this triggers X animation
 });
 
 // Auto highlight active link

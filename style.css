@@ -19,6 +19,7 @@ body{
   font-family:Arial, sans-serif;
   background:radial-gradient(circle at 50% -20%, #303060 0%, #14142a 50%, #050509 90%);
   color:#eaeaf0;
+  padding-top:85px;
 }
 
 
@@ -158,6 +159,7 @@ h1{
 
   border-bottom:1px solid rgba(255,255,255,0.08);
   transition:0.3s ease;
+  margin:0;
 }
 
 /* Add shadow when scrolling */
@@ -225,10 +227,10 @@ h1{
   width:100%;
 }
 
-/* Prevent header from hiding */
+/* Prevent header from hiding 
 header{
   margin-top:85px;
-}
+}*/
 
 /* ===============================
    PREMIUM NAVBAR ENHANCEMENT
@@ -295,6 +297,44 @@ html{
   height:3px;
   background:white;
   transition:0.3s ease;
+}
+
+/* ===============================
+   HAMBURGER TO X ANIMATION
+=============================== */
+
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  cursor:pointer;
+  z-index:1100;
+}
+
+.hamburger span{
+  width:28px;
+  height:3px;
+  background:white;
+  border-radius:3px;
+  transition:all 0.3s ease;
+}
+
+/* Animate into X */
+.hamburger.open span:nth-child(1){
+  transform:rotate(45deg) translate(6px,6px);
+}
+
+.hamburger.open span:nth-child(2){
+  opacity:0;
+}
+
+.hamburger.open span:nth-child(3){
+  transform:rotate(-45deg) translate(6px,-6px);
+}
+
+.hamburger.open span{
+  background:#c77dff;
+  box-shadow:0 0 8px rgba(199,125,255,0.7);
 }
 
 /* Mobile styles */
