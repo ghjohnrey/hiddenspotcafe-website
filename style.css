@@ -262,6 +262,27 @@ iframe{
 }
 
 /* ===============================
+  fb share-button
+   =============================== */
+
+.share-btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:10px 20px;
+  background:#1877f2; /* Facebook blue */
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:bold;
+  transition:0.3s ease;
+}
+
+.share-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px rgba(24,119,242,0.6);
+}
+
+/* ===============================
    FOOTER
    =============================== */
 
