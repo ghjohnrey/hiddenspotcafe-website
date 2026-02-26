@@ -1,229 +1,41 @@
+/* =========================================================
+   Hidden Spot Cafe — Stories Styles (Magical but Clean)
+   File: /stories/stories.css
+   Notes:
+   - Loads after /style.css, so it can override global styles safely.
+   - Avoids using .badge (global menu uses .badge with absolute positioning).
+   ========================================================= */
 
-/* ===============================
-   STORIES SECTION (Mobile-first)
-   Paste at bottom of style.css
-   =============================== */
 
-/* IMPORTANT:
-   Your global header has a big banner image.
-   On /stories/ we’ll use <header class="stories-hero"> and override it here.
-*/
+/* =========================================================
+   1) PAGE LAYOUT / CONTAINER
+   ========================================================= */
 
-.stories-hero{
-  text-align:center;
-  padding:70px 18px 28px;
-  margin:0 auto;
-  max-width:1100px;
-
-  /* Override global header background image */
-  background:linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:18px;
-
-  box-shadow:0 12px 30px rgba(0,0,0,0.35);
-}
-
-.stories-hero h1{
-  margin:0 0 8px;
-  font-size:34px;
-  letter-spacing:0.2px;
-}
-
-.stories-hero p{
-  margin:0;
-  color:rgba(255,255,255,0.75);
-  line-height:1.55;
-  font-size:15px;
-}
-
-/* Container */
 .stories-container{
-  max-width:1100px;
-  margin:16px auto 0;
-  padding:14px 14px 30px;
-}
-
-/* Optional search input (if you add <input id="q">) */
-.stories-search{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin:14px auto 16px;
-  max-width:700px;
-
-  background:rgba(20,20,35,0.55);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;
-  padding:10px 12px;
-  backdrop-filter:blur(10px);
-}
-
-.stories-search span{
-  opacity:0.8;
-}
-
-.stories-search input{
-  width:100%;
-  border:none;
-  outline:none;
-  background:transparent;
-  color:#eaeaf0;
-  font-size:15px;
-}
-
-/* List grid */
-#stories-list{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
-}
-
-/* Story Card */
-.story-card{
-  position:relative;
-  background:rgba(20,20,35,0.78);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:18px;
-  padding:16px 16px;
-
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-
-  box-shadow:0 10px 26px rgba(0,0,0,0.30);
-  transition:0.25s ease;
-}
-
-.story-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(199,125,255,0.35);
-  box-shadow:0 14px 32px rgba(0,0,0,0.40);
-}
-
-.story-link{
-  text-decoration:none;
-  color:inherit;
-}
-
-.story-title{
-  margin:0 0 8px;
-  font-size:19px;
-  line-height:1.25;
-  letter-spacing:0.2px;
-  color:#ffffff;
-}
-
-.story-excerpt{
-  margin:0 0 12px;
-  color:rgba(255,255,255,0.72);
-  line-height:1.55;
-  font-size:14px;
-}
-
-/* Meta row */
-.story-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  color:rgba(255,255,255,0.65);
-  font-size:13px;
-  margin-bottom:10px;
-}
-
-.story-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-/* Tag pill */
-.tag{
-  display:inline-flex;
-  padding:5px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.10);
-  color:#c9c9ff;
-  font-size:12px;
-
-  background:rgba(168,85,247,0.10);
-}
-
-/* Pagination */
-.pagination{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  margin:18px 0 6px;
-}
-
-.pagination button{
-  border:1px solid rgba(255,255,255,0.10);
-  background:rgba(20,20,35,0.70);
-  color:#eaeaf0;
-  padding:10px 14px;
-  border-radius:14px;
-  cursor:pointer;
-  transition:0.2s ease;
-}
-
-.pagination button:hover{
-  transform:translateY(-1px);
-  border-color:rgba(199,125,255,0.35);
-}
-
-.pagination button:disabled{
-  opacity:0.45;
-  cursor:not-allowed;
-  transform:none;
-}
-
-#pageInfo{
-  color:rgba(255,255,255,0.70);
-  font-size:13px;
-}
-
-/* Desktop grid */
-@media (min-width:720px){
-  #stories-list{
-    grid-template-columns:1fr 1fr;
-  }
-  .stories-hero{
-    padding:80px 24px 34px;
-  }
-}
-
-/* Prevent your global header banner from forcing huge height on story pages
-   (Only applies if you accidentally use <header> without .stories-hero)
-*/
-body.stories-page header:not(.stories-hero){
-  padding:60px 18px;
-  background:linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
-}
-
-/* ===============================
-   STORIES.CSS — Magical but Clean
-   =============================== */
-
-/* A softer reading width for story pages */
-.stories-container{
-  max-width: 860px;
+  max-width: 1020px;
   margin: 16px auto 0;
-  padding: 14px 14px 34px;
+  padding: 14px 14px 44px;
 }
 
-/* Hero: glassy, clean, still magical */
+
+/* =========================================================
+   2) HERO (Stories header)
+   ========================================================= */
+
 .stories-hero{
   text-align:center;
-  padding: 68px 18px 26px;
-  margin: 0 auto 14px;
+  padding: 78px 18px 28px;
+  margin: 0 auto 18px;
   border-radius: 18px;
 
+  /* Magical but clean glass */
   background:
     radial-gradient(circle at 30% 0%, rgba(199,125,255,0.18), transparent 55%),
     linear-gradient(rgba(10,10,20,0.58), rgba(10,10,20,0.78));
 
   border: 1px solid rgba(255,255,255,0.10);
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -242,25 +54,64 @@ body.stories-page header:not(.stories-hero){
   font-size: 15px;
 }
 
-/* Search: clean, glass, mobile friendly */
-.stories-search{
+
+/* =========================================================
+   3) HERO BUTTONS (Fix alignment mismatch)
+   - Your global buttons are <a> tags with different padding/baseline behavior.
+   - We standardize them inside this hero actions wrapper.
+   ========================================================= */
+
+.stories-hero-actions{
   display:flex;
-  gap:10px;
-  align-items:center;
-  margin: 12px auto 16px;
-  max-width: 720px;
-
-  background: rgba(20,20,35,0.55);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 16px;
-  padding: 10px 12px;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  justify-content:center;
+  align-items:center;     /* <-- ensures same vertical alignment */
+  gap: 16px;
+  flex-wrap:wrap;
+  margin-top: 16px;
 }
 
-.stories-search span{
-  opacity: 0.85;
+.stories-hero-actions .message-btn,
+.stories-hero-actions .share-btn{
+  display:inline-flex;    /* <-- fixes baseline weirdness */
+  align-items:center;
+  justify-content:center;
+  line-height: 1;         /* <-- prevents text sitting higher/lower */
+  min-height: 20px;       /* nice tap target for mobile */
+  padding: 12px 25px;     /* unify feel */
+  border-radius: 999px;
+  text-align:center;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   4) SEARCH BAR (Big, bordered, icon inside)
+   ========================================================= */
+
+.stories-search{
+  position: relative;
+  max-width: 860px;
+  margin: 14px auto 18px;
+
+  padding: 14px 14px;
+  border-radius: 18px;
+
+  background: rgba(20,20,35,0.62);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.stories-search .search-icon{
+  position:absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.9;
+  pointer-events:none;
+  font-size: 16px;
 }
 
 .stories-search input{
@@ -269,248 +120,27 @@ body.stories-page header:not(.stories-hero){
   outline:none;
   background:transparent;
   color:#eaeaf0;
-  font-size: 15px;
-}
-
-/* Index grid */
-#stories-list{
-  display:grid;
-  grid-template-columns:1fr;
-  gap: 14px;
-}
-
-/* Card: clean, not too “product-y” */
-.story-card{
-  position: relative;
-  border-radius: 18px;
-  padding: 16px 16px;
-
-  background:
-    radial-gradient(circle at 20% 0%, rgba(168,85,247,0.16), transparent 52%),
-    rgba(20,20,35,0.78);
-
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
-
-  transition: 0.22s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.story-card:hover{
-  transform: translateY(-4px);
-  border-color: rgba(199,125,255,0.38);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.38);
-}
-
-.story-link{
-  text-decoration:none;
-  color:inherit;
-}
-
-/* Title: a bit more “reading app” */
-.story-title{
-  margin:0 0 8px;
-  font-size: 19px;
-  line-height: 1.25;
-  letter-spacing: 0.2px;
-  color: #ffffff;
-}
-
-.story-excerpt{
-  margin:0 0 12px;
-  color: rgba(255,255,255,0.74);
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-/* Meta row */
-.story-meta{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  color: rgba(255,255,255,0.66);
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.story-tags{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* Tag pill */
-.tag{
-  display:inline-flex;
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #c9c9ff;
-  font-size: 12px;
-
-  background: rgba(168,85,247,0.10);
-}
-
-/* Pagination */
-.pagination{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap: 12px;
-  margin: 18px 0 6px;
-}
-
-.pagination button{
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(20,20,35,0.70);
-  color: #eaeaf0;
-  padding: 10px 14px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.pagination button:hover{
-  transform: translateY(-1px);
-  border-color: rgba(199,125,255,0.38);
-}
-
-.pagination button:disabled{
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none;
-}
-
-#pageInfo{
-  color: rgba(255,255,255,0.72);
-  font-size: 13px;
-}
-
-/* Better reading typography inside story pages */
-.stories-page article.story-card{
-  padding: 18px 18px;
-}
-
-.stories-page article.story-card p{
-  margin: 0 0 14px;
-  line-height: 1.75;
-  font-size: 15.5px;
-  color: rgba(255,255,255,0.82);
-}
-
-/* Desktop */
-@media (min-width:720px){
-  #stories-list{
-    grid-template-columns: 1fr 1fr;
-  }
-  .stories-hero{
-    padding: 78px 24px 32px;
-  }
-}
-
-/* If someone accidentally uses <header> without class on stories page */
-body.stories-page header:not(.stories-hero){
-  padding: 60px 18px;
-  background: linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
-}
-
-/* ===============================
-   STORIES INDEX POLISH
-   =============================== */
-
-/* Make the index feel like a “feed” */
-.stories-container{
-  max-width: 980px;          /* wider for cards */
-  padding: 14px 14px 44px;
-}
-
-/* Slightly more premium hero spacing */
-.stories-hero{
-  margin-bottom: 18px;
-}
-
-/* Bigger search bar, icon inside */
-.stories-search{
-  position: relative;
-  max-width: 820px;
-  margin: 14px auto 18px;
-
-  padding: 14px 14px;        /* taller */
-  border-radius: 18px;
-
-  background: rgba(20,20,35,0.62);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.stories-search .search-icon{
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.9;
-  pointer-events: none;
   font-size: 16px;
-}
-
-.stories-search input{
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-
-  color: #eaeaf0;
-  font-size: 16px;
-
-  padding: 6px 10px 6px 40px; /* left padding for icon */
+  padding: 6px 10px 6px 40px; /* space for icon */
 }
 
 .stories-search input::placeholder{
   color: rgba(255,255,255,0.55);
 }
 
-/* Make list feel less “boxy” */
-#stories-list{
-  gap: 16px;
-}
 
-/* Make cards feel more like story tiles */
-.story-card{
-  padding: 18px 18px;
-}
+/* =========================================================
+   5) FEATURED STORY (Premium top card)
+   ========================================================= */
 
-.story-title{
-  font-size: 20px;
-}
-
-.story-excerpt{
-  font-size: 14.5px;
-}
-
-/* ===============================
-   FEATURED + GRID (Premium Style #3)
-   =============================== */
-
-.stories-container{
-  max-width: 1020px;
-}
-
-/* Hero actions alignment */
-.stories-hero-actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-
-/* Featured section */
 .featured-wrap{
   margin: 14px auto 16px;
+}
+
+.featured-card-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
 }
 
 .featured-card{
@@ -561,6 +191,7 @@ body.stories-page header:not(.stories-hero){
   font-size: 24px;
   line-height: 1.18;
   letter-spacing: 0.2px;
+  color: #ffffff;
 }
 
 .featured-excerpt{
@@ -584,7 +215,6 @@ body.stories-page header:not(.stories-hero){
   justify-content:center;
   padding: 11px 14px;
   border-radius: 14px;
-  text-decoration:none;
   font-weight:bold;
   color:#fff;
 
@@ -599,86 +229,112 @@ body.stories-page header:not(.stories-hero){
   transform: translateY(-1px);
 }
 
-/* Bigger search with icon inside */
-.stories-search{
-  position: relative;
-  max-width: 860px;
-  margin: 14px auto 18px;
 
-  padding: 14px 14px;
-  border-radius: 18px;
+/* =========================================================
+   6) LIST GRID + CARDS (Whole card clickable)
+   ========================================================= */
 
-  background: rgba(20,20,35,0.62);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.stories-search .search-icon{
-  position:absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.9;
-  pointer-events:none;
-  font-size: 16px;
-}
-
-.stories-search input{
-  width:100%;
-  border:none;
-  outline:none;
-  background:transparent;
-  color:#eaeaf0;
-  font-size: 16px;
-  padding: 6px 10px 6px 40px;
-}
-
-.stories-search input::placeholder{
-  color: rgba(255,255,255,0.55);
-}
-
-/* Grid becomes more premium */
 #stories-list{
   display:grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-@media (min-width: 820px){
-  #stories-list{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* ===============================
-   BADGES + FULL CARD CLICK
-   =============================== */
-
-/* Make entire card clickable */
-.story-card-link,
-.featured-card-link{
+.story-card-link{
   display:block;
   text-decoration:none;
   color:inherit;
 }
 
-/* Prevent underline from links inside cards */
+
 .story-card-link *{
   text-decoration:none;
 }
 
-/* Badge row on cards */
+.story-card{
+  border-radius: 18px;
+  padding: 18px 18px;
+
+  background:
+    radial-gradient(circle at 20% 0%, rgba(168,85,247,0.16), transparent 52%),
+    rgba(20,20,35,0.78);
+
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+
+  transition: 0.22s ease;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.story-card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(199,125,255,0.38);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.38);
+}
+
+.story-title{
+  margin:0 0 8px;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
+.story-excerpt{
+  margin:0 0 12px;
+  color: rgba(255,255,255,0.74);
+  line-height: 1.6;
+  font-size: 14.5px;
+}
+
+.story-meta{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgba(255,255,255,0.66);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.story-tags{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+
+/* =========================================================
+   7) TAG PILLS (Used both on index + story pages)
+   ========================================================= */
+
+.tag{
+  display:inline-flex;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #c9c9ff;
+  font-size: 12px;
+  background: rgba(168,85,247,0.10);
+}
+
+
+/* =========================================================
+   8) STORY BADGES (TRENDING / NEW TODAY)
+   - Uses .story-badge so it won't conflict with global .badge
+   ========================================================= */
+
 .badge-row{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
+  align-items:center;
   margin-bottom:10px;
 }
 
-.badge{
+.story-badge{
+  position: static; /* important: avoid absolute overlap */
   display:inline-flex;
   align-items:center;
   gap:6px;
@@ -691,31 +347,66 @@ body.stories-page header:not(.stories-hero){
   background: rgba(255,255,255,0.06);
 }
 
-/* New Today */
-.badge-new{
+.story-badge-new{
   background: rgba(46, 204, 113, 0.14);
   border-color: rgba(46, 204, 113, 0.35);
   color: rgba(255,255,255,0.92);
 }
 
-/* Trending */
-.badge-trending{
+.story-badge-trending{
   background: rgba(255, 77, 109, 0.14);
   border-color: rgba(255, 77, 109, 0.38);
   color: rgba(255,255,255,0.92);
 }
 
-/* ===============================
-   STORY PAGE: PREMIUM READING CARD
-   =============================== */
 
-/* A slightly narrower reading width */
-.stories-page .stories-container{
-  max-width: 860px;
+/* =========================================================
+   9) PAGINATION
+   ========================================================= */
+
+.pagination{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 12px;
+  margin: 18px 0 6px;
 }
 
-/* The reading card */
-.stories-page .story-reading-card{
+.pagination button{
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(20,20,35,0.70);
+  color: #eaeaf0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pagination button:hover{
+  transform: translateY(-1px);
+  border-color: rgba(199,125,255,0.38);
+}
+
+.pagination button:disabled{
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#pageInfo{
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   10) STORY DETAIL PAGE (Reading card + actions)
+   - Your story pages use: <article class="story-reading-card">...</article>
+   ========================================================= */
+
+.story-reading-card{
+  max-width: 860px;        /* centers reading card even if container is wider */
+  margin: 0 auto;
   border-radius: 20px;
   padding: 20px 18px;
 
@@ -730,31 +421,27 @@ body.stories-page header:not(.stories-hero){
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Better reading typography */
-.stories-page .story-reading-card p{
+.story-reading-card p{
   margin: 0 0 14px;
   line-height: 1.85;
   font-size: 16px;
   color: rgba(255,255,255,0.86);
 }
 
-/* Emphasis styling */
-.stories-page .story-reading-card strong{
+.story-reading-card strong{
   color: #ffffff;
 }
 
-.stories-page .story-reading-card em{
+.story-reading-card em{
   color: rgba(255,255,255,0.78);
 }
 
-/* Small divider (optional) */
-.stories-page .story-divider{
+.story-divider{
   height: 1px;
   background: rgba(255,255,255,0.10);
   margin: 14px 0 16px;
 }
 
-/* Footer actions row under story (share/copy) */
 .story-actions{
   display:flex;
   gap:10px;
@@ -778,41 +465,27 @@ body.stories-page header:not(.stories-hero){
   border-color: rgba(199,125,255,0.38);
 }
 
-/* ===============================
-   STORY BADGES (fix overlap with .badge in global CSS)
-   =============================== */
 
-.badge-row{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-bottom:10px;
+/* =========================================================
+   11) RESPONSIVE (2-column grid on wider screens)
+   ========================================================= */
+
+@media (min-width: 820px){
+  #stories-list{
+    grid-template-columns: 1fr 1fr;
+  }
+  .stories-hero{
+    padding: 84px 24px 34px;
+  }
 }
 
-/* IMPORTANT: Use story-badge (not .badge) to avoid conflict */
-.story-badge{
-  position: static; /* prevents absolute overlap */
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:0.3px;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-}
 
-.story-badge-new{
-  background: rgba(46, 204, 113, 0.14);
-  border-color: rgba(46, 204, 113, 0.35);
-  color: rgba(255,255,255,0.92);
-}
+/* =========================================================
+   12) SAFETY OVERRIDE
+   - If someone accidentally uses <header> without .stories-hero on stories pages
+   ========================================================= */
 
-.story-badge-trending{
-  background: rgba(255, 77, 109, 0.14);
-  border-color: rgba(255, 77, 109, 0.38);
-  color: rgba(255,255,255,0.92);
+body.stories-page header:not(.stories-hero){
+  padding: 60px 18px;
+  background: linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
 }
