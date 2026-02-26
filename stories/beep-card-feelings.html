@@ -1,49 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- =====================================================
+       1) BASIC PAGE METADATA
+       ===================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Beep Card That Charged Based on Your Feelings</title>
 
+  <!-- =====================================================
+       2) SITE STYLESHEETS
+       - /style.css = global styles (navbar, footer, buttons, etc.)
+       - /stories/stories.css = stories-specific styles (cards, reading page)
+       ===================================================== -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/stories/stories.css" />
 
+  <!-- =====================================================
+       3) OPEN GRAPH META (Facebook / Messenger Preview)
+       - Make sure og:image is a direct, supported image URL (ends with .png or .jpg)
+       ===================================================== -->
   <meta property="og:title" content="The Beep Card That Charged Based on Your Feelings" />
   <meta property="og:description" content="A short Taglish fantasy story for your commute." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/beep-card-feelings.html" />
+
+  <!-- Required: explicit OG image (dynamic generator routed via Cloudflare Worker) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/api/og/beep-card-feelings.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/api/og/beep-card-feelings.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe Stories quote card" />
+
+  <!-- Optional: helps Facebook display consistent branding/locale -->
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- =====================================================
+       4) (OPTIONAL BUT RECOMMENDED) TWITTER CARD
+       - Twitter/X also reads OG tags, but this improves reliability
+       ===================================================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Beep Card That Charged Based on Your Feelings" />
+  <meta name="twitter:description" content="A short Taglish fantasy story for your commute." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/api/og/beep-card-feelings.png" />
 </head>
 
 <body class="stories-page">
-
-  <nav class="navbar">
-    <div class="nav-accent"></div>
+  <!-- =====================================================
+       5) GLOBAL NAVBAR (shared across the site)
+       - Hamburger + links are controlled by /script.js
+       ===================================================== -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
 
     <div class="nav-container">
-      <a href="/">
-        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo">
+      <!-- Logo / Home -->
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
+      <!-- Desktop links -->
       <div class="nav-links" id="navLinks">
         <a href="/" class="nav-link">Home</a>
         <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active">Stories</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
     </div>
   </nav>
 
+  <!-- =====================================================
+       6) MAIN PAGE CONTENT WRAPPER
+       ===================================================== -->
   <main class="stories-container">
-
+    <!-- =====================================================
+         7) STORY HERO (title + short context)
+         ===================================================== -->
     <header class="stories-hero">
       <h1>The Beep Card That Charged Based on Your Feelings</h1>
       <p>Short Taglish fantasy read for commuters.</p>
     </header>
 
+    <!-- =====================================================
+         8) STORY READING CARD (the article content)
+         ===================================================== -->
     <article class="story-reading-card">
+      <!-- Story meta info (read time + tags) -->
       <div class="story-meta">
         <span>⏱️ 2 min read</span>
         <span class="tag">#mrt</span>
@@ -51,8 +101,12 @@
         <span class="tag">#taglish</span>
       </div>
 
-      <div class="story-divider"></div>
+      <!-- Small divider line -->
+      <div class="story-divider" aria-hidden="true"></div>
 
+      <!-- =====================================================
+           9) STORY TEXT (paragraphs)
+           ===================================================== -->
       <p>Lia noticed it on a random Tuesday.</p>
       <p>Nag-tap siya sa MRT.</p>
       <p>Instead of ₱15, the screen showed:</p>
@@ -83,28 +137,43 @@
       <p>Minsan, hindi tungkol sa araw mo ang bayad.</p>
       <p><strong>Minsan, advance payment siya for relief.</strong></p>
 
-      <div class="story-actions">
+      <!-- =====================================================
+           10) STORY ACTIONS (Back / Share / Copy)
+           ===================================================== -->
+      <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
 
-        <a class="action-btn"
-           target="_blank"
-           href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/beep-card-feelings.html">
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/beep-card-feelings.html"
+        >
           Share on Facebook
         </a>
 
         <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
       </div>
     </article>
-
   </main>
 
+  <!-- =====================================================
+       11) FOOTER (simple version for story pages)
+       ===================================================== -->
   <footer>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
+  <!-- =====================================================
+       12) SCRIPTS
+       - /script.js controls navbar scroll shadow + hamburger toggle
+       - Inline script handles copy link button feedback
+       ===================================================== -->
   <script src="/script.js"></script>
   <script>
+    // Copy current page URL to clipboard (mobile-friendly)
     const btn = document.getElementById("copyLinkBtn");
+
     if (btn) {
       btn.addEventListener("click", async () => {
         try {

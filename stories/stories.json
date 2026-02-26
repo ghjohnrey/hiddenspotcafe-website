@@ -27,14 +27,15 @@
     "excerpt": "Freezing the world feels safe… until someone else moves."
   },
   {
-    "title": "The Beep Card That Charged Based on Your Feelings",
-    "slug": "beep-card-feelings",
-    "url": "/stories/beep-card-feelings.html",
-    "readTime": "2 min",
-    "date": "2026-02-26",
-    "tags": ["mrt", "urban", "twist", "taglish", "trending"],
-    "excerpt": "Her Beep card doesn’t charge by distance — it charges by how heavy your day will be."
-  },
+  "title": "The Beep Card That Charged Based on Your Feelings",
+  "slug": "beep-card-feelings",
+  "url": "/stories/beep-card-feelings.html",
+  "readTime": "2 min",
+  "date": "2026-02-26",
+  "tags": ["mrt", "urban", "twist", "taglish", "trending"],
+  "excerpt": "Her Beep card doesn’t charge by distance — it charges by how heavy your day will be.",
+  "ogQuote": "Minsan, advance payment siya for relief."
+},
   {
     "title": "The Jeep That Only Stops for the Tired",
     "slug": "jeep-only-stops-tired",
