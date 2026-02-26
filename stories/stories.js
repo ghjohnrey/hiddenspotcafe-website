@@ -1,12 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // If the container isn't on this page, do nothing (prevents errors)
   const listEl = document.getElementById("stories-list");
   if (!listEl) return;
 
-  // Optional search input (if you add <input id="q"> in your index.html)
   const qEl = document.getElementById("q");
-
-  // Pagination controls (these should exist based on the index.html I gave)
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const pageInfo = document.getElementById("pageInfo");
@@ -52,16 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function sortByNewest(a, b) {
-    // If date is missing, treat as older
     const da = Date.parse(a.date || "1970-01-01");
     const db = Date.parse(b.date || "1970-01-01");
     return db - da;
   }
 
+  function shuffle(arr) {
+    // Fisher-Yates
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   function render() {
-    filteredStories = allStories
-      .filter(s => matches(s, query))
-      .sort(sortByNewest);
+    // Filter first
+    filteredStories = allStories.filter(s => matches(s, query));
+
+    // If searching: stable sort (newest first)
+    // If not searching: randomized order (already shuffled once in init)
+    if (query) {
+      filteredStories = filteredStories.sort(sortByNewest);
+    }
 
     const totalPages = Math.max(1, Math.ceil(filteredStories.length / PAGE_SIZE));
     page = Math.min(page, totalPages);
@@ -69,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = (page - 1) * PAGE_SIZE;
     const items = filteredStories.slice(start, start + PAGE_SIZE);
 
-    // Build cards
     listEl.innerHTML = "";
 
     if (items.length === 0) {
@@ -98,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Update pagination UI
     if (pageInfo) pageInfo.textContent = `${filteredStories.length} stories • Page ${page} of ${totalPages}`;
 
     if (prevBtn) {
@@ -132,13 +139,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function init() {
     try {
-      // If you deploy at domain root, this is correct:
       const res = await fetch("/stories/stories.json", { cache: "no-store" });
       if (!res.ok) throw new Error("Failed to load stories.json");
       const data = await res.json();
 
       if (!Array.isArray(data)) throw new Error("stories.json must be an array");
       allStories = data;
+
+      // Randomize ONCE per page load when no search query.
+      // This keeps pagination consistent.
+      if (!query) {
+        allStories = shuffle([...allStories]);
+      }
 
       render();
     } catch (err) {
@@ -157,6 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
       query = qEl.value.trim();
       page = 1;
       setParams(page, query);
+
+      // When clearing search back to empty, reshuffle again (fresh feed)
+      if (!query) {
+        allStories = shuffle([...allStories]);
+      }
+
       render();
     }, 150));
   }
