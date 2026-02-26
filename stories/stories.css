@@ -653,3 +653,166 @@ body.stories-page header:not(.stories-hero){
   }
 }
 
+/* ===============================
+   BADGES + FULL CARD CLICK
+   =============================== */
+
+/* Make entire card clickable */
+.story-card-link,
+.featured-card-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+/* Prevent underline from links inside cards */
+.story-card-link *{
+  text-decoration:none;
+}
+
+/* Badge row on cards */
+.badge-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  border:1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+/* New Today */
+.badge-new{
+  background: rgba(46, 204, 113, 0.14);
+  border-color: rgba(46, 204, 113, 0.35);
+  color: rgba(255,255,255,0.92);
+}
+
+/* Trending */
+.badge-trending{
+  background: rgba(255, 77, 109, 0.14);
+  border-color: rgba(255, 77, 109, 0.38);
+  color: rgba(255,255,255,0.92);
+}
+
+/* ===============================
+   STORY PAGE: PREMIUM READING CARD
+   =============================== */
+
+/* A slightly narrower reading width */
+.stories-page .stories-container{
+  max-width: 860px;
+}
+
+/* The reading card */
+.stories-page .story-reading-card{
+  border-radius: 20px;
+  padding: 20px 18px;
+
+  background:
+    radial-gradient(circle at 25% 0%, rgba(199,125,255,0.20), transparent 55%),
+    rgba(20,20,35,0.82);
+
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.42);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Better reading typography */
+.stories-page .story-reading-card p{
+  margin: 0 0 14px;
+  line-height: 1.85;
+  font-size: 16px;
+  color: rgba(255,255,255,0.86);
+}
+
+/* Emphasis styling */
+.stories-page .story-reading-card strong{
+  color: #ffffff;
+}
+
+.stories-page .story-reading-card em{
+  color: rgba(255,255,255,0.78);
+}
+
+/* Small divider (optional) */
+.stories-page .story-divider{
+  height: 1px;
+  background: rgba(255,255,255,0.10);
+  margin: 14px 0 16px;
+}
+
+/* Footer actions row under story (share/copy) */
+.story-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 14px;
+}
+
+.story-actions .action-btn{
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(20,20,35,0.70);
+  color: #eaeaf0;
+  padding: 10px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration:none;
+  transition: 0.2s ease;
+}
+
+.story-actions .action-btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(199,125,255,0.38);
+}
+
+/* ===============================
+   STORY BADGES (fix overlap with .badge in global CSS)
+   =============================== */
+
+.badge-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+/* IMPORTANT: Use story-badge (not .badge) to avoid conflict */
+.story-badge{
+  position: static; /* prevents absolute overlap */
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  border:1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+.story-badge-new{
+  background: rgba(46, 204, 113, 0.14);
+  border-color: rgba(46, 204, 113, 0.35);
+  color: rgba(255,255,255,0.92);
+}
+
+.story-badge-trending{
+  background: rgba(255, 77, 109, 0.14);
+  border-color: rgba(255, 77, 109, 0.38);
+  color: rgba(255,255,255,0.92);
+}

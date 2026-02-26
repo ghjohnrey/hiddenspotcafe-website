@@ -6,14 +6,16 @@
   <title>The Beep Card That Charged Based on Your Feelings</title>
 
   <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
 
   <meta property="og:title" content="The Beep Card That Charged Based on Your Feelings" />
   <meta property="og:description" content="A short Taglish fantasy story for your commute." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/beep-card-feelings.html" />
 </head>
 
 <body class="stories-page">
 
-  <!-- NAVBAR (copy your same navbar) -->
   <nav class="navbar">
     <div class="nav-accent"></div>
 
@@ -39,15 +41,9 @@
     <header class="stories-hero">
       <h1>The Beep Card That Charged Based on Your Feelings</h1>
       <p>Short Taglish fantasy read for commuters.</p>
-
-      <a class="share-btn"
-         target="_blank"
-         href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/beep-card-feelings.html">
-        Share on Facebook
-      </a>
     </header>
 
-    <article class="story-card">
+    <article class="story-reading-card">
       <div class="story-meta">
         <span>⏱️ 2 min read</span>
         <span class="tag">#mrt</span>
@@ -55,7 +51,8 @@
         <span class="tag">#taglish</span>
       </div>
 
-      <!-- STORY TEXT -->
+      <div class="story-divider"></div>
+
       <p>Lia noticed it on a random Tuesday.</p>
       <p>Nag-tap siya sa MRT.</p>
       <p>Instead of ₱15, the screen showed:</p>
@@ -85,6 +82,18 @@
       <p>Lia sat down slowly inside the train.</p>
       <p>Minsan, hindi tungkol sa araw mo ang bayad.</p>
       <p><strong>Minsan, advance payment siya for relief.</strong></p>
+
+      <div class="story-actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <a class="action-btn"
+           target="_blank"
+           href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/beep-card-feelings.html">
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
     </article>
 
   </main>
@@ -94,5 +103,19 @@
   </footer>
 
   <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
 </body>
 </html>

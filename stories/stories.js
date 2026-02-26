@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const PAGE_SIZE = 10;
 
   let allStories = [];
-  let baseOrder = [];
+  let baseOrder = []; // shuffled list for browsing
   let featured = null;
 
   const url = new URL(window.location.href);
@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function todayISO() {
-    // Uses the visitor's device date (good enough for "New Today")
     const d = new Date();
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function isNewToday(story) {
-    if (!story?.date) return false;
+    if (!story || !story.date) return false;
     return story.date === todayISO();
   }
 
@@ -86,10 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return tags.map(t => String(t).toLowerCase()).includes("trending");
   }
 
+  // NOTE: uses story-badge (NOT .badge) to avoid conflict with your global .badge
   function badgesHTML(story) {
     const badges = [];
-    if (isNewToday(story)) badges.push(`<span class="badge badge-new">🆕 NEW TODAY</span>`);
-    if (isTrending(story)) badges.push(`<span class="badge badge-trending">🔥 TRENDING</span>`);
+    if (isNewToday(story)) badges.push(`<span class="story-badge story-badge-new">🆕 NEW TODAY</span>`);
+    if (isTrending(story)) badges.push(`<span class="story-badge story-badge-trending">🔥 TRENDING</span>`);
     if (!badges.length) return "";
     return `<div class="badge-row">${badges.join("")}</div>`;
   }
@@ -97,13 +97,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderFeatured(story, isSearching) {
     if (!featuredEl) return;
 
-    // Hide featured while searching
     if (isSearching || !story) {
       featuredEl.innerHTML = "";
       return;
     }
 
-    const tags = (story.tags || []).slice(0, 3).map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(" ");
+    const tags = (story.tags || [])
+      .slice(0, 3)
+      .map(t => `<span class="tag">#${escapeHtml(t)}</span>`)
+      .join(" ");
 
     featuredEl.innerHTML = `
       <a class="featured-card-link" href="${escapeHtml(story.url)}">
@@ -129,13 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderList(isSearching) {
+    // Build list source:
+    // - searching: filtered + newest
+    // - browsing: filtered in baseOrder, excluding featured (no duplicate)
     let filtered = allStories.filter(s => matches(s, query));
 
     if (isSearching) {
       filtered = filtered.sort(sortByNewest);
     } else {
-      const order = baseOrder.filter(s => matches(s, query));
-      filtered = featured ? order.filter(s => s.url !== featured.url) : order;
+    const order = baseOrder.filter(s => matches(s, query));
+
+// Only remove the featured story from the grid if the featured box exists on the page
+const featuredIsVisible = !!featuredEl;
+
+filtered = (featuredIsVisible && featured)
+  ? order.filter(s => s.url !== featured.url)
+  : order;
     }
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -154,7 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } else {
       for (const s of items) {
-        const tags = (s.tags || []).map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(" ");
+        const tags = (s.tags || [])
+          .map(t => `<span class="tag">#${escapeHtml(t)}</span>`)
+          .join(" ");
 
         listEl.insertAdjacentHTML("beforeend", `
           <a class="story-card-link" href="${escapeHtml(s.url)}">
@@ -162,12 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
               ${badgesHTML(s)}
 
               <h2 class="story-title">${escapeHtml(s.title)}</h2>
-
               <p class="story-excerpt">${escapeHtml(s.excerpt || "")}</p>
 
               <div class="story-meta">
                 <span>⏱️ ${escapeHtml(s.readTime || "2 min")}</span>
-                ${s.date ? `<span>📅 ${escapeHtml(s.date)}` : ""}</span>
+                ${s.date ? `<span>📅 ${escapeHtml(s.date)}</span>` : ""}
               </div>
 
               <div class="story-tags">${tags}</div>
@@ -223,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!Array.isArray(data)) throw new Error("stories.json must be an array");
       allStories = data;
 
+      // browsing order: shuffled once per load (stable for pagination)
       baseOrder = shuffle([...allStories]);
       featured = pickFeaturedFrom(baseOrder);
 
@@ -245,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
       page = 1;
       setParams(page, query);
 
+      // if user cleared search, reshuffle + new featured
       if (!query) {
         baseOrder = shuffle([...allStories]);
         featured = pickFeaturedFrom(baseOrder);
