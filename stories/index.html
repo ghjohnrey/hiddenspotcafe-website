@@ -38,10 +38,11 @@
 
   <main class="stories-container">
 
-    <header class="stories-hero">
-      <h1>Hidden Spot Cafe Stories</h1>
-      <p>Short fantasy reads you can finish before your next stop.</p>
+  <header class="stories-hero">
+    <h1>Hidden Spot Cafe Stories</h1>
+    <p>Taglish fantasy micro-reads for your commute. New stories daily.</p>
 
+    <div class="stories-hero-actions">
       <a href="https://m.me/hiddenspotcafe" target="_blank" class="message-btn">
         Message Us First
       </a>
@@ -52,22 +53,30 @@
         class="share-btn">
         Share on Facebook
       </a>
-    </header>
-
-    <div class="stories-search">
-  <span class="search-icon" aria-hidden="true">🔎</span>
-  <input id="q" type="search" placeholder="Search stories here…" autocomplete="off">
-</div>
-
-    <div id="stories-list"></div>
-
-    <div class="pagination">
-      <button id="prevBtn">Previous</button>
-      <span id="pageInfo"></span>
-      <button id="nextBtn">Next</button>
     </div>
+  </header>
 
-  </main>
+  <!-- FEATURED STORY -->
+  <section class="featured-wrap" aria-label="Featured story">
+    <div id="featured-story"></div>
+  </section>
+
+  <!-- BIG SEARCH BAR -->
+  <div class="stories-search" role="search" aria-label="Search stories">
+    <span class="search-icon" aria-hidden="true">🔎</span>
+    <input id="q" type="search" placeholder="Search stories here…" autocomplete="off">
+  </div>
+
+  <!-- GRID LIST -->
+  <section id="stories-list" aria-label="Stories list"></section>
+
+  <div class="pagination">
+    <button id="prevBtn">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Next</button>
+  </div>
+
+</main>
 
   <footer>
     <p>Located on the 3rd Floor – Message us before visiting</p>
