@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const listEl = document.getElementById("stories-list");
   if (!listEl) return;
 
+  const featuredEl = document.getElementById("featured-story"); // optional
   const qEl = document.getElementById("q");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
@@ -10,13 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const PAGE_SIZE = 10;
 
   let allStories = [];
-  let filteredStories = [];
+  let baseOrder = [];     // shuffled base order for browsing
+  let featured = null;
 
-  // Read URL params (?page=2&q=keyword)
   const url = new URL(window.location.href);
   let page = Math.max(1, parseInt(url.searchParams.get("page") || "1", 10) || 1);
   let query = (url.searchParams.get("q") || "").trim();
-
   if (qEl) qEl.value = query;
 
   function escapeHtml(str) {
@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function shuffle(arr) {
-    // Fisher-Yates
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -62,25 +61,67 @@ document.addEventListener("DOMContentLoaded", () => {
     return arr;
   }
 
-  function render() {
-    // Filter first
-    filteredStories = allStories.filter(s => matches(s, query));
+  function pickFeaturedFrom(stories) {
+    if (!stories.length) return null;
+    const idx = Math.floor(Math.random() * stories.length);
+    return stories[idx];
+  }
 
-    // If searching: stable sort (newest first)
-    // If not searching: randomized order (already shuffled once in init)
-    if (query) {
-      filteredStories = filteredStories.sort(sortByNewest);
+  function renderFeatured(story, isSearching) {
+    if (!featuredEl) return;
+
+    // Hide featured while searching (cleaner UX)
+    if (isSearching || !story) {
+      featuredEl.innerHTML = "";
+      return;
     }
 
-    const totalPages = Math.max(1, Math.ceil(filteredStories.length / PAGE_SIZE));
+    const tags = (story.tags || []).slice(0, 3).map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(" ");
+
+    featuredEl.innerHTML = `
+      <article class="featured-card">
+        <div class="featured-kicker">
+          <span class="featured-badge">✨ Featured Story</span>
+          <span>⏱️ ${escapeHtml(story.readTime || "2 min")}${story.date ? ` • 📅 ${escapeHtml(story.date)}` : ""}</span>
+        </div>
+
+        <a class="story-link" href="${escapeHtml(story.url)}">
+          <h2 class="featured-title">${escapeHtml(story.title)}</h2>
+        </a>
+
+        <p class="featured-excerpt">${escapeHtml(story.excerpt || "")}</p>
+
+        <div class="story-tags">${tags}</div>
+
+        <div class="featured-actions">
+          <a class="read-btn" href="${escapeHtml(story.url)}">Read now →</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderList(isSearching) {
+    // Build list source:
+    // - searching: filtered + newest
+    // - browsing: filtered in shuffled baseOrder, excluding featured (so no duplicate)
+    let filtered = allStories.filter(s => matches(s, query));
+
+    if (isSearching) {
+      filtered = filtered.sort(sortByNewest);
+    } else {
+      const order = baseOrder.filter(s => matches(s, query));
+      filtered = featured ? order.filter(s => s.url !== featured.url) : order;
+    }
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
     page = Math.min(page, totalPages);
 
     const start = (page - 1) * PAGE_SIZE;
-    const items = filteredStories.slice(start, start + PAGE_SIZE);
+    const items = filtered.slice(start, start + PAGE_SIZE);
 
     listEl.innerHTML = "";
 
-    if (items.length === 0) {
+    if (!items.length) {
       listEl.innerHTML = `
         <div style="padding:16px;border:1px dashed rgba(255,255,255,0.25);border-radius:14px;">
           No stories found. Try another keyword.
@@ -89,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       for (const s of items) {
         const tags = (s.tags || []).map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join(" ");
-        const card = `
+        listEl.insertAdjacentHTML("beforeend", `
           <article class="story-card">
             <a class="story-link" href="${escapeHtml(s.url)}">
               <h2 class="story-title">${escapeHtml(s.title)}</h2>
@@ -101,12 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="story-tags">${tags}</div>
           </article>
-        `;
-        listEl.insertAdjacentHTML("beforeend", card);
+        `);
       }
     }
 
-    if (pageInfo) pageInfo.textContent = `${filteredStories.length} stories • Page ${page} of ${totalPages}`;
+    if (pageInfo) pageInfo.textContent = `${filtered.length} stories • Page ${page} of ${totalPages}`;
 
     if (prevBtn) {
       prevBtn.disabled = page <= 1;
@@ -129,6 +169,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function render() {
+    const isSearching = !!query;
+
+    // Featured: only browsing (no query)
+    renderFeatured(featured, isSearching);
+
+    // List:
+    renderList(isSearching);
+  }
+
   function debounce(fn, ms) {
     let t;
     return (...args) => {
@@ -146,11 +196,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!Array.isArray(data)) throw new Error("stories.json must be an array");
       allStories = data;
 
-      // Randomize ONCE per page load when no search query.
-      // This keeps pagination consistent.
-      if (!query) {
-        allStories = shuffle([...allStories]);
-      }
+      // Random order for browsing (consistent across pagination)
+      baseOrder = shuffle([...allStories]);
+
+      // Pick featured from the randomized order (so it changes every load)
+      featured = pickFeaturedFrom(baseOrder);
 
       render();
     } catch (err) {
@@ -161,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
       if (pageInfo) pageInfo.textContent = "Error";
+      if (featuredEl) featuredEl.innerHTML = "";
     }
   }
 
@@ -170,9 +221,10 @@ document.addEventListener("DOMContentLoaded", () => {
       page = 1;
       setParams(page, query);
 
-      // When clearing search back to empty, reshuffle again (fresh feed)
+      // If user clears search, refresh the random feed + new featured
       if (!query) {
-        allStories = shuffle([...allStories]);
+        baseOrder = shuffle([...allStories]);
+        featured = pickFeaturedFrom(baseOrder);
       }
 
       render();
