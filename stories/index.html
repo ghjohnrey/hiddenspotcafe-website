@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Spot Cafe – Stories</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="stories-page">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-accent"></div>
+
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="/">
+        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo">
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active">Stories</a>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="stories-container">
+
+    <header class="stories-hero">
+      <h1>Hidden Spot Cafe Stories</h1>
+      <p>Short fantasy reads you can finish before your next stop.</p>
+
+      <a href="https://m.me/hiddenspotcafe" target="_blank" class="message-btn">
+        Message Us First
+      </a>
+
+      <a
+        href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/"
+        target="_blank"
+        class="share-btn">
+        Share on Facebook
+      </a>
+    </header>
+
+    <div class="stories-search">
+      <span>🔎</span>
+      <input id="q" type="search" placeholder="Search stories..." autocomplete="off">
+    </div>
+
+    <div id="stories-list"></div>
+
+    <div class="pagination">
+      <button id="prevBtn">Previous</button>
+      <span id="pageInfo"></span>
+      <button id="nextBtn">Next</button>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank">Order via Messenger</a></p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script src="/stories/stories.js"></script>
+</body>
+</html>
