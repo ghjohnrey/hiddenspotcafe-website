@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "og-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-02-26",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": "./public" },
+  "observability": { "enabled": true },
+  "rules": [{ "type": "CompiledWasm", "globs": ["**/*.wasm"] }]
+}
