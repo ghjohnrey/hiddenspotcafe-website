@@ -4,9 +4,9 @@ import wasmModule from "@resvg/resvg-wasm/index_bg.wasm";
 const STORIES_JSON_URL = "https://hiddenspotcafe.com/stories/stories.json";
 const SITE_LABEL = "Hidden Spot Cafe";
 
-// These font files must exist in: public/fonts/
-const FONT_REG_PATH = "/fonts/Inter_18pt-Regular.ttf";
-const FONT_BOLD_PATH = "/fonts/Inter_18pt-Bold.ttf";
+// In production, assets are under the /og/* route
+const FONT_REG_PATH = "/og/fonts/Inter_18pt-Regular.ttf";
+const FONT_BOLD_PATH = "/og/fonts/Inter_18pt-Bold.ttf";
 
 type Story = {
   slug?: string;
