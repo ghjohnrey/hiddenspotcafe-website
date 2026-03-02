@@ -2,15 +2,15 @@
  * OG Image Generator (Cloudflare Worker)
  * - Generates: /og/stories/<slug>.png
  * - Loads story data from: https://hiddenspotcafe.com/stories/stories.json
- * - Bundles fonts (NO HTTP fetch for fonts) to avoid "no text" issues in production
+ * - Bundles fonts + wasm (NO HTTP fetch for fonts) to avoid "no text" issues in production
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
-import wasmModule from "@resvg/resvg-wasm/index_bg.wasm";
+import wasmBinary from "@resvg/resvg-wasm/index_bg.wasm";
 
 // ✅ Fonts are bundled from src/fonts (no network fetch)
-import fontRegular from "./fonts/Inter_18pt-Regular.ttf";
-import fontBold from "./fonts/Inter_18pt-Bold.ttf";
+import fontRegularBuffer from "./fonts/Inter_18pt-Regular.ttf";
+import fontBoldBuffer from "./fonts/Inter_18pt-Bold.ttf";
 
 const STORIES_JSON_URL = "https://hiddenspotcafe.com/stories/stories.json";
 const SITE_LABEL = "Hidden Spot Cafe";
@@ -30,7 +30,8 @@ let wasmInit: Promise<void> | null = null;
 
 async function ensureWasm() {
   if (!wasmInit) {
-    wasmInit = initWasm(wasmModule as unknown as WebAssembly.Module);
+    // wasmBinary is an ArrayBuffer (from bundler rule: CompiledWasm)
+    wasmInit = initWasm(wasmBinary);
   }
   await wasmInit;
 }
@@ -93,14 +94,12 @@ async function getStoryBySlug(slug: string): Promise<Story | null> {
 
 /* -----------------------------
    4) SVG builder
-   - We keep SVG simple and let Resvg apply fontBuffers
 ----------------------------- */
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
   const safeTitle = escapeXml(opts.title).slice(0, 90);
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml((opts.quote || "").trim()).slice(0, 240);
 
-  // readable on mobile
   const lines = wrapLines(safeQuote, 28, 4);
   const baseY = 375;
   const lineHeight = 62;
@@ -167,7 +166,7 @@ export default {
 
     const slug = match[1];
 
-    // Edge cache (prevents 1102 resource issues)
+    // Edge cache
     const cache = caches.default;
     const cacheKey = new Request(url.toString(), request);
     const cached = await cache.match(cacheKey);
@@ -192,11 +191,14 @@ export default {
 
     const svg = buildSvg({ title, quote, site: SITE_LABEL });
 
-    // ✅ The critical part: feed fonts directly to Resvg
+    // ✅ fonts must be Uint8Array (wrap the ArrayBuffer)
+    const fontRegular = new Uint8Array(fontRegularBuffer);
+    const fontBold = new Uint8Array(fontBoldBuffer);
+
     const resvg = new Resvg(svg, {
       fitTo: { mode: "width", value: 1200 },
       font: {
-        fontBuffers: [fontRegular as Uint8Array, fontBold as Uint8Array],
+        fontBuffers: [fontRegular, fontBold],
         defaultFontFamily: "Inter",
       },
     });
@@ -206,8 +208,6 @@ export default {
     const response = new Response(pngBuffer, {
       headers: {
         "content-type": "image/png",
-        // Long cache is OK because the image changes only when stories.json changes
-        // If you want faster updates while testing, set this to 60.
         "cache-control": "public, max-age=86400",
       },
     });
