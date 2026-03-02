@@ -187,10 +187,24 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
    6) Worker handler
 ----------------------------- */
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: any): Promise<Response> {
     const url = new URL(request.url);
 
-    // Expect: /og/stories/<slug>.png
+    // ✅ 1) Serve static assets first (fonts, index.html, etc.)
+    // Your assets live in /public and are exposed under the worker route (/og/*)
+    // So /og/fonts/... should return the font file, not hit the OG generator.
+    if (
+      url.pathname.startsWith("/og/fonts/") ||
+      url.pathname === "/og/" ||
+      url.pathname === "/og/index.html"
+    ) {
+      // In Workers with "assets" enabled, env.ASSETS.fetch will serve from /public
+      if (env?.ASSETS?.fetch) return env.ASSETS.fetch(request);
+
+      // Fallback: if ASSETS binding isn't available for some reason, just continue
+    }
+
+    // ✅ 2) Only handle real OG image routes here
     const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
     if (!match) return new Response("Use /og/stories/<slug>.png", { status: 200 });
 
