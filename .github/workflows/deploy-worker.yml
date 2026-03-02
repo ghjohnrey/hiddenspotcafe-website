@@ -2,20 +2,31 @@ name: Deploy OG Worker
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: ["main"]
+    paths:
+      - "og-worker/**"
+      - ".github/workflows/deploy-worker.yml"
+  workflow_dispatch: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Deploy to Cloudflare
+      - name: Show where we are + confirm wrangler.json exists
+        run: |
+          pwd
+          ls -la
+          ls -la og-worker
+          ls -la og-worker/wrangler.json
+          cat og-worker/wrangler.json
+
+      - name: Deploy via Wrangler (forced)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --config wrangler.json
           workingDirectory: og-worker
