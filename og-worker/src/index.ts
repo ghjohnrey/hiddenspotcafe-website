@@ -1,41 +1,33 @@
 /**
  * Cloudflare Worker: OG Image Generator for Hidden Spot Cafe
  *
- * ✅ What this does:
- * - Serves OG images at:    /og/stories/<slug>.png
- * - Pulls story data from:  https://hiddenspotcafe.com/stories/stories.json
- * - Uses story.ogQuote (fallback to excerpt/description) as the big centered quote
- * - Serves fonts as Worker Assets at: /og/fonts/Inter_18pt-*.ttf
- * - Renders text reliably by passing font buffers to Resvg (no more “blank text”)
+ * ✅ OG Image URL:
+ *   /og/stories/<slug>.png
  *
- * ✅ Required files:
- * - public/fonts/Inter_18pt-Regular.ttf
- * - public/fonts/Inter_18pt-Bold.ttf
+ * ✅ Fonts live in your worker assets:
+ *   public/fonts/Inter_18pt-Regular.ttf
+ *   public/fonts/Inter_18pt-Bold.ttf
  *
- * ✅ Wrangler (important):
- * - You must have assets enabled (you already do):
- *   "assets": { "directory": "./public" }
+ * IMPORTANT FIX:
+ * - Your worker is routed at /og/*
+ * - But the Assets manifest usually maps files as /fonts/... (NOT /og/fonts/...)
+ * - So /og/fonts/... can 404 in production.
  *
- * NOTE:
- * - This file assumes your Worker is routed at: hiddenspotcafe.com/og/*
+ * ✅ Solution:
+ * - If request starts with /og/fonts/, rewrite it to /fonts/ before env.ASSETS.fetch()
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
 import wasmModule from "@resvg/resvg-wasm/index_bg.wasm";
 
-/* -----------------------------
-   A) Config
------------------------------ */
 const STORIES_JSON_URL = "https://hiddenspotcafe.com/stories/stories.json";
 const SITE_LABEL = "Hidden Spot Cafe";
 
-// In production, Worker assets are available under the Worker route (/og/*)
+// We will REQUEST fonts via /og/fonts/... (because your worker route is /og/*)
+// but inside the worker we rewrite /og/fonts/... -> /fonts/... for Assets
 const FONT_REG_PATH = "/og/fonts/Inter_18pt-Regular.ttf";
 const FONT_BOLD_PATH = "/og/fonts/Inter_18pt-Bold.ttf";
 
-/* -----------------------------
-   B) Types
------------------------------ */
 type Story = {
   slug?: string;
   title?: string;
@@ -45,7 +37,7 @@ type Story = {
 };
 
 /* -----------------------------
-   C) resvg WASM init (one-time)
+   1) resvg WASM init (cached)
 ----------------------------- */
 let wasmInit: Promise<void> | null = null;
 
@@ -57,7 +49,7 @@ async function ensureWasm() {
 }
 
 /* -----------------------------
-   D) Helpers
+   2) Helpers
 ----------------------------- */
 function escapeXml(str = ""): string {
   return str
@@ -68,9 +60,6 @@ function escapeXml(str = ""): string {
     .replace(/'/g, "&apos;");
 }
 
-/**
- * Wrap a quote into multiple lines so it stays readable on mobile previews.
- */
 function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   const words = (text || "").trim().split(/\s+/).filter(Boolean);
   const lines: string[] = [];
@@ -84,14 +73,13 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
     } else {
       if (current) lines.push(current);
       current = w;
-
       if (lines.length >= maxLines - 1) break;
     }
   }
 
   if (current && lines.length < maxLines) lines.push(current);
 
-  // Add ellipsis if truncated
+  // Ellipsis if truncated
   const usedWords = lines.join(" ").split(/\s+/).length;
   if (usedWords < words.length && lines.length) {
     lines[lines.length - 1] =
@@ -102,13 +90,12 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 }
 
 /* -----------------------------
-   E) Fetch story by slug
+   3) Fetch story data
 ----------------------------- */
 async function getStoryBySlug(slug: string): Promise<Story | null> {
   const res = await fetch(STORIES_JSON_URL, {
     cf: { cacheTtl: 3600, cacheEverything: true },
   });
-
   if (!res.ok) return null;
 
   const data: any = await res.json();
@@ -117,9 +104,8 @@ async function getStoryBySlug(slug: string): Promise<Story | null> {
 }
 
 /* -----------------------------
-   F) Load font BYTES (cached in memory)
-   IMPORTANT:
-   - This fixes “no text” by passing font buffers to resvg.
+   4) Load font BYTES (cached)
+   - We pass these bytes to Resvg so text always renders.
 ----------------------------- */
 let fontBytesCache: Promise<{ regular: Uint8Array; bold: Uint8Array }> | null =
   null;
@@ -135,12 +121,8 @@ async function ensureFontBytes(origin: string) {
         fetch(boldUrl, { cf: { cacheTtl: 86400, cacheEverything: true } }),
       ]);
 
-      if (!regRes.ok) {
-        throw new Error(`Font regular fetch failed (${regRes.status})`);
-      }
-      if (!boldRes.ok) {
-        throw new Error(`Font bold fetch failed (${boldRes.status})`);
-      }
+      if (!regRes.ok) throw new Error(`Font regular fetch failed (${regRes.status})`);
+      if (!boldRes.ok) throw new Error(`Font bold fetch failed (${boldRes.status})`);
 
       const [regBuf, boldBuf] = await Promise.all([
         regRes.arrayBuffer(),
@@ -158,16 +140,13 @@ async function ensureFontBytes(origin: string) {
 }
 
 /* -----------------------------
-   G) SVG builder (simple, mobile-friendly)
-   - Uses font-family "Inter"
-   - Actual font data comes from resvg fontBuffers
+   5) SVG builder
 ----------------------------- */
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
   const safeTitle = escapeXml(opts.title).slice(0, 90);
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml((opts.quote || "").trim()).slice(0, 240);
 
-  // Wrap into lines so it fits nicely in preview
   const lines = wrapLines(safeQuote, 28, 4);
   const baseY = 360;
   const lineHeight = 62;
@@ -189,28 +168,22 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       </filter>
     </defs>
 
-    <!-- Background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.18"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.14"/>
 
-    <!-- Card -->
     <rect x="70" y="70" width="1060" height="490" rx="34" fill="#0f172a" opacity="0.84" filter="url(#shadow)"/>
 
-    <!-- Site label -->
     <text x="120" y="150" font-family="Inter" font-size="28" fill="#a5b4fc" opacity="0.95">
       ${safeSite}
     </text>
 
-    <!-- Story title -->
     <text x="120" y="210" font-family="Inter" font-size="40" font-weight="700" fill="#ffffff" opacity="0.95">
       ${safeTitle}
     </text>
 
-    <!-- Quote panel -->
     <rect x="120" y="255" width="960" height="280" rx="28" fill="#000000" opacity="0.30"/>
 
-    <!-- Centered quote -->
     <text text-anchor="middle" font-family="Inter" font-size="56" font-weight="700" fill="#ffffff">
       ${tspans || `<tspan x="600" y="390">“”</tspan>`}
     </text>
@@ -218,41 +191,51 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 /* -----------------------------
-   H) Worker handler
+   6) Worker handler
 ----------------------------- */
 export default {
   async fetch(request: Request, env: any): Promise<Response> {
     const url = new URL(request.url);
 
     /**
-     * ✅ Serve static assets first
-     * If someone requests /og/fonts/..., we should return the actual font file.
+     * ✅ A) Serve fonts (and any other static assets) from /public
+     *
+     * CRITICAL FIX:
+     * - User requests: /og/fonts/xxx.ttf
+     * - Assets manifest usually expects: /fonts/xxx.ttf
+     * - So we rewrite /og/fonts/... -> /fonts/... before env.ASSETS.fetch()
      */
-    if (
-      url.pathname.startsWith("/og/fonts/") ||
-      url.pathname === "/og/" ||
-      url.pathname === "/og/index.html"
-    ) {
-      // If ASSETS binding exists, serve from /public
-      if (env?.ASSETS?.fetch) return env.ASSETS.fetch(request);
-
-      // If the binding isn't present, we fall through (still works locally)
+    if (url.pathname.startsWith("/og/fonts/")) {
+      if (env?.ASSETS?.fetch) {
+        const rewrittenUrl = new URL(request.url);
+        rewrittenUrl.pathname = rewrittenUrl.pathname.replace(/^\/og/, ""); // /og/fonts/... -> /fonts/...
+        const rewrittenReq = new Request(rewrittenUrl.toString(), request);
+        return env.ASSETS.fetch(rewrittenReq);
+      }
     }
 
     /**
-     * ✅ Only handle real OG image routes here
-     * Expected format: /og/stories/<slug>.png
+     * Optional: serve /og/ or /og/index.html from assets too
+     */
+    if (url.pathname === "/og/" || url.pathname === "/og/index.html") {
+      if (env?.ASSETS?.fetch) {
+        const rewrittenUrl = new URL(request.url);
+        rewrittenUrl.pathname = rewrittenUrl.pathname.replace(/^\/og/, "") || "/";
+        const rewrittenReq = new Request(rewrittenUrl.toString(), request);
+        return env.ASSETS.fetch(rewrittenReq);
+      }
+    }
+
+    /**
+     * ✅ B) Only handle OG image route
      */
     const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
-    if (!match) {
-      return new Response("Use /og/stories/<slug>.png", { status: 200 });
-    }
+    if (!match) return new Response("Use /og/stories/<slug>.png", { status: 200 });
 
     const slug = match[1];
 
     /**
-     * ✅ Edge cache for generated PNG
-     * Prevents repeated rendering and avoids resource-limit errors (1102).
+     * ✅ C) Edge cache for final PNG (performance + prevents 1102)
      */
     const cache = caches.default;
     const cacheKey = new Request(url.toString(), request);
@@ -263,7 +246,7 @@ export default {
     let title = "Hidden Spot Cafe";
     let quote = "Short Taglish fantasy stories for your commute.";
 
-    // Pull story data from stories.json
+    // Load story data
     const story = await getStoryBySlug(slug);
     if (story) {
       title = story.title || title;
@@ -274,17 +257,14 @@ export default {
       quote = `Slug: ${slug}`;
     }
 
-    // Init WASM + load font bytes
+    // Init resvg + load fonts as bytes
     await ensureWasm();
     const fonts = await ensureFontBytes(url.origin);
 
     // Build SVG
     const svg = buildSvg({ title, quote, site: SITE_LABEL });
 
-    /**
-     * ✅ Render SVG -> PNG
-     * CRUCIAL: pass font buffers so text always renders.
-     */
+    // Render SVG -> PNG (fontBuffers = text always appears)
     const resvg = new Resvg(svg, {
       fitTo: { mode: "width", value: 1200 },
       font: {
@@ -295,11 +275,6 @@ export default {
 
     const pngBuffer = resvg.render().asPng();
 
-    /**
-     * Cache headers:
-     * - Good for performance and avoids rerendering too often.
-     * - If you're actively testing, temporarily set max-age lower (e.g. 60).
-     */
     const response = new Response(pngBuffer, {
       headers: {
         "content-type": "image/png",
