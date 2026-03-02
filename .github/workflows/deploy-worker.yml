@@ -1,35 +1,33 @@
 name: Deploy OG Worker
 
 on:
+  workflow_dispatch:
   push:
-    branches: ["main"]
+    branches:
+      - main
     paths:
       - "og-worker/**"
       - ".github/workflows/deploy-worker.yml"
-  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Pull your repository code onto the runner
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2) Quick sanity check: confirm files exist in CI exactly where we think they are
-      - name: Verify OG Worker files exist
-        run: |
-          ls -la
-          ls -la og-worker
-          ls -la og-worker/src
-          ls -la og-worker/public || true
-          cat og-worker/wrangler.json
-
-      # 3) Deploy to Cloudflare using Wrangler v4 and explicit config path
-      - name: Deploy OG Worker to Cloudflare
-        uses: cloudflare/wrangler-action@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          wranglerVersion: "4.69.0"
-          command: deploy --config og-worker/wrangler.json
+          node-version: "20"
+
+      - name: Install dependencies (og-worker)
+        working-directory: og-worker
+        run: npm install
+
+      - name: Deploy to Cloudflare (og-worker)
+        working-directory: og-worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler deploy
