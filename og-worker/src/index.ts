@@ -2,13 +2,15 @@
  * OG Image Generator (Cloudflare Worker)
  * - Generates: /og/stories/<slug>.png
  * - Loads story data from: https://hiddenspotcafe.com/stories/stories.json
- * - Bundles fonts + wasm (NO HTTP fetch for fonts) to avoid "no text" issues in production
+ * - Bundles fonts + wasm (NO HTTP fetch for fonts)
+ *
+ * Debug:
+ * - Add ?nocache=1 to bypass edge cache and stories.json cache
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
 import wasmBinary from "@resvg/resvg-wasm/index_bg.wasm";
 
-// ✅ Fonts are bundled from src/fonts (no network fetch)
 import fontRegularBuffer from "./fonts/Inter_18pt-Regular.ttf";
 import fontBoldBuffer from "./fonts/Inter_18pt-Bold.ttf";
 
@@ -23,22 +25,13 @@ type Story = {
   description?: string;
 };
 
-/* -----------------------------
-   1) resvg WASM init (only once)
------------------------------ */
 let wasmInit: Promise<void> | null = null;
 
 async function ensureWasm() {
-  if (!wasmInit) {
-    // wasmBinary is an ArrayBuffer (from bundler rule: CompiledWasm)
-    wasmInit = initWasm(wasmBinary);
-  }
+  if (!wasmInit) wasmInit = initWasm(wasmBinary);
   await wasmInit;
 }
 
-/* -----------------------------
-   2) Helpers
------------------------------ */
 function escapeXml(str = ""): string {
   return str
     .replace(/&/g, "&amp;")
@@ -67,7 +60,6 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 
   if (current && lines.length < maxLines) lines.push(current);
 
-  // Add ellipsis if truncated
   const usedWords = lines.join(" ").split(/\s+/).length;
   if (usedWords < words.length && lines.length) {
     lines[lines.length - 1] =
@@ -77,12 +69,11 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   return lines;
 }
 
-/* -----------------------------
-   3) Fetch story by slug
------------------------------ */
-async function getStoryBySlug(slug: string): Promise<Story | null> {
+async function getStoryBySlug(slug: string, nocache: boolean): Promise<Story | null> {
   const res = await fetch(STORIES_JSON_URL, {
-    cf: { cacheTtl: 3600, cacheEverything: true },
+    cf: nocache
+      ? { cacheTtl: 0, cacheEverything: false }
+      : { cacheTtl: 300, cacheEverything: true }, // 5 minutes while testing
   });
 
   if (!res.ok) return null;
@@ -92,22 +83,25 @@ async function getStoryBySlug(slug: string): Promise<Story | null> {
   return stories.find((s) => s.slug === slug) || null;
 }
 
-/* -----------------------------
-   4) SVG builder
------------------------------ */
+function pickQuote(story: Story | null, fallback: string) {
+  if (!story) return fallback;
+
+  // ✅ your JSON uses ogQuote — keep it top priority
+  const q = (story.ogQuote || story.excerpt || story.description || "").toString().trim();
+  return q || fallback;
+}
+
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
   const safeTitle = escapeXml(opts.title).slice(0, 90);
   const safeSite = escapeXml(opts.site).slice(0, 60);
-  const safeQuote = escapeXml((opts.quote || "").trim()).slice(0, 240);
+  const safeQuote = escapeXml((opts.quote || "").trim()).slice(0, 260);
 
   const lines = wrapLines(safeQuote, 28, 4);
   const baseY = 375;
   const lineHeight = 62;
 
   const tspans = lines
-    .map(
-      (ln, i) => `<tspan x="600" y="${baseY + i * lineHeight}">${ln}</tspan>`
-    )
+    .map((ln, i) => `<tspan x="600" y="${baseY + i * lineHeight}">${ln}</tspan>`)
     .join("");
 
   return `
@@ -123,75 +117,60 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       </filter>
     </defs>
 
-    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.18"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.14"/>
 
-    <!-- main card -->
     <rect x="70" y="70" width="1060" height="490" rx="34" fill="#0f172a" opacity="0.84" filter="url(#shadow)"/>
 
-    <!-- site -->
     <text x="120" y="150" font-family="Inter" font-size="28" fill="#a5b4fc" opacity="0.95">
       ${safeSite}
     </text>
 
-    <!-- title -->
     <text x="120" y="210" font-family="Inter" font-size="40" font-weight="800" fill="#ffffff" opacity="0.95">
       ${safeTitle}
     </text>
 
-    <!-- quote panel -->
     <rect x="120" y="255" width="960" height="280" rx="28" fill="#000000" opacity="0.30"/>
 
-    <!-- quote -->
     <text text-anchor="middle" font-family="Inter" font-size="56" font-weight="800" fill="#ffffff">
       ${tspans || `<tspan x="600" y="400">“”</tspan>`}
     </text>
   </svg>`;
 }
 
-/* -----------------------------
-   5) Worker handler
------------------------------ */
 export default {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
-    // Only handle: /og/stories/<slug>.png
     const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
-    if (!match) {
-      return new Response("Use /og/stories/<slug>.png", { status: 200 });
-    }
+    if (!match) return new Response("Use /og/stories/<slug>.png", { status: 200 });
 
     const slug = match[1];
 
-    // Edge cache
+    // ✅ add cache bypass for testing
+    const nocache = url.searchParams.get("nocache") === "1";
+
     const cache = caches.default;
     const cacheKey = new Request(url.toString(), request);
-    const cached = await cache.match(cacheKey);
-    if (cached) return cached;
 
-    // Defaults
-    let title = "Hidden Spot Cafe";
-    let quote = "Short Taglish fantasy stories for your commute.";
-
-    // Pull from stories.json
-    const story = await getStoryBySlug(slug);
-    if (story) {
-      title = story.title || title;
-      quote = (story.ogQuote || story.excerpt || story.description || quote).trim();
-      if (!quote) quote = "Hidden Spot Cafe Stories";
-    } else {
-      title = "Story not found";
-      quote = `Slug: ${slug}`;
+    if (!nocache) {
+      const cached = await cache.match(cacheKey);
+      if (cached) return cached;
     }
+
+    let title = "Hidden Spot Cafe";
+    const fallbackQuote = "Short Taglish fantasy stories for your commute.";
+
+    const story = await getStoryBySlug(slug, nocache);
+    if (story) title = story.title || title;
+
+    const quote = pickQuote(story, fallbackQuote);
 
     await ensureWasm();
 
     const svg = buildSvg({ title, quote, site: SITE_LABEL });
 
-    // ✅ fonts must be Uint8Array (wrap the ArrayBuffer)
     const fontRegular = new Uint8Array(fontRegularBuffer);
     const fontBold = new Uint8Array(fontBoldBuffer);
 
@@ -205,14 +184,22 @@ export default {
 
     const pngBuffer = resvg.render().asPng();
 
+    // ✅ while testing: shorter cache; later set to 86400 if you want
+    const cacheSeconds = nocache ? 0 : 300;
+
     const response = new Response(pngBuffer, {
       headers: {
         "content-type": "image/png",
-        "cache-control": "public, max-age=86400",
+        "cache-control": nocache
+          ? "no-store"
+          : `public, max-age=${cacheSeconds}, s-maxage=${cacheSeconds}`,
       },
     });
 
-    await cache.put(cacheKey, response.clone());
+    if (!nocache) {
+      await cache.put(cacheKey, response.clone());
+    }
+
     return response;
   },
 };
