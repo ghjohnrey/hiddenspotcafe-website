@@ -1,7 +1,10 @@
 /**
  * OG Image Generator (Mobile Safe Layout)
- * - Always returns image/png for OG image routes (prevents FB "invalid content type")
- * - Adds a safe fallback PNG if anything crashes (WASM/font/fetch/etc.)
+ * Fixes:
+ * - NEVER throws to the client (Facebook must never receive HTML error pages)
+ * - Safer JSON fetch/parsing for stories.json (prevents res.json() crash)
+ * - Always returns image/png for the OG route
+ * - Returns a readable fallback PNG with text if anything fails
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
@@ -55,21 +58,36 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   }
 
   if (current && lines.length < maxLines) lines.push(current);
-
   return lines;
 }
 
+/**
+ * IMPORTANT: This must NEVER throw.
+ * If stories.json returns HTML / errors / invalid JSON, we just return null.
+ */
 async function getStoryBySlug(slug: string): Promise<Story | null> {
-  const res = await fetch(STORIES_JSON_URL, {
-    // caching is okay, but don't let this be the reason OG breaks
-    cf: { cacheTtl: 300, cacheEverything: true },
-  });
+  try {
+    const res = await fetch(STORIES_JSON_URL, {
+      cf: { cacheTtl: 300, cacheEverything: true },
+      headers: {
+        // Helps avoid certain bot/protection responses returning HTML
+        "accept": "application/json,text/plain,*/*",
+        "user-agent": "Mozilla/5.0 (compatible; Hiddenspot OG Worker)",
+      },
+    });
 
-  if (!res.ok) return null;
+    if (!res.ok) return null;
 
-  const data: any = await res.json();
-  const stories: Story[] = Array.isArray(data) ? data : data?.stories || [];
-  return stories.find((s) => s.slug === slug) || null;
+    const ct = res.headers.get("content-type") || "";
+    // If Cloudflare returns an HTML error page, this prevents res.json() from throwing
+    if (!ct.includes("application/json")) return null;
+
+    const data: any = await res.json();
+    const stories: Story[] = Array.isArray(data) ? data : data?.stories || [];
+    return stories.find((s) => s.slug === slug) || null;
+  } catch {
+    return null;
+  }
 }
 
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
@@ -77,7 +95,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml(opts.quote).slice(0, 260);
 
-  // SAFE ZONE PADDING
   const outerPadding = 120;
   const cardWidth = 1200 - outerPadding * 2;
   const cardHeight = 630 - outerPadding * 2;
@@ -97,18 +114,15 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
         <stop offset="0%" stop-color="#0b0f19"/>
         <stop offset="100%" stop-color="#1f2a44"/>
       </linearGradient>
-
       <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="12" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
       </filter>
     </defs>
 
-    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
-    <!-- SAFE AREA CARD -->
     <rect
       x="${outerPadding}"
       y="${outerPadding}"
@@ -120,7 +134,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       filter="url(#shadow)"
     />
 
-    <!-- Site -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 70}"
@@ -130,7 +143,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeSite}
     </text>
 
-    <!-- Title -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 130}"
@@ -141,7 +153,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeTitle}
     </text>
 
-    <!-- Quote Panel -->
     <rect
       x="${outerPadding + 60}"
       y="${outerPadding + 180}"
@@ -152,7 +163,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       opacity="0.35"
     />
 
-    <!-- Quote -->
     <text
       text-anchor="middle"
       font-family="Inter"
@@ -162,17 +172,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${tspans}
     </text>
   </svg>`;
-}
-
-/**
- * Minimal valid 1x1 transparent PNG.
- * This is our "never return HTML" fallback for Facebook.
- */
-function tinyTransparentPng(): Uint8Array {
-  return Uint8Array.from([
-    137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
-    137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
-  ]);
 }
 
 function pngHeaders(cacheControl: string) {
@@ -187,31 +186,25 @@ export default {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
-    // Match only your OG endpoint
+    // NOTE: pathname does not include ?v=2, so your cache-busting query is fine
     const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
-    if (!match) {
-      return new Response("Not Found", { status: 404 });
-    }
+    if (!match) return new Response("Not Found", { status: 404 });
 
-    // Some bots do HEAD first; respond with headers only (no heavy render)
+    // If Facebook does a HEAD request, return fast with proper image headers
     if (request.method === "HEAD") {
-      return new Response(null, {
-        status: 200,
-        headers: pngHeaders("public, max-age=86400, s-maxage=86400"),
-      });
+      return new Response(null, { status: 200, headers: pngHeaders("public, max-age=300, s-maxage=300") });
     }
 
     const slug = match[1];
 
+    // Defaults (so even if stories.json fails, text still renders)
+    let title = "Hidden Spot Cafe";
+    let quote = "Short Taglish fantasy stories for your commute.";
+
     try {
       const story = await getStoryBySlug(slug);
-
-      const title = story?.title || "Hidden Spot Cafe";
-      const quote =
-        story?.ogQuote ||
-        story?.excerpt ||
-        story?.description ||
-        "Short Taglish fantasy stories for your commute.";
+      title = story?.title || title;
+      quote = story?.ogQuote || story?.excerpt || story?.description || quote;
 
       await ensureWasm();
 
@@ -230,17 +223,52 @@ export default {
 
       const pngBuffer = resvg.render().asPng();
 
+      // IMPORTANT while debugging: keep cache short so Facebook updates quickly
       return new Response(pngBuffer, {
         status: 200,
-        headers: pngHeaders("public, max-age=86400, s-maxage=86400"),
+        headers: pngHeaders("public, max-age=300, s-maxage=300"),
       });
-    } catch (err) {
-      // CRITICAL: Never let Cloudflare return an HTML error page to Facebook.
-      // Return a valid PNG fallback with correct headers.
-      return new Response(tinyTransparentPng(), {
-        status: 200,
-        headers: pngHeaders("no-store"),
-      });
+    } catch {
+      // If anything goes wrong, return a fallback PNG WITH TEXT (not blank),
+      // still with image/png content-type.
+      try {
+        await ensureWasm();
+
+        const fallbackSvg = buildSvg({
+          title,
+          quote,
+          site: SITE_LABEL,
+        });
+
+        const fontRegular = new Uint8Array(fontRegularBuffer);
+        const fontBold = new Uint8Array(fontBoldBuffer);
+
+        const resvg = new Resvg(fallbackSvg, {
+          fitTo: { mode: "width", value: 1200 },
+          font: {
+            fontBuffers: [fontRegular, fontBold],
+            defaultFontFamily: "Inter",
+          },
+        });
+
+        const fallbackPng = resvg.render().asPng();
+
+        return new Response(fallbackPng, {
+          status: 200,
+          headers: pngHeaders("no-store"),
+        });
+      } catch {
+        // Last-resort: tiny PNG (still image/png)
+        const oneByOnePng = Uint8Array.from([
+          137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
+          137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
+        ]);
+
+        return new Response(oneByOnePng, {
+          status: 200,
+          headers: pngHeaders("no-store"),
+        });
+      }
     }
   },
 };
