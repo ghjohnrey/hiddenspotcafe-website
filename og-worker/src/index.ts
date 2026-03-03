@@ -210,8 +210,8 @@ export default {
 
       const og = await getOgDataFromStory(slug);
 
-      const title = og?.title || "Hidden Spot Cafe";
-      const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
+      //const title = og?.title || "Hidden Spot Cafe";
+      //const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
 
