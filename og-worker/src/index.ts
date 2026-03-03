@@ -230,7 +230,7 @@ export default {
       // TEMP: bypass stories.json for this slug to make FB preview 100% stable
       if (slug === "beep-card-feelings") {
         const title = "The Beep Card That Charged Based on Your Feelings";
-        const quote = "Minsan, advance payment siya for relief.";
+        const quote = "Minsan, advance payment siya for relief.1";
 
         await ensureWasm();
 
