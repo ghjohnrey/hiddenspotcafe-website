@@ -175,11 +175,10 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 function pngHeaders(cacheControl: string) {
-  return {
-    "Content-Type": "image/png",
-    "Cache-Control": cacheControl,
-    "X-Content-Type-Options": "nosniff",
-  };
+return new Response(pngBuffer, {
+  status: 200,
+  headers: pngHeaders("public, max-age=300, s-maxage=300"),
+});
 }
 
 export default {
