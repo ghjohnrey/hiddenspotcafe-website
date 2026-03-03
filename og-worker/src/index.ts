@@ -187,7 +187,7 @@ export default {
     const url = new URL(request.url);
 
     // NOTE: pathname does not include ?v=2, so your cache-busting query is fine
-    const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
+    const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
     if (!match) return new Response("Not Found", { status: 404 });
 
     // If Facebook does a HEAD request, return fast with proper image headers
