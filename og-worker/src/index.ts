@@ -179,7 +179,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 /**
- * Always serve PNG headers. While debugging, we use no-store to avoid caching bad renders.
+ * Always serve PNG headers.
  */
 function pngHeaders(cacheControl: string) {
   return {
@@ -194,23 +194,20 @@ function pngHeaders(cacheControl: string) {
  */
 function tinyTransparentPng(): Uint8Array {
   return Uint8Array.from([
-    137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
-    137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
+    137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0,
+    0, 0, 31, 21, 196, 137, 0, 0, 0, 10, 73, 68, 65, 84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1, 13, 10, 45,
+    180, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130,
   ]);
 }
 
 export default {
   async fetch(request: Request): Promise<Response> {
-    // Wrap EVERYTHING so the OG route never returns 500/text.
     try {
       const url = new URL(request.url);
 
-      // Accept slug with optional -v<number> suffix:
       // /og/stories/slug.png
       // /og/stories/slug-v3.png
-      const match = url.pathname.match(
-        /^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i
-      );
+      const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
 
       // If not matching, return a PNG anyway (prevents FB seeing text/plain)
       if (!match) {
@@ -230,31 +227,34 @@ export default {
 
       const slug = match[1];
 
-			// TEMP: bypass stories.json for this slug to make FB preview 100% stable
-if (slug === "beep-card-feelings") {
-  const title = "The Beep Card That Charged Based on Your Feelings";
-  const quote = "Minsan, advance payment siya for relief.";
-  await ensureWasm();
-  const svg = buildSvg({ title, quote, site: SITE_LABEL });
+      // TEMP: bypass stories.json for this slug to make FB preview 100% stable
+      if (slug === "beep-card-feelings") {
+        const title = "The Beep Card That Charged Based on Your Feelings";
+        const quote = "Minsan, advance payment siya for relief.";
 
-  const fontRegular = new Uint8Array(fontRegularBuffer);
-  const fontBold = new Uint8Array(fontBoldBuffer);
+        await ensureWasm();
 
-  const resvg = new Resvg(svg, {
-    fitTo: { mode: "width", value: 1200 },
-    font: {
-      fontBuffers: [fontRegular, fontBold],
-      defaultFontFamily: "Inter",
-    },
-  });
+        const svg = buildSvg({ title, quote, site: SITE_LABEL });
 
-  const pngBuffer = resvg.render().asPng();
-  return new Response(pngBuffer, {
-    status: 200,
-    headers: pngHeaders("public, max-age=31536000, immutable"),
-  });
-}
-			// TEMP: bypass stories.json for this slug to make FB preview 100% stable up
+        const fontRegular = new Uint8Array(fontRegularBuffer);
+        const fontBold = new Uint8Array(fontBoldBuffer);
+
+        const resvg = new Resvg(svg, {
+          fitTo: { mode: "width", value: 1200 },
+          font: {
+            fontBuffers: [fontRegular, fontBold],
+            defaultFontFamily: "Inter",
+          },
+        });
+
+        const pngBuffer = resvg.render().asPng();
+
+        // Stable forever because you version via filename if you need changes
+        return new Response(pngBuffer, {
+          status: 200,
+          headers: pngHeaders("public, max-age=31536000, immutable"),
+        });
+      }
 
       const story = await getStoryBySlug(slug);
       const title = story?.title || "Hidden Spot Cafe";
@@ -281,7 +281,7 @@ if (slug === "beep-card-feelings") {
 
       const pngBuffer = resvg.render().asPng();
 
-      // IMPORTANT: no-store to prevent caching a "no text" bad render
+      // IMPORTANT: no-store during debugging
       return new Response(pngBuffer, {
         status: 200,
         headers: pngHeaders("no-store, max-age=0"),
