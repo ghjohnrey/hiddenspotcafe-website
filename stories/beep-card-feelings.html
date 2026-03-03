@@ -2,94 +2,146 @@
 <html lang="en">
 <head>
   <!--
-  ==========================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist)
-  ==========================================================
+  ============================================================================
+  🧠 HIDDEN SPOT CAFE – MASTER STORY TEMPLATE (ZERO ERROR SYSTEM)
+  ============================================================================
 
-  BEFORE PUBLISHING A NEW STORY, YOU MUST UPDATE THESE:
+  BEFORE YOU PUBLISH A NEW STORY, YOU MUST UPDATE ALL ITEMS BELOW.
 
-  A) Slug (must match the filename/URL)
-     - Slug example: beep-card-feelings
-     - Your story URL MUST be:
-       https://hiddenspotcafe.com/stories/<slug>
+  ----------------------------------------------------------------------------
+  🔴 SECTION 1 — SLUG (MOST IMPORTANT)
+  ----------------------------------------------------------------------------
+  Your slug must:
+  ✔ Be lowercase
+  ✔ Use hyphens only
+  ✔ Match filename exactly
+  ✔ Match OG image path exactly
+  ✔ Match share links exactly
 
-  B) Required per-story changes in THIS FILE:
-     1) <title> ... </title>
-     2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-     3) <meta property="og:title" content="..." />
-     4) <meta property="og:description" content="..." /> (short sentence)
-     5) <meta property="og:url" content="https://hiddenspotcafe.com/stories/<slug>" />
+  Example slug:
+      beep-card-feelings
 
-     6) OG image tags (MUST match slug; MUST be stable; NO ?v=, NO -vN)
-        - og:image
-        - og:image:secure_url
-        - og:image:url
-        These MUST be:
-        https://hiddenspotcafe.com/og/stories/<slug>.png
+  Final URL MUST be:
+      https://hiddenspotcafe.com/stories/<slug>
 
-     7) Twitter tags (recommended)
-        - twitter:title
-        - twitter:description
-        - twitter:image (same as og:image)
+  ----------------------------------------------------------------------------
+  🔴 SECTION 2 — REQUIRED CHANGES IN THIS FILE
+  ----------------------------------------------------------------------------
+  You MUST update ALL of the following every time:
 
-     8) OG DATA JSON (VERY IMPORTANT)
-        This is what your Worker reads to generate the image text.
-        - Update BOTH:
-          "title": "...",
-          "quote": "..."
-        - Keep it valid JSON:
-          ✅ Use double quotes only
-          ✅ No trailing commas
-          ✅ Avoid raw line breaks inside strings
+  1) <title> ... </title>
 
-     9) Page heading + excerpt
-        - <h1>...</h1>
-        - Hero <p>...</p>
+  2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
 
-     10) Share + Copy links MUST match the story URL
-         - facebook share URL: .../stories/<slug>
-         - clipboard URL:      .../stories/<slug>
+  3) <meta property="og:title" content="..." />
 
-  C) Things you MUST NOT change (to keep OG stable):
-     ❌ Do NOT add query strings like ?v=2 to og:image
-     ❌ Do NOT version og:image with -v2 unless you change it everywhere forever
-     ❌ Do NOT add multiple og:image tags (only one set)
+  4) <meta property="og:description" content="..."
+     → Short, 1 sentence only.
 
-  D) Other files to update EVERY TIME you publish a story:
-     1) /stories/index.html (or your Stories listing page)
-        - Add the new story card/link
+  5) <meta property="og:url"
+     → MUST match canonical EXACTLY.
 
-     2) /stories/stories.json (IF you still use it anywhere for listing/search)
-        - Add new story entry (title, slug, url, excerpt, tags, date, readTime)
-        - IMPORTANT: if you keep stories.json, make sure it's valid JSON
-          and served as application/json.
+  6) OG IMAGE (CRITICAL)
+     All 3 must exist and match slug:
+       og:image
+       og:image:secure_url
+       og:image:url
 
-     3) (Optional) Sitemap / robots if you have them:
-        - /sitemap.xml add the new story URL (helps SEO & discovery)
+     MUST BE:
+       https://hiddenspotcafe.com/og/stories/<slug>.png
 
-  E) After publishing (verification steps):
-     1) Open in browser:
-        - https://hiddenspotcafe.com/stories/<slug>
-        - https://hiddenspotcafe.com/og/stories/<slug>.png  (should show text)
+     ❌ DO NOT add:
+       ?v=2
+       -v2
+       multiple og:image tags
 
-     2) Verify OG tags seen by Facebook UA:
-        - curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+  7) Twitter Tags (Recommended)
+       twitter:title
+       twitter:description
+       twitter:image
 
-     3) Facebook Debugger:
-        - Scrape: https://hiddenspotcafe.com/stories/<slug>
-        - Click "Scrape Again" twice
+     Must match og values.
 
-  ==========================================================
-  END CHECKLIST
-  ==========================================================
+  8) JSON OG DATA (CRITICAL FOR WORKER)
+     This is what the Worker reads to generate the image text.
+
+     Rules:
+       ✔ Must be valid JSON
+       ✔ Use double quotes only
+       ✔ No trailing comma
+       ✔ No line breaks inside string
+       ✔ No placeholder words like "zzz"
+
+     Format:
+       <script id="og-data" type="application/json">
+       {
+         "title": "...",
+         "quote": "..."
+       }
+       </script>
+
+     Worker uses:
+       → quote (for big text)
+       → title (reserved for future use)
+
+  9) Page Visible Content
+       - <h1> must match story title
+       - Hero <p> short description
+       - Tags updated
+       - Read time updated
+
+  10) Share & Copy Links
+       Must use correct slug in:
+       - Facebook sharer URL
+       - Clipboard link
+
+  ----------------------------------------------------------------------------
+  🔴 SECTION 3 — FILES TO UPDATE EVERY NEW STORY
+  ----------------------------------------------------------------------------
+  1) /stories/index.html
+     → Add story card
+
+  2) /stories/stories.json (if used)
+     → Add object entry
+     → Validate JSON format
+     → Make sure it serves as application/json
+
+  3) sitemap.xml (if exists)
+     → Add new story URL
+
+  ----------------------------------------------------------------------------
+  🔴 SECTION 4 — POST-PUBLISH CHECKLIST
+  ----------------------------------------------------------------------------
+  1) Open:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  2) Open:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     → Must show text.
+     → Must be 1200x630.
+
+  3) Check Worker header:
+     curl -I https://hiddenspotcafe.com/og/stories/<slug>.png
+     → Must show: X-OG-Source: html
+
+  4) Facebook Debugger:
+     Scrape:
+     https://hiddenspotcafe.com/stories/<slug>
+     Click "Scrape Again" twice.
+
+  ----------------------------------------------------------------------------
+  END MASTER CHECKLIST
+  ============================================================================
   -->
 
   <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 🔴 UPDATE TITLE -->
   <title>The Beep Card That Charged Based on Your Feelings</title>
 
-  <!-- Performance hints -->
+  <!-- Performance -->
   <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
   <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
@@ -97,18 +149,20 @@
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/stories/stories.css" />
 
-  <!-- Canonical -->
+  <!-- 🔴 UPDATE CANONICAL -->
   <link rel="canonical" href="https://hiddenspotcafe.com/stories/beep-card-feelings" />
 
-  <!-- Open Graph (Facebook/Discord/etc.) -->
+  <!-- Open Graph -->
   <meta property="og:locale" content="en_PH" />
   <meta property="og:site_name" content="Hidden Spot Cafe" />
   <meta property="og:type" content="article" />
+
+  <!-- 🔴 UPDATE -->
   <meta property="og:title" content="The Beep Card That Charged Based on Your Feelings" />
   <meta property="og:description" content="A short Taglish fantasy story for your commute." />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/beep-card-feelings" />
 
-  <!-- OG Image (stable URL, no query string, no versioning) -->
+  <!-- 🔴 MUST MATCH SLUG -->
   <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/beep-card-feelings.png" />
   <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/beep-card-feelings.png" />
   <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/beep-card-feelings.png" />
@@ -117,66 +171,50 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Beep Card That Charged Based on Your Feelings" />
 
-  <!-- Twitter/X (optional but recommended) -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Beep Card That Charged Based on Your Feelings" />
   <meta name="twitter:description" content="A short Taglish fantasy story for your commute." />
   <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/beep-card-feelings.png" />
 
-  <!--
-    Data for Worker OG renderer
-    IMPORTANT:
-    - Must be valid JSON
-    - Update title + quote every story
-    - Remove placeholder text like "zzz"
-  -->
-  <script type="application/json" id="og-data">
-    {
-      "title": "The Beep Card That Charged Based on Your Feelings",
-      "quote": "Minsan, advance payment siya for relief.zzz"
-    }
+  <!-- 🔴 CRITICAL: Worker Reads This -->
+  <script id="og-data" type="application/json">
+  {
+    "title": "The Beep Card That Charged Based on Your Feelings",
+    "quote": "Minsan, advance payment siya for relief."
+  }
   </script>
 </head>
 
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
 
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-accent"></div>
     <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
+      <a href="/">
         <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo" />
       </a>
-
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/menu/">Menu</a>
+        <a href="/stories/" class="active">Stories</a>
       </div>
-
-      <button
-        class="hamburger"
-        id="hamburger"
-        type="button"
-        aria-label="Toggle navigation menu"
-        aria-controls="navLinks"
-        aria-expanded="false"
-      >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
     </div>
   </nav>
 
   <!-- Main -->
   <main class="stories-container">
+
+    <!-- 🔴 UPDATE TITLE -->
     <header class="stories-hero">
       <h1>The Beep Card That Charged Based on Your Feelings</h1>
       <p>Short Taglish fantasy read for commuters.</p>
     </header>
 
     <article class="story-reading-card">
+
+      <!-- 🔴 UPDATE META INFO -->
       <div class="story-meta">
         <span>⏱️ 2 min read</span>
         <span class="tag">#mrt</span>
@@ -184,8 +222,9 @@
         <span class="tag">#taglish</span>
       </div>
 
-      <div class="story-divider" aria-hidden="true"></div>
+      <div class="story-divider"></div>
 
+      <!-- STORY CONTENT -->
       <p>Lia noticed it on a random Tuesday.</p>
       <p>Nag-tap siya sa MRT.</p>
       <p>Instead of ₱15, the screen showed:</p>
@@ -200,60 +239,25 @@
       <p>That afternoon, she received an email.</p>
       <p><em>We regret to inform you…</em></p>
       <p>She didn’t get the internship.</p>
-      <p>That’s when she started testing it.</p>
-      <p>Every day, the fare changed.</p>
-      <p>Cheap when something good was coming.</p>
-      <p>Expensive when something painful was ahead.</p>
       <p>Then one Friday, it flashed:</p>
       <p><strong>₱0.00</strong></p>
-      <p>She smiled the whole day.</p>
-      <p>But nothing happened.</p>
-      <p>No big news.</p>
-      <p>No miracle.</p>
-      <p>That night, habang pauwi siya, her phone rang.</p>
-      <p>“Anak,” her mom said softly, “Fully paid na tayo sa hospital.”</p>
-      <p>Lia sat down slowly inside the train.</p>
-      <p>Minsan, hindi tungkol sa araw mo ang bayad.</p>
       <p><strong>Minsan, advance payment siya for relief.</strong></p>
 
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbeep-card-feelings"
-        >
+      <!-- 🔴 UPDATE SHARE LINK -->
+      <div class="story-actions">
+        <a href="/stories/">← Back to Stories</a>
+        <a target="_blank"
+           href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbeep-card-feelings">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
       </div>
+
     </article>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
-    const btn = document.getElementById("copyLinkBtn");
-
-    if (btn) {
-      btn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/beep-card-feelings");
-          btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
-          alert("Copy failed. Please copy from the address bar.");
-        }
-      });
-    }
-  </script>
 </body>
 </html>
