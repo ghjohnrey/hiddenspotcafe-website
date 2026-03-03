@@ -1,6 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--
+  ==========================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist)
+  ==========================================================
+
+  BEFORE PUBLISHING A NEW STORY, YOU MUST UPDATE THESE:
+
+  A) Slug (must match the filename/URL)
+     - Slug example: beep-card-feelings
+     - Your story URL MUST be:
+       https://hiddenspotcafe.com/stories/<slug>
+
+  B) Required per-story changes in THIS FILE:
+     1) <title> ... </title>
+     2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+     3) <meta property="og:title" content="..." />
+     4) <meta property="og:description" content="..." /> (short sentence)
+     5) <meta property="og:url" content="https://hiddenspotcafe.com/stories/<slug>" />
+
+     6) OG image tags (MUST match slug; MUST be stable; NO ?v=, NO -vN)
+        - og:image
+        - og:image:secure_url
+        - og:image:url
+        These MUST be:
+        https://hiddenspotcafe.com/og/stories/<slug>.png
+
+     7) Twitter tags (recommended)
+        - twitter:title
+        - twitter:description
+        - twitter:image (same as og:image)
+
+     8) OG DATA JSON (VERY IMPORTANT)
+        This is what your Worker reads to generate the image text.
+        - Update BOTH:
+          "title": "...",
+          "quote": "..."
+        - Keep it valid JSON:
+          ✅ Use double quotes only
+          ✅ No trailing commas
+          ✅ Avoid raw line breaks inside strings
+
+     9) Page heading + excerpt
+        - <h1>...</h1>
+        - Hero <p>...</p>
+
+     10) Share + Copy links MUST match the story URL
+         - facebook share URL: .../stories/<slug>
+         - clipboard URL:      .../stories/<slug>
+
+  C) Things you MUST NOT change (to keep OG stable):
+     ❌ Do NOT add query strings like ?v=2 to og:image
+     ❌ Do NOT version og:image with -v2 unless you change it everywhere forever
+     ❌ Do NOT add multiple og:image tags (only one set)
+
+  D) Other files to update EVERY TIME you publish a story:
+     1) /stories/index.html (or your Stories listing page)
+        - Add the new story card/link
+
+     2) /stories/stories.json (IF you still use it anywhere for listing/search)
+        - Add new story entry (title, slug, url, excerpt, tags, date, readTime)
+        - IMPORTANT: if you keep stories.json, make sure it's valid JSON
+          and served as application/json.
+
+     3) (Optional) Sitemap / robots if you have them:
+        - /sitemap.xml add the new story URL (helps SEO & discovery)
+
+  E) After publishing (verification steps):
+     1) Open in browser:
+        - https://hiddenspotcafe.com/stories/<slug>
+        - https://hiddenspotcafe.com/og/stories/<slug>.png  (should show text)
+
+     2) Verify OG tags seen by Facebook UA:
+        - curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+     3) Facebook Debugger:
+        - Scrape: https://hiddenspotcafe.com/stories/<slug>
+        - Click "Scrape Again" twice
+
+  ==========================================================
+  END CHECKLIST
+  ==========================================================
+  -->
+
   <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +123,13 @@
   <meta name="twitter:description" content="A short Taglish fantasy story for your commute." />
   <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/beep-card-feelings.png" />
 
-  <!-- Data for Worker OG renderer -->
+  <!--
+    Data for Worker OG renderer
+    IMPORTANT:
+    - Must be valid JSON
+    - Update title + quote every story
+    - Remove placeholder text like "zzz"
+  -->
   <script type="application/json" id="og-data">
     {
       "title": "The Beep Card That Charged Based on Your Feelings",
