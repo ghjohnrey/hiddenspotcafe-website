@@ -330,7 +330,7 @@ export default {
 
       const quote =
         (data?.quote && String(data.quote).trim()) ||
-        "Short Taglish fantasy stories for your commute.";
+        "Short Taglish stories for your commute.";
 
       const pngBuffer = await renderPngFull(quote);
 
