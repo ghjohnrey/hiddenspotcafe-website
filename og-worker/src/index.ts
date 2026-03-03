@@ -70,7 +70,7 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
  * line 2: Hidden Spot Cafe
  * line 3: quote
  *
- * NOTE: title is still accepted in opts for compatibility, but not displayed.
+ * NOTE: title is still accepted for compatibility, but not displayed in image.
  */
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
   const safeSite = escapeXml(opts.site).slice(0, 60);
@@ -86,11 +86,9 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
   const lines = wrapLines(safeQuote, 26, 4);
   const lineHeight = 58;
 
-  // Move quote area slightly down to make room for the 2 header lines
   const quotePanelY = outerPadding + 170;
   const quotePanelH = 270;
 
-  // Center quote vertically inside the quote panel
   const quoteCenterY = quotePanelY + quotePanelH / 2;
   const totalTextHeight = (lines.length - 1) * lineHeight;
   const firstLineY = Math.round(quoteCenterY - totalTextHeight / 2);
@@ -112,12 +110,10 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       </filter>
     </defs>
 
-    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
-    <!-- card -->
     <rect
       x="${outerPadding}"
       y="${outerPadding}"
@@ -129,7 +125,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       filter="url(#shadow)"
     />
 
-    <!-- Header line 1 -->
+    <!-- Line 1 -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 70}"
@@ -139,7 +135,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${escapeXml(header1)}
     </text>
 
-    <!-- Header line 2 -->
+    <!-- Line 2 -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 125}"
@@ -161,7 +157,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       opacity="0.35"
     />
 
-    <!-- Quote text -->
+    <!-- Quote -->
     <text
       text-anchor="middle"
       font-family="Inter"
@@ -174,14 +170,33 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 /**
- * Fetch the story HTML and extract:
+ * Extract:
  * <script type="application/json" id="og-data">...</script>
+ *
+ * FIX: attribute order does NOT matter now.
  */
-async function getOgDataFromStory(slug: string): Promise<OgData | null> {
-  const storyUrl = `https://hiddenspotcafe.com/stories/${slug}`;
+function extractOgDataFromHtml(html: string): OgData | null {
+  // Requires both id="og-data" and type="application/json" in ANY order
+  const re =
+    /<script\b(?=[^>]*\bid=["']og-data["'])(?=[^>]*\btype=["']application\/json["'])[^>]*>([\s\S]*?)<\/script>/i;
+
+  const m = html.match(re);
+  if (!m?.[1]) return null;
+
+  const jsonText = m[1].trim();
+  if (!jsonText) return null;
 
   try {
-    const res = await fetch(storyUrl, {
+    const data = JSON.parse(jsonText) as OgData;
+    return data && (data.title || data.quote) ? data : null;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchStoryHtml(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url, {
       headers: {
         "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
         accept: "text/html,*/*",
@@ -191,20 +206,40 @@ async function getOgDataFromStory(slug: string): Promise<OgData | null> {
 
     if (!res.ok) return null;
 
-    const html = await res.text();
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("text/html")) {
+      // still allow, but usually HTML is expected
+      // (some setups send text/plain but still HTML content)
+    }
 
-    const re =
-      /<script[^>]*id=["']og-data["'][^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i;
-    const m = html.match(re);
-    if (!m?.[1]) return null;
-
-    const jsonText = m[1].trim();
-    const data = JSON.parse(jsonText) as OgData;
-
-    return data && (data.title || data.quote) ? data : null;
+    return await res.text();
   } catch {
     return null;
   }
+}
+
+/**
+ * Try both:
+ * /stories/<slug>
+ * /stories/<slug>.html
+ */
+async function getOgDataFromStory(slug: string): Promise<OgData | null> {
+  const url1 = `https://hiddenspotcafe.com/stories/${slug}`;
+  const url2 = `https://hiddenspotcafe.com/stories/${slug}.html`;
+
+  const html1 = await fetchStoryHtml(url1);
+  if (html1) {
+    const data1 = extractOgDataFromHtml(html1);
+    if (data1) return data1;
+  }
+
+  const html2 = await fetchStoryHtml(url2);
+  if (html2) {
+    const data2 = extractOgDataFromHtml(html2);
+    if (data2) return data2;
+  }
+
+  return null;
 }
 
 export default {
@@ -215,7 +250,7 @@ export default {
       // /og/stories/slug.png or /og/stories/slug-v123.png
       const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
 
-      // Not an OG route: return a PNG anyway (prevents FB seeing text/plain)
+      // Not OG route -> return PNG fallback (prevents FB seeing text/plain)
       if (!match) {
         return new Response(tinyTransparentPng(), {
           status: 200,
@@ -223,7 +258,7 @@ export default {
         });
       }
 
-      // Some bots do HEAD first
+      // Bots sometimes do HEAD first
       if (request.method === "HEAD") {
         return new Response(null, {
           status: 200,
@@ -235,9 +270,10 @@ export default {
 
       const og = await getOgDataFromStory(slug);
 
-      // Title is kept for compatibility, but not shown in the image now
+      // title is not displayed in image (kept for compatibility)
       const title = og?.title || SITE_LABEL;
 
+      // quote MUST come from og-data if present
       const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
