@@ -1,26 +1,14 @@
-/**
- * OG Image Generator (Mobile Safe Layout)
- * - Supports /og/stories/<slug>.png AND /og/stories/<slug>-v123.png
- * - NEVER returns 500/text/html/text/plain for OG image routes
- * - Always returns image/png (real image OR fallback)
- * - Uses no-store to avoid caching "bad" renders (missing text)
- */
-
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
 import wasmBinary from "@resvg/resvg-wasm/index_bg.wasm";
 
 import fontRegularBuffer from "./fonts/Inter_18pt-Regular.ttf";
 import fontBoldBuffer from "./fonts/Inter_18pt-Bold.ttf";
 
-const STORIES_JSON_URL = "https://hiddenspotcafe.com/stories/stories.json";
 const SITE_LABEL = "Hidden Spot Cafe";
 
-type Story = {
-  slug?: string;
+type OgData = {
   title?: string;
-  excerpt?: string;
-  ogQuote?: string;
-  description?: string;
+  quote?: string;
 };
 
 let wasmInit: Promise<void> | null = null;
@@ -28,6 +16,22 @@ let wasmInit: Promise<void> | null = null;
 async function ensureWasm() {
   if (!wasmInit) wasmInit = initWasm(wasmBinary);
   await wasmInit;
+}
+
+function pngHeaders(cacheControl: string) {
+  return {
+    "Content-Type": "image/png",
+    "Cache-Control": cacheControl,
+    "X-Content-Type-Options": "nosniff",
+  };
+}
+
+function tinyTransparentPng(): Uint8Array {
+  return Uint8Array.from([
+    137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0,
+    0, 0, 31, 21, 196, 137, 0, 0, 0, 10, 73, 68, 65, 84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1, 13, 10, 45,
+    180, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130,
+  ]);
 }
 
 function escapeXml(str = ""): string {
@@ -60,38 +64,11 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   return lines;
 }
 
-/**
- * NEVER throw here — if stories.json fails or returns HTML, return null.
- */
-async function getStoryBySlug(slug: string): Promise<Story | null> {
-  try {
-    const res = await fetch(STORIES_JSON_URL, {
-      cf: { cacheTtl: 300, cacheEverything: true },
-      headers: {
-        accept: "application/json,text/plain,*/*",
-        "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
-      },
-    });
-
-    if (!res.ok) return null;
-
-    const ct = res.headers.get("content-type") || "";
-    if (!ct.includes("application/json")) return null;
-
-    const data: any = await res.json();
-    const stories: Story[] = Array.isArray(data) ? data : data?.stories || [];
-    return stories.find((s) => s.slug === slug) || null;
-  } catch {
-    return null;
-  }
-}
-
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
   const safeTitle = escapeXml(opts.title).slice(0, 90);
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml(opts.quote).slice(0, 260);
 
-  // SAFE ZONE PADDING
   const outerPadding = 120;
   const cardWidth = 1200 - outerPadding * 2;
   const cardHeight = 630 - outerPadding * 2;
@@ -111,18 +88,15 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
         <stop offset="0%" stop-color="#0b0f19"/>
         <stop offset="100%" stop-color="#1f2a44"/>
       </linearGradient>
-
       <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="12" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
       </filter>
     </defs>
 
-    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
-    <!-- SAFE AREA CARD -->
     <rect
       x="${outerPadding}"
       y="${outerPadding}"
@@ -134,7 +108,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       filter="url(#shadow)"
     />
 
-    <!-- Site -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 70}"
@@ -144,7 +117,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeSite}
     </text>
 
-    <!-- Title -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 130}"
@@ -155,7 +127,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeTitle}
     </text>
 
-    <!-- Quote Panel -->
     <rect
       x="${outerPadding + 60}"
       y="${outerPadding + 180}"
@@ -166,7 +137,6 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       opacity="0.35"
     />
 
-    <!-- Quote -->
     <text
       text-anchor="middle"
       font-family="Inter"
@@ -179,25 +149,38 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 /**
- * Always serve PNG headers.
+ * Fetch the story HTML and extract:
+ * <script type="application/json" id="og-data">...</script>
  */
-function pngHeaders(cacheControl: string) {
-  return {
-    "Content-Type": "image/png",
-    "Cache-Control": cacheControl,
-    "X-Content-Type-Options": "nosniff",
-  };
-}
+async function getOgDataFromStory(slug: string): Promise<OgData | null> {
+  const storyUrl = `https://hiddenspotcafe.com/stories/${slug}`;
 
-/**
- * Minimal valid 1x1 transparent PNG (last-resort fallback).
- */
-function tinyTransparentPng(): Uint8Array {
-  return Uint8Array.from([
-    137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0,
-    0, 0, 31, 21, 196, 137, 0, 0, 0, 10, 73, 68, 65, 84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1, 13, 10, 45,
-    180, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130,
-  ]);
+  try {
+    const res = await fetch(storyUrl, {
+      headers: {
+        // make it crawler-friendly
+        "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
+        accept: "text/html,*/*",
+      },
+      cf: { cacheTtl: 300, cacheEverything: true },
+    });
+
+    if (!res.ok) return null;
+
+    const html = await res.text();
+
+    // Very simple extraction (no DOM needed)
+    const re = /<script[^>]*id=["']og-data["'][^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i;
+    const m = html.match(re);
+    if (!m?.[1]) return null;
+
+    const jsonText = m[1].trim();
+    const data = JSON.parse(jsonText) as OgData;
+
+    return data && (data.title || data.quote) ? data : null;
+  } catch {
+    return null;
+  }
 }
 
 export default {
@@ -205,64 +188,30 @@ export default {
     try {
       const url = new URL(request.url);
 
-      // /og/stories/slug.png
-      // /og/stories/slug-v3.png
+      // /og/stories/slug.png or /og/stories/slug-v4.png
       const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
 
-      // If not matching, return a PNG anyway (prevents FB seeing text/plain)
+      // If not matching OG route, return fallback PNG (keeps FB happy)
       if (!match) {
         return new Response(tinyTransparentPng(), {
           status: 200,
-          headers: pngHeaders("no-store, max-age=0"),
+          headers: pngHeaders("public, max-age=86400"),
         });
       }
 
-      // HEAD support (bots sometimes do HEAD first)
       if (request.method === "HEAD") {
         return new Response(null, {
-          status: 200,
-          headers: pngHeaders("no-store, max-age=0"),
-        });
-      }
-
-      const slug = match[1];
-
-      // TEMP: bypass stories.json for this slug to make FB preview 100% stable
-      if (slug === "beep-card-feelings") {
-        const title = "The Beep Card That Charged Based on Your Feelings";
-        const quote = "Minsan, advance payment siya for relief.1";
-
-        await ensureWasm();
-
-        const svg = buildSvg({ title, quote, site: SITE_LABEL });
-
-        const fontRegular = new Uint8Array(fontRegularBuffer);
-        const fontBold = new Uint8Array(fontBoldBuffer);
-
-        const resvg = new Resvg(svg, {
-          fitTo: { mode: "width", value: 1200 },
-          font: {
-            fontBuffers: [fontRegular, fontBold],
-            defaultFontFamily: "Inter",
-          },
-        });
-
-        const pngBuffer = resvg.render().asPng();
-
-        // Stable forever because you version via filename if you need changes
-        return new Response(pngBuffer, {
           status: 200,
           headers: pngHeaders("public, max-age=31536000, immutable"),
         });
       }
 
-      const story = await getStoryBySlug(slug);
-      const title = story?.title || "Hidden Spot Cafe";
-      const quote =
-        story?.ogQuote ||
-        story?.excerpt ||
-        story?.description ||
-        "Short Taglish fantasy stories for your commute.";
+      const slug = match[1];
+
+      const og = await getOgDataFromStory(slug);
+
+      const title = og?.title || "Hidden Spot Cafe";
+      const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
 
@@ -281,16 +230,15 @@ export default {
 
       const pngBuffer = resvg.render().asPng();
 
-      // IMPORTANT: no-store during debugging
+      // Stable URL per story => safe to cache forever
       return new Response(pngBuffer, {
         status: 200,
-        headers: pngHeaders("no-store, max-age=0"),
+        headers: pngHeaders("public, max-age=31536000, immutable"),
       });
     } catch {
-      // Last resort: ALWAYS return a PNG (never 500/text/plain/html)
       return new Response(tinyTransparentPng(), {
         status: 200,
-        headers: pngHeaders("no-store, max-age=0"),
+        headers: pngHeaders("public, max-age=86400"),
       });
     }
   },
