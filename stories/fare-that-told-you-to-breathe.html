@@ -2,91 +2,164 @@
 <html lang="en">
 <head>
   <!--
-  ==========================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist)
-  ==========================================================
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
 
-  BEFORE PUBLISHING A NEW STORY, YOU MUST UPDATE THESE:
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
 
-  A) Slug (must match the filename/URL)
-     - Slug example: beep-card-feelings
-     - Your story URL MUST be:
-       https://hiddenspotcafe.com/stories/<slug>
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
 
-  B) Required per-story changes in THIS FILE:
-     1) <title> ... </title>
-     2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-     3) <meta property="og:title" content="..." />
-     4) <meta property="og:description" content="..." /> (short sentence)
-     5) <meta property="og:url" content="https://hiddenspotcafe.com/stories/<slug>" />
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
 
-     6) OG image tags (MUST match slug; MUST be stable; NO ?v=, NO -vN)
-        - og:image
-        - og:image:secure_url
-        - og:image:url
-        These MUST be:
-        https://hiddenspotcafe.com/og/stories/<slug>.png
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
 
-     7) Twitter tags (recommended)
-        - twitter:title
-        - twitter:description
-        - twitter:image (same as og:image)
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
 
-     8) OG DATA JSON (VERY IMPORTANT)
-        This is what your Worker reads to generate the image text.
-        - Update BOTH:
-          "title": "...",
-          "quote": "..."
-        - Keep it valid JSON:
-          ✅ Use double quotes only
-          ✅ No trailing commas
-          ✅ Avoid raw line breaks inside strings
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
 
-     9) Page heading + excerpt
-        - <h1>...</h1>
-        - Hero <p>...</p>
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
 
-     10) Share + Copy links MUST match the story URL
-         - facebook share URL: .../stories/<slug>
-         - clipboard URL:      .../stories/<slug>
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
 
-  C) Things you MUST NOT change (to keep OG stable):
-     ❌ Do NOT add query strings like ?v=2 to og:image
-     ❌ Do NOT version og:image with -v2 unless you change it everywhere forever
-     ❌ Do NOT add multiple og:image tags (only one set)
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
 
-  D) Other files to update EVERY TIME you publish a story:
-     1) /stories/index.html (or your Stories listing page)
-        - Add the new story card/link
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
 
-     2) /stories/stories.json (IF you still use it anywhere for listing/search)
-        - Add new story entry (title, slug, url, excerpt, tags, date, readTime)
-        - IMPORTANT: if you keep stories.json, make sure it's valid JSON
-          and served as application/json.
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
 
-     3) (Optional) Sitemap / robots if you have them:
-        - /sitemap.xml add the new story URL (helps SEO & discovery)
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
 
-  E) After publishing (verification steps):
-     1) Open in browser:
-        - https://hiddenspotcafe.com/stories/<slug>
-        - https://hiddenspotcafe.com/og/stories/<slug>.png  (should show text)
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
 
-     2) Verify OG tags seen by Facebook UA:
-        - curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
 
-     3) Facebook Debugger:
-        - Scrape: https://hiddenspotcafe.com/stories/<slug>
-        - Click "Scrape Again" twice
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
 
-  ==========================================================
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
   END CHECKLIST
-  ==========================================================
+  =====================================================================
   -->
 
   <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
   <title>The Fare That Told You to Breathe</title>
 
   <!-- Performance hints -->
@@ -97,18 +170,20 @@
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/stories/stories.css" />
 
-  <!-- Canonical -->
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
   <link rel="canonical" href="https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe" />
 
-  <!-- Open Graph (Facebook/Discord/etc.) -->
+  <!-- Open Graph -->
   <meta property="og:locale" content="en_PH" />
   <meta property="og:site_name" content="Hidden Spot Cafe" />
   <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
   <meta property="og:title" content="The Fare That Told You to Breathe" />
   <meta property="og:description" content="A short Taglish commute story about pauses you didn’t know you needed." />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe" />
 
-  <!-- OG Image (stable URL, no query string, no versioning) -->
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
   <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
   <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
   <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
@@ -117,7 +192,7 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Fare That Told You to Breathe" />
 
-  <!-- Twitter/X (optional but recommended) -->
+  <!-- Twitter/X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Fare That Told You to Breathe" />
   <meta name="twitter:description" content="A short Taglish commute story about pauses you didn’t know you needed." />
@@ -125,10 +200,8 @@
 
   <!--
     Data for Worker OG renderer
-    IMPORTANT:
-    - Must be valid JSON
-    - Update title + quote every story
-    - Remove placeholder text like "zzz"
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
   -->
   <script type="application/json" id="og-data">
     {
@@ -172,12 +245,14 @@
   <!-- Main -->
   <main class="stories-container">
     <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
       <h1>The Fare That Told You to Breathe</h1>
       <p>Short Taglish commute story for people just trying to get through the day.</p>
     </header>
 
     <article class="story-reading-card">
       <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
         <span>⏱️ 3 min read</span>
         <span class="tag">#commute</span>
         <span class="tag">#urban</span>
@@ -282,10 +357,10 @@
       <p>Hindi yung card ang magic.</p>
       <p>Yung magic yung paalala na minsan, hindi mo kailangan ng faster ride—</p>
       <p><strong>kailangan mo lang ng pause.</strong></p>
-
       <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
 
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
         <a
           class="action-btn"
           target="_blank"
@@ -313,6 +388,7 @@
     if (btn) {
       btn.addEventListener("click", async () => {
         try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe");
           btn.textContent = "✅ Copied!";
           setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
@@ -324,3 +400,5 @@
   </script>
 </body>
 </html>
+
+   
