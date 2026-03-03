@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  ==========================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist)
+  ==========================================================
+
+  BEFORE PUBLISHING A NEW STORY, YOU MUST UPDATE THESE:
+
+  A) Slug (must match the filename/URL)
+     - Slug example: beep-card-feelings
+     - Your story URL MUST be:
+       https://hiddenspotcafe.com/stories/<slug>
+
+  B) Required per-story changes in THIS FILE:
+     1) <title> ... </title>
+     2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+     3) <meta property="og:title" content="..." />
+     4) <meta property="og:description" content="..." /> (short sentence)
+     5) <meta property="og:url" content="https://hiddenspotcafe.com/stories/<slug>" />
+
+     6) OG image tags (MUST match slug; MUST be stable; NO ?v=, NO -vN)
+        - og:image
+        - og:image:secure_url
+        - og:image:url
+        These MUST be:
+        https://hiddenspotcafe.com/og/stories/<slug>.png
+
+     7) Twitter tags (recommended)
+        - twitter:title
+        - twitter:description
+        - twitter:image (same as og:image)
+
+     8) OG DATA JSON (VERY IMPORTANT)
+        This is what your Worker reads to generate the image text.
+        - Update BOTH:
+          "title": "...",
+          "quote": "..."
+        - Keep it valid JSON:
+          ✅ Use double quotes only
+          ✅ No trailing commas
+          ✅ Avoid raw line breaks inside strings
+
+     9) Page heading + excerpt
+        - <h1>...</h1>
+        - Hero <p>...</p>
+
+     10) Share + Copy links MUST match the story URL
+         - facebook share URL: .../stories/<slug>
+         - clipboard URL:      .../stories/<slug>
+
+  C) Things you MUST NOT change (to keep OG stable):
+     ❌ Do NOT add query strings like ?v=2 to og:image
+     ❌ Do NOT version og:image with -v2 unless you change it everywhere forever
+     ❌ Do NOT add multiple og:image tags (only one set)
+
+  D) Other files to update EVERY TIME you publish a story:
+     1) /stories/index.html (or your Stories listing page)
+        - Add the new story card/link
+
+     2) /stories/stories.json (IF you still use it anywhere for listing/search)
+        - Add new story entry (title, slug, url, excerpt, tags, date, readTime)
+        - IMPORTANT: if you keep stories.json, make sure it's valid JSON
+          and served as application/json.
+
+     3) (Optional) Sitemap / robots if you have them:
+        - /sitemap.xml add the new story URL (helps SEO & discovery)
+
+  E) After publishing (verification steps):
+     1) Open in browser:
+        - https://hiddenspotcafe.com/stories/<slug>
+        - https://hiddenspotcafe.com/og/stories/<slug>.png  (should show text)
+
+     2) Verify OG tags seen by Facebook UA:
+        - curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+     3) Facebook Debugger:
+        - Scrape: https://hiddenspotcafe.com/stories/<slug>
+        - Click "Scrape Again" twice
+
+  ==========================================================
+  END CHECKLIST
+  ==========================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fare That Told You to Breathe</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe" />
+
+  <!-- Open Graph (Facebook/Discord/etc.) -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="The Fare That Told You to Breathe" />
+  <meta property="og:description" content="A short Taglish commute story about pauses you didn’t know you needed." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe" />
+
+  <!-- OG Image (stable URL, no query string, no versioning) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Fare That Told You to Breathe" />
+
+  <!-- Twitter/X (optional but recommended) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Fare That Told You to Breathe" />
+  <meta name="twitter:description" content="A short Taglish commute story about pauses you didn’t know you needed." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/fare-that-told-you-to-breathe.png" />
+
+  <!--
+    Data for Worker OG renderer
+    IMPORTANT:
+    - Must be valid JSON
+    - Update title + quote every story
+    - Remove placeholder text like "zzz"
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Fare That Told You to Breathe",
+      "quote": "Minsan, hindi mo kailangan ng faster ride—kailangan mo lang ng pause."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <h1>The Fare That Told You to Breathe</h1>
+      <p>Short Taglish commute story for people just trying to get through the day.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#commute</span>
+        <span class="tag">#urban</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Sumabay ako sa rush hour na parang sumasabak sa game na walang tutorial.</p>
+      <p>Left hand: tote bag. Right hand: phone na 8% na lang. Sa isip ko: “Okay lang. Isang sakay na lang.”</p>
+      <p>Pagdating sa station, dikit-dikit na ang mga tao—students na may ID lace, workers na may lanyard, at mga tita na may ecobag na parang armor.</p>
+      <p>Huminga ako ng malalim, tapos pumila.</p>
+
+      <p>Pag-tap ko sa card, may tunog na <em>beep</em>… pero hindi yung normal.</p>
+      <p>Parang may extra click, tapos may lumabas na text sa screen na hindi ko pa nakita kahit kailan.</p>
+      <p><strong>FARE: ₱13.00</strong></p>
+      <p><strong>NOTE: “Slow down. Hindi ka late sa buhay.”</strong></p>
+
+      <p>Napatigil ako. “Ha?”</p>
+      <p>Akala ko prank. Baka bagong system? Baka nagloloko lang yung reader.</p>
+      <p>Pero the guard didn’t even react. Parang normal lang sa kanya na may message yung pamasahe.</p>
+
+      <p>Sa platform, nag-check ako ng card balance sa app.</p>
+      <p>₱13.00 nga ang nabawas. Walang ibang charge. Walang weird na transaction name.</p>
+      <p>Pero yung message…</p>
+
+      <p>Inside the train, siksikan. May nag-aaway na elbow. May nagti-TikTok na naka-full volume. May batang umiiyak na parang alarm clock.</p>
+      <p>At ako, naka-stuck sa isang thought: <em>Paano niya alam?</em></p>
+
+      <p>Pagbaba ko, nahuli ako sa meeting. Five minutes.</p>
+      <p>Expected ko na sermon. Expected ko na yung “We value punctuality” speech.</p>
+      <p>Pero pagpasok ko, sabi ng boss ko, “Ay, good timing ka. Na-move tayo ng 10 minutes. May delay din client.”</p>
+      <p>Parang may humawak sa araw ko at sinabing, “Sige, dito ka muna.”</p>
+
+      <p>Next day, same routine. Same pagod.</p>
+      <p>Pag-tap ko ulit…</p>
+      <p><strong>FARE: ₱28.00</strong></p>
+      <p><strong>NOTE: “Today, choose kindness. Kahit sa sarili mo.”</strong></p>
+
+      <p>“Ang mahal ah,” bulong ko.</p>
+      <p>At honestly, mas mahal yung note kaysa sa pamasahe.</p>
+
+      <p>That day, sunod-sunod yung small hits.</p>
+      <p>Nag-crash yung laptop ko habang nag-e-edit ako. Naubos yung load ko. May pasaherong sumingit sa pila na parang wala lang.</p>
+      <p>Inis na inis na ako.</p>
+      <p>Pero naalala ko yung note.</p>
+      <p>So instead na patulan, umatras na lang ako.</p>
+      <p>Instead na magmura, uminom ako ng tubig.</p>
+      <p>Instead na mag-“wala na talaga,” nag-message ako sa sarili ko sa notes app: <em>“Okay lang. One thing at a time.”</em></p>
+
+      <p>Pag-uwi ko, pagod pa rin—pero hindi wasak.</p>
+      <p>And that felt… new.</p>
+
+      <p>After a week, naging habit ko nang i-check yung fare like it’s a horoscope I actually trust.</p>
+      <p>May mga araw na ₱11.00 tapos note: “Smile. May good news.”</p>
+      <p>May araw na ₱31.00 tapos note: “Keep your head down. Not everything needs your reaction.”</p>
+      <p>Hindi perfect yung predictions, pero laging sakto yung reminder.</p>
+
+      <p>Hanggang sa isang Monday na sobrang bigat.</p>
+      <p>Yung klase ng Monday na kahit kape, parang hindi kaya.</p>
+      <p>Pag-tap ko… huminto yung screen for a second.</p>
+      <p>Tapos lumabas:</p>
+      <p><strong>FARE: ₱0.00</strong></p>
+      <p><strong>NOTE: “Stop. Umupo ka muna.”</strong></p>
+
+      <p>Natawa ako, pero nanginginig yung kamay ko.</p>
+      <p>“Libre? Pero… bakit?”</p>
+
+      <p>Sumakay pa rin ako. Pero imbes na lumaban sa crowd, bumaba ako sa next station.</p>
+      <p>May bench doon sa gilid. Umupo ako. Tinanggal ko yung bag ko na parang may laman na bato.</p>
+      <p>At doon ko lang napansin: hindi na pala normal yung paghinga ko. Ang bilis. Ang shallow.</p>
+
+      <p>Parang buong linggo akong naka-hold breath.</p>
+
+      <p>Binuksan ko yung phone ko—may missed calls.</p>
+      <p>Galing sa kapatid ko.</p>
+      <p>Tumawag ako pabalik.</p>
+
+      <p>“Uy,” sagot niya, medyo hingal. “Okay ka lang?”</p>
+      <p>“Ikaw… okay ka lang?”</p>
+      <p>“Nasa clinic ako. Nahilo ako kanina. Pero okay na. Sabi ng nurse, stress. Hindi ako kumakain nang maayos.”</p>
+      <p>Napatulala ako.</p>
+
+      <p>“Akala ko kaya ko lahat,” sabi niya, mahina.</p>
+      <p>At doon ko naramdaman yung bigat—hindi dahil emergency… kundi dahil muntik ko nang hindi mapansin.</p>
+      <p>Busy ako masyado maging strong sa commute, sa work, sa deadlines…</p>
+      <p>Hindi ko na nakita yung mga tao kong kailangan ko ring alagaan.</p>
+
+      <p>“Puntahan kita,” sabi ko agad.</p>
+      <p>“Hindi ka ba late?”</p>
+      <p>Tumingin ako sa card sa kamay ko.</p>
+      <p>₱0.00.</p>
+      <p>Parang sinasabi ng mundo: <em>Hindi ito yung araw para maging mabilis.</em></p>
+
+      <p>“Okay lang,” sagot ko. “Hindi ako late sa buhay.”</p>
+
+      <p>Pauwi, nag-tap ako ulit, curious.</p>
+      <p>May lumabas na normal na fare—₱15.00.</p>
+      <p>Walang note.</p>
+
+      <p>Pero this time, gets ko na.</p>
+      <p>Hindi yung card ang magic.</p>
+      <p>Yung magic yung paalala na minsan, hindi mo kailangan ng faster ride—</p>
+      <p><strong>kailangan mo lang ng pause.</strong></p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Ffare-that-told-you-to-breathe"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/fare-that-told-you-to-breathe");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
