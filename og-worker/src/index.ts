@@ -1,3 +1,14 @@
+/**
+ * Hidden Spot Cafe - OG Image Worker
+ *
+ * Generates 1200x630 PNG OG images at:
+ *   /og/stories/<slug>.png
+ *   /og/stories/<slug>-v123.png
+ *
+ * Adds debug header:
+ *   X-OG-Source: html | html-dot | fallback
+ */
+
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
 import wasmBinary from "@resvg/resvg-wasm/index_bg.wasm";
 
@@ -13,27 +24,40 @@ type OgData = {
 
 let wasmInit: Promise<void> | null = null;
 
+/**
+ * Ensure WASM initializes only once
+ */
 async function ensureWasm() {
   if (!wasmInit) wasmInit = initWasm(wasmBinary);
   await wasmInit;
 }
 
-function pngHeaders(cacheControl: string) {
+/**
+ * Standard PNG headers + custom debug header
+ */
+function pngHeaders(cacheControl: string, source: string) {
   return {
     "Content-Type": "image/png",
     "Cache-Control": cacheControl,
     "X-Content-Type-Options": "nosniff",
+    "X-OG-Source": source, // 👈 DEBUG HEADER
   };
 }
 
+/**
+ * Tiny fallback for NON-OG routes only
+ */
 function tinyTransparentPng(): Uint8Array {
   return Uint8Array.from([
-    137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0,
-    0, 0, 31, 21, 196, 137, 0, 0, 0, 10, 73, 68, 65, 84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1, 13, 10, 45,
-    180, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130,
+    137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,
+    0,0,31,21,196,137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,
+    45,180,0,0,0,0,73,69,78,68,174,66,96,130
   ]);
 }
 
+/**
+ * Escape text for safe SVG rendering
+ */
 function escapeXml(str = ""): string {
   return str
     .replace(/&/g, "&amp;")
@@ -43,6 +67,9 @@ function escapeXml(str = ""): string {
     .replace(/'/g, "&apos;");
 }
 
+/**
+ * Basic line wrapping
+ */
 function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   const words = (text || "").trim().split(/\s+/).filter(Boolean);
   const lines: string[] = [];
@@ -50,7 +77,6 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 
   for (const w of words) {
     const next = current ? `${current} ${w}` : w;
-
     if (next.length <= maxCharsPerLine) {
       current = next;
     } else {
@@ -64,21 +90,33 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   return lines;
 }
 
-function buildSvg(opts: { title: string; quote: string; site: string }): string {
-  const safeTitle = escapeXml(opts.title).slice(0, 90);
-  const safeSite = escapeXml(opts.site).slice(0, 60);
-  const safeQuote = escapeXml(opts.quote).slice(0, 260);
+/**
+ * Build 1200x630 SVG layout
+ *
+ * Layout:
+ * Line 1: Story time at
+ * Line 2: Hidden Spot Cafe
+ * Line 3+: Quote
+ */
+function buildSvg(quote: string): string {
+  const safeQuote = escapeXml(quote).slice(0, 260);
 
   const outerPadding = 120;
   const cardWidth = 1200 - outerPadding * 2;
   const cardHeight = 630 - outerPadding * 2;
 
   const lines = wrapLines(safeQuote, 26, 4);
-  const baseY = 380;
   const lineHeight = 58;
 
+  const quotePanelY = outerPadding + 170;
+  const quotePanelH = 270;
+  const quoteCenterY = quotePanelY + quotePanelH / 2;
+
+  const totalTextHeight = (lines.length - 1) * lineHeight;
+  const firstLineY = Math.round(quoteCenterY - totalTextHeight / 2);
+
   const tspans = lines
-    .map((ln, i) => `<tspan x="600" y="${baseY + i * lineHeight}">${ln}</tspan>`)
+    .map((ln, i) => `<tspan x="600" y="${firstLineY + i * lineHeight}">${ln}</tspan>`)
     .join("");
 
   return `
@@ -88,14 +126,9 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
         <stop offset="0%" stop-color="#0b0f19"/>
         <stop offset="100%" stop-color="#1f2a44"/>
       </linearGradient>
-      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="12" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
-      </filter>
     </defs>
 
     <rect width="1200" height="630" fill="url(#bg)"/>
-    <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
-    <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
     <rect
       x="${outerPadding}"
@@ -104,41 +137,32 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       height="${cardHeight}"
       rx="36"
       fill="#0f172a"
-      opacity="0.88"
-      filter="url(#shadow)"
+      opacity="0.9"
     />
 
-    <text
-      x="${outerPadding + 60}"
-      y="${outerPadding + 70}"
-      font-family="Inter"
-      font-size="26"
-      fill="#a5b4fc">
-      ${safeSite}
+    <!-- Header -->
+    <text x="${outerPadding + 60}" y="${outerPadding + 70}"
+      font-family="Inter" font-size="26" fill="#a5b4fc">
+      Story time at
     </text>
 
-    <text
-      x="${outerPadding + 60}"
-      y="${outerPadding + 130}"
-      font-family="Inter"
-      font-size="38"
-      font-weight="800"
-      fill="#ffffff">
-      ${safeTitle}
+    <text x="${outerPadding + 60}" y="${outerPadding + 125}"
+      font-family="Inter" font-size="40" font-weight="800" fill="#ffffff">
+      ${SITE_LABEL}
     </text>
 
+    <!-- Quote panel -->
     <rect
       x="${outerPadding + 60}"
-      y="${outerPadding + 180}"
+      y="${quotePanelY}"
       width="${cardWidth - 120}"
-      height="260"
+      height="${quotePanelH}"
       rx="28"
       fill="#000000"
       opacity="0.35"
     />
 
-    <text
-      text-anchor="middle"
+    <text text-anchor="middle"
       font-family="Inter"
       font-size="54"
       font-weight="800"
@@ -149,96 +173,123 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 /**
- * Fetch the story HTML and extract:
- * <script type="application/json" id="og-data">...</script>
+ * Extract og-data JSON safely (attribute order independent)
  */
-async function getOgDataFromStory(slug: string): Promise<OgData | null> {
-  const storyUrl = `https://hiddenspotcafe.com/stories/${slug}`;
+function extractOgData(html: string): OgData | null {
+  const re =
+    /<script\b(?=[^>]*\bid=["']og-data["'])(?=[^>]*\btype=["']application\/json["'])[^>]*>([\s\S]*?)<\/script>/i;
+
+  const m = html.match(re);
+  if (!m?.[1]) return null;
 
   try {
-    const res = await fetch(storyUrl, {
-      headers: {
-        // make it crawler-friendly
-        "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
-        accept: "text/html,*/*",
-      },
-      cf: { cacheTtl: 300, cacheEverything: true },
-    });
-
-    if (!res.ok) return null;
-
-    const html = await res.text();
-
-    // Very simple extraction (no DOM needed)
-    const re = /<script[^>]*id=["']og-data["'][^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i;
-    const m = html.match(re);
-    if (!m?.[1]) return null;
-
-    const jsonText = m[1].trim();
-    const data = JSON.parse(jsonText) as OgData;
-
-    return data && (data.title || data.quote) ? data : null;
+    return JSON.parse(m[1].trim());
   } catch {
     return null;
   }
 }
 
+/**
+ * Fetch story HTML (tries clean + .html)
+ */
+async function getOgData(slug: string): Promise<{ data: OgData | null; source: string }> {
+  const urls = [
+    { url: `https://hiddenspotcafe.com/stories/${slug}`, label: "html" },
+    { url: `https://hiddenspotcafe.com/stories/${slug}.html`, label: "html-dot" },
+  ];
+
+  for (const u of urls) {
+    try {
+      const res = await fetch(u.url, {
+        headers: {
+          "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
+          accept: "text/html,*/*",
+        },
+      });
+
+      if (!res.ok) continue;
+
+      const html = await res.text();
+      const data = extractOgData(html);
+      if (data?.quote) return { data, source: u.label };
+    } catch {
+      continue;
+    }
+  }
+
+  return { data: null, source: "fallback" };
+}
+
+/**
+ * MAIN WORKER HANDLER
+ */
 export default {
   async fetch(request: Request): Promise<Response> {
+    const url = new URL(request.url);
+    const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
+
+    if (!match) {
+      return new Response(tinyTransparentPng(), {
+        status: 200,
+        headers: pngHeaders("public, max-age=86400", "non-og"),
+      });
+    }
+
+    if (request.method === "HEAD") {
+      return new Response(null, {
+        status: 200,
+        headers: pngHeaders("public, max-age=31536000, immutable", "head"),
+      });
+    }
+
+    const slug = match[1];
+
     try {
-      const url = new URL(request.url);
+      const { data, source } = await getOgData(slug);
 
-      // /og/stories/slug.png or /og/stories/slug-v4.png
-      const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
-
-      // If not matching OG route, return fallback PNG (keeps FB happy)
-      if (!match) {
-        return new Response(tinyTransparentPng(), {
-          status: 200,
-          headers: pngHeaders("public, max-age=86400"),
-        });
-      }
-
-      if (request.method === "HEAD") {
-        return new Response(null, {
-          status: 200,
-          headers: pngHeaders("public, max-age=31536000, immutable"),
-        });
-      }
-
-      const slug = match[1];
-
-      const og = await getOgDataFromStory(slug);
-
-      const title = og?.title || "Hidden Spot Cafe";
-      const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
+      const quote =
+        data?.quote ||
+        "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
 
-      const svg = buildSvg({ title, quote, site: SITE_LABEL });
-
-      const fontRegular = new Uint8Array(fontRegularBuffer);
-      const fontBold = new Uint8Array(fontBoldBuffer);
+      const svg = buildSvg(quote);
 
       const resvg = new Resvg(svg, {
         fitTo: { mode: "width", value: 1200 },
         font: {
-          fontBuffers: [fontRegular, fontBold],
+          fontBuffers: [
+            new Uint8Array(fontRegularBuffer),
+            new Uint8Array(fontBoldBuffer),
+          ],
           defaultFontFamily: "Inter",
         },
       });
 
       const pngBuffer = resvg.render().asPng();
 
-      // Stable URL per story => safe to cache forever
       return new Response(pngBuffer, {
         status: 200,
-        headers: pngHeaders("public, max-age=31536000, immutable"),
+        headers: pngHeaders("public, max-age=31536000, immutable", source),
       });
     } catch {
-      return new Response(tinyTransparentPng(), {
+      // Guaranteed full-size fallback
+      await ensureWasm();
+      const svg = buildSvg("Short Taglish fantasy stories for your commute.");
+      const resvg = new Resvg(svg, {
+        fitTo: { mode: "width", value: 1200 },
+        font: {
+          fontBuffers: [
+            new Uint8Array(fontRegularBuffer),
+            new Uint8Array(fontBoldBuffer),
+          ],
+          defaultFontFamily: "Inter",
+        },
+      });
+
+      return new Response(resvg.render().asPng(), {
         status: 200,
-        headers: pngHeaders("public, max-age=86400"),
+        headers: pngHeaders("public, max-age=86400", "fallback"),
       });
     }
   },
