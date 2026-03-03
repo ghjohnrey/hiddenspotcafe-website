@@ -1,8 +1,9 @@
 /**
  * OG Image Generator (Mobile Safe Layout)
- * - Supports /og/stories/<slug>.png AND /og/stories/<slug>-v3.png
+ * - Supports /og/stories/<slug>.png AND /og/stories/<slug>-v123.png
  * - NEVER returns 500/text/html/text/plain for OG image routes
  * - Always returns image/png (real image OR fallback)
+ * - Uses no-store to avoid caching "bad" renders (missing text)
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
@@ -60,7 +61,7 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 }
 
 /**
- * NEVER throw here — if stories.json fails, just return null.
+ * NEVER throw here — if stories.json fails or returns HTML, return null.
  */
 async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
@@ -90,6 +91,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml(opts.quote).slice(0, 260);
 
+  // SAFE ZONE PADDING
   const outerPadding = 120;
   const cardWidth = 1200 - outerPadding * 2;
   const cardHeight = 630 - outerPadding * 2;
@@ -115,10 +117,12 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       </filter>
     </defs>
 
+    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
+    <!-- SAFE AREA CARD -->
     <rect
       x="${outerPadding}"
       y="${outerPadding}"
@@ -130,6 +134,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       filter="url(#shadow)"
     />
 
+    <!-- Site -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 70}"
@@ -139,6 +144,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeSite}
     </text>
 
+    <!-- Title -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 130}"
@@ -149,6 +155,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       ${safeTitle}
     </text>
 
+    <!-- Quote Panel -->
     <rect
       x="${outerPadding + 60}"
       y="${outerPadding + 180}"
@@ -159,6 +166,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       opacity="0.35"
     />
 
+    <!-- Quote -->
     <text
       text-anchor="middle"
       font-family="Inter"
@@ -170,6 +178,9 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
   </svg>`;
 }
 
+/**
+ * Always serve PNG headers. While debugging, we use no-store to avoid caching bad renders.
+ */
 function pngHeaders(cacheControl: string) {
   return {
     "Content-Type": "image/png",
@@ -178,6 +189,9 @@ function pngHeaders(cacheControl: string) {
   };
 }
 
+/**
+ * Minimal valid 1x1 transparent PNG (last-resort fallback).
+ */
 function tinyTransparentPng(): Uint8Array {
   return Uint8Array.from([
     137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
@@ -185,33 +199,32 @@ function tinyTransparentPng(): Uint8Array {
   ]);
 }
 
-/**
- * MAIN HANDLER
- * Wrap EVERYTHING in try/catch so /og/... never returns 500/text/plain.
- */
 export default {
   async fetch(request: Request): Promise<Response> {
+    // Wrap EVERYTHING so the OG route never returns 500/text.
     try {
       const url = new URL(request.url);
 
-      // Accept slug with optional -v<number> suffix
+      // Accept slug with optional -v<number> suffix:
+      // /og/stories/slug.png
+      // /og/stories/slug-v3.png
       const match = url.pathname.match(
         /^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i
       );
 
-      // If not matching, still return PNG (prevents FB seeing text/plain)
+      // If not matching, return a PNG anyway (prevents FB seeing text/plain)
       if (!match) {
         return new Response(tinyTransparentPng(), {
           status: 200,
-          headers: pngHeaders("no-store"),
+          headers: pngHeaders("no-store, max-age=0"),
         });
       }
 
-      // HEAD support
+      // HEAD support (bots sometimes do HEAD first)
       if (request.method === "HEAD") {
         return new Response(null, {
           status: 200,
-          headers: pngHeaders("public, max-age=300, s-maxage=300"),
+          headers: pngHeaders("no-store, max-age=0"),
         });
       }
 
@@ -242,15 +255,16 @@ export default {
 
       const pngBuffer = resvg.render().asPng();
 
+      // IMPORTANT: no-store to prevent caching a "no text" bad render
       return new Response(pngBuffer, {
         status: 200,
-        headers: pngHeaders("public, max-age=300, s-maxage=300"),
+        headers: pngHeaders("no-store, max-age=0"),
       });
     } catch {
-      // Last resort: ALWAYS return a PNG, never 500/text/plain/html
+      // Last resort: ALWAYS return a PNG (never 500/text/plain/html)
       return new Response(tinyTransparentPng(), {
         status: 200,
-        headers: pngHeaders("no-store"),
+        headers: pngHeaders("no-store, max-age=0"),
       });
     }
   },
