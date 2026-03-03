@@ -1,10 +1,8 @@
 /**
  * OG Image Generator (Mobile Safe Layout)
- * Fixes:
- * - NEVER throws to the client (Facebook must never receive HTML error pages)
- * - Safer JSON fetch/parsing for stories.json (prevents res.json() crash)
- * - Always returns image/png for the OG route
- * - Returns a readable fallback PNG with text if anything fails
+ * - Supports /og/stories/<slug>.png AND /og/stories/<slug>-v3.png
+ * - NEVER returns 500/text/html/text/plain for OG image routes
+ * - Always returns image/png (real image OR fallback)
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
@@ -62,24 +60,21 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 }
 
 /**
- * IMPORTANT: This must NEVER throw.
- * If stories.json returns HTML / errors / invalid JSON, we just return null.
+ * NEVER throw here — if stories.json fails, just return null.
  */
 async function getStoryBySlug(slug: string): Promise<Story | null> {
   try {
     const res = await fetch(STORIES_JSON_URL, {
       cf: { cacheTtl: 300, cacheEverything: true },
       headers: {
-        // Helps avoid certain bot/protection responses returning HTML
-        "accept": "application/json,text/plain,*/*",
-        "user-agent": "Mozilla/5.0 (compatible; Hiddenspot OG Worker)",
+        accept: "application/json,text/plain,*/*",
+        "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
       },
     });
 
     if (!res.ok) return null;
 
     const ct = res.headers.get("content-type") || "";
-    // If Cloudflare returns an HTML error page, this prevents res.json() from throwing
     if (!ct.includes("application/json")) return null;
 
     const data: any = await res.json();
@@ -114,6 +109,7 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
         <stop offset="0%" stop-color="#0b0f19"/>
         <stop offset="100%" stop-color="#1f2a44"/>
       </linearGradient>
+
       <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="12" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
       </filter>
@@ -175,35 +171,59 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
 }
 
 function pngHeaders(cacheControl: string) {
-return new Response(pngBuffer, {
-  status: 200,
-  headers: pngHeaders("public, max-age=300, s-maxage=300"),
-});
+  return {
+    "Content-Type": "image/png",
+    "Cache-Control": cacheControl,
+    "X-Content-Type-Options": "nosniff",
+  };
 }
 
+function tinyTransparentPng(): Uint8Array {
+  return Uint8Array.from([
+    137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
+    137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
+  ]);
+}
+
+/**
+ * MAIN HANDLER
+ * Wrap EVERYTHING in try/catch so /og/... never returns 500/text/plain.
+ */
 export default {
   async fetch(request: Request): Promise<Response> {
-    const url = new URL(request.url);
-
-    // NOTE: pathname does not include ?v=2, so your cache-busting query is fine
-    const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
-    if (!match) return new Response("Not Found", { status: 404 });
-
-    // If Facebook does a HEAD request, return fast with proper image headers
-    if (request.method === "HEAD") {
-      return new Response(null, { status: 200, headers: pngHeaders("public, max-age=300, s-maxage=300") });
-    }
-
-    const slug = match[1];
-
-    // Defaults (so even if stories.json fails, text still renders)
-    let title = "Hidden Spot Cafe";
-    let quote = "Short Taglish fantasy stories for your commute.";
-
     try {
+      const url = new URL(request.url);
+
+      // Accept slug with optional -v<number> suffix
+      const match = url.pathname.match(
+        /^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i
+      );
+
+      // If not matching, still return PNG (prevents FB seeing text/plain)
+      if (!match) {
+        return new Response(tinyTransparentPng(), {
+          status: 200,
+          headers: pngHeaders("no-store"),
+        });
+      }
+
+      // HEAD support
+      if (request.method === "HEAD") {
+        return new Response(null, {
+          status: 200,
+          headers: pngHeaders("public, max-age=300, s-maxage=300"),
+        });
+      }
+
+      const slug = match[1];
+
       const story = await getStoryBySlug(slug);
-      title = story?.title || title;
-      quote = story?.ogQuote || story?.excerpt || story?.description || quote;
+      const title = story?.title || "Hidden Spot Cafe";
+      const quote =
+        story?.ogQuote ||
+        story?.excerpt ||
+        story?.description ||
+        "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
 
@@ -222,52 +242,16 @@ export default {
 
       const pngBuffer = resvg.render().asPng();
 
-      // IMPORTANT while debugging: keep cache short so Facebook updates quickly
       return new Response(pngBuffer, {
         status: 200,
         headers: pngHeaders("public, max-age=300, s-maxage=300"),
       });
     } catch {
-      // If anything goes wrong, return a fallback PNG WITH TEXT (not blank),
-      // still with image/png content-type.
-      try {
-        await ensureWasm();
-
-        const fallbackSvg = buildSvg({
-          title,
-          quote,
-          site: SITE_LABEL,
-        });
-
-        const fontRegular = new Uint8Array(fontRegularBuffer);
-        const fontBold = new Uint8Array(fontBoldBuffer);
-
-        const resvg = new Resvg(fallbackSvg, {
-          fitTo: { mode: "width", value: 1200 },
-          font: {
-            fontBuffers: [fontRegular, fontBold],
-            defaultFontFamily: "Inter",
-          },
-        });
-
-        const fallbackPng = resvg.render().asPng();
-
-        return new Response(fallbackPng, {
-          status: 200,
-          headers: pngHeaders("no-store"),
-        });
-      } catch {
-        // Last-resort: tiny PNG (still image/png)
-        const oneByOnePng = Uint8Array.from([
-          137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
-          137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
-        ]);
-
-        return new Response(oneByOnePng, {
-          status: 200,
-          headers: pngHeaders("no-store"),
-        });
-      }
+      // Last resort: ALWAYS return a PNG, never 500/text/plain/html
+      return new Response(tinyTransparentPng(), {
+        status: 200,
+        headers: pngHeaders("no-store"),
+      });
     }
   },
 };
