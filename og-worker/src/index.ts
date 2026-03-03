@@ -341,7 +341,7 @@ export default {
       });
     } catch {
       // Guaranteed FULL-SIZE fallback (never 1x1 for OG route)
-      const pngBuffer = await renderPngFull("Short Taglish fantasy stories for your commute.");
+      const pngBuffer = await renderPngFull("Short Taglish stories for your commute.");
 
       return new Response(pngBuffer, {
         status: 200,
