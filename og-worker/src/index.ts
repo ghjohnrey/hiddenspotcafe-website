@@ -230,6 +230,32 @@ export default {
 
       const slug = match[1];
 
+			// TEMP: bypass stories.json for this slug to make FB preview 100% stable
+if (slug === "beep-card-feelings") {
+  const title = "The Beep Card That Charged Based on Your Feelings";
+  const quote = "Minsan, advance payment siya for relief.";
+  await ensureWasm();
+  const svg = buildSvg({ title, quote, site: SITE_LABEL });
+
+  const fontRegular = new Uint8Array(fontRegularBuffer);
+  const fontBold = new Uint8Array(fontBoldBuffer);
+
+  const resvg = new Resvg(svg, {
+    fitTo: { mode: "width", value: 1200 },
+    font: {
+      fontBuffers: [fontRegular, fontBold],
+      defaultFontFamily: "Inter",
+    },
+  });
+
+  const pngBuffer = resvg.render().asPng();
+  return new Response(pngBuffer, {
+    status: 200,
+    headers: pngHeaders("public, max-age=31536000, immutable"),
+  });
+}
+			// TEMP: bypass stories.json for this slug to make FB preview 100% stable up
+
       const story = await getStoryBySlug(slug);
       const title = story?.title || "Hidden Spot Cafe";
       const quote =
