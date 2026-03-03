@@ -53,5 +53,15 @@
     "date": "2026-02-26",
     "tags": ["time", "choice", "urban", "taglish"],
     "excerpt": "For ten pesos, she sells five extra minutes — but you can only use it once."
-  }
+  },
+  {
+  "title": "The Fare That Told You to Breathe",
+  "slug": "fare-that-told-you-to-breathe",
+  "url": "/stories/fare-that-told-you-to-breathe.html",
+  "readTime": "3 min",
+  "date": "2026-03-03",
+  "tags": ["commute", "urban", "relatable", "taglish", "twist"],
+  "excerpt": "Sa isang normal na tap-in, lumabas ang pamasahe na parang message—at alam nito kung kailan ka dapat huminga muna.",
+  "ogQuote": "Minsan, hindi mo kailangan ng faster ride—kailangan mo lang ng pause."
+}
 ]
