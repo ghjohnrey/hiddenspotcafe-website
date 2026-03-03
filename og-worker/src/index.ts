@@ -274,7 +274,7 @@ export default {
       const title = og?.title || SITE_LABEL;
 
       // quote MUST come from og-data if present
-      const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
+      //const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
 
