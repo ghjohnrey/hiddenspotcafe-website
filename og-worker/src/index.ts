@@ -64,21 +64,39 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
   return lines;
 }
 
+/**
+ * Layout requirement:
+ * line 1: Story time at
+ * line 2: Hidden Spot Cafe
+ * line 3: quote
+ *
+ * NOTE: title is still accepted in opts for compatibility, but not displayed.
+ */
 function buildSvg(opts: { title: string; quote: string; site: string }): string {
-  const safeTitle = escapeXml(opts.title).slice(0, 90);
   const safeSite = escapeXml(opts.site).slice(0, 60);
   const safeQuote = escapeXml(opts.quote).slice(0, 260);
+
+  const header1 = "Story time at";
+  const header2 = safeSite;
 
   const outerPadding = 120;
   const cardWidth = 1200 - outerPadding * 2;
   const cardHeight = 630 - outerPadding * 2;
 
   const lines = wrapLines(safeQuote, 26, 4);
-  const baseY = 380;
   const lineHeight = 58;
 
+  // Move quote area slightly down to make room for the 2 header lines
+  const quotePanelY = outerPadding + 170;
+  const quotePanelH = 270;
+
+  // Center quote vertically inside the quote panel
+  const quoteCenterY = quotePanelY + quotePanelH / 2;
+  const totalTextHeight = (lines.length - 1) * lineHeight;
+  const firstLineY = Math.round(quoteCenterY - totalTextHeight / 2);
+
   const tspans = lines
-    .map((ln, i) => `<tspan x="600" y="${baseY + i * lineHeight}">${ln}</tspan>`)
+    .map((ln, i) => `<tspan x="600" y="${firstLineY + i * lineHeight}">${ln}</tspan>`)
     .join("");
 
   return `
@@ -88,15 +106,18 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
         <stop offset="0%" stop-color="#0b0f19"/>
         <stop offset="100%" stop-color="#1f2a44"/>
       </linearGradient>
+
       <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="12" stdDeviation="24" flood-color="#000000" flood-opacity="0.45"/>
       </filter>
     </defs>
 
+    <!-- background -->
     <rect width="1200" height="630" fill="url(#bg)"/>
     <circle cx="980" cy="120" r="220" fill="#7c3aed" opacity="0.15"/>
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
+    <!-- card -->
     <rect
       x="${outerPadding}"
       y="${outerPadding}"
@@ -108,35 +129,39 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
       filter="url(#shadow)"
     />
 
+    <!-- Header line 1 -->
     <text
       x="${outerPadding + 60}"
       y="${outerPadding + 70}"
       font-family="Inter"
       font-size="26"
       fill="#a5b4fc">
-      ${safeSite}
+      ${escapeXml(header1)}
     </text>
 
+    <!-- Header line 2 -->
     <text
       x="${outerPadding + 60}"
-      y="${outerPadding + 130}"
+      y="${outerPadding + 125}"
       font-family="Inter"
-      font-size="38"
+      font-size="40"
       font-weight="800"
       fill="#ffffff">
-      ${safeTitle}
+      ${header2}
     </text>
 
+    <!-- Quote panel -->
     <rect
       x="${outerPadding + 60}"
-      y="${outerPadding + 180}"
+      y="${quotePanelY}"
       width="${cardWidth - 120}"
-      height="260"
+      height="${quotePanelH}"
       rx="28"
       fill="#000000"
       opacity="0.35"
     />
 
+    <!-- Quote text -->
     <text
       text-anchor="middle"
       font-family="Inter"
@@ -158,7 +183,6 @@ async function getOgDataFromStory(slug: string): Promise<OgData | null> {
   try {
     const res = await fetch(storyUrl, {
       headers: {
-        // make it crawler-friendly
         "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
         accept: "text/html,*/*",
       },
@@ -169,8 +193,8 @@ async function getOgDataFromStory(slug: string): Promise<OgData | null> {
 
     const html = await res.text();
 
-    // Very simple extraction (no DOM needed)
-    const re = /<script[^>]*id=["']og-data["'][^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i;
+    const re =
+      /<script[^>]*id=["']og-data["'][^>]*type=["']application\/json["'][^>]*>([\s\S]*?)<\/script>/i;
     const m = html.match(re);
     if (!m?.[1]) return null;
 
@@ -188,10 +212,10 @@ export default {
     try {
       const url = new URL(request.url);
 
-      // /og/stories/slug.png or /og/stories/slug-v4.png
+      // /og/stories/slug.png or /og/stories/slug-v123.png
       const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+?)(?:-v\d+)?\.png$/i);
 
-      // If not matching OG route, return fallback PNG (keeps FB happy)
+      // Not an OG route: return a PNG anyway (prevents FB seeing text/plain)
       if (!match) {
         return new Response(tinyTransparentPng(), {
           status: 200,
@@ -199,6 +223,7 @@ export default {
         });
       }
 
+      // Some bots do HEAD first
       if (request.method === "HEAD") {
         return new Response(null, {
           status: 200,
@@ -210,7 +235,9 @@ export default {
 
       const og = await getOgDataFromStory(slug);
 
-      const title = og?.title || "Hidden Spot Cafe";
+      // Title is kept for compatibility, but not shown in the image now
+      const title = og?.title || SITE_LABEL;
+
       const quote = og?.quote || "Short Taglish fantasy stories for your commute.";
 
       await ensureWasm();
@@ -230,7 +257,6 @@ export default {
 
       const pngBuffer = resvg.render().asPng();
 
-      // Stable URL per story => safe to cache forever
       return new Response(pngBuffer, {
         status: 200,
         headers: pngHeaders("public, max-age=31536000, immutable"),
