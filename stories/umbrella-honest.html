@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Umbrella That Only Opens When You’re Honest</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/umbrella-honest" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Umbrella That Only Opens When You’re Honest" />
+  <meta property="og:description" content="A short Taglish commute story where an umbrella starts airing out truths you keep swallowing." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/umbrella-honest" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/umbrella-honest.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/umbrella-honest.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/umbrella-honest.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Umbrella That Only Opens When You’re Honest" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Umbrella That Only Opens When You’re Honest" />
+  <meta name="twitter:description" content="A short Taglish commute story where an umbrella starts airing out truths you keep swallowing." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/umbrella-honest.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Umbrella That Only Opens When You’re Honest",
+      "quote": "Minsan, mas basa ka sa loob kaysa sa ulan."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Umbrella That Only Opens When You’re Honest</h1>
+      <p>Taglish commute story about the stuff you keep quiet—until the universe makes it obvious.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#commute</span>
+        <span class="tag">#urban</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#comedy</span>
+        <span class="tag">#twist</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Umulan. Yung tipong hindi siya dramatic sa simula, pero paglabas mo, bigla kang magiging basang-manok na may pride.</p>
+      <p>Nasa may kanto ako, waiting ng jeep, hawak ko yung payong kong mukhang survivor ng ilang bagyo.</p>
+      <p>May konting hiwa yung tela. May bakal na nakalabas. Pero buhay pa, okay na ’yon.</p>
+
+      <p>Sumakay ako. Siksikan agad. May estudyanteng may backpack na kasing laki ng future niya.</p>
+      <p>May office guy na naka-long sleeves kahit humid, kasi “dress code.”</p>
+      <p>Tapos may nanay na may dalang supot ng gulay na parang may sariling seatbelt.</p>
+
+      <p>Pagdating sa babaan, bumaba ako, tapos <em>click</em>—binuksan ko yung payong.</p>
+      <p>Hindi siya nag-open.</p>
+      <p>Ayaw. As in ayaw.</p>
+
+      <p>“Ano ba ’to,” bulong ko, pinipilit ko ulit.</p>
+      <p>May tumalsik na tubig sa ulo ko. Tumaas kilay ko. “Sira na naman?”</p>
+
+      <p>Biglang may boses sa likod ko. “Miss, try mo ulit.”</p>
+      <p>Lingon ako. Si kuya konduktor—yung tipo ng kuya na alam mong laging may bala sa joke.</p>
+
+      <p>Pinilit ko ulit. Wala.</p>
+      <p>Ngumiti siya. “Baka ayaw lang magbukas pag hindi ka honest.”</p>
+      <p>“Ha?”</p>
+      <p>“Joke lang… pero try mo, sabihin mo yung totoo. Kahit isang line lang.”</p>
+
+      <p>Natawa ako, pero dahil basa na ako at wala na akong dignity, pumatol ako.</p>
+      <p>“Okay. The truth is… ayoko na pumasok.”</p>
+
+      <p><em>FWOOSH.</em></p>
+      <p>Bumukas yung payong. Perfect. Parang bagong bili.</p>
+
+      <p>Napatigil ako. Si kuya konduktor, napapikit na parang nanalo sa pustahan.</p>
+      <p>“Ayan! Sabi ko eh.”</p>
+
+      <p>“Wait… paano nangyari ’yon?”</p>
+      <p>“Baka pagod ka na talaga,” sabi niya. “Next passenger!”</p>
+
+      <p>Akala ko coincidence. Baka na-stuck lang yung spring.</p>
+      <p>So sinarado ko ulit para i-test, kasi syempre, curiosity kills—especially students.</p>
+
+      <p><em>Click.</em> Sarado.</p>
+      <p>Try ko buksan. Ayaw na naman.</p>
+
+      <p>“Sige nga,” bulong ko, medyo kinakabahan na ngayon.</p>
+      <p>“The truth is… kinakain ako ng overthinking.”</p>
+
+      <p><em>FWOOSH.</em> Open ulit.</p>
+
+      <p>Hindi na ako natawa. Napatingin ako sa payong ko na parang may sariling personality.</p>
+      <p>Tapos napatingin ako sa paligid. Ang daming tao. Ang daming basang sapatos. Ang daming tahimik na mukha.</p>
+
+      <p>May estudyante sa tapat ko na nakayuko, hawak yung phone, pero halatang wala sa screen yung utak niya.</p>
+      <p>May ate na naka-heels, nanginginig yung kamay habang hawak yung ID lace.</p>
+      <p>May manong na nagmamadali, pero yung mata niya parang gusto na lang umuwi.</p>
+
+      <p>Bigla kong naisip… paano kung hindi ako yung main character dito?</p>
+
+      <p>Napadaan ulit si kuya konduktor, tumingin sa payong ko, tapos tumango lang, parang “alam ko.”</p>
+      <p>“Kuya,” sabi ko, “so kailangan ko talaga magsabi ng totoo?”</p>
+      <p>“Depende,” sagot niya. “Gusto mo ba mabasa?”</p>
+
+      <p>Sakto, may tumabi sa’kin—isang batang lalaki, siguro grade 7, naka-uniform, basang sleeves.</p>
+      <p>Wala siyang payong. Wala rin siyang kasama. Yung bag niya, plastic lang yung cover.</p>
+      <p>Tinitigan niya yung payong ko, tapos mabilis na umiwas ng tingin.</p>
+
+      <p>Alam ko na yung itsura na ’yon. Yung “okay lang ako” pero hindi.</p>
+
+      <p>“Uy,” sabi ko sa kanya, “share tayo.”</p>
+      <p>“Okay lang po,” sagot niya agad. Masyadong mabilis. Masyadong automatic.</p>
+
+      <p>Sinara ko ulit yung payong para lumapit ako sa kanya.</p>
+      <p>Try ko buksan. Ayaw.</p>
+      <p>So napabuntong-hininga ako.</p>
+
+      <p>“The truth is… minsan, nahihiya akong tumulong kasi baka isipin nila epal.”</p>
+
+      <p><em>FWOOSH.</em> Open.</p>
+
+      <p>Napatitig yung bata. Ako rin. Parang pinahiya ako ng payong ko in public.</p>
+      <p>“Tara,” sabi ko, “dito ka.”</p>
+      <p>Dahan-dahan siyang lumapit sa ilalim ng payong. Halatang nagdadalawang-isip pa.</p>
+
+      <p>“Salamat po,” sabi niya, mahina.</p>
+      <p>“Okay lang,” sabi ko. “Basang-basa na rin naman pride ko.”</p>
+      <p>Napatawa siya—konti lang, pero enough.</p>
+
+      <p>Tahimik kami habang naglalakad papuntang terminal.</p>
+      <p>Tapos bigla niyang sinabi, parang nahulog lang sa bibig:</p>
+      <p>“The truth is… ayoko umuwi ngayon. Kasi mag-aaway na naman sila.”</p>
+
+      <p>Parang may humigpit sa dibdib ko.</p>
+      <p>Hindi ko alam sasabihin ko. Wala akong magic line para ayusin ’yon.</p>
+      <p>Pero hinawakan ko yung handle ng payong nang mas mahigpit, siniguradong covered siya.</p>
+
+      <p>“Gets,” sabi ko. “Gusto mo, dito muna tayo sa may tindahan, bili tayo ng mainit? Kahit taho o sopas.”</p>
+      <p>Napatingin siya sa’kin, parang nag-aask ng permission sa mundo.</p>
+      <p>Tumango siya.</p>
+
+      <p>Pagdating namin sa may tindahan, nag-abot ako ng barya. “Kuya, dalawang sopas.”</p>
+      <p>Habang kumakain kami, tumigil yung ulan saglit, parang humihinga rin.</p>
+
+      <p>Bumukas yung payong sa tabi ko kahit hindi ko ginagalaw.</p>
+      <p>Sa loob ng payong, may nakasulat sa tela, maliit lang, parang lumang ballpen:</p>
+      <p><strong>“Honesty doesn’t fix everything. But it opens space.”</strong></p>
+
+      <p>Hindi ko alam kung kailan ’yon naisulat. O kung sino.</p>
+      <p>Pero biglang nag-make sense yung lahat.</p>
+
+      <p>Hindi pala siya payong lang para sa ulan.</p>
+      <p>Payong siya para sa mga araw na ang bigat-bigat sabihin, “Hindi ako okay.”</p>
+
+      <p>Pagkatapos, sinamahan ko yung bata hanggang sakayan niya.</p>
+      <p>Hindi ko tinanong pangalan niya. Hindi ko na rin pinilit mag-advice.</p>
+      <p>Basta bago siya sumakay, sinabi ko lang:</p>
+      <p>“Kung kailangan mo ulit ng shade, kahit umuulan o hindi—okay lang magsabi.”</p>
+
+      <p>Pag-uwi ko, umulan ulit nang malakas.</p>
+      <p>Binuksan ko yung payong.</p>
+      <p>Open agad.</p>
+
+      <p>Kasi this time, kaya ko na sabihin sa sarili ko:</p>
+      <p><strong>The truth is… hindi ko kailangan maging matapang araw-araw. Kailangan ko lang maging totoo.</strong></p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fumbrella-honest"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/umbrella-honest");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
