@@ -1,6 +1,7 @@
 /**
  * OG Image Generator (Mobile Safe Layout)
- * - Safer padding for Facebook mobile crop
+ * - Always returns image/png for OG image routes (prevents FB "invalid content type")
+ * - Adds a safe fallback PNG if anything crashes (WASM/font/fetch/etc.)
  */
 
 import { Resvg, initWasm } from "@resvg/resvg-wasm";
@@ -60,6 +61,7 @@ function wrapLines(text: string, maxCharsPerLine: number, maxLines: number) {
 
 async function getStoryBySlug(slug: string): Promise<Story | null> {
   const res = await fetch(STORIES_JSON_URL, {
+    // caching is okay, but don't let this be the reason OG breaks
     cf: { cacheTtl: 300, cacheEverything: true },
   });
 
@@ -107,100 +109,138 @@ function buildSvg(opts: { title: string; quote: string; site: string }): string 
     <circle cx="240" cy="520" r="260" fill="#22c55e" opacity="0.12"/>
 
     <!-- SAFE AREA CARD -->
-    <rect 
-      x="${outerPadding}" 
-      y="${outerPadding}" 
-      width="${cardWidth}" 
-      height="${cardHeight}" 
-      rx="36" 
-      fill="#0f172a" 
-      opacity="0.88" 
+    <rect
+      x="${outerPadding}"
+      y="${outerPadding}"
+      width="${cardWidth}"
+      height="${cardHeight}"
+      rx="36"
+      fill="#0f172a"
+      opacity="0.88"
       filter="url(#shadow)"
     />
 
     <!-- Site -->
-    <text 
-      x="${outerPadding + 60}" 
-      y="${outerPadding + 70}" 
-      font-family="Inter" 
-      font-size="26" 
+    <text
+      x="${outerPadding + 60}"
+      y="${outerPadding + 70}"
+      font-family="Inter"
+      font-size="26"
       fill="#a5b4fc">
       ${safeSite}
     </text>
 
     <!-- Title -->
-    <text 
-      x="${outerPadding + 60}" 
-      y="${outerPadding + 130}" 
-      font-family="Inter" 
-      font-size="38" 
-      font-weight="800" 
+    <text
+      x="${outerPadding + 60}"
+      y="${outerPadding + 130}"
+      font-family="Inter"
+      font-size="38"
+      font-weight="800"
       fill="#ffffff">
       ${safeTitle}
     </text>
 
     <!-- Quote Panel -->
-    <rect 
-      x="${outerPadding + 60}" 
-      y="${outerPadding + 180}" 
-      width="${cardWidth - 120}" 
-      height="260" 
-      rx="28" 
-      fill="#000000" 
+    <rect
+      x="${outerPadding + 60}"
+      y="${outerPadding + 180}"
+      width="${cardWidth - 120}"
+      height="260"
+      rx="28"
+      fill="#000000"
       opacity="0.35"
     />
 
     <!-- Quote -->
-    <text 
-      text-anchor="middle" 
-      font-family="Inter" 
-      font-size="54" 
-      font-weight="800" 
+    <text
+      text-anchor="middle"
+      font-family="Inter"
+      font-size="54"
+      font-weight="800"
       fill="#ffffff">
       ${tspans}
     </text>
   </svg>`;
 }
 
+/**
+ * Minimal valid 1x1 transparent PNG.
+ * This is our "never return HTML" fallback for Facebook.
+ */
+function tinyTransparentPng(): Uint8Array {
+  return Uint8Array.from([
+    137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,8,6,0,0,0,31,21,196,
+    137,0,0,0,10,73,68,65,84,120,156,99,0,1,0,0,5,0,1,13,10,45,180,0,0,0,0,73,69,78,68,174,66,96,130
+  ]);
+}
+
+function pngHeaders(cacheControl: string) {
+  return {
+    "Content-Type": "image/png",
+    "Cache-Control": cacheControl,
+    "X-Content-Type-Options": "nosniff",
+  };
+}
+
 export default {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+
+    // Match only your OG endpoint
     const match = url.pathname.match(/^\/og\/stories\/([a-z0-9-]+)\.png$/i);
-    if (!match) return new Response("Use /og/stories/<slug>.png");
+    if (!match) {
+      return new Response("Not Found", { status: 404 });
+    }
+
+    // Some bots do HEAD first; respond with headers only (no heavy render)
+    if (request.method === "HEAD") {
+      return new Response(null, {
+        status: 200,
+        headers: pngHeaders("public, max-age=86400, s-maxage=86400"),
+      });
+    }
 
     const slug = match[1];
 
-    const story = await getStoryBySlug(slug);
+    try {
+      const story = await getStoryBySlug(slug);
 
-    const title = story?.title || "Hidden Spot Cafe";
-    const quote =
-      story?.ogQuote ||
-      story?.excerpt ||
-      story?.description ||
-      "Short Taglish fantasy stories for your commute.";
+      const title = story?.title || "Hidden Spot Cafe";
+      const quote =
+        story?.ogQuote ||
+        story?.excerpt ||
+        story?.description ||
+        "Short Taglish fantasy stories for your commute.";
 
-    await ensureWasm();
+      await ensureWasm();
 
-    const svg = buildSvg({ title, quote, site: SITE_LABEL });
+      const svg = buildSvg({ title, quote, site: SITE_LABEL });
 
-    const fontRegular = new Uint8Array(fontRegularBuffer);
-    const fontBold = new Uint8Array(fontBoldBuffer);
+      const fontRegular = new Uint8Array(fontRegularBuffer);
+      const fontBold = new Uint8Array(fontBoldBuffer);
 
-    const resvg = new Resvg(svg, {
-      fitTo: { mode: "width", value: 1200 },
-      font: {
-        fontBuffers: [fontRegular, fontBold],
-        defaultFontFamily: "Inter",
-      },
-    });
+      const resvg = new Resvg(svg, {
+        fitTo: { mode: "width", value: 1200 },
+        font: {
+          fontBuffers: [fontRegular, fontBold],
+          defaultFontFamily: "Inter",
+        },
+      });
 
-    const pngBuffer = resvg.render().asPng();
+      const pngBuffer = resvg.render().asPng();
 
-    return new Response(pngBuffer, {
-      headers: {
-        "content-type": "image/png",
-        "cache-control": "public, max-age=86400",
-      },
-    });
+      return new Response(pngBuffer, {
+        status: 200,
+        headers: pngHeaders("public, max-age=86400, s-maxage=86400"),
+      });
+    } catch (err) {
+      // CRITICAL: Never let Cloudflare return an HTML error page to Facebook.
+      // Return a valid PNG fallback with correct headers.
+      return new Response(tinyTransparentPng(), {
+        status: 200,
+        headers: pngHeaders("no-store"),
+      });
+    }
   },
 };
