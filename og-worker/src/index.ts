@@ -205,13 +205,18 @@ async function getOgData(slug: string): Promise<{ data: OgData | null; source: s
           "user-agent": "Mozilla/5.0 (compatible; HSC OG Worker)",
           accept: "text/html,*/*",
         },
+        cf: { cacheTtl: 300, cacheEverything: true },
       });
 
       if (!res.ok) continue;
 
       const html = await res.text();
       const data = extractOgData(html);
-      if (data?.quote) return { data, source: u.label };
+
+      // Accept if either title OR quote exists (prevents false fallback)
+      if (data && (data.title || data.quote)) {
+        return { data, source: u.label };
+      }
     } catch {
       continue;
     }
