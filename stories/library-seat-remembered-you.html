@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Library Seat That Remembered You</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/library-seat-remembered-you" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Library Seat That Remembered You" />
+  <meta property="og:description" content="A short Taglish campus story about the kind of rest that finds you first." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/library-seat-remembered-you" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/library-seat-remembered-you.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/library-seat-remembered-you.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/library-seat-remembered-you.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Library Seat That Remembered You" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Library Seat That Remembered You" />
+  <meta name="twitter:description" content="A short Taglish campus story about the kind of rest that finds you first." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/library-seat-remembered-you.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Library Seat That Remembered You",
+      "quote": "Minsan, hindi ka nawawala—pagod ka lang, at may bagay na naaalala ka pa rin."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Library Seat That Remembered You</h1>
+      <p>Short Taglish campus story for students trying to survive one more deadline.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#library</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#sliceoflife</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Puno na halos ang campus library nang dumating ako.</p>
+      <p>Yung tipong kahit tahimik ang lugar, ramdam mong lahat ng tao doon ay may hinahabol—deadline, quiz, attendance, sarili.</p>
+      <p>Bitbit ko yung laptop kong lowbat na, isang yellow pad, at iced coffee na matagal nang hindi malamig.</p>
+
+      <p>“Wala nang upuan,” sabi ng friend ko sa chat.</p>
+      <p><em>Try mo sa fourth floor.</em></p>
+
+      <p>Fourth floor was worse.</p>
+      <p>May mga naka-headphones, may tulog sa reviewer, may mukhang one breakdown away from greatness.</p>
+      <p>Umiikot ako sa pagitan ng shelves, kunwari chill, pero ang totoo naiiyak na ako sa pagod.</p>
+
+      <p>Tatlong gabi na akong kulang sa tulog.</p>
+      <p>Midterms week, group project week, at somehow, family problem week din.</p>
+      <p>Ang dami kong tabs sa utak na ayaw magsara.</p>
+
+      <p>Then may nakita akong isang seat sa dulo.</p>
+      <p>Single table lang siya, malapit sa bintana, may saksakan sa gilid, at tama lang ang ilaw—hindi masakit sa mata, hindi rin sobrang dilim.</p>
+      <p>Parang suspiciously perfect.</p>
+
+      <p>Tumingin ako sa paligid.</p>
+      <p>Walang nakaupo.</p>
+      <p>Walang bag.</p>
+      <p>Walang tumbler na pang-reserve.</p>
+
+      <p>Umupo ako agad bago pa maagaw ng iba.</p>
+
+      <p>The moment I sat down, parang may kakaibang gaan.</p>
+      <p>Not magic-magic. Hindi naman biglang umayos ang buhay ko.</p>
+      <p>Pero parang unang beses buong araw na lumapat talaga yung likod ko sa sandalan.</p>
+
+      <p>Binuksan ko laptop ko.</p>
+      <p>Nag-load ang files ko nang hindi nagha-hang.</p>
+      <p>Nakakagulat na organized yung desktop ko, kahit alam kong kagabi pa siya mukhang crime scene.</p>
+
+      <p>“Okay,” bulong ko. “Productive seat.”</p>
+
+      <p>After twenty minutes, napansin kong may nakaukit sa ilalim ng table.</p>
+      <p>Hindi vandal na malaki. Maliit lang, halos tago.</p>
+      <p>Isang sentence.</p>
+
+      <p><strong>“Kung nandito ka, baka kailangan mong umupo talaga.”</strong></p>
+
+      <p>Natawa ako nang konti.</p>
+      <p>Very dramatic. Very student.</p>
+      <p>Pero ewan, tumama.</p>
+
+      <p>Kasi ang totoo, ilang araw na akong hindi talaga humihinto.</p>
+      <p>Kahit nakaupo ako sa klase, parang tumatakbo pa rin isip ko.</p>
+      <p>Kahit nagpapahinga ako, guilty ako.</p>
+      <p>Kahit natutulog ako, parang may hinahabol pa rin ako sa panaginip.</p>
+
+      <p>Nag-type ako ng dapat kong gawin.</p>
+      <p>Essay first. Then slides. Then review for quiz.</p>
+      <p>For the first time that week, hindi overwhelming tingnan yung list.</p>
+      <p>Parang kaya naman pala. Isa-isa lang.</p>
+
+      <p>Maya-maya, may lumapit na girl na may dalang books.</p>
+      <p>“Sorry,” sabi niya. “Occupied ba ’yang seat na katabi mo?”</p>
+
+      <p>Tumingin ako.</p>
+      <p>Wala namang seat na katabi ko.</p>
+      <p>Isang table lang naman ’to.</p>
+
+      <p>“Ha?” sabi ko.</p>
+
+      <p>Nag-blink siya, tapos tumingin ulit.</p>
+      <p>“Ay. Sorry. Akala ko may tao.”</p>
+
+      <p>Umalis siya agad.</p>
+      <p>Naiwan akong nakatingin sa empty air sa kanan ko.</p>
+
+      <p>Hindi ako madaling matakot, pero napa-straight ako ng upo.</p>
+      <p>May malamig na hangin galing sa bintana, kahit sarado naman.</p>
+
+      <p>Bumalik ako sa screen ko.</p>
+      <p>Sa reflection, may second shape sa tabi ko for one second—parang someone sitting quietly, nakayuko, nagbabasa.</p>
+
+      <p>Paglingon ko, wala.</p>
+
+      <p>“Pagod lang ako,” sabi ko sa sarili ko.</p>
+
+      <p>Pero after that, hindi na ako natakot.</p>
+      <p>Kakaiba, no?</p>
+      <p>Dapat kinabahan ako, pero ang naramdaman ko was company.</p>
+      <p>Parang may presence na hindi nanggugulo.</p>
+      <p>Nakikiupo lang.</p>
+
+      <p>When I packed up, may nahulog na maliit na folded paper sa ilalim ng table.</p>
+      <p>Luma na siya, parang matagal nang naipit doon.</p>
+
+      <p>May sulat sa loob.</p>
+
+      <p><strong>“To whoever gets this seat after me: I hope natapos mo rin yung kailangan mong tapusin. Pero sana nagpahinga ka rin. Hindi worth it ibagsak ang sarili para lang maipasa ang sem.”</strong></p>
+
+      <p>Walang pangalan.</p>
+      <p>Walang date.</p>
+      <p>Just that.</p>
+
+      <p>Napatitig ako sa papel nang matagal.</p>
+      <p>Kasi bigla kong naisip na maybe years ago, may student ding umupo roon na pagod na pagod, tahimik lang, trying not to fall apart in public.</p>
+      <p>At bago siya umalis, nag-iwan siya ng maliit na reminder para sa kahit sinong susunod.</p>
+
+      <p>Hindi ghost story ang inuwi ko that night.</p>
+      <p>Mas weird pa nga yata doon.</p>
+      <p>Parang may stranger na nakaalala sa akin before I even got there.</p>
+
+      <p>Paglabas ko ng library, same pa rin naman ang campus.</p>
+      <p>Maingay pa rin sa hallway. Mahaba pa rin ang gawain. Hindi pa rin solved ang buhay ko.</p>
+
+      <p>Pero mas magaan na ang bag ko.</p>
+      <p>O baka ako lang yung gumaan.</p>
+
+      <p>Kinunan ko ng picture yung note, tapos binalik ko sa ilalim ng table.</p>
+      <p>Baka may susunod pang mauubos.</p>
+      <p>Baka may susunod pang kailangang maalala na okay lang umupo muna.</p>
+
+      <p>Next week, bumalik ako sa fourth floor.</p>
+      <p>Same corner. Same window.</p>
+      <p>At syempre, puno na ulit ang library.</p>
+
+      <p>Pero yung seat?</p>
+      <p>Bakante na naman.</p>
+
+      <p>Parang may mga upuang hindi lang for studying.</p>
+      <p><strong>Para rin sila sa mga taong muntik nang mawala sa pagod—at gustong maalala ulit ang sarili nila.</strong></p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Flibrary-seat-remembered-you"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/library-seat-remembered-you");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
