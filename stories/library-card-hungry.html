@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Library Card That Wouldn’t Let You In Hungry</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/library-card-hungry" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Library Card That Wouldn’t Let You In Hungry" />
+  <meta property="og:description" content="A short Taglish campus story about burnout, hunger, and a library gate that somehow knew." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/library-card-hungry" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/library-card-hungry.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/library-card-hungry.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/library-card-hungry.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Library Card That Wouldn’t Let You In Hungry" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Library Card That Wouldn’t Let You In Hungry" />
+  <meta name="twitter:description" content="A short Taglish campus story about burnout, hunger, and a library gate that somehow knew." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/library-card-hungry.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Library Card That Wouldn’t Let You In Hungry",
+      "quote": "Minsan, hindi ka tamad—gutom ka lang."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Library Card That Wouldn’t Let You In Hungry</h1>
+      <p>Short Taglish campus story for students trying to survive deadlines, readings, at kulang na tulog.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#school</span>
+        <span class="tag">#library</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#slice-of-life</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>By 4:47 p.m., alam ko nang hindi na ako tao.</p>
+      <p>Groupmate ko nag-chat ng, <em>“Nasaan na yung final file?”</em> Prof ko nag-post ng surprise reading. Tapos may intern shift pa ako kinabukasan na 7 a.m.</p>
+      <p>Ang lunch ko? Kalahating siopao at iced coffee na mas matapang pa sa willingness kong mabuhay that week.</p>
+
+      <p>Kaya diretsong library ako after class.</p>
+      <p>Aircon. Sockets. Tahimik. At higit sa lahat, walang mangungulit sa’yo kung bakit ang sama ng tingin mo sa laptop.</p>
+
+      <p>Pagdating ko sa gate, inilabas ko student ID ko sa wallet ko na mukhang ilang sem nang pagod.</p>
+      <p>Tap. Red light.</p>
+      <p><strong>ACCESS DENIED.</strong></p>
+
+      <p>Napatingin ako sa screen.</p>
+      <p>Usually, “Invalid ID” o “Please try again” lang naman ang lumalabas.</p>
+      <p>Pero this time, may extra line sa ibaba.</p>
+      <p><strong>REASON: Kumain ka muna.</strong></p>
+
+      <p>Napatitig ako.</p>
+      <p>“Ha?”</p>
+
+      <p>Tinap ko ulit, mas dahan-dahan.</p>
+      <p>Same red light. Same message.</p>
+      <p><strong>REASON: Kumain ka muna.</strong></p>
+
+      <p>Sa likod ko, may dalawang students na mukhang thesis mode na rin.</p>
+      <p>“Bro, tap ka na ulit,” sabi nung isa, polite pero halatang gusto na rin makapasok.</p>
+      <p>“Oo, sorry.”</p>
+
+      <p>Umatras ako, kunwari chine-check ko yung ID ko.</p>
+      <p>Pagkatapos nila, nag-tap sila. Green light. Pasok agad.</p>
+      <p>Normal.</p>
+      <p>Ako lang ang may lecture from a machine.</p>
+
+      <p>Sinilip ko yung ID ko. Hindi expired. Walang crack. Ako lang yata ang expired.</p>
+
+      <p>May staff sa gilid ng counter, yung librarian na laging naka-beige cardigan at mukhang alam ang sikreto ng buong campus.</p>
+      <p>Nilapitan ko siya.</p>
+      <p>“Ma’am, nag-eerror po ata yung card ko.”</p>
+
+      <p>Tiningnan niya ako. Hindi yung ID ko. Ako mismo.</p>
+      <p>Mga two seconds siguro.</p>
+      <p>Tapos sabi niya, “Bumalik ka after fifteen minutes.”</p>
+
+      <p>“Ayusin n’yo po?” tanong ko.</p>
+      <p>“Bumalik ka after fifteen minutes,” ulit niya, sabay ngiti na parang may alam siyang ayaw niyang i-explain.</p>
+
+      <p>Normally, maiinis ako.</p>
+      <p>Pero wala akong energy para makipag-away sa cardigan authority.</p>
+
+      <p>Kaya lumabas ako ng library at tumambay sa hallway.</p>
+      <p>Maingay sa campus pero pa-gabi na. May mga nagmamadaling umuwi, may mga naka-PE uniform pa, may mag-jowang tahimik lang sa may vending machine na parang sila lang ang hindi hinahabol ng deadline.</p>
+
+      <p>Naramdaman ko bigla yung hilo.</p>
+      <p>Yung tipong akala mo pagod lang, pero pag umupo ka, doon mo marerealize na wala ka palang matinong kain buong araw.</p>
+
+      <p>Nag-vibrate phone ko.</p>
+      <p>Message galing sa best friend ko.</p>
+      <p><em>“Uy, buhay ka pa? You left me on seen since lunch.”</em></p>
+
+      <p>Tawa ako nang konti. <em>Since lunch.</em> Oo nga pala. Lunch pa yung huli kong totoong oras bilang functional person.</p>
+
+      <p>Nag-reply ako: <em>“Sa library sana. Pinagalitan ako ng scanner.”</em></p>
+      <p>Typing siya agad.</p>
+      <p><em>“Deserve.”</em></p>
+      <p><em>“Kumain ka na ba?”</em></p>
+
+      <p>Hindi ako sumagot agad.</p>
+      <p>Kasi minsan, nakakainis pag tama yung tanong.</p>
+
+      <p>Sa baba ng building may maliit na canteen stall na halos palaging nauubusan ng maayos na ulam.</p>
+      <p>Bumili ako ng cheese bread at pineapple juice. Hindi healthy. Hindi inspiring. Pero pagkain pa rin.</p>
+
+      <p>Pagka-first bite ko, para akong na-offend sa sarili ko.</p>
+      <p>Ganito pala ako kagutom?</p>
+      <p>Ganito pala ako ka-bad sa sariling katawan?</p>
+
+      <p>Habang kumakain, nag-voice call yung friend ko.</p>
+      <p>“Hello?”</p>
+      <p>“Narinig ko sa boses mo kagabi na lutang ka na,” sabi niya agad. “Tapos ngayon, di ka pa kumakain? Gusto mo medal?”</p>
+
+      <p>“Deadline week kasi.”</p>
+      <p>“Lahat naman may deadline. Hindi ibig sabihin nun gagawin mong side quest ang basic survival.”</p>
+
+      <p>Natawa ako kahit medyo masakit.</p>
+      <p>Kasi ang totoo, hindi lang naman sa school.</p>
+      <p>Ganito rin ako sa lahat.</p>
+      <p>Pag may kailangang tapusin, una kong tine-trade yung tulog, pahinga, at pagkain na parang unlimited resource sila.</p>
+
+      <p>After fifteen minutes, bumalik ako sa gate.</p>
+      <p>Hindi ko na alam kung aasa ba ako o mas mapapahiya lang.</p>
+
+      <p>Tap.</p>
+      <p>Green light.</p>
+      <p><strong>WELCOME.</strong></p>
+
+      <p>Then may second line.</p>
+      <p><strong>GOOD. NOW SIT DOWN.</strong></p>
+
+      <p>Napaatras ako nang isang hakbang.</p>
+      <p>“Okay, hindi na ito normal.”</p>
+
+      <p>Tumingin ako sa counter.</p>
+      <p>Yung librarian? Busy na sa pag-aayos ng books. Wala man lang reaction.</p>
+
+      <p>Pagpasok ko, malamig agad yung hangin. Tahimik. May humuhuning aircon sa kisame. May nagta-type sa dulo. May natutulog sa book pile na obvious namang “studying” ang official pose.</p>
+
+      <p>Umupo ako sa usual seat ko malapit sa outlet at bintana.</p>
+      <p>Binuksan ko laptop ko.</p>
+      <p>Tapos biglang dumating sa utak ko yung thought na ilang araw ko nang iniiwasan:</p>
+      <p><em>Bakit ba ako sobrang takot magpahinga?</em></p>
+
+      <p>Kasi once tumigil ako, mararamdaman ko lahat.</p>
+      <p>Yung pagod. Yung pressure. Yung kaba na baka kahit anong effort ko, hindi pa rin enough.</p>
+
+      <p>Kaya siguro mas madali na lang magpanggap na “busy lang.”</p>
+      <p>Mas professional pakinggan kaysa “pagod na pagod na ako.”</p>
+
+      <p>Napabuntong-hininga ako.</p>
+      <p>Tapos gumawa ako ng bagay na hindi ko usually ginagawa.</p>
+      <p>Una, kinain ko lahat ng bread.</p>
+      <p>Pangalawa, nag-message ako sa groupmate ko ng maayos: <em>“Running late sa file. Send ko by 8, not 6.”</em></p>
+      <p>Pangatlo, tinext ko nanay ko ng: <em>“Late uwi pero okay ako. Kumain na rin.”</em></p>
+
+      <p>Simple lang.</p>
+      <p>Pero weirdly, doon naging mas gumaan ang dibdib ko.</p>
+
+      <p>Natapos ko yung paper that night.</p>
+      <p>Hindi perfect, pero malinaw.</p>
+      <p>Hindi ako nag-breakdown. Hindi rin ako nagpakabayani.</p>
+      <p>Sakto lang. First time in weeks.</p>
+
+      <p>Simula noon, napansin ko na may sariling ugali yung library gate ko.</p>
+      <p>Kapag okay ako, normal lang.</p>
+      <p>Kapag obvious na sabog ako, minsan nagre-red muna bago mag-green sa second try.</p>
+      <p>Minsan wala namang message.</p>
+      <p>Minsan meron:</p>
+      <p><strong>WATER FIRST.</strong></p>
+      <p>o kaya</p>
+      <p><strong>STRETCH YOUR SHOULDERS.</strong></p>
+
+      <p>Hindi ko na kinuwento sa iba.</p>
+      <p>Una, baka isipin nilang gutom lang ako. Which, fair.</p>
+      <p>Pangalawa, baka tumigil pag masyado kong pinansin.</p>
+
+      <p>Pero one night, palabas ako ng library, nadaanan ko ulit yung librarian sa counter.</p>
+      <p>Sabi niya, hindi tumitingin sa’kin, “Mas productive ka na ngayon.”</p>
+
+      <p>Napahinto ako.</p>
+      <p>“Ma’am… kayo po ba—”</p>
+
+      <p>Ngumiti lang siya habang nagtatatak ng due dates.</p>
+      <p>“Anak,” sabi niya, “kahit anong system pa ilagay natin, hindi gagana ’yan sa estudyanteng hindi marunong mag-alaga sa sarili.”</p>
+
+      <p>Hindi niya sinagot yung tanong ko.</p>
+      <p>Pero somehow, sapat na ’yun.</p>
+
+      <p>Paglabas ko ng building, mahangin na sa campus. May konting ingay pa rin, pero hindi na nakaka-overwhelm.</p>
+      <p>Parang humina lang ang buong mundo enough para makahabol ako.</p>
+
+      <p>Tiningnan ko ID ko bago ko ibalik sa wallet.</p>
+      <p>Plain plastic lang. Gasgas na edges. Walang magic look.</p>
+      <p>Pero mula noon, tuwing may araw na gusto kong lampasan ang gutom at pagod para lang masabing productive ako, naaalala ko yung unang red light.</p>
+
+      <p>At yung pinaka-honest na warning na nakuha ko sa campus:</p>
+      <p><strong>Hindi ka papasok sa maayos na isip kung hindi mo muna aalagaan yung katawan mong dala-dala mo.</strong></p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Flibrary-card-hungry"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/library-card-hungry");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
