@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Vending Machine Beside Room 204</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/vending-machine-room-204" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Vending Machine Beside Room 204" />
+  <meta property="og:description" content="A short Taglish school story about the kind of help that appears when you're trying too hard to hide you're hungry." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/vending-machine-room-204" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/vending-machine-room-204.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/vending-machine-room-204.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/vending-machine-room-204.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Vending Machine Beside Room 204" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Vending Machine Beside Room 204" />
+  <meta name="twitter:description" content="A short Taglish school story about the kind of help that appears when you're trying too hard to hide you're hungry." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/vending-machine-room-204.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Vending Machine Beside Room 204",
+      "quote": "Hindi lahat ng rescue dramatic. Minsan, mainit lang na tinapay sa pagitan ng classes."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Vending Machine Beside Room 204</h1>
+      <p>Short Taglish school story for students trying to survive classes, deadlines, and skipped lunches.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#school</span>
+        <span class="tag">#studentlife</span>
+        <span class="tag">#sliceoflife</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>By 1:10 PM, alam ko na agad kung kaya ko bang mag-lunch o hindi.</p>
+      <p>Pag may natira sa wallet after pamasahe, kakain. Pag wala, tubig muna tapos kunwari busy sa phone.</p>
+      <p>Third year college na ako, at somehow ang pinaka-useful kong skill ay magmukhang okay kahit kumakalam na yung sikmura ko.</p>
+
+      <p>Tuesday noon nang mapansin ko ulit yung vending machine sa tapat ng Room 204.</p>
+      <p>Luma na siya. Faded na yung labels. Yung ilaw sa loob, patay-maliwanag na parang ayaw nang mabuhay nang buo.</p>
+      <p>May naka-tape pang papel sa gilid: <strong>COINS ONLY</strong>.</p>
+      <p>Parang joke, kasi sino pa bang may barya nang enough para sa snacks?</p>
+
+      <p>May lab class pa ako in twenty minutes at eksaktong labinlimang piso na lang laman ng bulsa ko.</p>
+      <p>Pamasahe ko na sana iyon pauwi, pero naisip ko, <em>mamaya na problemahin.</em></p>
+      <p>Baka sakaling may mabibili akong tubig.</p>
+
+      <p>Naglaglag ako ng barya. Isa. Dalawa. Tatlo.</p>
+      <p>Nag-ingay yung makina. Umilaw.</p>
+      <p>Tapos biglang nahulog sa tray… hindi bottled water.</p>
+      <p>Isang cheese bread.</p>
+
+      <p>Napatitig ako.</p>
+      <p>Walang presyo sa bread slot. Wala ngang bread slot.</p>
+      <p>May chips, biscuits, instant coffee. Pero walang tinapay.</p>
+
+      <p>Tumingin ako sa paligid, baka may nakakita at isipin magnanakaw ako.</p>
+      <p>Wala.</p>
+      <p>Tahimik yung hallway. Yung electric fan sa dulo lang ang maingay, umiikot na parang pagod din.</p>
+
+      <p>Kinuha ko yung bread.</p>
+      <p>Mainit pa.</p>
+
+      <p>Doon ako medyo kinabahan.</p>
+      <p>Kasi sure akong hindi dapat mainit ang lumang vending machine na hindi nga marunong magbigay ng tamang item.</p>
+
+      <p>“Okay,” bulong ko. “Either gutom lang ako… o may multo dito na maalaga.”</p>
+
+      <p>Kinain ko pa rin.</p>
+      <p>Masarap siya. Hindi life-changing. Hindi artisan. Pero sakto yung alat at lambot na kailangan mo kapag one quiz away ka na sa breakdown.</p>
+
+      <p>After that, napansin ko na may pattern.</p>
+      <p>Kapag sobrang sabog ako, parang may lumalabas sa machine na hindi ko naman inorder.</p>
+      <p>One time, crackers nang araw na wala akong tulog.</p>
+      <p>Isang cup ng taho-flavored soy drink nang umaga na nanginginig ako sa kaba bago mag-report.</p>
+      <p>Minsan, simpleng bottled water lang. Pero laging sakto sa araw ko.</p>
+
+      <p>Hindi ko kinuwento kahit kanino.</p>
+      <p>Una, dahil walang maniniwala.</p>
+      <p>Pangalawa, baka biglang tumigil kapag masyado kong pinansin.</p>
+
+      <p>Thursday, umulan nang malakas.</p>
+      <p>Late na ako sa next class, basa yung sapatos ko, at zero pesos na talaga ako after mag-print ng handout.</p>
+      <p>Dumaan ako sa Room 204 out of habit.</p>
+      <p>Patay yung ilaw ng vending machine.</p>
+      <p>Akala ko tapos na ang himala.</p>
+
+      <p>Pero pagdaan ko sa tray, may nandoon nang wrapped banana bread.</p>
+      <p>Hindi nahulog habang nandoon ako. Nandoon lang siya. Parang may nag-iwan para sa susunod na mapapadaan.</p>
+
+      <p>Doon na ako nagtaka nang totoo.</p>
+      <p>Hindi na ito malfunction.</p>
+      <p>Parang may nakakakita kung sino yung mga nagti-tipid masyado.</p>
+
+      <p>Kinabukasan, sinadya kong tumambay sa kabilang hallway bago mag-1 PM.</p>
+      <p>Nagkunwari akong nagre-review habang nakasilip sa vending machine.</p>
+
+      <p>After a few minutes, may dumating na janitress na lagi kong nakikitang nagwawalis sa building.</p>
+      <p>Mabagal lang lakad niya. May hawak na maliit na eco bag.</p>
+      <p>Huminto siya sa tabi ng machine, lumingon sa kanan at kaliwa, tapos may binuksan na maliit na panel sa likod.</p>
+      <p>May ipinasok siya.</p>
+      <p>Then isinara niya ulit na parang walang nangyari.</p>
+
+      <p>Lumapit ako pagkatapos niyang umalis.</p>
+      <p>Sa tray, may pumasok na dalawang monay at isang bottled water.</p>
+
+      <p>Naabutan niya akong nakatitig roon kinabukasan.</p>
+      <p>Ngumiti siya bago pa ako makapagpanggap.</p>
+
+      <p>“Ikaw yung laging dumadaan dito, ‘no?” sabi niya.</p>
+      <p>Napakamot ako. “Halata po ba?”</p>
+
+      <p>Tumawa siya nang mahina. “May mga estudyanteng marunong magtago ng gutom. Meron ding hindi.”</p>
+
+      <p>Hindi ko alam yung isasagot.</p>
+      <p>Nakakahiya, pero hindi masakit yung hiya. Mas parang nahuli kang tao ka lang din.</p>
+
+      <p>“Sirang machine na talaga ’yan noon pa,” sabi niya, tinatapik ang gilid ng vending machine. “Ginawa lang naming taguan.”</p>
+      <p>“Namin?”</p>
+
+      <p>“May ilang teachers. Dalawang alumni. Minsan may nag-iiwan din na students pag may extra sila. Walang announcement. Walang pangalan. Basta kung sino ang may kailangan, sana makita.”</p>
+
+      <p>Tumahimik ako.</p>
+      <p>All this time, akala ko may magic.</p>
+      <p>Meron pala. Hindi lang yung klase ng magic na may ilaw at sound effects.</p>
+
+      <p>Yung klase lang na tahimik.</p>
+      <p>Yung hindi nagpaparamdam na charity siya.</p>
+      <p>Yung hindi ka pinapahiya habang tinutulungan ka.</p>
+
+      <p>Noong payday ng part-time ko sa weekend, bumili ako ng apat na cheese bread at ilang bottled water sa convenience store.</p>
+      <p>Dumaan ako sa Room 204 bago umuwi.</p>
+      <p>Wala masyadong tao.</p>
+      <p>Inilagay ko sa likod panel, sabay sara.</p>
+
+      <p>Nung paalis na ako, may isang first year na dumating, basa ang buhok, halatang gutom at nag-iisip kung tubig ba o pamasahe.</p>
+      <p>Umilaw ang vending machine nang mahina.</p>
+      <p>Natawa ako kahit hindi niya ako napansin.</p>
+
+      <p>Minsan akala mo ang kailangan mo grand sign, malaking sagot, o miracle.</p>
+      <p>Pero minsan ang kailangan mo lang talaga sa gitna ng classes ay isang lumang vending machine…</p>
+      <p>at mga taong marunong mag-iwan ng tulong nang hindi humihingi ng credit.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fvending-machine-room-204"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/vending-machine-room-204");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
