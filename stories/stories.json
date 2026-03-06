@@ -113,5 +113,15 @@
   "tags": ["library", "campus", "taglish", "slice-of-life", "genz", "urban"],
   "excerpt": "Sa campus library, may isang upuan na laging bakante para sa mga estudyanteng halos sumuko na.",
   "ogQuote": "Minsan, hindi ka nawawala—pagod ka lang, at may bagay na naaalala ka pa rin."
-}
+  },
+  {
+  "title": "The Vending Machine Beside Room 204",
+  "slug": "vending-machine-room-204",
+  "url": "/stories/vending-machine-room-204.html",
+  "readTime": "3 min",
+  "date": "2026-03-06",
+  "tags": ["school", "studentlife", "slice-of-life", "taglish", "urban", "mystery"],
+  "excerpt": "Every time he skipped lunch to save money, the broken vending machine beside Room 204 gave him exactly what he needed.",
+  "ogQuote": "Hindi lahat ng rescue dramatic. Minsan, mainit lang na tinapay sa pagitan ng classes."
+   }
 ]
