@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Reviewer He Left Beside Me</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/reviewer-he-left-beside-me" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Reviewer He Left Beside Me" />
+  <meta property="og:description" content="A short Taglish campus story about the quiet help you only understand when you finally stop rushing." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/reviewer-he-left-beside-me" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/reviewer-he-left-beside-me.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/reviewer-he-left-beside-me.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/reviewer-he-left-beside-me.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Reviewer He Left Beside Me" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Reviewer He Left Beside Me" />
+  <meta name="twitter:description" content="A short Taglish campus story about the quiet help you only understand when you finally stop rushing." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/reviewer-he-left-beside-me.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Reviewer He Left Beside Me",
+      "quote": "Minsan, hindi mo kailangan ng grand gesture—may isang taong tahimik nang nagsasabing, “Kaya mo ’to.”"
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Reviewer He Left Beside Me</h1>
+      <p>Short Taglish campus story for students carrying more than they show.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#school</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#coming-of-age</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Final exam week na, at halata naman sa hallway.</p>
+      <p>May mga estudyanteng nagre-review habang naglalakad, may nakasandal sa pader na parang isang iyak na lang ang pagitan sa breakdown, at may ilan na tahimik lang, nakatingin sa reviewer na parang gusto nilang pumasok ang sagot sa utak by osmosis.</p>
+
+      <p>Nasa waiting area ako outside the exam room, hawak ang yellow pad, calculator, at kalahating confidence.</p>
+      <p>Hindi naman ako totally unprepared. Pero alam mo yung feeling na kahit nag-aral ka, parang may kulang pa rin? Ganun.</p>
+
+      <p>Late na rin akong dumating dahil dumaan pa ako sa photocopy shop sa tapat ng gate. Mahaba ang pila, mainit, at yung printer parang mas stressed pa sa amin.</p>
+      <p>Pag-upo ko sa bench, saka ko narealize—wala yung pinakaimportanteng reviewer ko.</p>
+
+      <p>Yung may summarized formulas.</p>
+      <p>Yung may sample problems.</p>
+      <p>Yung reviewer na pinagpuyatan ko kagabi.</p>
+
+      <p>“Perfect,” bulong ko. “Talagang ngayon pa.”</p>
+
+      <p>Binuksan ko ulit bag ko kahit alam kong wala na doon.</p>
+      <p>Notebook. Ballpen. Charger. Resibo ng iced coffee na di ko pa nababayaran sa friend ko. Pero yung reviewer? Wala.</p>
+
+      <p>Tumabi sa akin si Nico.</p>
+      <p>Classmate ko siya sa dalawang subject. Hindi kami close, pero one of those familiar faces na lagi mong nakikita sa class picture, groupings, at random hallway sightings.</p>
+
+      <p>“Ikaw pala,” sabi niya, medyo hingal. “Akala ko nakapasok ka na.”</p>
+
+      <p>“Hindi pa,” sagot ko. “Tsaka wala na akong dignity. Naiwan ko reviewer ko.”</p>
+
+      <p>Umupo siya sa tabi ko nang walang drama. Tapos may inilapag siyang stapled papers sa pagitan namin.</p>
+      <p>“Gamitin mo muna ’to.”</p>
+
+      <p>Tiningnan ko.</p>
+      <p>Reviewer ko iyon.</p>
+
+      <p>As in reviewer ko talaga.</p>
+      <p>May sulat ko sa gilid. May doodle kong maliit na bituin sa upper corner. May typo akong ako lang ang may gawa dahil mali ko talaga ang pagtype ng “equation” sa cover.</p>
+
+      <p>Napatingin ako sa kanya. “Wait. Saan mo nakuha ’to?”</p>
+
+      <p>Kibit-balikat siya. “Sa photocopy shop.”</p>
+
+      <p>“Ha?”</p>
+
+      <p>“Naiwan mo sa may stapler. Tinawag ka nung ate, pero nakaalis ka na. Sakto paalis na rin ako, so dinala ko na.”</p>
+
+      <p>“Bakit hindi mo na lang sinend sa GC?”</p>
+
+      <p>“Hindi ka nagse-seen.”</p>
+
+      <p>Natahimik ako.</p>
+      <p>Tama nga naman. Kapag exam week, naka-mute halos lahat sa phone ko. Para akong allergic sa notifications.</p>
+
+      <p>“Thanks,” sabi ko, sabay kuha sa reviewer.</p>
+      <p>Pero bago ko mahawakan nang buo, napansin ko yung sticky note sa harap.</p>
+
+      <p><strong>Page 4, 7, and 11. Lumabas ’to sa last review ni sir.</strong></p>
+
+      <p>Tumingin ako sa kanya ulit. “Inannotate mo pa?”</p>
+
+      <p>“Konti lang.”</p>
+
+      <p>Binuklat ko.</p>
+      <p>May circles sa important formulas. May arrows sa trick questions. Sa isang page, may sulat pa na:</p>
+
+      <p><strong>Huwag kabahan dito. Ganito rin yung mali mo last quiz, diba?</strong></p>
+
+      <p>Doon ako napatigil.</p>
+
+      <p>“Paano mo alam na mali ko ’yan last quiz?”</p>
+
+      <p>Napakamot siya sa batok. “Naalala ko lang.”</p>
+
+      <p>Tapos parang na-connect bigla lahat.</p>
+      <p>Siya yung nag-abot sa akin ng extra yellow pad noong prelims kahit hindi ko na matandaan kung kanino galing.</p>
+      <p>Siya pala yung nag-forward ng attendance screenshot noong isang absent ako.</p>
+      <p>Siya rin yata yung nagbalik ng nahulog kong ID sa block rep nang walang pangalan.</p>
+
+      <p>Mga maliliit na bagay na nangyari lang, tapos nakalimutan ko na agad.</p>
+
+      <p>Pero sa kanya, hindi pala random.</p>
+
+      <p>“Ikaw ’yun?” tanong ko, halos pabulong.</p>
+
+      <p>Ngumiti lang siya. Hindi yung pakilig na smile. Yung normal lang. Yung tipong walang hinihinging kapalit.</p>
+
+      <p>“Minsan kasi,” sabi niya, “halata namang pagod ka na. Baka lang makatulong.”</p>
+
+      <p>Walang violin. Walang dramatic background music. Maingay pa rin ang hallway, may tumatawa sa dulo, may nagmamadaling prof na dumaan.</p>
+      <p>Pero for a few seconds, parang humina lahat.</p>
+
+      <p>Kasi ang weird pala sa pakiramdam kapag sanay kang ikaw yung laging “okay lang,” tapos biglang may taong matagal nang napapansin na hindi ka pala okay.</p>
+
+      <p>“Ba’t hindi mo sinabi?”</p>
+
+      <p>Umayos siya ng upo. “Ewan. Hindi naman kailangang i-announce.”</p>
+
+      <p>Tinawag na ang section namin para pumasok.</p>
+      <p>Nag-ayos kami ng gamit, tumayo, at sumabay sa pila ng mga mukhang hindi pa handa sa adult life.</p>
+
+      <p>Bago kami tuluyang pumasok sa room, inabot niya ulit sa akin yung reviewer.</p>
+
+      <p>“Sa ’yo na ’yan,” sabi niya. “May copy na ako.”</p>
+
+      <p>Tapos, parang afterthought lang, dinugtungan niya:</p>
+
+      <p>“Kaya mo ’to.”</p>
+
+      <p>Simple lang. Apat na salita.</p>
+      <p>Pero after months of surviving requirements, deadlines, at yung pagod na hindi mo ma-explain sa bahay, parang iyon na yata yung pinaka-complete na reviewer na natanggap ko.</p>
+
+      <p>Hindi ko naperfect ang exam.</p>
+      <p>Hindi rin ako naging top score.</p>
+      <p>Pero paglabas ko ng room, mas magaan na yung pakiramdam ko.</p>
+
+      <p>Hindi dahil madali yung test.</p>
+      <p>Kundi dahil may naalala ako bigla:</p>
+
+      <p><strong>Minsan, hindi mo kailangan ng grand gesture para makatawid sa mabigat na araw.</strong></p>
+      <p><strong>Minsan, sapat na yung isang taong tahimik nang nagsasabing, “Kaya mo ’to.”</strong></p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Freviewer-he-left-beside-me"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/reviewer-he-left-beside-me");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
