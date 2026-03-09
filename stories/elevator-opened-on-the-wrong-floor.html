@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Elevator That Opened on the Wrong Floor</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/elevator-opened-on-the-wrong-floor" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Elevator That Opened on the Wrong Floor" />
+  <meta property="og:description" content="A short Taglish campus story about getting lost for a minute and finding the pause you needed." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/elevator-opened-on-the-wrong-floor" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/elevator-opened-on-the-wrong-floor.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/elevator-opened-on-the-wrong-floor.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/elevator-opened-on-the-wrong-floor.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Elevator That Opened on the Wrong Floor" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Elevator That Opened on the Wrong Floor" />
+  <meta name="twitter:description" content="A short Taglish campus story about getting lost for a minute and finding the pause you needed." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/elevator-opened-on-the-wrong-floor.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Elevator That Opened on the Wrong Floor",
+      "quote": "Minsan, mali lang talaga yung floor para mapunta ka sa tamang pahinga."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Elevator That Opened on the Wrong Floor</h1>
+      <p>Short Taglish campus story for anyone who has tried to look okay kahit ubos na talaga.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#school</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#lightmystery</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Third week pa lang ng sem, pero pagod na ako na parang finals na.</p>
+      <p>May presentation kami sa sixth floor ng main building, at buong umaga akong may bitbit na laptop, yellow pad, at confidence na halatang borrowed lang.</p>
+      <p>Alam mo yung feeling na okay ka pa naman physically, pero mentally parang isang maliit na inconvenience na lang, gusto mo nang umuwi?</p>
+
+      <p>Ganun ako that day.</p>
+
+      <p>Pagkatapos ng last subject, bumaba na ako papuntang lobby para bumili sana ng murang iced coffee sa labas. Siksikan sa hallway—may mga students na naghahabol ng next class, may org booth sa gilid, may dalawang magjowang nag-aaway nang pabulong pero rinig ng buong floor.</p>
+      <p>Nakakadrain in the most normal school way.</p>
+
+      <p>Pagdating ko sa elevator, ako lang mag-isa ang nakasakay.</p>
+      <p>Pindot ko: <strong>G</strong>.</p>
+      <p>Sumara ang pinto. Umandar pababa.</p>
+      <p>Then biglang tumigil.</p>
+
+      <p><em>5th floor.</em></p>
+
+      <p>Hindi naman masama. Akala ko may sasakay lang. Pero pag-open ng pinto, walang tao.</p>
+      <p>Mahabang hallway lang. Tahimik. Yung tipong school silence na hindi peaceful—parang may naiwan lang na aircon hum at fluorescent light.</p>
+
+      <p>Napakunot-noo ako.</p>
+      <p>Wala rin namang pumindot galing labas.</p>
+
+      <p>Pinindot ko ulit yung close button, pero bago magsara, may narinig akong boses.</p>
+
+      <p>“Pwede bang one more try?”</p>
+
+      <p>Mahina lang, parang may kinakausap ang sarili.</p>
+
+      <p>Napasilip ako sa hallway. Doon sa dulo, may isang classroom na kalahating bukas. May ilaw sa loob.</p>
+      <p>Honestly, wala akong balak makialam. Pagod na ako, gutom pa. Pero may something sa boses—hindi dramatic, hindi pa-main character. Pagod din. Kagaya nung tunog ng boses mo kapag buong araw ka nang nagpapanggap na kaya mo pa.</p>
+
+      <p>Lumabas ako ng elevator.</p>
+
+      <p>Sa loob ng room, nandoon si Mara.</p>
+      <p>Kaklase ko siya sa isang minor. Hindi kami close-close, pero alam ko yung mukha niya kasi lagi siyang nasa unahan at laging mukhang maayos. Yung tipo na akala mo never nauubusan ng social battery.</p>
+
+      <p>Pero that afternoon, mag-isa lang siya sa harap ng room, hawak ang index cards, paulit-ulit ang opening line niya.</p>
+
+      <p>“Good afternoon, class…”</p>
+      <p>Hinto.</p>
+      <p>Exhale.</p>
+      <p>“Good afternoon, class…”</p>
+      <p>Hinto ulit.</p>
+
+      <p>Nagulat siya nang mapansin niya ako.</p>
+      <p>“Ay—sorry. Akala ko walang tao.”</p>
+
+      <p>“Same,” sabi ko. “Akala ko nasa G floor na ako.”</p>
+
+      <p>Natawa siya nang konti. Yung hindi full laugh. Yung pagod na laugh na enough lang para hindi ka tuluyang maiyak.</p>
+
+      <p>“Reporting mo rin?” tanong ko.</p>
+      <p>Tumango siya. “Tomorrow. Hindi ko alam bakit biglang di gumagana bibig ko pag mag-isa na lang ako.”</p>
+
+      <p>“Ayos lang,” sabi ko. “Sa akin nga gumagana bibig ko. Mali-mali naman lumalabas.”</p>
+
+      <p>Doon siya natawa nang totoo.</p>
+
+      <p>Hindi ko alam kung anong meron sa floor na yun, pero parang humina lahat ng ingay sa utak ko. Umupo ako sa isang armchair sa likod habang nag-practice siya ulit. Tapos ako naman. Tapos siya ulit.</p>
+      <p>Walang pilitan. Walang “you can do it” na cheesy.</p>
+      <p>Nandun lang kami, two tired students pretending na rehearsal lang ang ginagawa namin, kahit ang totoong pini-practice namin pareho ay kung paano hindi bumigay.</p>
+
+      <p>After a while, napansin ko yung oras.</p>
+      <p>“Wait, anong room ba ’to?” tanong ko.</p>
+
+      <p>Tumingin siya sa pinto. “Hindi ko sure. Akala ko vacant lang.”</p>
+
+      <p>Lumabas kami para tingnan yung signage sa hallway.</p>
+      <p>Doon ako napatigil.</p>
+
+      <p>Ang nakalagay sa pader: <strong>4th Floor</strong>.</p>
+
+      <p>“Ha?” sabi ko agad. “Hindi ba fifth ’to?”</p>
+
+      <p>Tumingin din siya. “Akala ko rin.”</p>
+
+      <p>Bumaling kami sa elevator. Nakasara na ulit ang pinto, ilaw lang ng buttons ang kita.</p>
+      <p>Naglakad kami palapit. Nang bumukas, ang nakadisplay sa taas ay: <strong>4</strong>.</p>
+
+      <p>Walang fifth floor ang building na ’yon.</p>
+
+      <p>Hindi naman ako sumigaw o tumakbo. Sobrang pagod ko na para mag-overreact.</p>
+      <p>Nagtinginan lang kami ni Mara, tapos sabay kaming natawa.</p>
+
+      <p>“So…” sabi niya, “multo ba ’to o burnout?”</p>
+      <p>“Sana burnout na lang. Mas mahal therapy pag multo,” sabi ko.</p>
+
+      <p>Pagbaba namin sa lobby, maingay ulit ang mundo. May tumatawid na professors, may food delivery rider sa labas, may dalawang first year na nagde-debate kung red flag ba ang hindi pagreply sa shared notes.</p>
+      <p>Normal lahat.</p>
+
+      <p>Pero hindi na kasing bigat nung pakiramdam ko kanina.</p>
+
+      <p>Kinabukasan, nagkasalubong kami ulit sa corridor before class.</p>
+      <p>“Uy,” sabi niya, hawak ang kape. “Wrong floor?”</p>
+      <p>“Wrong floor,” sagot ko.</p>
+
+      <p>We smiled like may secret kaming hindi namin kailangan i-explain.</p>
+
+      <p>Nakapag-report kami pareho. Hindi perfect. May konting stutter. May one or two slides na minadali.</p>
+      <p>Pero natawid.</p>
+
+      <p>Noong uwian, dumaan ulit ako sa elevator. Ako lang uli.</p>
+      <p>Pindot ko ng <strong>G</strong>.</p>
+
+      <p>Huminto muna sa gitna.</p>
+      <p>Napataas ako ng tingin sa floor display.</p>
+
+      <p>Walang number.</p>
+      <p>Isang maliit na dash lang.</p>
+
+      <p>Tapos nag-open ang pinto sa fourth floor.</p>
+      <p>Tahimik. Walang tao. Walang classroom na may bukas na ilaw.</p>
+
+      <p>Pero sa isang monoblock sa tabi ng hallway, may naiwan na dalawang paper cup ng kape.</p>
+      <p>Isa doon, may sulat sa takip gamit marker:</p>
+
+      <p><strong>Okay ka na ba?</strong></p>
+
+      <p>Hindi ko alam kung para kanino yun.</p>
+      <p>Hindi ko rin kinuha.</p>
+
+      <p>Pero ngumiti ako habang sumasara yung elevator.</p>
+
+      <p>Kasi minsan, hindi mo naman kailangan ng grand sign.</p>
+      <p>Minsan sapat na yung maling floor, tamang tao, at limang minutong pahinga para maalala mong hindi ka nag-iisa sa pagod.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Felevator-opened-on-the-wrong-floor"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/elevator-opened-on-the-wrong-floor");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
