@@ -1,0 +1,421 @@
+ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Ang Promise na Naiwan sa Platform</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Ang Promise na Naiwan sa Platform" />
+  <meta property="og:description" content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Ang Promise na Naiwan sa Platform" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ang Promise na Naiwan sa Platform" />
+  <meta name="twitter:description" content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Ang Promise na Naiwan sa Platform",
+      "quote": "Minsan, akala mo nawala na ang isang bagay—hindi mo alam, may tinutupad lang pala itong lumang pangako."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Ang Promise na Naiwan sa Platform</h1>
+      <p>Short Taglish reunion story for students, commuters, and anyone who has ever felt left behind.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#tenderreunion</span>
+        <span class="tag">#commute</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#subtlehumor</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Before sunrise, nasa campus gate na ako.</p>
+      <p>Hindi dahil masipag ako. Nauna lang talaga akong pumasok para iwas sa mga kaklaseng parang laging alam ang next step sa buhay.</p>
+      <p>Habang naglalakad ako sa tabi ng guardhouse, may nakita akong folded note sa sahig, bahagyang basa ng hamog.</p>
+      <p>Akala ko resibo lang. Pero may pangalan.</p>
+      <p><strong>“Para kay Lia. Huwag mong isipin na huli ka na.”</strong></p>
+
+      <p>Lia ang nickname ko noong high school.</p>
+      <p>Sa college, halos wala nang tumatawag sa akin n’un. Lahat “Eliana” na, o kaya “Uy, ikaw nga.”</p>
+      <p>Kaya nung nakita ko ‘yon, huminto talaga ako.</p>
+      <p>Binuklat ko pa. Sa loob, may isa pang sulat.</p>
+      <p><strong>“Kung makita mo ’to, baka pwede mo pa ring kunin pabalik.”</strong></p>
+
+      <p>“Wow,” bulong ko. “Cryptic. Kulang na lang treasure map.”</p>
+      <p>Tumingin ako sa paligid. Wala namang dramatic na violin. Wala ring lalaking naka-hoodie na obvious ang balak.</p>
+
+      <p>Buong araw, nasa bag ko lang ang note.</p>
+      <p>May reporting kami. May group chat na puro “seen.” May classmate akong nag-“gets mo ba?” in a tone na parang hindi compliment.</p>
+      <p>At by lunch, naramdaman ko na naman yung pamilyar na bigat—yung feeling na everyone is moving, everyone is becoming something, tapos ikaw naka-buffering pa rin.</p>
+
+      <p>Kaya siguro kinilig ako nang konti sa idea na baka may naghahanap sa akin.</p>
+      <p>Or at least, may nakaalala.</p>
+
+      <p>Pagdating ng gabi, halos last trip na.</p>
+      <p>Nasa train platform ako, tahimik sa parteng dulo, malapit sa lumang electric fan na umiikot na parang pagod na ring umuwi.</p>
+      <p>Hindi naman malamig ang hangin niya. More on symbolic support.</p>
+
+      <p>Doon ko siya napansin.</p>
+      <p>May isang guy na nakatayo malapit sa yellow line, may hawak na maliit na keychain—blue na acrylic star.</p>
+      <p>Tumigil ang utak ko.</p>
+
+      <p>Keychain ko ‘yon.</p>
+      <p>At hindi lang basta keychain. Nasa luma kong school bag ‘yon noong senior high. Akala ko nawala na years ago.</p>
+
+      <p>Napatingin ako sa note sa kamay ko. Tapos sa kanya ulit.</p>
+      <p>Biglang nag-connect sa isip ko ang lahat in the worst possible way.</p>
+      <p>So siya ‘yon? Siya yung nag-iwan ng note? Siya rin yung may hawak ng gamit ko?</p>
+
+      <p>Lumapit ako. “Excuse me.”</p>
+      <p>Pagharap niya, medyo nagulat pa siya. “Ah—hi?”</p>
+      <p>Inangat ko ang keychain gamit ang tingin. “Saan mo nakuha ’yan?”</p>
+      <p>Napakurap siya. “Ito?”</p>
+      <p>“Hindi, yung electric fan.”</p>
+      <p>Napatingin siya sa fan. “Ay. Sorry. Ito ba?”</p>
+
+      <p>Hindi ko sinasadya, pero natawa siya nang mahina. Ako hindi pa. Nasa suspicious era pa ako.</p>
+
+      <p>“Sa’kin kasi ’yan,” sabi ko. “Or dati. At may napulot akong note kanina sa gate. Kung prank ’to, medyo effort.”</p>
+      <p>Sandaling tumahimik siya. Tapos marahang nagbuntong-hininga.</p>
+      <p>“Okay,” sabi niya. “So nahanap mo pala.”</p>
+
+      <p>“So aminado ka?”</p>
+      <p>“Parang masama pakinggan ’pag ganyan ang tanong mo.”</p>
+
+      <p>Doon ko siya mas tiningnan.</p>
+      <p>Pamilyar yung mata. Yung boses din, somehow. Pero hindi agad mahanap ng utak ko kung saan.</p>
+
+      <p>“Lia,” sabi niya nang dahan-dahan, “ako si Nico.”</p>
+
+      <p>Parang may maliit na ilaw na biglang nag-on sa loob ng memory ko.</p>
+      <p>Nico. Yung transferee noong Grade 10. Tahimik. Laging late kasi dalawang sakay pa pauwi. Yung minsang nakisabay sa payong ko sa labas ng review center habang umuulan nang grabe.</p>
+      <p>Yung batang hindi marunong humingi ng tulong kahit halatang kailangan niya.</p>
+
+      <p>“Ikaw?” sabi ko. “Akala ko nasa Laguna ka.”</p>
+      <p>“Nandito na ulit. Review center sa kabilang station.”</p>
+      <p>Tumango siya sa hawak niyang keychain. “At bago mo ako kasuhan sa imagination mo, hindi ko ’yan ninakaw.”</p>
+
+      <p>Kumuha siya ng lumang folded paper mula sa wallet niya.</p>
+      <p>Inabot niya sa akin.</p>
+
+      <p>Luma na ang tupi. Kupas na ang sulat. Pero pagbukas ko, nakilala ko agad ang sulat-kamay.</p>
+      <p>Akin.</p>
+
+      <p><strong>“Sa’yo muna ’yang star. Para may bumalik sa’yo kapag feeling mo wala. Pag okay na tayo pareho, ibalik mo sa akin sa platform. Promise.”</strong></p>
+
+      <p>Napatigil ako.</p>
+      <p>Biglang bumalik sa akin ang gabing ‘yon—ulan, basang sapatos, pareho kaming exam week at parehong mukhang konting iyak na lang.</p>
+      <p>Nag-joke pa ako noon na dramatic dapat ang return, sa train platform, para parang pelikula kahit wala kaming budget.</p>
+
+      <p>“Hindi mo binalik,” sabi ko, halos pabulong.</p>
+      <p>“Sabi mo pag okay na tayo pareho.”</p>
+      <p>Napangiti siya nang kaunti. “Matagal akong hindi okay, Lia.”</p>
+
+      <p>Aray.</p>
+      <p>Simple lang pagkakasabi niya, pero doon nagbago ang buong kwento sa isip ko.</p>
+      <p>Hindi pala random ang note. Hindi rin weird stunt ng kung sino.</p>
+      <p>May isang taong matagal na nag-iingat ng maliit kong biro, parang totoong pangako.</p>
+
+      <p>“So yung note sa gate…”</p>
+      <p>“Three days ko nang sinusubukang iabot sa’yo,” sabi niya. “Kaso every time na makikita kita, either ang bilis mong maglakad o mukha kang may kaaway na thesis.”</p>
+
+      <p>Natawa ako kahit napahiya. “That’s fair.”</p>
+      <p>“Kanina sana, ikukuha kita ng kape. Kaso natakot ako.”</p>
+      <p>“Sa’kin?”</p>
+      <p>“Oo. College ka na. Baka sabihin mo, ‘Excuse me, kuya, who are you?’”</p>
+
+      <p>“Pwede pa rin,” sabi ko. “For balance.”</p>
+
+      <p>Humina ang ikot ng electric fan sa taas namin. May dumating na anunsyo para sa last train.</p>
+      <p>Pero sa first time that day, hindi ko naramdaman na nahuhuli ako.</p>
+
+      <p>Inabot niya ang blue star keychain. “Sa’yo na.”</p>
+      <p>Hinawakan ko, tapos umiling.</p>
+      <p>“Sa’yo muna,” sabi ko. “Hindi pa naman tayo parehong okay every day.”</p>
+
+      <p>Natawa siya. “So may extension ang promise?”</p>
+      <p>“Oo. Renewable. Parang stress.”</p>
+
+      <p>Naglakad kami papasok ng train na parehong pagod, parehong may dalang kung anu-anong hindi nasabi for years.</p>
+      <p>Pero mas magaan na.</p>
+
+      <p>Minsan pala, akala mo may nawalan sa’yo.</p>
+      <p>Ang totoo, may isang taong maingat lang na tinutupad ang sinabi mong biro lang noon—</p>
+      <p>at biglang hindi na biro ngayon.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fang-promise-na-naiwan-sa-platform"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
