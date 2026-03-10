@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Professor Who Let the Room Go Quiet</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/the-professor-who-let-the-room-go-quiet" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Professor Who Let the Room Go Quiet" />
+  <meta property="og:description" content="A short Taglish campus story about freezing in front of the class and being noticed at the exact right moment." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/the-professor-who-let-the-room-go-quiet" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/the-professor-who-let-the-room-go-quiet.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/the-professor-who-let-the-room-go-quiet.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/the-professor-who-let-the-room-go-quiet.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Professor Who Let the Room Go Quiet" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Professor Who Let the Room Go Quiet" />
+  <meta name="twitter:description" content="A short Taglish campus story about freezing in front of the class and being noticed at the exact right moment." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/the-professor-who-let-the-room-go-quiet.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Professor Who Let the Room Go Quiet",
+      "quote": "Minsan, ang pinakamalaking tulong ay yung taong marunong makapansin kahit wala kang masabi."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Professor Who Let the Room Go Quiet</h1>
+      <p>Short Taglish campus story for students trying to hold it together on ordinary school days.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#drama</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Pangatlo akong reporter, pero simula pa lang ng class, parang may bato nang nakapatong sa dibdib ko.</p>
+      <p>Hindi ko alam kung kulang lang ba ako sa tulog, sa kain, o sa lakas ng loob.</p>
+      <p>Basta ang alam ko, habang isa-isang tinatawag yung groups sa harap, mas lalong umiingay yung tibok ng puso ko kaysa sa electric fan sa classroom.</p>
+
+      <p>“Next group,” sabi ng professor namin.</p>
+      <p>May nagtulakan nang mahina sa likod. “Ikaw na mauna,” bulong ng groupmate ko, sabay abot ng printed outline na parang kaya nun ayusin lahat.</p>
+
+      <p>Tumayo ako.</p>
+      <p>Hawak ko yung yellow paper, pero nanginginig yung daliri ko.</p>
+      <p>Pagharap ko sa class, biglang parang sobrang liwanag ng room.</p>
+      <p>Yung whiteboard, yung projector, yung mga mukhang nakatingin—lahat sabay-sabay pumasok sa isip ko.</p>
+
+      <p>“Good afternoon, everyone,” sabi ko.</p>
+      <p>O sinubukan kong sabihin.</p>
+      <p>Kasi ang lumabas, mahina. Basag. Parang hindi galing sa akin.</p>
+
+      <p>May isa sa likod na nagbukas ng tumbler. May dalawa sa unahan na nag-aayos ng notes. Normal lang naman. Walang masamang ginagawa.</p>
+      <p>Pero kapag ikaw yung nasa harap at paubos na yung energy mo, lahat parang mas malaki kaysa dapat.</p>
+
+      <p>Tumingin ako sa slide.</p>
+      <p>Biglang wala akong maalala.</p>
+      <p>Alam ko inaral ko ‘to kagabi. Ilang beses ko pa nga nirehearse sa boarding house habang nakasandal sa electric fan.</p>
+      <p>Pero sa harap ng class, parang may nagbura ng laman ng utak ko.</p>
+
+      <p>“The topic is…”</p>
+      <p>Huminto ako.</p>
+      <p>Then silence.</p>
+
+      <p>Yung klase ng katahimikan na hindi tahimik talaga—may upuan pa ring kumikiskis, may umuubo, may mahinang bulungan—pero para sa’yo, parang huminto ang buong room para mapansin na wala kang masabi.</p>
+
+      <p>“Uy, okay ka lang?” bulong ng isa kong groupmate mula sa gilid.</p>
+      <p>Hindi ako nakasagot.</p>
+
+      <p>Napansin ko lang na mas humigpit yung hawak ko sa papel. Gusot na pala yung dulo.</p>
+      <p>At doon ako kinabahan lalo.</p>
+      <p>Hindi na ‘to simpleng hiya. Hindi na rin ‘to simpleng kaba.</p>
+      <p>Parang buong linggo ko nang pinipilit maging okay sa quizzes, deadlines, group chats, at puyat.</p>
+      <p>Tapos dito ako biglang naubusan.</p>
+
+      <p>Nag-angat ng tingin ang professor namin.</p>
+      <p>Hindi siya yung type na palaging malambing. Sakto lang. Tahimik. Observant. Yung tipong alam kung sino ang hindi nakikinig kahit hindi tumitingin sa attendance sheet.</p>
+
+      <p>Akala ko magsasabi siya ng, “Continue,” o kaya “Proceed.”</p>
+      <p>Pero ang sabi niya, sobrang simple lang.</p>
+
+      <p>“Class, sandali.”</p>
+
+      <p>Tumingin lahat sa kanya.</p>
+      <p>Ibinalik niya sa akin yung tingin niya, pero hindi nakakataranta.</p>
+      <p>Parang hindi ako pinapahiya. Parang may inaayos lang siya na bagay na siya lang ang nakapansin.</p>
+
+      <p>“You can sit down first,” sabi niya. “Inom ka muna ng tubig.”</p>
+
+      <p>Walang halong drama yung boses niya. Wala ring awa na nakakahiya.</p>
+      <p>Parang normal lang na minsan, may estudyanteng hindi kaya.</p>
+
+      <p>Hindi ako gumalaw agad.</p>
+      <p>Parang hindi nag-register.</p>
+
+      <p>Then he faced the class and said, “Five-minute pause. Review your notes. We’ll continue after.”</p>
+
+      <p>At doon ko lang naramdaman na kaya ko pa lang huminga.</p>
+
+      <p>Bumalik ako sa seat ko na mainit ang tenga at namumuo yung hiya sa lalamunan.</p>
+      <p>Inabutan ako ng water bottle ng kaklase ko nang walang salita.</p>
+      <p>Yung isa kong groupmate, hinila yung outline mula sa kamay ko at inayos yung gusot na paper na parang wala lang.</p>
+
+      <p>“Kala ko mahihimatay ka,” pabulong niyang sabi.</p>
+      <p>Napatawa ako nang mahina. “Ako rin.”</p>
+
+      <p>After a few minutes, lumapit yung professor habang abala ang iba sa notes nila.</p>
+      <p>Hindi siya nag-lecture. Hindi niya sinabi na dapat ready ako. Hindi rin niya tinanong kung bakit ako nag-freeze sa harap.</p>
+
+      <p>Ang sabi lang niya, mahina pero klaro:</p>
+      <p>“Next time, sabihin mo bago ka pa maubos.”</p>
+
+      <p>Doon ako halos maiyak.</p>
+      <p>Kasi hindi ko naman sinabi kahit kanino na tatlong gabi na akong kulang sa tulog kakasabay sa school at part-time work.</p>
+      <p>Hindi ko sinabi na dalawang araw na akong noodles lang. Hindi ko sinabi na maghapon na pala akong hilo.</p>
+      <p>Wala akong sinabi.</p>
+
+      <p>Pero may nakapansin.</p>
+
+      <p>Pagkatapos ng break, hindi niya ako pinilit mauna ulit.</p>
+      <p>Ipinahuli niya yung group namin.</p>
+      <p>At noong turn na namin, hindi na ako mag-isa sa harap.</p>
+      <p>Katabi ko na yung groupmates ko. Mabagal pa rin boses ko, pero lumabas na.</p>
+      <p>Sapat na para maitawid.</p>
+
+      <p>Pagkatapos ng class, habang palabas kami ng room, nagbibiruan na ulit yung iba na parang ordinaryong araw lang.</p>
+      <p>Siguro para sa kanila, maliit na eksena lang yun.</p>
+      <p>Isang estudyanteng kinabahan. Isang reporting na natigil. Limang minutong pause.</p>
+
+      <p>Pero para sa akin, iba.</p>
+      <p>Kasi minsan, ang kailangan mo lang pala ay hindi advice.</p>
+      <p>Hindi sermon. Hindi “kaya mo ‘yan.”</p>
+      <p>Kundi isang taong marunong magsabi ng, <em>“Sige, upo ka muna.”</em></p>
+
+      <p>At minsan, sapat na ‘yon para hindi ka tuluyang mabasag sa harap ng lahat.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-professor-who-let-the-room-go-quiet"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/the-professor-who-let-the-room-go-quiet");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
