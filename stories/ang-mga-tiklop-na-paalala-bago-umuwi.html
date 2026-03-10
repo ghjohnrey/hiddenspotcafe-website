@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Ang Mga Tiklop na Paalala Bago Umuwi</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/ang-mga-tiklop-na-paalala-bago-umuwi" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Ang Mga Tiklop na Paalala Bago Umuwi" />
+  <meta property="og:description" content="A short Taglish story about a quiet student, a folded note, and the small signs that suddenly make sense." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/ang-mga-tiklop-na-paalala-bago-umuwi" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/ang-mga-tiklop-na-paalala-bago-umuwi.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/ang-mga-tiklop-na-paalala-bago-umuwi.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/ang-mga-tiklop-na-paalala-bago-umuwi.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Ang Mga Tiklop na Paalala Bago Umuwi" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ang Mga Tiklop na Paalala Bago Umuwi" />
+  <meta name="twitter:description" content="A short Taglish story about a quiet student, a folded note, and the small signs that suddenly make sense." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/ang-mga-tiklop-na-paalala-bago-umuwi.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Ang Mga Tiklop na Paalala Bago Umuwi",
+      "quote": "Minsan akala mo isang note lang ang dumating sa araw mo—hanggang marealize mong matagal ka na palang hinahanap ng kabutihan."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Ang Mga Tiklop na Paalala Bago Umuwi</h1>
+      <p>Short Taglish story about a quiet student, a folded note, and the small signs that suddenly make sense.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#softmystery</span>
+        <span class="tag">#softvulnerability</span>
+        <span class="tag">#taglishstory</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Bago magsimula ang exam, nasa may gate ako ng campus, hawak ang reviewer na halos hindi ko na rin mabasa sa dami ng inaral ko buong gabi.</p>
+      <p>Maaga pa pero mabigat na agad ang umaga. Yung tipong tahimik ka lang hindi dahil kalmado ka, kundi dahil baka may mabitawan kang pagod pag nagsalita ka pa.</p>
+      <p>May nahulog na folded note malapit sa sapatos ko. Akala ko resibo lang, pero malinis ang tiklop, parang sinadyang iwan.</p>
+      <p>Binuksan ko.</p>
+      <p><strong>“Kung wala ka nang maalala, huminga ka muna. Hindi lahat ng kaya mo, kailangang patunayan ngayon.”</strong></p>
+
+      <p>Wala namang pangalan. Wala ring drawing. Sulat-kamay lang na maayos, parang galing sa taong hindi nagmamadali.</p>
+      <p>Natawa ako nang mahina. Weird. Pero somehow, gumaan ang dibdib ko kahit kaunti.</p>
+      <p>Maya-maya, dumating si Trina, kaklase kong halos maiyak na sa kaba.</p>
+      <p>“Hindi ko na maalala yung coverage,” sabi niya. “Parang mabablanko ako.”</p>
+      <p>Normally, tango lang ako. Tahimik lang naman ako lagi.</p>
+      <p>Pero hindi ko alam kung bakit nasabi ko, “Relax. Unahin mo yung easiest. Huminga ka muna. Hindi mo kailangang sagutin lahat nang perfect para pumasa.”</p>
+
+      <p>Tiningnan niya ako na parang may naabot akong lubid sa taong nalulunod.</p>
+      <p>“Thanks,” bulong niya. “Kailangan ko yata marinig yun.”</p>
+
+      <p>Natapos ang exam nang hindi dramatic. Hindi rin miraculous. Sakto lang. Pero buong araw, bumabalik sa isip ko yung note.</p>
+      <p>Sa hapon, habang paalis ng school, may nadaanan akong vending machine sa hallway na may maliit na masking tape sa gilid.</p>
+      <p>Nakasulat: <strong>“Tubig muna bago overthink.”</strong></p>
+      <p>Napatigil ako.</p>
+      <p>Parang pamilyar yung sulat-kamay.</p>
+
+      <p>Noong isang linggo, may nakita rin akong sulat sa library table.</p>
+      <p><strong>“Pahinga rin ang pag-upo nang diretso.”</strong></p>
+      <p>Akala ko random doodle lang.</p>
+
+      <p>Tapos may sticky note rin dati sa labas ng photocopy shop.</p>
+      <p><strong>“Hindi emergency ang lahat ng minamadali.”</strong></p>
+      <p>Naalala ko pa, kasi natawa ako noon. Sino bang nag-iiwan ng ganung lines sa campus?</p>
+
+      <p>Kinagabihan, pauwi na ako. Umuulan na kanina pa, kaya basa ang tiles malapit sa entrance ng train station. Sa platform bago ang last ride home, dikit-dikit ang mga tao pero tahimik. Yung mga mukha, pamilyar sa pagod. Mga estudyante. Mga workers. Mga taong gusto na lang makauwi nang hindi na iniisip ang bukas.</p>
+      <p>Doon ko ulit nakita si Trina, may hawak na payong na hindi naman sapat sa lakas ng ulan.</p>
+      <p>“Uy,” sabi niya paglapit sa akin. “Salamat ulit kanina. Hindi mo alam, muntik na talaga akong mag-panic.”</p>
+      <p>Ngumiti lang ako. “Okay ka na?”</p>
+      <p>“Oo. Actually…” ngumiti rin siya, tapos may inabot na maliit na piraso ng papel. “Hindi ko na siguro kailangan itago.”</p>
+
+      <p>Binuksan ko yung papel.</p>
+      <p>Parehong sulat-kamay.</p>
+      <p><strong>“Akala mo hindi napapansin ang mga tahimik. Pero minsan, sila yung unang nakakapansin kapag may nahuhulog na iba.”</strong></p>
+
+      <p>Tumingin ako sa kanya. “Ikaw?”</p>
+      <p>Mahina siyang tumawa. “Hindi lang ikaw. Marami akong iniwan na notes these past few weeks.”</p>
+      <p>“Bakit?”</p>
+      <p>Sandali siyang natahimik bago sumagot. “Kasi one time, nakita kita sa hallway. Halatang pagod ka, pero ikaw pa rin yung nag-abot ng yellow pad sa first year na umiiyak. Tapos sa guard, ikaw din yung nagsabi na may naiwan na tumbler sa bench. Sa clinic line, pinaupo mo muna yung ate na nahihilo.”</p>
+      <p>Napatitig ako sa basang sahig.</p>
+      <p>Hindi ko na nga halos maalala yung mga yun.</p>
+
+      <p>“Akala mo siguro small things lang,” sabi niya. “Pero minsan, enough na yun para gumaan yung araw ng iba. Naisip ko lang… baka ikaw rin, kailangan ng may mag-iwan ng pabalik.”</p>
+
+      <p>Doon nag-connect lahat.</p>
+      <p>Yung note sa gate. Yung tape sa vending machine. Yung sulat sa library. Yung sticky note sa photocopy shop.</p>
+      <p>Hindi pala random campus weirdness.</p>
+      <p>May isang taong matagal nang naglalagay ng maliliit na paalala sa mga lugar na dinadaanan namin araw-araw—parang breadcrumbs para sa mga pagod.</p>
+
+      <p>Dumating ang train, at sabay kaming tumingin sa ilaw nito habang sumasalamin sa rainwater sa may entrance.</p>
+      <p>“Ang tahimik mo kasi,” sabi niya. “Pero ang laking bagay mo sa araw ng ibang tao.”</p>
+
+      <p>Hindi ako agad nakasagot.</p>
+      <p>Kasi sa totoo lang, buong linggo pakiramdam ko wala naman akong naitatawid nang maayos—exam, pagod, byahe, sarili.</p>
+      <p>Pero sa gitna ng last ride home, biglang may ebidensya na baka hindi pala sayang yung pagiging maingat ko sa mundo.</p>
+
+      <p>Pagpasok namin sa tren, maulan pa rin sa labas pero hindi na malamig sa pakiramdam.</p>
+      <p>Mahigpit kong tiniklop ulit yung note at itinago sa wallet.</p>
+      <p>Sa unang pagkakataon after a long time, hindi ko naramdaman na gusto ko lang matapos ang araw.</p>
+      <p>Parang gusto ko pa siyang dalhin nang kaunti—para maalala na minsan, ang mga taong tahimik, sila rin pala ang pinakamatagal na pinapakinggan ng kabutihan.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fang-mga-tiklop-na-paalala-bago-umuwi"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/ang-mga-tiklop-na-paalala-bago-umuwi");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
