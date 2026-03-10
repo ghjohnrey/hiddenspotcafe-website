@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The Slide That Stayed Blank</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/slide-that-stayed-blank" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Slide That Stayed Blank" />
+  <meta property="og:description" content="A short Taglish campus story about a student who froze during reporting—and the professor who noticed it wasn’t just nerves." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/slide-that-stayed-blank" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/slide-that-stayed-blank.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/slide-that-stayed-blank.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/slide-that-stayed-blank.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Slide That Stayed Blank" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Slide That Stayed Blank" />
+  <meta name="twitter:description" content="A short Taglish campus story about a student who froze during reporting—and the professor who noticed it wasn’t just nerves." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/slide-that-stayed-blank.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Slide That Stayed Blank",
+      "quote": "Minsan, hindi ka lang kinakabahan. Pagod ka na pala."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The Slide That Stayed Blank</h1>
+      <p>Short Taglish campus story for students trying to hold it together in the middle of an ordinary school day.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#sliceoflife</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Third subject pa lang, pero pakiramdam ko pang-finals week na agad yung katawan ko.</p>
+      <p>Mainit sa classroom kahit bukas lahat ng bintana. Yung electric fan sa harap, tunog pa lang ang ambag. Sa likod ng room, may projector na naka-on na pero medyo bluish lang ang ilaw, parang pagod din siyang makinig sa reporting namin.</p>
+      <p>Nasa unahan ako, hawak yung yellow index card kong halos hindi ko na rin mabasa dahil sa pawis sa kamay ko.</p>
+      <p>“Next reporter,” sabi ni Sir Mendoza.</p>
+      <p>Ako na iyon.</p>
+      <p>Tumayo ako agad, kasi ayokong magmukhang hindi ready. Kahit ang totoo, dalawang oras lang tulog ko. Galing akong closing shift sa milk tea shop kagabi, tapos dumiretso sa pag-aayos ng slides namin dahil yung isa kong groupmate nawalan ng internet.</p>
+      <p>Kaya ko ’to, sabi ko sa sarili ko. Ilang minutes lang naman.</p>
+      <p>Pagharap ko sa class, nakita ko yung usual na eksena. Yung kaklase kong laging may dalang iced coffee. Yung dalawa sa likod na akala mo bulong lang pero rinig hanggang pinto. Yung friend kong naka-thumbs up pa sa akin na parang kaya akong buhayin gamit encouragement lang.</p>
+      <p>Huminga ako.</p>
+      <p>“Good afternoon, everyone. Our topic is—”</p>
+      <p>Doon na huminto.</p>
+      <p>Walang lumabas.</p>
+      <p>Hindi dahil nakalimutan ko yung topic. Hindi rin dahil nawala yung slide. Nandoon lang lahat. Kita ko yung title sa projector. Kita ko yung bullet points. Kita ko pa nga sarili kong reflection nang kaunti sa puting screen.</p>
+      <p>Pero biglang parang ang layo ng utak ko sa bibig ko.</p>
+      <p>Nanuyo yung lalamunan ko.</p>
+      <p>Mas lalong umingay yung classroom sa tenga ko—yung fan, yung upuan na kumikiskis, yung mahinang tawa ng mga nasa likod, kahit yung tunog ng ballpen na nahulog parang sobrang lakas.</p>
+      <p>“Uh…”</p>
+      <p>Yun lang.</p>
+      <p>Biglang nanginig yung hawak kong cue card.</p>
+      <p>Sa peripheral vision ko, may gumalaw sa upuan si Sir Mendoza. Siya pa naman yung prof na kilala sa isang tingin pa lang, parang gusto mo nang ayusin buong buhay mo.</p>
+      <p>Sabi nila terror daw.</p>
+      <p>Sabi nila ayaw nun sa excuses.</p>
+      <p>Kaya mas gusto kong lamunin na lang ako ng projector light kaysa mapagsabihan sa harap.</p>
+      <p>Tinry kong ulit magsalita.</p>
+      <p>“Good afternoon… everyone…”</p>
+      <p>Pero this time, ramdam ko na yung init sa tenga ko at yung weird na bigat sa dibdib. Hindi na ito kaba lang. Parang biglang ayaw makisama ng katawan ko.</p>
+      <p>Tahimik na yung room.</p>
+      <p>Yung klase ng tahimik na mas nakaka-pressure.</p>
+      <p>Akala ko may tatawa. Akala ko may magbubulungan. Akala ko may maririnig akong “reporting lang ’yan.”</p>
+      <p>Pero wala.</p>
+      <p>Narinig ko lang si Sir Mendoza.</p>
+      <p>“Okay. Stop ka muna.”</p>
+      <p>Hindi siya malakas magsalita, pero buong room napatingin.</p>
+      <p>Lumapit siya sa teacher’s table, kinuha yung tumbler niya, tapos tumingin sa akin.</p>
+      <p>“Kumain ka na ba?”</p>
+      <p>Napatitig ako sa kanya.</p>
+      <p>Parang mas nakakahiya yung tanong kaysa sa pananahimik ko kanina.</p>
+      <p>“Po?”</p>
+      <p>“Kumain ka na ba?” ulit niya, mas mahinahon.</p>
+      <p>“Coffee lang po,” sagot ko, halos pabulong.</p>
+      <p>Tumango siya na parang may nakumpirma.</p>
+      <p>Tapos sa sobrang unexpected, binuksan niya yung drawer ng mesa niya at may nilabas na maliit na pack ng crackers.</p>
+      <p>“Sit down first,” sabi niya. “Ipauna natin yung next group.”</p>
+      <p>Walang sermon.</p>
+      <p>Walang side comment.</p>
+      <p>Walang “you should have prepared better.”</p>
+      <p>Binigay niya sa akin yung crackers at isang bottled water na hindi ko man lang napansing nasa mesa pala niya.</p>
+      <p>Mas lalong ako natahimik.</p>
+      <p>Umupo ako sa gilid, katabi ng laptop namin. Yung groupmate ko, si Leah, hininaan yung brightness ng screen at bumulong, “Ako muna sa intro pag ready ka na.”</p>
+      <p>Sa kabilang side, may nag-abot ng panyo. Hindi ko na nga nakita kung sino agad.</p>
+      <p>Habang may ibang group na nasa harap, pilit akong humihinga nang normal.</p>
+      <p>Doon ko lang naramdaman kung gaano talaga ako kapagod.</p>
+      <p>Hindi lang antok. Hindi lang puyat.</p>
+      <p>Yung tipong ilang linggo ka nang diretso—school, shift, commute, requirements, repeat—tapos akala mo okay ka pa kasi gumagalaw ka pa naman.</p>
+      <p>Sir Mendoza walked past my row habang nagsasalita yung ibang group. Hindi siya tumigil sa tabi ko, hindi rin ako tiningnan nang matagal.</p>
+      <p>Pero sabi niya nang mahina, sapat lang para ako lang makarinig:</p>
+      <p>“Hindi lahat ng pag-freeze, lack of preparation.”</p>
+      <p>Napalunok ako.</p>
+      <p>“Sometimes,” dagdag niya, “pagod lang talaga.”</p>
+      <p>Ang weird no’n.</p>
+      <p>Isang simpleng sentence lang, pero parang may biglang nag-loosen sa dibdib ko.</p>
+      <p>Kasi buong week, pilit kong kino-convince yung sarili ko na tamad lang ako. Mahina lang ako. Overreacting lang ako.</p>
+      <p>Tapos may isang taong nagsabi, nang walang drama, na baka pagod lang talaga ako.</p>
+      <p>After two groups, tinanong niya ako kung kaya ko na.</p>
+      <p>This time, tumayo ulit ako.</p>
+      <p>Kabado pa rin. Pero hindi na ako mag-isa sa pakiramdam na ’yon.</p>
+      <p>Leah handled the first slide. Ako yung sumunod.</p>
+      <p>“Good afternoon,” sabi ko ulit.</p>
+      <p>Lumabas na.</p>
+      <p>Hindi perfect yung report ko. May isang term pa akong mali ang bigkas at may slide na muntik ko malaktawan. Pero natapos ko.</p>
+      <p>At nung nag-“Thank you” ako sa dulo, hindi siya tunog pilit.</p>
+      <p>Pagkatapos ng class, habang nagliligpit ako ng papers, pinatong ni Sir Mendoza yung evaluation sheet sa desk ko.</p>
+      <p>Akala ko may comment about delivery.</p>
+      <p>Meron nga.</p>
+      <p>Pero sa baba, sulat-kamay.</p>
+      <p>“Next time, tell me before the report if you need a minute. Hindi kailangang hintayin mong maubos ka sa harap.”</p>
+      <p>Matagal kong tiningnan yung note.</p>
+      <p>Simple lang siya. Walang smiley. Walang dramatic advice.</p>
+      <p>Pero weirdly, iyon yung pinaka-nag-stay sa akin buong araw.</p>
+      <p>Paglabas ko ng classroom, maingay pa rin ang hallway. May naghahabulan papuntang next subject. May bumibili ng tusok-tusok sa may canteen side. May usual na ingay ng campus na parang walang pakialam sa maliit mong personal na disaster.</p>
+      <p>Pero ako, huminga ako nang mas buo kaysa kanina.</p>
+      <p>Minsan pala, hindi mo kailangan ng grand rescue.</p>
+      <p>Hindi mo kailangan ng inspirational speech.</p>
+      <p>Minsan ang kailangan mo lang, may isang taong makapansin na hindi ka tamad, hindi ka pabaya, at hindi ka lang kinakabahan.</p>
+      <p>Pagod ka lang.</p>
+      <p>At minsan, sapat na pala ’yon para makapagsimula ka ulit.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fslide-that-stayed-blank"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/slide-that-stayed-blank");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
