@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>The ID Lace Waiting by the Hallway</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/id-lace-waiting-by-the-hallway" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The ID Lace Waiting by the Hallway" />
+  <meta property="og:description" content="A short Taglish campus story about quiet work, old kindness, and the people who come back when you least expect it." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/id-lace-waiting-by-the-hallway" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/id-lace-waiting-by-the-hallway.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/id-lace-waiting-by-the-hallway.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/id-lace-waiting-by-the-hallway.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The ID Lace Waiting by the Hallway" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The ID Lace Waiting by the Hallway" />
+  <meta name="twitter:description" content="A short Taglish campus story about quiet work, old kindness, and the people who come back when you least expect it." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/id-lace-waiting-by-the-hallway.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The ID Lace Waiting by the Hallway",
+      "quote": "Minsan, akala mo tapos ka nang mapansin ng mundo. Hindi mo alam, may isang taong bumalik para sabihing hindi ka niya nakalimutan."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>The ID Lace Waiting by the Hallway</h1>
+      <p>Short Taglish campus story for anyone who kept showing up even while secretly falling apart.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#campus</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#melancholic</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Bandang 6:20 na ng gabi nang mapansin kong ako na lang yata ang natitirang tao sa third floor.</p>
+      <p>Yung klase ng tahimik na hallway na may konting echo pa sa bawat hakbang, tapos may distant announcement mula sa admin office na halos hindi mo na maintindihan.</p>
+      <p>Sunset na rin, kaya orange yung ilaw na pumapasok sa mga bintana. Maganda sana, kung hindi ka pagod.</p>
+
+      <p>Ako si Mara. Caregiver ako sa umaga, tapos part-time utility aide dito sa campus sa hapon. Extra overtime na naman ako that day dahil may classroom na kailangang i-lock at i-check.</p>
+      <p>At gaya ng madalas kong sagot sa lahat ng nagtatanong, “Okay lang ako.”</p>
+      <p>Kahit hindi naman talaga.</p>
+
+      <p>May nawawala kasing evidence para sa student disciplinary case—isang maliit na voice recorder daw na huling nakita sa Room 304. Buong araw na pinag-uusapan ng faculty at student officers. May umiiyak na student sa hallway kanina. May isa namang galit na galit.</p>
+      <p>Hindi ko na pinakialaman. Trabaho ko lang naman maglinis, magsara, at mag-ayos ng upuan.</p>
+
+      <p>Pagpasok ko sa Room 304, amoy whiteboard marker pa rin at init ng hapon. May naiwan pang scratch papers sa sahig. May isang armchair na bahagyang nakausog sa pinakadulong row.</p>
+      <p>Habang inaayos ko, may kumalansing.</p>
+
+      <p>Akala ko barya lang.</p>
+      <p>Pero nung yumuko ako, may maliit na recorder na naipit pala sa ilalim ng metal frame ng upuan.</p>
+      <p>Napatigil ako.</p>
+      <p>“Ito ba yung hinahanap nila?” bulong ko sa sarili ko.</p>
+
+      <p>Biglang parang luminis yung katahimikan ng room. Yung tipong ordinaryong bagay lang naman siya, pero ramdam mong may mababago dahil nakita mo.</p>
+      <p>Kinuha ko yung recorder at pinunasan nang kaunti gamit ang panyo ko. Tapos lumabas ako sa hallway para dalhin sa office.</p>
+
+      <p>Doon ko napansin yung isang lalaki na nakaupo sa bench malapit sa dulo ng corridor.</p>
+      <p>Hindi siya student. Mukha siyang nasa late twenties, naka-long sleeves na medyo gusot, may dalang brown envelope sa tabi niya. Tahimik lang siya, nakatingin sa floor, parang may hinihintay.</p>
+      <p>Nagkatinginan kami saglit.</p>
+      <p>Ngumiti siya nang konti. “Excuse me,” sabi niya. “Ikaw po ba si Ate Mara?”</p>
+
+      <p>Napahinto ako. “Oo. Bakit?”</p>
+
+      <p>Tumayo siya, halatang kabado rin. “Sorry po kung ang weird. Kanina pa kasi ako naghihintay dito. Hindi ko alam if maaalala n’yo pa ako.”</p>
+
+      <p>Hindi ko siya maalala.</p>
+      <p>At dahil sobrang haba na ng araw ko, gusto ko na sanang sabihin na bukas na lang. Pero may kung anong pamilyar sa boses niya.</p>
+
+      <p>“Noong high school po ako,” sabi niya, “lagi akong tambay dito sa old campus clinic kasi hindi ko kayang umuwi agad. Kayo po yung nag-abot sa’kin ng biscuit at tubig one time. Tapos sinabi n’yo lang, ‘Umupo ka muna. Hindi naman kailangang kayanin lahat agad.’”</p>
+
+      <p>Parang may mabagal na ilaw na umilaw sa isip ko.</p>
+      <p>Payat na student. Basang buhok. Nanginginig ang kamay habang hawak ang bag.</p>
+      <p>“Ikaw yung…”</p>
+      <p>“Si Nico po,” sabi niya, ngumiti nang mas buo. “Opo. Ako ’yon.”</p>
+
+      <p>Natawa ako nang mahina, pero may bigat sa dibdib ko na hindi ko ma-explain. “Ang tagal na noon.”</p>
+
+      <p>“Oo nga po. Pero hindi ko nakalimutan.”</p>
+
+      <p>Tumingin siya sa hawak kong recorder. “Mukhang may nahanap kayo.”</p>
+      <p>Tinaas ko nang kaunti. “Oo. Ito yata yung hinahanap nila buong araw.”</p>
+
+      <p>“Kaya pala,” sabi niya. “Parang bagay sa inyo. Kahit noon, kayo lagi yung nakakakita ng mga bagay na nalalaglag ng ibang tao.”</p>
+
+      <p>Hindi ko alam bakit, pero doon ako halos maiyak.</p>
+      <p>Hindi dahil sa pagod lang. Hindi rin dahil sa recorder.</p>
+      <p>Kundi dahil buong linggo na akong nagpe-pretend na okay ako—sa duty, sa biyahe, sa bahay, sa lahat. Tapos biglang may isang taong bumalik para lang sabihing may halaga pala yung isang maliit na kabutihang akala ko wala nang may naaalala.</p>
+
+      <p>“Bumalik ka para magpasalamat?” tanong ko, halos pabulong.</p>
+
+      <p>“Oo,” sabi niya. “Na-delay lang ng ilang taon.” Napangiti siya. “May seminar ako dito ngayon. Nakita ko pangalan n’yo sa hallway logbook. Sabi ko, hintayin ko na. Baka makauwi akong hindi na naman kayo nasasabihan.”</p>
+
+      <p>Napaupo ako sa bench. Siya rin.</p>
+      <p>Sa malayo, may panibagong announcement na naman. May mga yabag ng ilang late na estudyante sa stairs. Pero sa parteng ’yon ng hallway, parang humina lahat.</p>
+
+      <p>Inabot niya yung brown envelope. “Wala pong laman na big deal. Letter lang. Proper thank you.”</p>
+
+      <p>Napatawa ako nang mahina. “Ang formal mo naman.”</p>
+
+      <p>“Kayo kasi yung isa sa mga dahilan kung bakit umabot ako sa next week noon,” sabi niya. “Akala n’yo siguro maliit lang ’yon. Pero hindi po.”</p>
+
+      <p>Hindi ako agad nakasagot.</p>
+      <p>Kasi minsan, sanay ka nang maging background ng buhay ng ibang tao. Yung naglilinis. Yung nagaayos. Yung nag-aabot. Yung umaalis bago mapansin.</p>
+      <p>Tapos may isang tao palang bumalik para ibalik sa’yo yung bigat ng ginawa mong kabutihan—pero this time, hindi na siya bigat. Parang pahinga na siya.</p>
+
+      <p>Tumingin ako sa hallway na kumukulay ginto dahil sa papalubog na araw.</p>
+      <p>“Alam mo,” sabi ko, “sakto kang dumating.”</p>
+
+      <p>“Sakto rin po kayong natagpuan ko,” sagot niya.</p>
+
+      <p>Hinawakan ko yung recorder sa isang kamay at yung envelope sa kabila.</p>
+      <p>Isang nawawalang ebidensiya. Isang matagal nang pasasalamat.</p>
+      <p>Parehong akala ko simpleng bagay lang.</p>
+
+      <p>Pero habang magkatabi kaming nakaupo sa bench, naisip ko—minsan, isang maliit na gesture lang talaga ang kailangan para mag-iba yung sentro ng buong araw mo.</p>
+      <p>At minsan, hindi pala “okay lang” ang tamang sagot.</p>
+      <p>Minsan, ang tamang sagot ay: “Salamat. Kailangan ko rin pala nito.”</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fid-lace-waiting-by-the-hallway"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/id-lace-waiting-by-the-hallway");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
