@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const readingGuide = document.getElementById('readingGuide');
   const hourlyList = document.getElementById('hourlyList');
 
+  // Timeline meta UI sa hourly card
+  const timelineMeta = document.getElementById('timelineMeta');
+  const timelineTime = document.querySelector('.timeline-time');
+  const timelinePlace = document.querySelector('.timeline-place');
+
   const goOutArt = document.getElementById('goOutArt');
   const laundryArt = document.getElementById('laundryArt');
   const goOutImage = document.getElementById('goOutImage');
@@ -140,6 +145,24 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function normalizePlaceName(value) {
     return `${value || ''}`.replace(/\s+/g, ' ').trim();
+  }
+
+  /**
+   * =========================================================
+   * SHORT REGION LABEL
+   * Ginagawang mas maiksi ang region/admin label para sa UI
+   * Example:
+   * National Capital Region -> NCR
+   * =========================================================
+   */
+  function shortRegionLabel(admin1 = '') {
+    const value = `${admin1}`.trim();
+
+    if (value === 'National Capital Region') return 'NCR';
+    if (value === 'Cordillera Administrative Region') return 'CAR';
+    if (value === 'Bangsamoro Autonomous Region in Muslim Mindanao') return 'BARMM';
+
+    return value;
   }
 
   /**
@@ -541,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (index === -1) {
       return {
-        label: 'Current time',
+        label: 'Now',
         time: current.time,
         weather_code: Number(current.weather_code || 0),
         rain: Number(current.rain || 0),
@@ -578,6 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const { geo, weather } = latestWeatherBundle;
     const placeName = [geo.name, geo.admin1].filter(Boolean).join(', ');
+    const shortPlaceName = [geo.name, shortRegionLabel(geo.admin1)].filter(Boolean).join(', ');
     const snapshot = buildSelectedSnapshot(latestWeatherBundle, index);
 
     const rainNow = Number(snapshot.rain || 0);
@@ -599,6 +623,14 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `📍 ${placeName}`
       : `📍 ${placeName} • ${snapshot.label}`;
 
+    // Timeline meta update
+    if (timelineTime && timelinePlace) {
+      timelineTime.textContent = snapshot.label;
+      timelinePlace.textContent = shortPlaceName;
+    } else if (timelineMeta) {
+      timelineMeta.textContent = `${snapshot.label} • ${shortPlaceName}`;
+    }
+
     locationTitle.textContent = placeName;
     bigAnswer.textContent = summary.answer;
     mainExplanation.textContent = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
@@ -610,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryEmoji.textContent = weatherEmojiFor(group, snapshot.weather_code);
 
     readingGuide.textContent = index === -1
-      ? 'Ang current view ay base sa latest current weather plus short forecast. Maaari mong i-click ang ibang oras sa “Next few hours” para makita ang projected advice at status sa oras na iyon.'
+      ? 'Ang current view ay base sa latest current weather plus short forecast. Maaari mong i-click ang ibang oras sa “Weather timeline” para makita ang projected advice at status sa oras na iyon.'
       : `Ang current view ay naka-base sa selected time na ${snapshot.label}. Kaya ang advice, images, at status ay naka-sync sa oras na pinili mo.`;
 
     goOutTitle.textContent = goOut.title;
