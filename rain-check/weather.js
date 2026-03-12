@@ -38,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const laundryText = document.getElementById('laundryText');
   const bringList = document.getElementById('bringList');
   const laundryList = document.getElementById('laundryList');
+  // Smart Weather Advice Engine UI
+  const smartGoOut = document.getElementById('smartGoOut');
+  const smartUmbrella = document.getElementById('smartUmbrella');
+  const smartDrying = document.getElementById('smartDrying');
+  const smartLaundry = document.getElementById('smartLaundry');
 
   /**
    * =========================================================
@@ -588,6 +593,85 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+ * =========================================================
+ * SMART ENGINE DECISION MAKER
+ * Compact yes/no style outputs for quick reading
+ * =========================================================
+ */
+function getSmartEngineState(category) {
+  if (category === 'typhoon') {
+    return {
+      goOut: 'NO',
+      umbrella: 'NO',
+      drying: 'NO',
+      laundry: 'NOT RECOMMENDED'
+    };
+  }
+
+  if (category === 'thunderstorm') {
+    return {
+      goOut: 'NO',
+      umbrella: 'YES',
+      drying: 'NO',
+      laundry: 'INDOOR ONLY'
+    };
+  }
+
+  if (category === 'heavyRain') {
+    return {
+      goOut: 'LIMITED',
+      umbrella: 'YES',
+      drying: 'NO',
+      laundry: 'INDOOR ONLY'
+    };
+  }
+
+  if (category === 'moderateRain') {
+    return {
+      goOut: 'YES',
+      umbrella: 'YES',
+      drying: 'NO',
+      laundry: 'OK, INDOOR DRYING'
+    };
+  }
+
+  if (category === 'lightRain') {
+    return {
+      goOut: 'YES',
+      umbrella: 'YES',
+      drying: 'NO',
+      laundry: 'OK, INDOOR DRYING'
+    };
+  }
+
+  if (category === 'overcast') {
+    return {
+      goOut: 'YES',
+      umbrella: 'OPTIONAL',
+      drying: 'RISKY',
+      laundry: 'YES, BUT WATCH THE SKY'
+    };
+  }
+
+  if (category === 'partlyCloudy') {
+    return {
+      goOut: 'YES',
+      umbrella: 'OPTIONAL',
+      drying: 'YES',
+      laundry: 'YES'
+    };
+  }
+
+  return {
+    goOut: 'YES',
+    umbrella: 'OPTIONAL',
+    drying: 'YES',
+    laundry: 'YES'
+  };
+}
+  
+
+  /**
    * =========================================================
    * MAIN UI RENDERER FOR SELECTED TIME
    * Lahat ng summary, advice, image, at mood dito ina-update
@@ -618,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const summary = summarizeRain(placeName, group, rainNow, currentProb);
     const goOut = getGoOutAdvice(category, temp, wind, nextThreeProb);
     const laundry = getLaundryAdvice(category, wind, temp);
+    const smartState = getSmartEngineState(category);
 
     summaryPill.textContent = index === -1
       ? `📍 ${placeName}`
@@ -652,6 +737,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderList(bringList, goOut.items);
     renderList(laundryList, laundry.items);
+    // Smart engine quick outputs
+    if (smartGoOut) smartGoOut.textContent = smartState.goOut;
+    if (smartUmbrella) smartUmbrella.textContent = smartState.umbrella;
+    if (smartDrying) smartDrying.textContent = smartState.drying;
+    if (smartLaundry) smartLaundry.textContent = smartState.laundry;
 
     applyPageMood(group);
     updateAdviceImages(category);
