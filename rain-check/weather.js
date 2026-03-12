@@ -839,64 +839,81 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+  
+/**
+ * =========================================================
+ * PHOTON SUGGESTION NORMALIZER
+ * OSM/Photon result -> clean UI suggestion
+ * Inaayos ang street / brgy / landmark / city labels
+ * =========================================================
+ */
+function normalizePhotonFeature(item) {
+  const p = item?.properties || {};
+  const coords = item?.geometry?.coordinates || [];
 
-  /**
-   * =========================================================
-   * PHOTON SUGGESTION NORMALIZER
-   * OSM/Photon result -> UI suggestion
-   * =========================================================
-   */
-  function normalizePhotonFeature(item) {
-    const p = item?.properties || {};
-    const coords = item?.geometry?.coordinates || [];
+  const longitude = Number(coords[0]);
+  const latitude = Number(coords[1]);
 
-    const longitude = Number(coords[0]);
-    const latitude = Number(coords[1]);
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+  if (!isLikelyPhilippines(latitude, longitude)) return null;
 
-    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
-    if (!isLikelyPhilippines(latitude, longitude)) return null;
+  /* -----------------------------------------
+     Build readable primary label
+     Priority:
+     landmark -> street -> suburb/brgy -> district -> city
+     ----------------------------------------- */
+  const houseAndStreet =
+    p.housenumber && p.street
+      ? `${p.housenumber} ${p.street}`
+      : '';
 
-    const name =
-      normalizePlaceName(
-        p.name ||
-        p.street ||
-        p.housenumber && p.street ? `${p.housenumber} ${p.street}` : '' ||
-        p.suburb ||
-        p.district ||
-        p.neighbourhood ||
-        p.locality ||
-        p.city ||
-        p.county ||
-        'Unknown place'
-      );
+  const streetOnly = p.street || '';
+  const landmarkOnly = p.name || '';
+  const suburbOnly = p.suburb || p.neighbourhood || p.quarter || '';
+  const districtOnly = p.district || p.city_district || '';
+  const cityOnly = p.city || p.town || p.village || p.county || '';
 
-    const admin1 =
-      normalizePlaceName(
-        p.city ||
-        p.county ||
-        p.state ||
-        p.district ||
-        p.suburb ||
-        ''
-      );
+  const name = normalizePlaceName(
+    landmarkOnly ||
+    houseAndStreet ||
+    streetOnly ||
+    suburbOnly ||
+    districtOnly ||
+    cityOnly ||
+    'Unknown place'
+  );
 
-    const kind =
-      normalizePlaceName(
-        p.osm_value ||
-        p.type ||
-        p.osm_tag ||
-        ''
-      );
+  /* -----------------------------------------
+     Build secondary detail label
+     Example:
+     Quezon City • suburb • PH
+     Manila • road • PH
+     ----------------------------------------- */
+  const admin1 = normalizePlaceName(
+    p.city ||
+    p.town ||
+    p.village ||
+    p.county ||
+    p.state ||
+    ''
+  );
 
-    return {
-      name,
-      admin1,
-      country: 'PH',
-      kind,
-      latitude,
-      longitude
-    };
-  }
+  const kind = normalizePlaceName(
+    p.osm_value ||
+    p.type ||
+    p.osm_key ||
+    ''
+  );
+
+  return {
+    name,
+    admin1,
+    country: 'PH',
+    kind,
+    latitude,
+    longitude
+  };
+}
 
   /**
    * =========================================================
@@ -979,53 +996,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * =========================================================
-   * SUGGESTION DROPDOWN RENDERER
-   * =========================================================
-   */
-  function renderSuggestions(results = []) {
-    if (!suggestionsBox) return;
+/**
+ * =========================================================
+ * SUGGESTION DROPDOWN RENDERER
+ * Shows clean detailed search suggestions
+ * =========================================================
+ */
+function renderSuggestions(results = []) {
+  if (!suggestionsBox) return;
 
-    if (!results.length) {
-      suggestionsBox.innerHTML = '';
-      suggestionsBox.classList.add('hidden');
-      return;
-    }
-
-    suggestionsBox.innerHTML = results.map((place, index) => {
-      const main = escapeHtml(place.name || 'Unknown place');
-      const subParts = [place.admin1, place.kind, place.country].filter(Boolean);
-      const sub = escapeHtml(subParts.join(' • '));
-
-      return `
-        <button type="button" class="suggestion-item" data-index="${index}">
-          <span class="suggestion-main">${main}</span>
-          <span class="suggestion-sub">${sub}</span>
-        </button>
-      `;
-    }).join('');
-
-    suggestionsBox.classList.remove('hidden');
-
-    suggestionsBox.querySelectorAll('.suggestion-item').forEach(button => {
-      button.addEventListener('click', () => {
-        const index = Number(button.dataset.index);
-        const chosen = results[index];
-
-        if (!chosen) return;
-
-        selectedSuggestion = chosen;
-
-        if (placeInput) {
-          placeInput.value = [chosen.name, chosen.admin1].filter(Boolean).join(', ');
-        }
-
-        renderSuggestions([]);
-        searchWeatherFromSuggestion(chosen, '');
-      });
-    });
+  if (!results.length) {
+    suggestionsBox.innerHTML = '';
+    suggestionsBox.classList.add('hidden');
+    return;
   }
+
+  suggestionsBox.innerHTML = results.map((place, index) => {
+    const main = escapeHtml(place.name || 'Unknown place');
+
+    const subParts = [
+      place.admin1 || '',
+      place.kind || '',
+      'PH'
+    ].filter(Boolean);
+
+    const sub = escapeHtml(subParts.join(' • '));
+
+    return `
+      <button type="button" class="suggestion-item" data-index="${index}">
+        <span class="suggestion-main">${main}</span>
+        <span class="suggestion-sub">${sub}</span>
+      </button>
+    `;
+  }).join('');
+
+  suggestionsBox.classList.remove('hidden');
+
+  suggestionsBox.querySelectorAll('.suggestion-item').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = Number(button.dataset.index);
+      const chosen = results[index];
+
+      if (!chosen) return;
+
+      selectedSuggestion = chosen;
+
+      if (placeInput) {
+        placeInput.value = [chosen.name, chosen.admin1].filter(Boolean).join(', ');
+      }
+
+      renderSuggestions([]);
+      searchWeatherFromSuggestion(chosen, '');
+    });
+  });
+}
+
 
   /**
    * =========================================================
