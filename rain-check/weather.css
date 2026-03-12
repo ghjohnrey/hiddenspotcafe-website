@@ -1144,3 +1144,8 @@ body{
   max-width:100%;
   overflow:hidden;
 }
+
+/* prevent phantom horizontal scroll */
+html, body{
+  overflow-x:hidden;
+}
