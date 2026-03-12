@@ -814,8 +814,8 @@ function formatNowLabel(date = new Date()) {
  * =========================================================
  * HOURLY RENDERER
  * Gumagawa ng clickable current + next 5 future hourly rows
- * Hindi na kasama ang mga lumipas na oras
- * Hindi na rin dinodoble ang current hour sa next list
+ * Current row = actual current time
+ * Next rows = first future hour onward
  * =========================================================
  */
 function renderHourly(hourly, timezone, selectedIndex = -1) {
@@ -826,36 +826,38 @@ function renderHourly(hourly, timezone, selectedIndex = -1) {
   const currentDate = new Date(currentIso);
 
   /**
-   * Hanapin ang unang hourly index na kapareho o mas late
-   * kaysa current weather time
+   * Current row uses actual current weather
+   * Future rows should start at the first hourly slot STRICTLY AFTER current time
    */
-  let currentHourIndex = hourly.time.findIndex(time => {
-    return new Date(time) >= currentDate;
+  let nextStartIndex = hourly.time.findIndex(time => {
+    return new Date(time) > currentDate;
   });
 
-  if (currentHourIndex === -1) currentHourIndex = 0;
+  if (nextStartIndex === -1) nextStartIndex = 0;
 
-  /**
-   * Current row uses currentHourIndex
-   * Next rows start AFTER currentHourIndex
-   */
-  const nextStartIndex = currentHourIndex + 1;
   const visibleTimes = hourly.time.slice(nextStartIndex, nextStartIndex + 5);
 
+  /**
+   * Current row uses actual current weather values
+   */
+  const currentRain = Number(latestWeatherBundle.weather.current.rain || 0);
+
+  /**
+   * Use nearest future probability as a visual estimate for current row bar
+   * kung wala, fallback to 0
+   */
   const currentProbability = Math.max(
     0,
-    Math.min(100, Math.round(hourly.precipitation_probability?.[currentHourIndex] || 0))
+    Math.min(100, Math.round(hourly.precipitation_probability?.[nextStartIndex] || 0))
   );
 
-  const currentAmount = Number(hourly.precipitation?.[currentHourIndex] || 0);
-
-const currentRow = `
-  <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
-    <div class="hour-time-label now-label">${formatNowLabel()}</div>
-    <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
-    <div>${currentAmount.toFixed(1)} mm</div>
-  </button>
-`;
+  const currentRow = `
+    <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
+      <div class="hour-time-label now-label">${formatNowLabel()}</div>
+      <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
+      <div>${currentRain.toFixed(1)} mm</div>
+    </button>
+  `;
 
   const rows = visibleTimes.map((time, visibleIndex) => {
     const actualIndex = nextStartIndex + visibleIndex;
