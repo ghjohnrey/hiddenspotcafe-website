@@ -928,3 +928,74 @@
     font-size: 10px;
   }
 }
+/* =========================================================
+   RAIN / STORM FX GLITCH FIX
+   Inaayos ang horizontal overflow at misalignment kapag
+   active ang rainy background effects.
+   ========================================================= */
+
+/* Pigilan ang buong page sa pag-horizontal scroll */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Siguraduhin na ang weather page mismo ay hindi lalampas */
+.weather-page {
+  overflow-x: hidden;
+}
+
+/* I-lock ang hero section sa viewport width */
+.weather-hero-section {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Ang animated FX layers dapat naka-clamp lang sa hero area */
+.weather-bg,
+.weather-bg::before,
+.weather-bg::after,
+.weather-glow {
+  max-width: 100%;
+}
+
+/* Rain layer: huwag hayaang mag-cause ng extra width */
+.fx-rain,
+.fx-stars,
+.fx-clouds {
+  overflow: hidden;
+}
+
+/* Mas stable na rain animation area */
+.fx-rain::before {
+  left: -10%;
+  right: -10%;
+  width: 120%;
+  max-width: none;
+}
+
+/* Cloud animation should stay visual-only, not affect layout */
+.fx-clouds::before,
+.fx-clouds::after {
+  will-change: transform;
+}
+
+/* Advice images should never push layout wider */
+.advice-image {
+  max-width: 100%;
+}
+
+/* Safety fix para sa cards and grids */
+.weather-shell,
+.weather-main,
+.weather-grid,
+.weather-grid-main,
+.weather-grid-secondary,
+.weather-intro,
+.weather-summary,
+.advice-card,
+.hourly-card,
+.guide-card {
+  min-width: 0;
+  max-width: 100%;
+}
