@@ -701,3 +701,42 @@
     grid-template-columns: 68px 1fr auto;
   }
 }
+/* =========================================================
+   MOBILE OVERFLOW FIX
+   Inaayos nito yung input/button para hindi lumampas
+   sa card/container sa maliit na screen.
+   ========================================================= */
+.weather-search-row,
+.weather-search-row > * {
+  min-width: 0;
+}
+
+.weather-input,
+.weather-btn,
+.weather-chip,
+.summary-stat,
+.hour-row {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.weather-intro,
+.weather-summary,
+.advice-card,
+.hourly-card,
+.guide-card {
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .weather-search-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .weather-input,
+  .weather-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+}
