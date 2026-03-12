@@ -574,21 +574,14 @@
   overflow: hidden;
 }
 
-.fx-rain::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 0;
-  width: 100%;
-  height: calc(100% + 80px);
-  background-image: repeating-linear-gradient(
-    115deg,
-    rgba(151, 199, 255, 0.00) 0 18px,
-    rgba(151, 199, 255, 0.22) 18px 20px,
-    rgba(151, 199, 255, 0.00) 20px 34px
-  );
-  animation: rainMove 0.55s linear infinite;
-  pointer-events: none;
+.fx-rain::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
 }
 
 @keyframes rainMove {
@@ -1149,3 +1142,30 @@ body{
 html, body{
   overflow-x:hidden;
 }
+
+/* =====================================
+   WEATHER BACKGROUND HARD CONTAINMENT
+===================================== */
+
+.weather-hero-section{
+  position:relative;
+  overflow:hidden;
+}
+
+.weather-bg,
+.weather-glow{
+  position:absolute;
+  inset:0;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+/* Prevent animation layers from stretching page */
+.weather-bg::before,
+.weather-bg::after{
+  max-width:100%;
+}
+
+
