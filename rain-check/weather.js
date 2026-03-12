@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * DOM REFERENCES
-   * Kinukuha dito lahat ng HTML elements na gagamitin sa page
-   * para ma-update natin sila gamit ang JavaScript.
+   * Lahat ng UI elements na ina-update ng weather page
    * =========================================================
    */
   const placeInput = document.getElementById('placeInput');
@@ -37,9 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
+   * INTERNAL STATE
+   * Dito tinatago ang latest fetched weather para magamit ulit
+   * kapag pumipili ang user ng oras sa hourly card.
+   * =========================================================
+   */
+  let latestWeatherBundle = null;
+  let activeTimeIndex = -1; // -1 = current weather, 0..5 = hourly row index
+
+  /**
+   * =========================================================
    * WEATHER LABELS
-   * Human-readable label ng weather codes mula sa API.
-   * Ginagamit ito para readable ang explanation sa UI.
+   * Human-readable labels ng weather codes
    * =========================================================
    */
   const WEATHER_LABELS = {
@@ -70,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * WEATHER IMAGE MAP
-   * Dito naka-map kung anong image ang gagamitin per
-   * weather category para sa Going Out at Laundry cards.
+   * Image pair per weather category
    * =========================================================
    */
   const WEATHER_IMAGES = {
@@ -111,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * UI STATE HELPERS
-   * Simple helper functions para sa loading at error states.
+   * UI HELPERS
+   * Loading and error state controls
    * =========================================================
    */
   function setLoading(isLoading) {
@@ -127,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * INPUT CLEANER
-   * Nililinis nito ang place name para walang extra spaces.
+   * INPUT NORMALIZER
+   * Nililinis ang location input
    * =========================================================
    */
   function normalizePlaceName(value) {
@@ -137,10 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * BASIC PAGE MOOD GROUP
-   * Ito ang broad page mood:
-   * clear / cloudy / rain / storm
-   * Ginagamit para sa body class at visual atmosphere ng page.
+   * BASIC PAGE MOOD
+   * Broad mood lang para sa page atmosphere
    * =========================================================
    */
   function weatherGroup(code, rainNow) {
@@ -153,26 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * DETAILED WEATHER CATEGORY
-   * Ito ang mas detailed logic para sa exact image/advice pair.
-   * Halimbawa:
-   * - partlyCloudy
-   * - overcast
-   * - lightRain
-   * - moderateRain
-   * - heavyRain
-   * - thunderstorm
-   * - typhoon
+   * Ito ang ginagamit para sa advice at image switching
    * =========================================================
    */
-  function getWeatherCategory(current, hourly) {
-    const code = Number(current.weather_code || 0);
-    const rainNow = Number(current.rain || 0);
-    const wind = Number(current.wind_speed_10m || 0);
-    const probs = (hourly?.precipitation_probability || []).slice(0, 3).map(n => Number(n || 0));
-    const nextThreeProb = probs.length ? Math.max(...probs) : 0;
+  function getWeatherCategory(snapshot, upcomingProbabilities = []) {
+    const code = Number(snapshot.weather_code || 0);
+    const rainNow = Number(snapshot.rain || 0);
+    const wind = Number(snapshot.wind_speed_10m || 0);
+    const nextThreeProb = upcomingProbabilities.length ? Math.max(...upcomingProbabilities) : 0;
 
-    // Approximation lang ito para sa website category.
-    // Hindi ito official storm classification ng PAGASA.
     if (wind >= 62) return 'typhoon';
     if ([95, 96, 99].includes(code)) return 'thunderstorm';
 
@@ -188,8 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * WEATHER EMOJI
-   * Nagbibigay ng quick visual icon sa summary card.
+   * WEATHER ICON
+   * Quick visual emoji sa summary card
    * =========================================================
    */
   function weatherEmojiFor(group, code) {
@@ -201,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * DATE/TIME FORMATTERS
-   * Ginagawang mas readable ang oras at update timestamp.
+   * TIME FORMATTERS
+   * Para readable ang oras at last updated text
    * =========================================================
    */
   function formatTime(iso, timezone = 'Asia/Manila') {
@@ -228,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * WEATHER LABEL RESOLVER
-   * Kapag may code galing API, dito natin kinukuha ang label.
+   * Code -> readable label
    * =========================================================
    */
   function weatherText(code) {
@@ -238,10 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * PAGE MOOD APPLIER
-   * Ina-apply ang body class para magbago ang mood ng page.
-   * Note:
-   * - broad group ang ginagamit dito (clear/cloudy/rain/storm)
-   * - hindi detailed category
+   * Nagpapalit ng body class ayon sa broad weather mood
    * =========================================================
    */
   function applyPageMood(group) {
@@ -250,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     goOutArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
     laundryArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
+
     goOutArt.classList.add(`art-${group}`);
     laundryArt.classList.add(`art-${group}`);
   }
@@ -257,32 +249,23 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * IMAGE SWITCHER
-   * Pinapalitan nito ang image ng Going Out at Laundry cards
-   * depende sa computed detailed weather category.
+   * Nagpapalit ng image depende sa detailed category
    * =========================================================
    */
   function updateAdviceImages(category) {
     const selected = WEATHER_IMAGES[category] || WEATHER_IMAGES.partlyCloudy;
 
-    if (goOutImage) {
-      goOutImage.src = selected.goOut;
-      goOutImage.alt = `${category} going out weather advice illustration`;
-    }
-
-    if (laundryImage) {
-      laundryImage.src = selected.laundry;
-      laundryImage.alt = `${category} laundry weather advice illustration`;
-    }
+    goOutImage.src = selected.goOut;
+    laundryImage.src = selected.laundry;
   }
 
   /**
    * =========================================================
-   * MAIN RAIN SUMMARY
-   * Summary para sa top card:
-   * “umuulan ba ngayon?” + short explanation
+   * SUMMARY TEXT
+   * Top answer kung umuulan ba at anong ibig sabihin nun
    * =========================================================
    */
-  function summarizeRain(place, group, rainNow, currentProb, code) {
+  function summarizeRain(place, group, rainNow, currentProb) {
     if (group === 'storm') {
       return {
         answer: 'Oo, delikado ang weather ngayon.',
@@ -298,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
-    if (group === 'rain' || currentProb >= 60) {
+    if (currentProb >= 60) {
       return {
         answer: 'Hindi pa buhos ngayon, pero mataas ang chance ng ulan.',
         explanation: `Sa current reading, puwedeng wala pang direct rain amount sa ${place}, pero mukhang paulan na base sa short forecast.`
@@ -321,11 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * GOING OUT ADVICE
-   * Practical advice kung ano ang magandang dalhin o gawin
-   * kapag lalabas ng bahay.
+   * Advice para sa paglabas batay sa selected time snapshot
    * =========================================================
    */
-  function getGoOutAdvice(category, rainNow, temp, wind, nextThreeProb) {
+  function getGoOutAdvice(category, temp, wind, nextThreeProb) {
     if (category === 'typhoon') {
       return {
         title: 'Stay indoors hangga’t maaari',
@@ -424,10 +406,10 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * LAUNDRY ADVICE
-   * Practical advice kung pwede bang maglaba at magsampay.
+   * Advice para sa paglalaba batay sa selected time snapshot
    * =========================================================
    */
-  function getLaundryAdvice(category, rainNow, nextThreeProb, wind, temp) {
+  function getLaundryAdvice(category, wind, temp) {
     if (category === 'typhoon') {
       return {
         title: 'Unsafe ang outdoor laundry ngayon',
@@ -526,8 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * LIST RENDERER
-   * Tumatanggap ng UL element at array ng strings para
-   * i-render bilang list items.
+   * Array -> <li> list
    * =========================================================
    */
   function renderList(target, items) {
@@ -536,32 +517,158 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * HOURLY FORECAST RENDERER
-   * Gumagawa ng small forecast rows para sa next few hours.
+   * UPCOMING PROBABILITIES HELPER
+   * Kumukuha ng next N probabilities mula sa selected index
    * =========================================================
    */
-  function renderHourly(hourly, timezone) {
+  function getUpcomingProbabilities(hourly, startIndex, count = 3) {
+    return hourly.precipitation_probability
+      .slice(startIndex, startIndex + count)
+      .map(n => Number(n || 0));
+  }
+
+  /**
+   * =========================================================
+   * SNAPSHOT BUILDER
+   * Gumagawa ng single selected-time snapshot.
+   * - index = -1 => current weather
+   * - index >= 0 => hourly weather row
+   * =========================================================
+   */
+  function buildSelectedSnapshot(bundle, index) {
+    const { weather } = bundle;
+    const { current, hourly } = weather;
+
+    if (index === -1) {
+      return {
+        label: 'Current time',
+        time: current.time,
+        weather_code: Number(current.weather_code || 0),
+        rain: Number(current.rain || 0),
+        temperature_2m: Number(current.temperature_2m || 0),
+        wind_speed_10m: Number(current.wind_speed_10m || 0),
+        currentProbability: Math.round(hourly.precipitation_probability[0] || 0),
+        nextThreeProbabilities: getUpcomingProbabilities(hourly, 0, 3)
+      };
+    }
+
+    return {
+      label: formatTime(hourly.time[index], weather.timezone),
+      time: hourly.time[index],
+      weather_code: Number(hourly.weather_code[index] || 0),
+      rain: Number(hourly.precipitation[index] || 0),
+      temperature_2m: Number(hourly.temperature_2m?.[index] || current.temperature_2m || 0),
+      wind_speed_10m: Number(hourly.wind_speed_10m?.[index] || current.wind_speed_10m || 0),
+      currentProbability: Math.round(hourly.precipitation_probability[index] || 0),
+      nextThreeProbabilities: getUpcomingProbabilities(hourly, index, 3)
+    };
+  }
+
+  /**
+   * =========================================================
+   * MAIN UI RENDERER FOR SELECTED TIME
+   * Lahat ng summary, advice, image, at mood dito ina-update
+   * base sa active selected time row.
+   * =========================================================
+   */
+  function renderSelectedTime(index) {
+    if (!latestWeatherBundle) return;
+
+    activeTimeIndex = index;
+
+    const { geo, weather } = latestWeatherBundle;
+    const placeName = [geo.name, geo.admin1].filter(Boolean).join(', ');
+    const snapshot = buildSelectedSnapshot(latestWeatherBundle, index);
+
+    const rainNow = Number(snapshot.rain || 0);
+    const temp = Number(snapshot.temperature_2m || 0);
+    const wind = Number(snapshot.wind_speed_10m || 0);
+    const currentProb = Number(snapshot.currentProbability || 0);
+    const nextThreeProb = snapshot.nextThreeProbabilities.length
+      ? Math.max(...snapshot.nextThreeProbabilities)
+      : 0;
+
+    const group = weatherGroup(snapshot.weather_code, rainNow);
+    const category = getWeatherCategory(snapshot, snapshot.nextThreeProbabilities);
+
+    const summary = summarizeRain(placeName, group, rainNow, currentProb);
+    const goOut = getGoOutAdvice(category, temp, wind, nextThreeProb);
+    const laundry = getLaundryAdvice(category, wind, temp);
+
+    summaryPill.textContent = index === -1
+      ? `📍 ${placeName}`
+      : `📍 ${placeName} • ${snapshot.label}`;
+
+    locationTitle.textContent = placeName;
+    bigAnswer.textContent = summary.answer;
+    mainExplanation.textContent = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
+
+    tempValue.textContent = `${Math.round(temp)}°C`;
+    rainValue.textContent = `${rainNow.toFixed(1)} mm`;
+    windValue.textContent = `${Math.round(wind)} km/h`;
+    updatedValue.textContent = formatUpdated(snapshot.time, weather.timezone);
+    summaryEmoji.textContent = weatherEmojiFor(group, snapshot.weather_code);
+
+    readingGuide.textContent = index === -1
+      ? 'Ang current view ay base sa latest current weather plus short forecast. Maaari mong i-click ang ibang oras sa “Next few hours” para makita ang projected advice at status sa oras na iyon.'
+      : `Ang current view ay naka-base sa selected time na ${snapshot.label}. Kaya ang advice, images, at status ay naka-sync sa oras na pinili mo.`;
+
+    goOutTitle.textContent = goOut.title;
+    goOutText.textContent = goOut.text;
+    laundryTitle.textContent = laundry.title;
+    laundryText.textContent = laundry.text;
+
+    renderList(bringList, goOut.items);
+    renderList(laundryList, laundry.items);
+
+    applyPageMood(group);
+    updateAdviceImages(category);
+    renderHourly(weather.hourly, weather.timezone, index);
+  }
+
+  /**
+   * =========================================================
+   * HOURLY FORECAST RENDERER
+   * Nagre-render ng clickable time rows.
+   * May extra row sa unahan para sa Current time.
+   * =========================================================
+   */
+  function renderHourly(hourly, timezone, selectedIndex = -1) {
+    const currentRow = `
+      <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
+        <div class="hour-time-label">Current time</div>
+        <div class="hour-bar"><span style="width:${Math.max(0, Math.min(100, Math.round(hourly.precipitation_probability[0] || 0)))}%"></span></div>
+        <div>${Number(hourly.precipitation[0] || 0).toFixed(1)} mm</div>
+      </button>
+    `;
+
     const rows = hourly.time.slice(0, 6).map((time, index) => {
       const probability = Math.max(0, Math.min(100, Math.round(hourly.precipitation_probability[index] || 0)));
       const amount = Number(hourly.precipitation[index] || 0);
 
       return `
-        <div class="hour-row">
-          <div>${formatTime(time, timezone)}</div>
+        <button class="hour-row ${selectedIndex === index ? 'active' : ''}" type="button" data-time-index="${index}">
+          <div class="hour-time-label">${formatTime(time, timezone)}</div>
           <div class="hour-bar"><span style="width:${probability}%"></span></div>
           <div>${amount.toFixed(1)} mm</div>
-        </div>
+        </button>
       `;
     }).join('');
 
-    hourlyList.innerHTML = rows;
+    hourlyList.innerHTML = currentRow + rows;
+
+    hourlyList.querySelectorAll('.hour-row').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.timeIndex);
+        renderSelectedTime(index);
+      });
+    });
   }
 
   /**
    * =========================================================
    * GEOCODING REQUEST
-   * Hinahanap nito ang latitude/longitude ng place name
-   * gamit ang Open-Meteo geocoding API.
+   * Place name -> lat/lon
    * =========================================================
    */
   async function geocodePlace(place) {
@@ -585,12 +692,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * WEATHER REQUEST
-   * Kinukuha dito ang current weather at short hourly forecast
-   * gamit ang Open-Meteo forecast API.
+   * Kumuha ng current + hourly weather data
+   * Note:
+   * Dinagdagan natin ng hourly temperature at wind para
+   * mas meaningful ang advice kapag hourly row ang selected.
    * =========================================================
    */
   async function getWeather(latitude, longitude) {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,rain,wind_speed_10m&hourly=precipitation,precipitation_probability,weather_code&forecast_hours=6&timezone=Asia%2FManila`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,rain,wind_speed_10m&hourly=temperature_2m,wind_speed_10m,precipitation,precipitation_probability,weather_code&forecast_hours=6&timezone=Asia%2FManila`;
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -603,12 +712,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * MAIN SEARCH FUNCTION
-   * Ito ang core function ng buong page:
-   * 1. linisin ang input
-   * 2. kunin ang location coordinates
-   * 3. kunin ang weather data
-   * 4. compute summary / advice / images / mood
-   * 5. i-render sa page
+   * Fetches location + weather, saves latest bundle,
+   * then defaults to Current time selected view.
    * =========================================================
    */
   async function searchWeather(place) {
@@ -625,61 +730,9 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const geo = await geocodePlace(cleaned);
       const weather = await getWeather(geo.latitude, geo.longitude);
-      const current = weather.current;
-      const hourly = weather.hourly;
 
-      const placeName = [geo.name, geo.admin1].filter(Boolean).join(', ');
-      const rainNow = Number(current.rain || 0);
-      const temp = Number(current.temperature_2m || 0);
-      const wind = Number(current.wind_speed_10m || 0);
-      const currentProb = Math.round(hourly.precipitation_probability[0] || 0);
-      const nextThreeProb = Math.max(...hourly.precipitation_probability.slice(0, 3).map(n => Number(n || 0)));
-
-      // Broad mood para sa page atmosphere
-      const group = weatherGroup(current.weather_code, rainNow);
-
-      // Detailed category para sa image at advice selection
-      const category = getWeatherCategory(current, hourly);
-
-      const summary = summarizeRain(placeName, group, rainNow, currentProb, current.weather_code);
-      const goOut = getGoOutAdvice(category, rainNow, temp, wind, nextThreeProb);
-      const laundry = getLaundryAdvice(category, rainNow, nextThreeProb, wind, temp);
-
-      // Summary UI updates
-      summaryPill.textContent = `📍 ${placeName}`;
-      locationTitle.textContent = placeName;
-      bigAnswer.textContent = summary.answer;
-      mainExplanation.textContent = `${summary.explanation} Current condition: ${weatherText(current.weather_code)}.`;
-      tempValue.textContent = `${Math.round(temp)}°C`;
-      rainValue.textContent = `${rainNow.toFixed(1)} mm`;
-      windValue.textContent = `${Math.round(wind)} km/h`;
-      updatedValue.textContent = formatUpdated(current.time, weather.timezone);
-      summaryEmoji.textContent = weatherEmojiFor(group, current.weather_code);
-
-      // Guide text sa explanation card
-      readingGuide.textContent = 'Ang “going out” at “laundry” advice ay galing sa current weather plus next-hours forecast. Kaya kahit wala pang ulan ngayon, puwedeng maging cautious pa rin ang recommendation kung mataas ang chance sa susunod na oras.';
-
-      // Going out card updates
-      goOutTitle.textContent = goOut.title;
-      goOutText.textContent = goOut.text;
-
-      // Laundry card updates
-      laundryTitle.textContent = laundry.title;
-      laundryText.textContent = laundry.text;
-
-      // Bullet lists
-      renderList(bringList, goOut.items);
-      renderList(laundryList, laundry.items);
-
-      // Hourly forecast
-      renderHourly(hourly, weather.timezone);
-
-      // Page theme / mood
-      applyPageMood(group);
-
-      // Switch advice images based on detailed category
-      updateAdviceImages(category);
-
+      latestWeatherBundle = { geo, weather };
+      renderSelectedTime(-1);
     } catch (error) {
       setError(error.message || 'May error habang chine-check ang weather.');
     } finally {
@@ -689,16 +742,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * BUTTON EVENT
-   * Kapag pinindot ang search button, magche-check ng weather.
+   * SEARCH BUTTON EVENT
    * =========================================================
    */
   searchBtn?.addEventListener('click', () => searchWeather(placeInput.value));
 
   /**
    * =========================================================
-   * ENTER KEY EVENT
-   * Para pwede ring mag-search gamit ang Enter key.
+   * ENTER KEY SEARCH
    * =========================================================
    */
   placeInput?.addEventListener('keydown', (event) => {
@@ -709,8 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * QUICK CHIPS EVENT
-   * Kapag pinindot ang sample city chips, auto-search agad.
+   * QUICK CHIP EVENTS
    * =========================================================
    */
   document.querySelectorAll('.weather-chip').forEach(button => {
@@ -723,17 +773,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * DEFAULT LOAD
-   * Pag-open ng page, automatic na magche-check agad
-   * para hindi blank ang page.
+   * DEFAULT INITIAL LOAD
    * =========================================================
    */
   searchWeather('Pasig');
 
   /**
    * =========================================================
-   * AUTO REFRESH
-   * Automatic re-check every 5 minutes para fresh ang data.
+   * AUTO REFRESH EVERY 5 MINUTES
+   * Kapag current place ang page, nire-refresh ang data
+   * pero ibinabalik sa current time selected view.
    * =========================================================
    */
   setInterval(() => {
