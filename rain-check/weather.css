@@ -1119,3 +1119,28 @@ body{
 .guide-card {
   min-width: 0;
 }
+
+/* =====================================
+   WEATHER PAGE HARD OVERFLOW FIX
+===================================== */
+
+.weather-page,
+.weather-shell,
+.weather-main,
+.weather-hero,
+.weather-hero-section,
+.weather-grid,
+.weather-grid-main,
+.weather-grid-secondary {
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+.weather-bg,
+.weather-glow,
+.weather-fx,
+.fx-rain,
+.fx-clouds {
+  max-width:100%;
+  overflow:hidden;
+}
