@@ -242,10 +242,21 @@
     <section class="weather-grid weather-grid-secondary" aria-label="Hourly forecast and guide">
       <!-- Hourly Forecast -->
       <article class="glass-card hourly-card">
-        <h3>Current time + next few hours</h3>
+        <h3>Weather timeline</h3>
+
+        <!-- Timeline location/status meta -->
+        <div id="timelineMeta" class="timeline-meta">
+          <span class="timeline-time">Now</span>
+          <span class="timeline-dot"></span>
+          <span class="timeline-place">Waiting for location</span>
+        </div>
+
         <p class="section-copy">
-          I-click mo ang current time o anumang oras sa list para mag-update ang status, advice, at images base sa selected time.
+          Ipinapakita dito ang <strong>current weather</strong> at ang susunod na mga oras.
+          Maaari mong <strong>i-click ang anumang oras</strong> para makita kung paano magbabago ang
+          advice sa paglabas at paglalaba base sa forecast ng oras na iyon.
         </p>
+
         <div
           id="hourlyList"
           class="hourly-list"
