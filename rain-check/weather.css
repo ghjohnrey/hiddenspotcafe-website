@@ -4,8 +4,9 @@
 
    CLEANED VERSION NOTES:
    - Tinanggal ang duplicated at conflicting rules
-   - Iningatan lahat ng useful styles
-   - Inayos ang mobile overflow at card width consistency
+   - Iningatan lahat ng may silbi sa website
+   - Inayos ang mobile overflow at section alignment
+   - Uniform na ang left/right spacing ng lahat ng cards
    - Nilagyan ng comments bawat major block para madaling i-debug
    ========================================================= */
 
@@ -916,15 +917,19 @@ body {
 
 /* =========================================================
    RESPONSIVE - MOBILE
-   Mobile spacing, width consistency, and overflow fixes
+   Uniform side spacing for all sections/cards on small screens
    ========================================================= */
 @media (max-width: 640px) {
+  :root {
+    --mobile-side-space: 16px;
+  }
+
   .weather-hero-section {
-    padding: 96px 0 18px;
+    padding: 96px var(--mobile-side-space) 18px;
   }
 
   .weather-main {
-    padding: 10px 0 48px;
+    padding: 10px var(--mobile-side-space) 48px;
   }
 
   .weather-shell,
@@ -933,8 +938,9 @@ body {
   .weather-grid-secondary {
     width: 100%;
     max-width: 100%;
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
   }
 
   .weather-intro,
@@ -947,6 +953,7 @@ body {
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
+    box-sizing: border-box;
   }
 
   .weather-intro,
@@ -974,6 +981,7 @@ body {
 
   .summary-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
 
   .advice-media {
@@ -981,17 +989,20 @@ body {
   }
 
   .art-copy {
+    max-width: 100%;
     padding: 20px;
+    box-sizing: border-box;
   }
 
   .advice-list {
     padding: 20px;
+    box-sizing: border-box;
   }
 
   .hour-row {
     grid-template-columns: 92px 1fr 72px;
     gap: 10px;
-    padding: 12px 12px;
+    padding: 12px;
     border-radius: 16px;
   }
 
@@ -1019,7 +1030,7 @@ body {
   }
 
   .smart-engine-box {
-    padding: 14px 14px;
+    padding: 14px;
     border-radius: 18px;
   }
 
