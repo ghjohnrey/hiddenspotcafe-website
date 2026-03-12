@@ -772,3 +772,159 @@
   letter-spacing: 0.04em;
   vertical-align: middle;
 }
+/* =========================================================
+   PREMIUM HOURLY SELECTOR UI
+   Better contrast, cleaner spacing, and app-like active state
+   ========================================================= */
+
+.hourly-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.hour-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 82px;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.035));
+  color: #dfe3ff;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.hour-row:hover {
+  transform: translateY(-1px);
+  border-color: rgba(160, 170, 255, 0.22);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.hour-row.active {
+  border-color: rgba(110, 124, 255, 0.5);
+  background:
+    linear-gradient(135deg, rgba(90, 112, 255, 0.14), rgba(168, 85, 247, 0.14)),
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+  box-shadow:
+    0 0 0 1px rgba(120, 140, 255, 0.16) inset,
+    0 14px 30px rgba(29, 35, 80, 0.28);
+}
+
+/* left time label */
+.hour-time-label,
+.hour-row div:first-child {
+  color: #eef1ff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+/* right mm value */
+.hour-row div:last-child {
+  color: #d9dcff;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.hour-row.active div:first-child,
+.hour-row.active div:last-child {
+  color: #ffffff;
+}
+
+/* progress bar background */
+.hour-bar {
+  position: relative;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* progress fill */
+.hour-bar span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+  box-shadow: 0 0 12px rgba(120, 140, 255, 0.22);
+}
+
+/* current row styling */
+.current-row {
+  border-style: solid;
+}
+
+.current-row .hour-time-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  color: #f3f5ff;
+  font-weight: 700;
+}
+
+.current-row .hour-time-label::before {
+  content: "Now";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(140, 150, 255, 0.18);
+  border: 1px solid rgba(160, 170, 255, 0.18);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* small refinement for selected row */
+.hour-row.active .hour-time-label::before {
+  background: rgba(140, 150, 255, 0.24);
+  border-color: rgba(170, 180, 255, 0.22);
+}
+
+/* mobile adjustments */
+@media (max-width: 640px) {
+  .hour-row {
+    grid-template-columns: 92px 1fr 72px;
+    gap: 10px;
+    padding: 12px 12px;
+    border-radius: 16px;
+  }
+
+  .hour-time-label,
+  .hour-row div:first-child {
+    font-size: 0.95rem;
+  }
+
+  .hour-row div:last-child {
+    font-size: 0.92rem;
+  }
+
+  .hour-bar {
+    height: 10px;
+  }
+
+  .current-row .hour-time-label::before {
+    min-height: 22px;
+    padding: 3px 9px;
+    font-size: 10px;
+  }
+}
