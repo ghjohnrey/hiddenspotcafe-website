@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hidden Spot Cafe | Rain Check</title>
+  <meta name="description" content="Check if umuulan now in a specific place in the Philippines, with simple advice for going out and laundry." />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="./weather.css" />
+</head>
+<body class="weather-page weather-cloudy">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-accent"></div>
+
+    <div class="nav-container">
+      <a href="/">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <!-- END-Navigation -->
+
+  <section class="weather-hero-section">
+    <div class="weather-bg fx-clouds" aria-hidden="true"></div>
+    <div class="weather-bg fx-rain" aria-hidden="true" id="rainFx"></div>
+    <div class="weather-bg fx-stars" aria-hidden="true" id="starsFx"></div>
+    <div class="weather-glow" aria-hidden="true"></div>
+
+    <div class="weather-shell">
+      <div class="weather-intro glass-card">
+        <div class="weather-badge">🌧️ Hidden Spot Cafe • Rain Check</div>
+        <h1>Umuulan ba sa pupuntahan mo?</h1>
+        <p>
+          Search mo lang ang city o municipality sa Pilipinas. Lalabas agad kung <strong>umuulan ngayon</strong>,
+          kung okay bang lumabas, at kung good idea bang <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
+        </p>
+
+        <div class="weather-search-row">
+          <input id="placeInput" type="text" class="weather-input" placeholder="Try: Pasig, Baguio, Antipolo, Cebu City" />
+          <button id="searchBtn" class="weather-btn">Check now</button>
+        </div>
+
+        <div class="weather-chips">
+          <button class="weather-chip" data-place="Pasig">Pasig</button>
+          <button class="weather-chip" data-place="Quezon City">Quezon City</button>
+          <button class="weather-chip" data-place="Tagaytay">Tagaytay</button>
+          <button class="weather-chip" data-place="Baguio">Baguio</button>
+          <button class="weather-chip" data-place="Cebu City">Cebu City</button>
+          <button class="weather-chip" data-place="Davao City">Davao City</button>
+        </div>
+
+        <div id="loadingState" class="weather-loading hidden">
+          <span class="loader-dot"></span>
+          <span>Checking latest weather data...</span>
+        </div>
+
+        <div id="errorState" class="weather-error hidden"></div>
+      </div>
+
+      <div class="weather-summary glass-card">
+        <div class="summary-top">
+          <div>
+            <div id="summaryPill" class="summary-pill">📍 Waiting for location</div>
+            <h2 id="locationTitle">Pick a place in the Philippines</h2>
+            <div id="bigAnswer" class="big-answer">Ready na mag rain-check.</div>
+            <p id="mainExplanation" class="main-explanation">
+              Dito lalabas ang simple Taglish explanation para mabilis maintindihan ng bisita mo.
+            </p>
+          </div>
+          <div class="summary-icon-wrap">
+            <div id="summaryEmoji" class="summary-emoji">☁️</div>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-stat">
+            <span>Temperature</span>
+            <strong id="tempValue">--</strong>
+          </div>
+          <div class="summary-stat">
+            <span>Rain now</span>
+            <strong id="rainValue">--</strong>
+          </div>
+          <div class="summary-stat">
+            <span>Wind</span>
+            <strong id="windValue">--</strong>
+          </div>
+          <div class="summary-stat">
+            <span>Updated</span>
+            <strong id="updatedValue">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="weather-main">
+    <section class="weather-grid weather-grid-main">
+      <article class="glass-card advice-card goout-card" id="goOutCard">
+        <div class="advice-media art-going-out art-cloudy" id="goOutArt">
+          <div class="art-overlay"></div>
+          <div class="art-copy">
+            <span class="art-label">Going Out Advice</span>
+            <h3 id="goOutTitle">Wait tayo ng forecast</h3>
+            <p id="goOutText">Mag-search muna ng lugar para makakuha ng advice kung ano ang magandang dalhin kapag lalabas.</p>
+          </div>
+        </div>
+        <div class="advice-list">
+          <h4>What to bring</h4>
+          <ul id="bringList">
+            <li>Umbrella advice will show here.</li>
+            <li>Clothing suggestion will show here.</li>
+            <li>Extra tip will show here.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="glass-card advice-card laundry-card" id="laundryCard">
+        <div class="advice-media art-laundry art-cloudy" id="laundryArt">
+          <div class="art-overlay"></div>
+          <div class="art-copy">
+            <span class="art-label">Laundry Advice</span>
+            <h3 id="laundryTitle">Waiting for weather check</h3>
+            <p id="laundryText">Kapag may data na, sasabihin dito kung okay bang maglaba at magsampay sa mga oras na ito.</p>
+          </div>
+        </div>
+        <div class="advice-list">
+          <h4>Quick decision</h4>
+          <ul id="laundryList">
+            <li>Laundry recommendation will show here.</li>
+            <li>Drying suggestion will show here.</li>
+            <li>Backup tip will show here.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="weather-grid weather-grid-secondary">
+      <article class="glass-card hourly-card">
+        <h3>Next few hours</h3>
+        <p class="section-copy">Para makita mo kung mukhang tuloy-tuloy ang ulan o pa-start pa lang.</p>
+        <div id="hourlyList" class="hourly-list"></div>
+      </article>
+
+      <article class="glass-card guide-card">
+        <h3>Paano basahin ito?</h3>
+        <p id="readingGuide">
+          Ang “umuulan ngayon” ay based sa current weather data. Ang advice sa paglabas at paglalaba ay based sa kasalukuyang kondisyon plus short-term forecast.
+        </p>
+        <div class="guide-note">
+          Near real-time ito, so mabilis ang update pero puwedeng may konting delay depende sa source weather model.
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Rain Check by Hidden Spot Cafe</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank">Message us on Messenger</a></p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script src="./weather.js"></script>
+</body>
+</html>
