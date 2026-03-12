@@ -1,17 +1,61 @@
 /* =========================================================
    Hidden Spot Cafe — Rain Check page styles
    File: /rain-check/weather.css
-   Depends on global /style.css for navbar + footer base styling
+   Notes:
+   - Uses global /style.css for navbar and footer base styling
+   - This version is updated for REAL WEBP image cards
+   - Old CSS illustration backgrounds are removed/simplified
    ========================================================= */
 
+
+/* =========================================================
+   PAGE BACKGROUND / OVERALL ATMOSPHERE
+   Ito ang main background ng buong weather page.
+   Nagbabago ang mood gamit ang body classes:
+   .weather-clear / .weather-cloudy / .weather-rain / .weather-storm
+   ========================================================= */
 .weather-page {
   background:
-    radial-gradient(circle at 20% 0%, rgba(168,85,247,0.18) 0%, rgba(168,85,247,0) 36%),
-    radial-gradient(circle at 80% 10%, rgba(67,97,238,0.2) 0%, rgba(67,97,238,0) 32%),
+    radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.18) 0%, rgba(168, 85, 247, 0) 36%),
+    radial-gradient(circle at 80% 10%, rgba(67, 97, 238, 0.2) 0%, rgba(67, 97, 238, 0) 32%),
     radial-gradient(circle at 50% -10%, #303060 0%, #14142a 48%, #050509 90%);
   min-height: 100vh;
+  transition: background 0.4s ease;
 }
 
+.weather-page.weather-clear {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 210, 120, 0.18) 0%, rgba(255, 210, 120, 0) 32%),
+    radial-gradient(circle at 80% 10%, rgba(96, 165, 250, 0.22) 0%, rgba(96, 165, 250, 0) 34%),
+    radial-gradient(circle at 50% -10%, #4f63c9 0%, #1c2348 48%, #070913 90%);
+}
+
+.weather-page.weather-cloudy {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(180, 180, 210, 0.12) 0%, rgba(180, 180, 210, 0) 34%),
+    radial-gradient(circle at 80% 10%, rgba(120, 130, 170, 0.18) 0%, rgba(120, 130, 170, 0) 36%),
+    radial-gradient(circle at 50% -10%, #434a72 0%, #181b31 48%, #050509 90%);
+}
+
+.weather-page.weather-rain {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(96, 165, 250, 0.12) 0%, rgba(96, 165, 250, 0) 34%),
+    radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0) 36%),
+    radial-gradient(circle at 50% -10%, #27345e 0%, #11172b 48%, #030509 90%);
+}
+
+.weather-page.weather-storm {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 34%),
+    radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0) 36%),
+    radial-gradient(circle at 50% -10%, #2d2356 0%, #120f22 48%, #020206 90%);
+}
+
+
+/* =========================================================
+   HERO SECTION + PAGE WIDTH
+   Main wrapper ng top section at content width control.
+   ========================================================= */
 .weather-hero-section {
   position: relative;
   overflow: hidden;
@@ -32,13 +76,18 @@
   gap: 24px;
 }
 
+
+/* =========================================================
+   GLASS CARDS
+   Reusable card style para sa intro, summary, advice, etc.
+   ========================================================= */
 .glass-card {
   background: rgba(18, 18, 34, 0.62);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
 .weather-intro,
@@ -49,14 +98,19 @@
   padding: 28px;
 }
 
+
+/* =========================================================
+   BADGES / PILLS
+   Small UI labels tulad ng Rain Check badge at location pill.
+   ========================================================= */
 .weather-badge,
 .summary-pill,
 .art-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: #f8d6ff;
   border-radius: 999px;
   padding: 8px 12px;
@@ -64,6 +118,11 @@
   letter-spacing: 0.02em;
 }
 
+
+/* =========================================================
+   TYPOGRAPHY
+   Main text styles para readable at cinematic pa rin.
+   ========================================================= */
 .weather-intro h1 {
   font-size: clamp(2.3rem, 5vw, 4.25rem);
   line-height: 1.02;
@@ -81,6 +140,11 @@
   line-height: 1.7;
 }
 
+
+/* =========================================================
+   SEARCH AREA
+   Input, button, chips, loading, error states
+   ========================================================= */
 .weather-search-row {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -92,8 +156,8 @@
   width: 100%;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 16px;
   outline: none;
@@ -112,12 +176,18 @@
   cursor: pointer;
   color: white;
   background: linear-gradient(135deg, #a855f7, #4361ee);
-  box-shadow: 0 14px 28px rgba(108,72,214,0.35);
+  box-shadow: 0 14px 28px rgba(108, 72, 214, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.weather-btn:hover { transform: translateY(-1px) scale(1.01); }
-.weather-btn:disabled { opacity: 0.75; cursor: wait; }
+.weather-btn:hover {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.weather-btn:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
 
 .weather-chips {
   display: flex;
@@ -128,15 +198,17 @@
 
 .weather-chip {
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.07);
   color: white;
   padding: 10px 14px;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-.weather-chip:hover { background: rgba(255,255,255,0.12); }
+.weather-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
 
 .weather-loading,
 .weather-error {
@@ -149,7 +221,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .loader-dot {
@@ -157,24 +229,39 @@
   height: 12px;
   border-radius: 999px;
   background: linear-gradient(135deg, #a855f7, #60a5fa);
-  box-shadow: 0 0 0 rgba(168,85,247,0.45);
+  box-shadow: 0 0 0 rgba(168, 85, 247, 0.45);
   animation: weatherPulse 1.2s infinite;
 }
 
 @keyframes weatherPulse {
-  0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(168,85,247,0.35); }
-  70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(168,85,247,0); }
-  100% { transform: scale(0.8); }
+  0% {
+    transform: scale(0.8);
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.35);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 12px rgba(168, 85, 247, 0);
+  }
+  100% {
+    transform: scale(0.8);
+  }
 }
 
 .weather-error {
-  background: rgba(255,77,109,0.12);
-  border: 1px solid rgba(255,77,109,0.28);
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid rgba(255, 77, 109, 0.28);
   color: #ffd6de;
 }
 
-.hidden { display: none !important; }
+.hidden {
+  display: none !important;
+}
 
+
+/* =========================================================
+   SUMMARY CARD
+   Top-right result card with main weather answer and stats.
+   ========================================================= */
 .weather-summary h2 {
   font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   margin: 14px 0 8px;
@@ -195,13 +282,17 @@
 
 .summary-emoji {
   font-size: clamp(4rem, 8vw, 6rem);
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28));
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
   animation: floatEmoji 3s ease-in-out infinite;
 }
 
 @keyframes floatEmoji {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .big-answer {
@@ -213,15 +304,15 @@
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 24px;
 }
 
 .summary-stat {
   border-radius: 18px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 16px;
 }
 
@@ -238,6 +329,11 @@
   font-size: 1.05rem;
 }
 
+
+/* =========================================================
+   MAIN CONTENT GRID
+   Layout ng cards sa ibaba ng hero section.
+   ========================================================= */
 .weather-main {
   padding: 10px 20px 60px;
 }
@@ -256,25 +352,85 @@
   margin-top: 24px;
 }
 
+
+/* =========================================================
+   ADVICE CARDS
+   Cards para sa Going Out at Laundry advice.
+   Updated ito para sa REAL IMAGE display, hindi na fake CSS art.
+   ========================================================= */
 .advice-card {
   overflow: hidden;
   padding: 0;
+  background: rgba(18, 18, 34, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .advice-media {
   position: relative;
-  min-height: 340px;
-  padding: 24px;
-  display: flex;
-  align-items: end;
+  min-height: 360px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #151827;
 }
 
-.art-copy {
-  position: relative;
+/* Actual image element */
+.advice-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+  transform: scale(1.01);
+}
+
+/* Gradient overlay para readable ang text sa ibabaw ng image */
+.art-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 20, 0.10) 0%, rgba(8, 10, 20, 0.18) 35%, rgba(8, 10, 20, 0.76) 100%),
+    radial-gradient(circle at top right, rgba(255, 180, 100, 0.12) 0%, rgba(255, 180, 100, 0) 30%);
+  z-index: 2;
+}
+
+/* Light cinematic sparkle layer */
+.advice-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   z-index: 3;
-  max-width: 78%;
+  background-image:
+    linear-gradient(transparent 0%, transparent 80%, rgba(255, 255, 255, 0.03) 100%),
+    radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.10) 0 2px, transparent 3px),
+    radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.08) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 72% 26%, rgba(255, 255, 255, 0.08) 0 2px, transparent 4px),
+    radial-gradient(circle at 18% 34%, rgba(255, 255, 255, 0.06) 0 1px, transparent 3px);
+  opacity: 0.55;
+  animation: sparkleDrift 8s linear infinite;
+}
+
+@keyframes sparkleDrift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+/* Copy/text layer sa ibabaw ng image */
+.art-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 24px;
+  max-width: 82%;
 }
 
 .art-copy h3 {
@@ -282,13 +438,11 @@
   margin: 12px 0 8px;
 }
 
-.art-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10,10,20,0.08) 0%, rgba(10,10,20,0.68) 72%, rgba(10,10,20,0.88) 100%),
-    radial-gradient(circle at top right, rgba(255,180,100,0.16) 0%, rgba(255,180,100,0) 30%);
-  z-index: 1;
+.art-copy h3,
+.art-copy p,
+.art-label {
+  position: relative;
+  z-index: 4;
 }
 
 .advice-list {
@@ -306,6 +460,11 @@
   padding-left: 18px;
 }
 
+
+/* =========================================================
+   HOURLY FORECAST CARD
+   Small list view para sa next few hours forecast.
+   ========================================================= */
 .hourly-list {
   display: grid;
   gap: 12px;
@@ -316,8 +475,8 @@
   grid-template-columns: 80px 1fr auto;
   gap: 12px;
   align-items: center;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 12px 14px;
 }
@@ -326,7 +485,7 @@
   position: relative;
   height: 10px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
 }
 
@@ -338,161 +497,24 @@
   background: linear-gradient(90deg, #60a5fa, #a855f7);
 }
 
+
+/* =========================================================
+   GUIDE CARD
+   Explanation card para maintindihan ng user ang logic.
+   ========================================================= */
 .guide-note {
   margin-top: 16px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Cinematic animated illustration cards */
-.advice-media::before,
-.advice-media::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
 
-.advice-media::before {
-  inset: auto -8% -10% auto;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.02) 52%, rgba(255,255,255,0) 72%);
-  filter: blur(10px);
-  z-index: 0;
-  animation: artFloat 6s ease-in-out infinite;
-}
-
-.advice-media::after {
-  inset: 0;
-  z-index: 2;
-  background-image:
-    linear-gradient(transparent 0%, transparent 80%, rgba(255,255,255,0.04) 100%),
-    radial-gradient(circle at 25% 18%, rgba(255,255,255,0.14) 0 2px, transparent 3px),
-    radial-gradient(circle at 60% 10%, rgba(255,255,255,0.12) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 72% 26%, rgba(255,255,255,0.12) 0 2px, transparent 4px),
-    radial-gradient(circle at 18% 34%, rgba(255,255,255,0.09) 0 1px, transparent 3px);
-  opacity: 0.55;
-  animation: sparkleDrift 8s linear infinite;
-}
-
-@keyframes artFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-
-@keyframes sparkleDrift {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-  100% { transform: translateX(0); }
-}
-
-/* base art mood */
-.art-going-out,
-.art-laundry {
-  background-color: #1a1b34;
-}
-
-/* clear */
-.art-clear {
-  background:
-    linear-gradient(180deg, rgba(255,204,110,0.18), rgba(255,204,110,0.02)),
-    radial-gradient(circle at 78% 18%, rgba(255,217,102,0.85) 0 60px, rgba(255,217,102,0.14) 90px, transparent 130px),
-    linear-gradient(180deg, #566bff 0%, #273772 42%, #14142a 100%);
-}
-
-.art-clear.art-going-out {
-  background-image:
-    linear-gradient(180deg, rgba(255,204,110,0.18), rgba(255,204,110,0.02)),
-    radial-gradient(circle at 78% 18%, rgba(255,217,102,0.85) 0 60px, rgba(255,217,102,0.14) 90px, transparent 130px),
-    linear-gradient(180deg, #566bff 0%, #273772 42%, #14142a 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='none' stroke='%23f5d9a0' stroke-opacity='.26' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M180 420c40-110 120-170 200-170s140 36 210 140'/%3E%3C/g%3E%3Cg fill='%23212942'%3E%3Ccircle cx='190' cy='210' r='58'/%3E%3Crect x='164' y='270' width='54' height='118' rx='24'/%3E%3C/g%3E%3Cg fill='%23f4e0d0'%3E%3Ccircle cx='190' cy='166' r='30'/%3E%3C/g%3E%3Cg fill='%23b38cff'%3E%3Cpath d='M450 420h210c-16-108-72-176-168-214-62 40-92 110-42 214Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: center;
-}
-
-.art-clear.art-laundry {
-  background-image:
-    linear-gradient(180deg, rgba(255,204,110,0.18), rgba(255,204,110,0.02)),
-    radial-gradient(circle at 80% 18%, rgba(255,217,102,0.85) 0 56px, rgba(255,217,102,0.14) 90px, transparent 128px),
-    linear-gradient(180deg, #5b7cff 0%, #29376d 42%, #14142a 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='none' stroke='%23f5d9a0' stroke-opacity='.24' stroke-width='8'%3E%3Cpath d='M100 150h600'/%3E%3C/g%3E%3Cg fill='%23e8d6ff' fill-opacity='.9'%3E%3Cpath d='M220 165h70v120h-70z'/%3E%3Cpath d='M360 165h88v130h-88z'/%3E%3Cpath d='M520 165h80v118h-80z'/%3E%3C/g%3E%3Cg fill='%23202c56'%3E%3Crect x='80' y='290' width='640' height='160' rx='18'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-  background-position: center;
-}
-
-/* cloudy */
-.art-cloudy {
-  background:
-    radial-gradient(circle at 75% 20%, rgba(255,255,255,0.12) 0 42px, transparent 90px),
-    linear-gradient(180deg, #7683aa 0%, #37415d 40%, #181827 100%);
-}
-
-.art-cloudy.art-going-out {
-  background-image:
-    radial-gradient(circle at 75% 20%, rgba(255,255,255,0.12) 0 42px, transparent 90px),
-    linear-gradient(180deg, #7683aa 0%, #37415d 40%, #181827 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23dce0f3' fill-opacity='.5'%3E%3Cellipse cx='250' cy='110' rx='90' ry='36'/%3E%3Cellipse cx='340' cy='130' rx='110' ry='40'/%3E%3Cellipse cx='590' cy='120' rx='100' ry='34'/%3E%3C/g%3E%3Cg fill='%23212942'%3E%3Ccircle cx='210' cy='210' r='58'/%3E%3Crect x='182' y='270' width='56' height='118' rx='24'/%3E%3C/g%3E%3Cg fill='%23f4e0d0'%3E%3Ccircle cx='210' cy='166' r='30'/%3E%3C/g%3E%3Cg fill='%239ca6d8'%3E%3Cpath d='M450 420h210c-16-108-72-176-168-214-62 40-92 110-42 214Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-.art-cloudy.art-laundry {
-  background-image:
-    radial-gradient(circle at 75% 20%, rgba(255,255,255,0.12) 0 42px, transparent 90px),
-    linear-gradient(180deg, #7683aa 0%, #37415d 40%, #181827 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23dce0f3' fill-opacity='.44'%3E%3Cellipse cx='210' cy='110' rx='84' ry='34'/%3E%3Cellipse cx='540' cy='130' rx='104' ry='38'/%3E%3C/g%3E%3Cg fill='%23e7d7ff' fill-opacity='.88'%3E%3Cpath d='M220 165h70v120h-70z'/%3E%3Cpath d='M360 165h88v130h-88z'/%3E%3Cpath d='M520 165h80v118h-80z'/%3E%3C/g%3E%3Cg fill='%23202c56'%3E%3Crect x='80' y='290' width='640' height='160' rx='18'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-/* rain */
-.art-rain {
-  background:
-    linear-gradient(180deg, rgba(100,160,255,0.08), rgba(0,0,0,0.2)),
-    linear-gradient(180deg, #324b8b 0%, #182342 48%, #0c101d 100%);
-}
-
-.art-rain.art-going-out {
-  background-image:
-    linear-gradient(180deg, rgba(100,160,255,0.08), rgba(0,0,0,0.2)),
-    linear-gradient(180deg, #324b8b 0%, #182342 48%, #0c101d 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23cfdbff' fill-opacity='.35'%3E%3Cellipse cx='250' cy='110' rx='90' ry='36'/%3E%3Cellipse cx='560' cy='130' rx='110' ry='40'/%3E%3C/g%3E%3Cg stroke='%2397c7ff' stroke-opacity='.34' stroke-width='5'%3E%3Cpath d='M150 100l-90 220'/%3E%3Cpath d='M220 60l-90 220'/%3E%3Cpath d='M310 100l-90 220'/%3E%3Cpath d='M520 60l-90 220'/%3E%3Cpath d='M620 80l-90 220'/%3E%3C/g%3E%3Cg fill='%23212942'%3E%3Ccircle cx='210' cy='210' r='58'/%3E%3Crect x='182' y='270' width='56' height='118' rx='24'/%3E%3C/g%3E%3Cg fill='%23f4e0d0'%3E%3Ccircle cx='210' cy='166' r='30'/%3E%3C/g%3E%3Cg fill='%2386a7ff'%3E%3Cpath d='M450 420h210c-16-108-72-176-168-214-62 40-92 110-42 214Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-.art-rain.art-laundry {
-  background-image:
-    linear-gradient(180deg, rgba(100,160,255,0.08), rgba(0,0,0,0.2)),
-    linear-gradient(180deg, #324b8b 0%, #182342 48%, #0c101d 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23cfdbff' fill-opacity='.35'%3E%3Cellipse cx='250' cy='110' rx='90' ry='36'/%3E%3Cellipse cx='560' cy='130' rx='110' ry='40'/%3E%3C/g%3E%3Cg stroke='%2397c7ff' stroke-opacity='.32' stroke-width='5'%3E%3Cpath d='M150 100l-90 220'/%3E%3Cpath d='M220 60l-90 220'/%3E%3Cpath d='M310 100l-90 220'/%3E%3Cpath d='M520 60l-90 220'/%3E%3Cpath d='M620 80l-90 220'/%3E%3C/g%3E%3Cg fill='%23dfd1ff' fill-opacity='.8'%3E%3Cpath d='M220 165h70v120h-70z'/%3E%3Cpath d='M360 165h88v130h-88z'/%3E%3Cpath d='M520 165h80v118h-80z'/%3E%3C/g%3E%3Cg fill='%23202c56'%3E%3Crect x='80' y='290' width='640' height='160' rx='18'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-/* storm */
-.art-storm {
-  background:
-    radial-gradient(circle at 65% 20%, rgba(193,148,255,0.16) 0 46px, transparent 110px),
-    linear-gradient(180deg, #4b397f 0%, #1c1434 45%, #090712 100%);
-}
-
-.art-storm.art-going-out {
-  background-image:
-    radial-gradient(circle at 65% 20%, rgba(193,148,255,0.16) 0 46px, transparent 110px),
-    linear-gradient(180deg, #4b397f 0%, #1c1434 45%, #090712 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23d0c8ff' fill-opacity='.28'%3E%3Cellipse cx='250' cy='110' rx='90' ry='36'/%3E%3Cellipse cx='560' cy='130' rx='110' ry='40'/%3E%3C/g%3E%3Cg fill='%23ffd369' fill-opacity='.7'%3E%3Cpath d='M530 70l-50 120h38l-30 94 78-124h-46l36-90Z'/%3E%3C/g%3E%3Cg fill='%23212942'%3E%3Ccircle cx='210' cy='210' r='58'/%3E%3Crect x='182' y='270' width='56' height='118' rx='24'/%3E%3C/g%3E%3Cg fill='%23f4e0d0'%3E%3Ccircle cx='210' cy='166' r='30'/%3E%3C/g%3E%3Cg fill='%239985ff'%3E%3Cpath d='M450 420h210c-16-108-72-176-168-214-62 40-92 110-42 214Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-.art-storm.art-laundry {
-  background-image:
-    radial-gradient(circle at 65% 20%, rgba(193,148,255,0.16) 0 46px, transparent 110px),
-    linear-gradient(180deg, #4b397f 0%, #1c1434 45%, #090712 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cg fill='%23d0c8ff' fill-opacity='.28'%3E%3Cellipse cx='250' cy='110' rx='90' ry='36'/%3E%3Cellipse cx='560' cy='130' rx='110' ry='40'/%3E%3C/g%3E%3Cg fill='%23ffd369' fill-opacity='.68'%3E%3Cpath d='M530 70l-50 120h38l-30 94 78-124h-46l36-90Z'/%3E%3C/g%3E%3Cg fill='%23dfd1ff' fill-opacity='.8'%3E%3Cpath d='M220 165h70v120h-70z'/%3E%3Cpath d='M360 165h88v130h-88z'/%3E%3Cpath d='M520 165h80v118h-80z'/%3E%3C/g%3E%3Cg fill='%23202c56'%3E%3Crect x='80' y='290' width='640' height='160' rx='18'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover;
-}
-
-/* scene fx */
+/* =========================================================
+   BACKGROUND FX
+   Moving clouds, rain streaks, stars, glow
+   ========================================================= */
 .weather-bg {
   position: absolute;
   inset: 0;
@@ -508,21 +530,33 @@
   width: 260px;
   height: 74px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   box-shadow:
-    48px -18px 0 10px rgba(255,255,255,0.12),
-    112px -10px 0 10px rgba(255,255,255,0.12),
-    168px 0 0 0 rgba(255,255,255,0.12);
+    48px -18px 0 10px rgba(255, 255, 255, 0.12),
+    112px -10px 0 10px rgba(255, 255, 255, 0.12),
+    168px 0 0 0 rgba(255, 255, 255, 0.12);
   filter: blur(2px);
   animation: cloudDrift 28s linear infinite;
 }
 
-.fx-clouds::before { left: -260px; }
-.fx-clouds::after { top: 150px; left: -320px; transform: scale(0.82); animation-duration: 36s; }
+.fx-clouds::before {
+  left: -260px;
+}
+
+.fx-clouds::after {
+  top: 150px;
+  left: -320px;
+  transform: scale(0.82);
+  animation-duration: 36s;
+}
 
 @keyframes cloudDrift {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(100vw + 520px)); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100vw + 520px));
+  }
 }
 
 .fx-rain {
@@ -534,13 +568,22 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(115deg, rgba(151,199,255,0.00) 0 18px, rgba(151,199,255,0.28) 18px 20px, rgba(151,199,255,0.00) 20px 34px);
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(151, 199, 255, 0.00) 0 18px,
+    rgba(151, 199, 255, 0.28) 18px 20px,
+    rgba(151, 199, 255, 0.00) 20px 34px
+  );
   animation: rainMove 0.55s linear infinite;
 }
 
 @keyframes rainMove {
-  from { transform: translateY(-24px); }
-  to { transform: translateY(24px); }
+  from {
+    transform: translateY(-24px);
+  }
+  to {
+    transform: translateY(24px);
+  }
 }
 
 .fx-stars {
@@ -553,16 +596,16 @@
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.6) 0 1px, transparent 2px),
-    radial-gradient(circle at 28% 10%, rgba(255,255,255,0.55) 0 1px, transparent 2px),
-    radial-gradient(circle at 56% 16%, rgba(255,255,255,0.5) 0 1px, transparent 2px),
-    radial-gradient(circle at 74% 8%, rgba(255,255,255,0.55) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 20%, rgba(255,255,255,0.4) 0 1px, transparent 2px);
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 10%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 56% 16%, rgba(255, 255, 255, 0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 8%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2px);
   animation: twinkleSky 3s ease-in-out infinite;
 }
 
 @keyframes twinkleSky {
-  0%,100% { opacity: 0.35; }
+  0%, 100% { opacity: 0.35; }
   50% { opacity: 1; }
 }
 
@@ -591,12 +634,17 @@
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,211,105,0.8) 0%, rgba(255,211,105,0.18) 55%, rgba(255,211,105,0) 74%);
+  background: radial-gradient(circle, rgba(255, 211, 105, 0.8) 0%, rgba(255, 211, 105, 0.18) 55%, rgba(255, 211, 105, 0) 74%);
   filter: blur(6px);
   opacity: 0.15;
   z-index: 0;
 }
 
+
+/* =========================================================
+   RESPONSIVE
+   Layout adjustments para sa tablet at mobile
+   ========================================================= */
 @media (max-width: 980px) {
   .weather-shell,
   .weather-grid-main,
@@ -604,68 +652,52 @@
     grid-template-columns: 1fr;
   }
 
-  .art-copy { max-width: 100%; }
+  .art-copy {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 640px) {
-  .weather-hero-section { padding: 96px 14px 18px; }
-  .weather-main { padding: 10px 14px 48px; }
+  .weather-hero-section {
+    padding: 96px 14px 18px;
+  }
+
+  .weather-main {
+    padding: 10px 14px 48px;
+  }
+
   .weather-intro,
   .weather-summary,
   .hourly-card,
-  .guide-card { padding: 20px; }
-  .weather-search-row { grid-template-columns: 1fr; }
-  .summary-top { grid-template-columns: 1fr; }
-  .summary-grid { grid-template-columns: 1fr 1fr; }
-  .advice-media { min-height: 280px; padding: 20px; }
-  .advice-list { padding: 20px; }
-  .hour-row { grid-template-columns: 68px 1fr auto; }
-}
+  .guide-card {
+    padding: 20px;
+  }
 
-.advice-visuals {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  margin-top: 24px;
-}
-
-.advice-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 12px 35px rgba(0,0,0,.28);
-  backdrop-filter: blur(10px);
-}
-
-.advice-card-image {
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-}
-
-.advice-card-image img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.advice-card-content {
-  padding: 16px 18px 18px;
-}
-
-.advice-card-content h3 {
-  margin: 0 0 10px;
-}
-
-.advice-card-content p {
-  margin: 0;
-  line-height: 1.7;
-  opacity: 0.92;
-}
-
-@media (max-width: 860px) {
-  .advice-visuals {
+  .weather-search-row {
     grid-template-columns: 1fr;
+  }
+
+  .summary-top {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .advice-media {
+    min-height: 280px;
+  }
+
+  .art-copy {
+    padding: 20px;
+  }
+
+  .advice-list {
+    padding: 20px;
+  }
+
+  .hour-row {
+    grid-template-columns: 68px 1fr auto;
   }
 }
