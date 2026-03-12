@@ -89,32 +89,23 @@
 
         <!-- Search input + button -->
         <div class="weather-search-row">
-          <input
-            id="placeInput"
-            type="text"
-            class="weather-input"
-            placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
-            aria-label="Enter a place in the Philippines"
-          />
-          <button id="searchBtn" class="weather-btn" type="button">Check now</button>
+            <div class="weather-search-wrap">
+                <input
+                      id="placeInput"
+                      type="text"
+                      class="weather-input"
+                      placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
+                      aria-label="Enter a place in the Philippines"
+                      autocomplete="off"
+                      />
+              <div id="suggestionsBox" class="suggestions-box hidden"></div>
+              </div>
+
+        <button id="searchBtn" class="weather-btn" type="button">Check now</button>
+        <button id="currentLocationBtn" class="weather-btn location-btn" type="button">
+          Current location
+        </button>
         </div>
-
-        <div class="weather-search-wrap">
-  <input
-    id="placeInput"
-    type="text"
-    class="weather-input"
-    placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
-    aria-label="Enter a place in the Philippines"
-    autocomplete="off"
-  />
-  <div id="suggestionsBox" class="suggestions-box hidden"></div>
-</div>
-
-<button id="searchBtn" class="weather-btn" type="button">Check now</button>
-<button id="currentLocationBtn" class="weather-btn location-btn" type="button">
-  Current location
-</button>
 
         <!-- Suggested location chips -->
         <div class="weather-chips" aria-label="Suggested places">
