@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- =========================================================
+       BASIC PAGE META
+       Title, viewport, description, and page styles
+       ========================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hidden Spot Cafe | Rain Check</title>
-  <meta name="description" content="Check if umuulan now in a specific place in the Philippines, with simple advice for going out and laundry." />
+  <meta
+    name="description"
+    content="Check if umuulan now in a specific place in the Philippines, with simple advice for going out and laundry."
+  />
+
+  <!-- Global site styles -->
   <link rel="stylesheet" href="/style.css" />
+
+  <!-- Rain Check page-specific styles -->
   <link rel="stylesheet" href="./weather.css" />
 </head>
-<body class="weather-page weather-cloudy">
 
-  <!-- Navigation -->
+<body class="weather-page weather-cloudy">
+  <!-- =========================================================
+       SITE NAVIGATION
+       Reuses the main Hidden Spot Cafe navbar
+       ========================================================= -->
   <nav class="navbar">
     <div class="nav-accent"></div>
 
     <div class="nav-container">
-      <a href="/">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      <!-- Logo -->
+      <a href="/" aria-label="Go to Hidden Spot Cafe homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
+      <!-- Desktop / main nav links -->
       <div class="nav-links" id="navLinks">
         <a href="/" class="nav-link">Home</a>
         <a href="/menu/" class="nav-link">Menu</a>
@@ -26,52 +42,80 @@
         <a href="/rain-check/" class="nav-link">Rain Check</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
+      <!-- Mobile hamburger -->
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" role="button" tabindex="0">
         <span></span>
         <span></span>
         <span></span>
       </div>
     </div>
   </nav>
-  <!-- END-Navigation -->
+  <!-- END SITE NAVIGATION -->
 
-  <section class="weather-hero-section">
+  <!-- =========================================================
+       HERO SECTION
+       Top section with animated weather background, search area,
+       and main weather summary card
+       ========================================================= -->
+  <section class="weather-hero-section" aria-label="Rain Check weather hero">
+    <!-- Animated background effects -->
     <div class="weather-bg fx-clouds" aria-hidden="true"></div>
     <div class="weather-bg fx-rain" aria-hidden="true" id="rainFx"></div>
     <div class="weather-bg fx-stars" aria-hidden="true" id="starsFx"></div>
     <div class="weather-glow" aria-hidden="true"></div>
 
     <div class="weather-shell">
+      <!-- =====================================================
+           INTRO / SEARCH CARD
+           User enters a place in the Philippines here
+           ===================================================== -->
       <div class="weather-intro glass-card">
         <div class="weather-badge">🌧️ Hidden Spot Cafe • Rain Check</div>
+
         <h1>Umuulan ba sa pupuntahan mo?</h1>
+
         <p>
-          Search mo lang ang city o municipality sa Pilipinas. Lalabas agad kung <strong>umuulan ngayon</strong>,
-          kung okay bang lumabas, at kung good idea bang <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
+          Search mo lang ang city o municipality sa Pilipinas. Lalabas agad kung
+          <strong>umuulan ngayon</strong>, kung okay bang lumabas, at kung good idea bang
+          <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
         </p>
 
+        <!-- Search input and main button -->
         <div class="weather-search-row">
-          <input id="placeInput" type="text" class="weather-input" placeholder="Try: Pasig, Baguio, Antipolo, Cebu City" />
-          <button id="searchBtn" class="weather-btn">Check now</button>
+          <input
+            id="placeInput"
+            type="text"
+            class="weather-input"
+            placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
+            aria-label="Enter a place in the Philippines"
+          />
+          <button id="searchBtn" class="weather-btn" type="button">Check now</button>
         </div>
 
-        <div class="weather-chips">
-          <button class="weather-chip" data-place="Pasig">Pasig</button>
-          <button class="weather-chip" data-place="Quezon City">Quezon City</button>
-          <button class="weather-chip" data-place="Tagaytay">Tagaytay</button>
-          <button class="weather-chip" data-place="Baguio">Baguio</button>
-          <button class="weather-chip" data-place="Cebu City">Cebu City</button>
-          <button class="weather-chip" data-place="Davao City">Davao City</button>
+        <!-- Quick location chips -->
+        <div class="weather-chips" aria-label="Suggested places">
+          <button class="weather-chip" type="button" data-place="Pasig">Pasig</button>
+          <button class="weather-chip" type="button" data-place="Quezon City">Quezon City</button>
+          <button class="weather-chip" type="button" data-place="Tagaytay">Tagaytay</button>
+          <button class="weather-chip" type="button" data-place="Baguio">Baguio</button>
+          <button class="weather-chip" type="button" data-place="Cebu City">Cebu City</button>
+          <button class="weather-chip" type="button" data-place="Davao City">Davao City</button>
         </div>
 
-        <div id="loadingState" class="weather-loading hidden">
+        <!-- Loading state -->
+        <div id="loadingState" class="weather-loading hidden" aria-live="polite">
           <span class="loader-dot"></span>
           <span>Checking latest weather data...</span>
         </div>
 
-        <div id="errorState" class="weather-error hidden"></div>
+        <!-- Error state -->
+        <div id="errorState" class="weather-error hidden" aria-live="polite"></div>
       </div>
 
+      <!-- =====================================================
+           MAIN WEATHER SUMMARY CARD
+           Shows the main answer, explanation, emoji, and stats
+           ===================================================== -->
       <div class="weather-summary glass-card">
         <div class="summary-top">
           <div>
@@ -82,24 +126,29 @@
               Dito lalabas ang simple Taglish explanation para mabilis maintindihan ng bisita mo.
             </p>
           </div>
+
           <div class="summary-icon-wrap">
-            <div id="summaryEmoji" class="summary-emoji">☁️</div>
+            <div id="summaryEmoji" class="summary-emoji" aria-label="Current weather icon">☁️</div>
           </div>
         </div>
 
+        <!-- Quick weather stats -->
         <div class="summary-grid">
           <div class="summary-stat">
             <span>Temperature</span>
             <strong id="tempValue">--</strong>
           </div>
+
           <div class="summary-stat">
             <span>Rain now</span>
             <strong id="rainValue">--</strong>
           </div>
+
           <div class="summary-stat">
             <span>Wind</span>
             <strong id="windValue">--</strong>
           </div>
+
           <div class="summary-stat">
             <span>Updated</span>
             <strong id="updatedValue">--</strong>
@@ -109,8 +158,17 @@
     </div>
   </section>
 
+  <!-- =========================================================
+       MAIN CONTENT
+       Advice cards + hourly forecast + explanation guide
+       ========================================================= -->
   <main class="weather-main">
-    <section class="weather-grid weather-grid-main">
+    <!-- =======================================================
+         ADVICE CARDS
+         Going out advice and laundry advice with dynamic images
+         ======================================================= -->
+    <section class="weather-grid weather-grid-main" aria-label="Weather advice cards">
+      <!-- Going Out Advice -->
       <article class="glass-card advice-card goout-card" id="goOutCard">
         <div class="advice-media art-going-out art-cloudy" id="goOutArt">
           <img
@@ -118,14 +176,21 @@
             class="advice-image"
             src="/rain-check/weather-images/partly-cloudy-go-out.webp"
             alt="Going out weather advice illustration"
+            loading="eager"
+            decoding="async"
           />
+
           <div class="art-overlay"></div>
+
           <div class="art-copy">
             <span class="art-label">Going Out Advice</span>
             <h3 id="goOutTitle">Wait tayo ng forecast</h3>
-            <p id="goOutText">Mag-search muna ng lugar para makakuha ng advice kung ano ang magandang dalhin kapag lalabas.</p>
+            <p id="goOutText">
+              Mag-search muna ng lugar para makakuha ng advice kung ano ang magandang dalhin kapag lalabas.
+            </p>
           </div>
         </div>
+
         <div class="advice-list">
           <h4>What to bring</h4>
           <ul id="bringList">
@@ -136,6 +201,7 @@
         </div>
       </article>
 
+      <!-- Laundry Advice -->
       <article class="glass-card advice-card laundry-card" id="laundryCard">
         <div class="advice-media art-laundry art-cloudy" id="laundryArt">
           <img
@@ -143,14 +209,21 @@
             class="advice-image"
             src="/rain-check/weather-images/partly-cloudy-laundry.webp"
             alt="Laundry weather advice illustration"
+            loading="eager"
+            decoding="async"
           />
+
           <div class="art-overlay"></div>
+
           <div class="art-copy">
             <span class="art-label">Laundry Advice</span>
             <h3 id="laundryTitle">Waiting for weather check</h3>
-            <p id="laundryText">Kapag may data na, sasabihin dito kung okay bang maglaba at magsampay sa mga oras na ito.</p>
+            <p id="laundryText">
+              Kapag may data na, sasabihin dito kung okay bang maglaba at magsampay sa mga oras na ito.
+            </p>
           </div>
         </div>
+
         <div class="advice-list">
           <h4>Quick decision</h4>
           <ul id="laundryList">
@@ -162,13 +235,21 @@
       </article>
     </section>
 
-    <section class="weather-grid weather-grid-secondary">
+    <!-- =======================================================
+         SECONDARY INFO SECTION
+         Hourly forecast card + guide/explanation card
+         ======================================================= -->
+    <section class="weather-grid weather-grid-secondary" aria-label="Hourly forecast and guide">
+      <!-- Hourly Forecast -->
       <article class="glass-card hourly-card">
         <h3>Next few hours</h3>
-        <p class="section-copy">Para makita mo kung mukhang tuloy-tuloy ang ulan o pa-start pa lang.</p>
+        <p class="section-copy">
+          Para makita mo kung mukhang tuloy-tuloy ang ulan o pa-start pa lang.
+        </p>
         <div id="hourlyList" class="hourly-list"></div>
       </article>
 
+      <!-- Reading Guide -->
       <article class="glass-card guide-card">
         <h3>Paano basahin ito?</h3>
         <p id="readingGuide">
@@ -181,12 +262,24 @@
     </section>
   </main>
 
+  <!-- =========================================================
+       FOOTER
+       Rain Check footer with Messenger link
+       ========================================================= -->
   <footer>
     <p>Rain Check by Hidden Spot Cafe</p>
-    <p><a href="https://m.me/hiddenspotcafe" target="_blank">Message us on Messenger</a></p>
+    <p>
+      <a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener noreferrer">
+        Message us on Messenger
+      </a>
+    </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
+  <!-- =========================================================
+       SCRIPTS
+       Global site script first, then Rain Check page logic
+       ========================================================= -->
   <script src="/script.js"></script>
   <script src="./weather.js"></script>
 </body>
