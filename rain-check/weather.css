@@ -1044,3 +1044,69 @@ body {
     font-size: 0.95rem;
   }
 }
+/* =========================================================
+   FINAL MOBILE EDGE FIX
+   Force uniform outer spacing for all major sections/cards
+   Ilagay ito sa PINAKAILALIM ng weather.css
+   ========================================================= */
+@media (max-width: 640px) {
+  /* Main outer wrappers */
+  .weather-hero-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box;
+  }
+
+  .weather-main {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box;
+  }
+
+  /* Remove inherited extra side spacing from inner layout wrappers */
+  .weather-shell,
+  .weather-grid,
+  .weather-grid-main,
+  .weather-grid-secondary {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Every direct child inside wrappers should respect same width */
+  .weather-shell > *,
+  .weather-grid > *,
+  .weather-grid-main > *,
+  .weather-grid-secondary > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Main cards */
+  .weather-intro,
+  .weather-summary,
+  .smart-engine,
+  .advice-card,
+  .hourly-card,
+  .guide-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Prevent image card content from visually touching edges */
+  .advice-media,
+  .advice-list,
+  .art-copy {
+    box-sizing: border-box;
+  }
+}
