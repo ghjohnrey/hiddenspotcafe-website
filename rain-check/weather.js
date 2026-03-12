@@ -287,6 +287,25 @@ document.addEventListener('DOMContentLoaded', () => {
       timeZone: timezone
     }).format(new Date(iso));
   }
+  /**
+ * =========================================================
+ * FORMAT CURRENT TIME LABEL
+ * Generates "Now • 7:12 AM" style label
+ * =========================================================
+ */
+function formatNowLabel(date = new Date()) {
+  try {
+    return `Now • ${date.toLocaleTimeString('en-PH', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    })}`;
+  } catch {
+    return 'Now';
+  }
+}
+
+  
 
   /**
    * =========================================================
@@ -791,54 +810,81 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHourly(weather.hourly, weather.timezone, index);
   }
 
+/**
+ * =========================================================
+ * HOURLY RENDERER
+ * Gumagawa ng clickable current + next 5 future hourly rows
+ * Hindi na kasama ang mga lumipas na oras
+ * Hindi na rin dinodoble ang current hour sa next list
+ * =========================================================
+ */
+function renderHourly(hourly, timezone, selectedIndex = -1) {
+  if (!hourlyList || !hourly || !Array.isArray(hourly.time)) return;
+  if (!latestWeatherBundle?.weather?.current?.time) return;
+
+  const currentIso = latestWeatherBundle.weather.current.time;
+  const currentDate = new Date(currentIso);
+
   /**
-   * =========================================================
-   * HOURLY RENDERER
-   * Gumagawa ng clickable current + next 6 hourly rows
-   * =========================================================
+   * Hanapin ang unang hourly index na kapareho o mas late
+   * kaysa current weather time
    */
-  function renderHourly(hourly, timezone, selectedIndex = -1) {
-    if (!hourlyList || !hourly) return;
+  let currentHourIndex = hourly.time.findIndex(time => {
+    return new Date(time) >= currentDate;
+  });
 
-    const currentProbability = Math.max(
+  if (currentHourIndex === -1) currentHourIndex = 0;
+
+  /**
+   * Current row uses currentHourIndex
+   * Next rows start AFTER currentHourIndex
+   */
+  const nextStartIndex = currentHourIndex + 1;
+  const visibleTimes = hourly.time.slice(nextStartIndex, nextStartIndex + 5);
+
+  const currentProbability = Math.max(
+    0,
+    Math.min(100, Math.round(hourly.precipitation_probability?.[currentHourIndex] || 0))
+  );
+
+  const currentAmount = Number(hourly.precipitation?.[currentHourIndex] || 0);
+
+  const currentRow = `
+    <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
+      <div class="hour-time-label">Current time</div>
+      <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
+      <div>${currentAmount.toFixed(1)} mm</div>
+    </button>
+  `;
+
+  const rows = visibleTimes.map((time, visibleIndex) => {
+    const actualIndex = nextStartIndex + visibleIndex;
+
+    const probability = Math.max(
       0,
-      Math.min(100, Math.round(hourly.precipitation_probability?.[0] || 0))
+      Math.min(100, Math.round(hourly.precipitation_probability?.[actualIndex] || 0))
     );
-    const currentAmount = Number(hourly.precipitation?.[0] || 0);
 
-    const currentRow = `
-      <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
-        <div class="hour-time-label">Current time</div>
-        <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
-        <div>${currentAmount.toFixed(1)} mm</div>
+    const amount = Number(hourly.precipitation?.[actualIndex] || 0);
+
+    return `
+      <button class="hour-row ${selectedIndex === actualIndex ? 'active' : ''}" type="button" data-time-index="${actualIndex}">
+        <div class="hour-time-label">${formatTime(time, timezone)}</div>
+        <div class="hour-bar"><span style="width:${probability}%"></span></div>
+        <div>${amount.toFixed(1)} mm</div>
       </button>
     `;
+  }).join('');
 
-    const rows = (hourly.time || []).slice(0, 6).map((time, index) => {
-      const probability = Math.max(
-        0,
-        Math.min(100, Math.round(hourly.precipitation_probability?.[index] || 0))
-      );
-      const amount = Number(hourly.precipitation?.[index] || 0);
+  hourlyList.innerHTML = currentRow + rows;
 
-      return `
-        <button class="hour-row ${selectedIndex === index ? 'active' : ''}" type="button" data-time-index="${index}">
-          <div class="hour-time-label">${formatTime(time, timezone)}</div>
-          <div class="hour-bar"><span style="width:${probability}%"></span></div>
-          <div>${amount.toFixed(1)} mm</div>
-        </button>
-      `;
-    }).join('');
-
-    hourlyList.innerHTML = currentRow + rows;
-
-    hourlyList.querySelectorAll('.hour-row').forEach(button => {
-      button.addEventListener('click', () => {
-        const index = Number(button.dataset.timeIndex);
-        renderSelectedTime(index);
-      });
+  hourlyList.querySelectorAll('.hour-row').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = Number(button.dataset.timeIndex);
+      renderSelectedTime(index);
     });
-  }
+  });
+}
   
 /**
  * =========================================================
