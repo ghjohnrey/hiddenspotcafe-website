@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const placeInput = document.getElementById('placeInput');
   const searchBtn = document.getElementById('searchBtn');
+  const currentLocationBtn = document.getElementById('currentLocationBtn');
+  const suggestionsBox = document.getElementById('suggestionsBox');
+
   const loadingState = document.getElementById('loadingState');
   const errorState = document.getElementById('errorState');
 
@@ -48,10 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
    * INTERNAL STATE
    * latestWeatherBundle = latest geocode + weather response
    * activeTimeIndex = -1 for current, 0..5 for hourly row
+   * suggestionResults = search suggestions cache
    * =========================================================
    */
   let latestWeatherBundle = null;
   let activeTimeIndex = -1;
+  let selectedSuggestion = null;
+  let suggestionResults = [];
+  let suggestionDebounce = null;
 
   /**
    * =========================================================
@@ -134,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setLoading(isLoading) {
     if (loadingState) loadingState.classList.toggle('hidden', !isLoading);
     if (searchBtn) searchBtn.disabled = isLoading;
+    if (currentLocationBtn) currentLocationBtn.disabled = isLoading;
   }
 
   function setError(message = '') {
@@ -166,6 +174,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (value === 'Bangsamoro Autonomous Region in Muslim Mindanao') return 'BARMM';
 
     return value;
+  }
+
+  /**
+   * =========================================================
+   * TEXT ESCAPER
+   * Safe rendering for suggestion HTML content
+   * =========================================================
+   */
+  function escapeHtml(value = '') {
+    return `${value}`
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 
   /**
@@ -557,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function renderList(target, items) {
     if (!target) return;
-    target.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+    target.innerHTML = items.map(item => `<li>${escapeHtml(item)}</li>`).join('');
   }
 
   /**
@@ -567,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * =========================================================
    */
   function getUpcomingProbabilities(hourly, startIndex, count = 3) {
-    return hourly.precipitation_probability
+    return (hourly.precipitation_probability || [])
       .slice(startIndex, startIndex + count)
       .map(value => Number(value || 0));
   }
@@ -592,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rain: Number(current.rain || 0),
         temperature_2m: Number(current.temperature_2m || 0),
         wind_speed_10m: Number(current.wind_speed_10m || 0),
-        currentProbability: Math.round(hourly.precipitation_probability[0] || 0),
+        currentProbability: Math.round(hourly.precipitation_probability?.[0] || 0),
         nextThreeProbabilities: getUpcomingProbabilities(hourly, 0, 3)
       };
     }
@@ -604,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
       rain: Number(hourly.precipitation[index] || 0),
       temperature_2m: Number(hourly.temperature_2m?.[index] || current.temperature_2m || 0),
       wind_speed_10m: Number(hourly.wind_speed_10m?.[index] || current.wind_speed_10m || 0),
-      currentProbability: Math.round(hourly.precipitation_probability[index] || 0),
+      currentProbability: Math.round(hourly.precipitation_probability?.[index] || 0),
       nextThreeProbabilities: getUpcomingProbabilities(hourly, index, 3)
     };
   }
@@ -680,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     activeTimeIndex = index;
 
-    const { geo, weather } = latestWeatherBundle;
+    const { geo, weather, fallbackNote } = latestWeatherBundle;
     const placeName = [geo.name, geo.admin1].filter(Boolean).join(', ');
     const shortPlaceName = [geo.name, shortRegionLabel(geo.admin1)].filter(Boolean).join(', ');
     const snapshot = buildSelectedSnapshot(latestWeatherBundle, index);
@@ -716,8 +739,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (locationTitle) locationTitle.textContent = placeName;
     if (bigAnswer) bigAnswer.textContent = summary.answer;
+
     if (mainExplanation) {
-      mainExplanation.textContent = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
+      let explanationText = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
+
+      if (fallbackNote && index === -1) {
+        explanationText += ` ${fallbackNote}`;
+      }
+
+      mainExplanation.textContent = explanationText;
     }
 
     if (tempValue) tempValue.textContent = `${Math.round(temp)}°C`;
@@ -773,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </button>
     `;
 
-    const rows = hourly.time.slice(0, 6).map((time, index) => {
+    const rows = (hourly.time || []).slice(0, 6).map((time, index) => {
       const probability = Math.max(
         0,
         Math.min(100, Math.round(hourly.precipitation_probability?.[index] || 0))
@@ -801,8 +831,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
+   * SUGGESTION DROPDOWN RENDERER
+   * Shows search suggestions under the input
+   * =========================================================
+   */
+  function renderSuggestions(results = []) {
+    if (!suggestionsBox) return;
+
+    if (!results.length) {
+      suggestionsBox.innerHTML = '';
+      suggestionsBox.classList.add('hidden');
+      return;
+    }
+
+    suggestionsBox.innerHTML = results.map((place, index) => {
+      const main = escapeHtml(place.name || 'Unknown place');
+      const sub = escapeHtml([place.admin1, place.country].filter(Boolean).join(', '));
+
+      return `
+        <button type="button" class="suggestion-item" data-index="${index}">
+          <span class="suggestion-main">${main}</span>
+          <span class="suggestion-sub">${sub}</span>
+        </button>
+      `;
+    }).join('');
+
+    suggestionsBox.classList.remove('hidden');
+
+    suggestionsBox.querySelectorAll('.suggestion-item').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        const chosen = results[index];
+
+        if (!chosen) return;
+
+        selectedSuggestion = chosen;
+
+        if (placeInput) {
+          placeInput.value = [chosen.name, chosen.admin1].filter(Boolean).join(', ');
+        }
+
+        renderSuggestions([]);
+        searchWeatherFromSuggestion(chosen);
+      });
+    });
+  }
+
+  /**
+   * =========================================================
+   * PLACE SUGGESTIONS FETCHER
+   * Gets top location suggestions while user types
+   * =========================================================
+   */
+  async function fetchPlaceSuggestions(keyword) {
+    const cleaned = normalizePlaceName(keyword);
+
+    if (!cleaned || cleaned.length < 2) {
+      renderSuggestions([]);
+      return [];
+    }
+
+    const query = encodeURIComponent(cleaned);
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=8&language=en&format=json&countryCode=PH`;
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return [];
+
+      const data = await res.json();
+      return data.results || [];
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * =========================================================
    * GEOCODING REQUEST
    * Place name -> latitude / longitude
+   * Returns best match and marks if fallback was used
    * =========================================================
    */
   async function geocodePlace(place) {
@@ -820,7 +927,18 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error('Hindi ko mahanap ang lugar na iyan. Try mo city or municipality name sa Pilipinas.');
     }
 
-    return data.results[0];
+    const typed = normalizePlaceName(place).toLowerCase();
+    const top = data.results[0];
+
+    const topName = normalizePlaceName(
+      [top.name, top.admin1].filter(Boolean).join(', ')
+    ).toLowerCase();
+
+    top._fallbackNote = topName.includes(typed) || typed.includes((top.name || '').toLowerCase())
+      ? ''
+      : `Walang exact read para sa "${place}", kaya nearest available area ang ipinapakita.`;
+
+    return top;
   }
 
   /**
@@ -838,6 +956,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     return res.json();
+  }
+
+  /**
+   * =========================================================
+   * SEARCH FROM CHOSEN SUGGESTION
+   * Uses selected suggestion lat/lon directly
+   * =========================================================
+   */
+  async function searchWeatherFromSuggestion(placeObj) {
+    if (!placeObj || placeObj.latitude == null || placeObj.longitude == null) {
+      setError('Invalid location selection.');
+      return;
+    }
+
+    setError('');
+    setLoading(true);
+
+    try {
+      const weather = await getWeather(placeObj.latitude, placeObj.longitude);
+
+      latestWeatherBundle = {
+        geo: placeObj,
+        weather,
+        fallbackNote: ''
+      };
+
+      renderSelectedTime(-1);
+    } catch (error) {
+      setError(error.message || 'May error habang chine-check ang weather.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   /**
@@ -861,7 +1011,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const geo = await geocodePlace(cleaned);
       const weather = await getWeather(geo.latitude, geo.longitude);
 
-      latestWeatherBundle = { geo, weather };
+      latestWeatherBundle = {
+        geo,
+        weather,
+        fallbackNote: geo._fallbackNote || ''
+      };
+
       renderSelectedTime(-1);
     } catch (error) {
       setError(error.message || 'May error habang chine-check ang weather.');
@@ -872,11 +1027,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
+   * REVERSE GEOCODE NEAREST PLACE
+   * Gets a readable nearest place name from coordinates
+   * =========================================================
+   */
+  async function getNearestPlaceFromCoordinates(latitude, longitude) {
+    const reverseUrl = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${latitude}&longitude=${longitude}&language=en&format=json`;
+
+    try {
+      const reverseRes = await fetch(reverseUrl);
+
+      if (!reverseRes.ok) {
+        return {
+          name: 'Current Location',
+          admin1: 'Philippines',
+          latitude,
+          longitude
+        };
+      }
+
+      const reverseData = await reverseRes.json();
+
+      if (reverseData && reverseData.name) {
+        return {
+          name: reverseData.name || 'Current Location',
+          admin1: reverseData.admin1 || 'Philippines',
+          latitude,
+          longitude
+        };
+      }
+
+      return {
+        name: 'Current Location',
+        admin1: 'Philippines',
+        latitude,
+        longitude
+      };
+    } catch {
+      return {
+        name: 'Current Location',
+        admin1: 'Philippines',
+        latitude,
+        longitude
+      };
+    }
+  }
+
+  /**
+   * =========================================================
+   * CURRENT LOCATION WEATHER
+   * Uses browser geolocation and fetches nearest weather
+   * =========================================================
+   */
+  async function searchCurrentLocationWeather() {
+    if (!navigator.geolocation) {
+      setError('Hindi supported ng browser mo ang current location.');
+      return;
+    }
+
+    setError('');
+    setLoading(true);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+
+          const weather = await getWeather(latitude, longitude);
+          const geo = await getNearestPlaceFromCoordinates(latitude, longitude);
+
+          latestWeatherBundle = {
+            geo,
+            weather,
+            fallbackNote: 'Showing nearest available area based on your current location.'
+          };
+
+          if (placeInput) {
+            placeInput.value = [geo.name, geo.admin1].filter(Boolean).join(', ');
+          }
+
+          renderSelectedTime(-1);
+        } catch (error) {
+          setError(error.message || 'Hindi nakuha ang weather sa current location mo.');
+        } finally {
+          setLoading(false);
+        }
+      },
+      () => {
+        setLoading(false);
+        setError('Hindi ko nakuha ang current location mo. Baka naka-block ang location permission.');
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000
+      }
+    );
+  }
+
+  /**
+   * =========================================================
    * SEARCH BUTTON EVENT
+   * Searches typed value or chosen suggestion
    * =========================================================
    */
   if (searchBtn) {
     searchBtn.addEventListener('click', () => {
+      renderSuggestions([]);
+
+      if (selectedSuggestion) {
+        searchWeatherFromSuggestion(selectedSuggestion);
+        return;
+      }
+
       searchWeather(placeInput ? placeInput.value : '');
     });
   }
@@ -884,13 +1147,77 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * ENTER KEY EVENT
+   * Searches typed value or chosen suggestion
    * =========================================================
    */
   if (placeInput) {
     placeInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
+        renderSuggestions([]);
+
+        if (selectedSuggestion) {
+          searchWeatherFromSuggestion(selectedSuggestion);
+          return;
+        }
+
         searchWeather(placeInput.value);
       }
+    });
+  }
+
+  /**
+   * =========================================================
+   * INPUT SUGGESTIONS EVENT
+   * Debounced autocomplete while typing
+   * =========================================================
+   */
+  if (placeInput) {
+    placeInput.addEventListener('input', () => {
+      selectedSuggestion = null;
+
+      clearTimeout(suggestionDebounce);
+      suggestionDebounce = setTimeout(async () => {
+        const results = await fetchPlaceSuggestions(placeInput.value);
+        suggestionResults = results;
+        renderSuggestions(results);
+      }, 250);
+    });
+
+    placeInput.addEventListener('focus', async () => {
+      if (placeInput.value.trim().length >= 2) {
+        const results = await fetchPlaceSuggestions(placeInput.value);
+        suggestionResults = results;
+        renderSuggestions(results);
+      }
+    });
+  }
+
+  /**
+   * =========================================================
+   * CLICK OUTSIDE SUGGESTIONS
+   * Hides suggestion dropdown when clicking elsewhere
+   * =========================================================
+   */
+  document.addEventListener('click', (event) => {
+    const clickedInside =
+      (placeInput && placeInput.contains(event.target)) ||
+      (suggestionsBox && suggestionsBox.contains(event.target));
+
+    if (!clickedInside) {
+      renderSuggestions([]);
+    }
+  });
+
+  /**
+   * =========================================================
+   * CURRENT LOCATION BUTTON EVENT
+   * =========================================================
+   */
+  if (currentLocationBtn) {
+    currentLocationBtn.addEventListener('click', () => {
+      selectedSuggestion = null;
+      renderSuggestions([]);
+      searchCurrentLocationWeather();
     });
   }
 
@@ -902,7 +1229,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.weather-chip').forEach(button => {
     button.addEventListener('click', () => {
       const place = button.dataset.place || '';
+      selectedSuggestion = null;
+
       if (placeInput) placeInput.value = place;
+      renderSuggestions([]);
       searchWeather(place);
     });
   });
@@ -921,12 +1251,12 @@ document.addEventListener('DOMContentLoaded', () => {
    * =========================================================
    */
   setInterval(() => {
-    if (!locationTitle) return;
+    if (!latestWeatherBundle?.geo) return;
 
-    const currentPlace = normalizePlaceName(locationTitle.textContent.split(',')[0]);
+    const { geo } = latestWeatherBundle;
 
-    if (currentPlace && currentPlace !== 'Pick a place in the Philippines') {
-      searchWeather(currentPlace);
+    if (geo.latitude != null && geo.longitude != null) {
+      searchWeatherFromSuggestion(geo);
     }
   }, 300000);
 });
