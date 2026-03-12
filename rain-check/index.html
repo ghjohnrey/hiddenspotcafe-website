@@ -65,97 +65,136 @@
     <div class="weather-glow" aria-hidden="true"></div>
 
     <div class="weather-shell">
-  <!-- =====================================================
-       INTRO / SEARCH CARD
-       User enters a place in the Philippines here
-       ===================================================== -->
-  <div class="weather-intro glass-card">
-    <div class="weather-badge">🌧️ Hidden Spot Cafe • Rain Check</div>
+      <!-- =====================================================
+           INTRO / SEARCH CARD
+           User enters a place in the Philippines here
+           ===================================================== -->
+      <div class="weather-intro glass-card">
+        <div class="weather-badge">🌧️ Hidden Spot Cafe • Rain Check</div>
 
-    <h1>Umuulan ba sa pupuntahan mo?</h1>
+        <h1>Umuulan ba sa pupuntahan mo?</h1>
 
-    <p>
-      Search mo lang ang city o municipality sa Pilipinas. Lalabas agad kung
-      <strong>umuulan ngayon</strong>, kung okay bang lumabas, at kung good idea bang
-      <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
-    </p>
+        <p>
+          Search mo lang ang city o municipality sa Pilipinas. Lalabas agad kung
+          <strong>umuulan ngayon</strong>, kung okay bang lumabas, at kung good idea bang
+          <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
+        </p>
 
-    <!-- Search input and main button -->
-    <div class="weather-search-row">
-      <input
-        id="placeInput"
-        type="text"
-        class="weather-input"
-        placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
-        aria-label="Enter a place in the Philippines"
-      />
-      <button id="searchBtn" class="weather-btn" type="button">Check now</button>
-    </div>
+        <!-- Search input and main button -->
+        <div class="weather-search-row">
+          <input
+            id="placeInput"
+            type="text"
+            class="weather-input"
+            placeholder="Try: Pasig, Baguio, Antipolo, Cebu City"
+            aria-label="Enter a place in the Philippines"
+          />
+          <button id="searchBtn" class="weather-btn" type="button">Check now</button>
+        </div>
 
-    <!-- Quick location chips -->
-    <div class="weather-chips" aria-label="Suggested places">
-      <button class="weather-chip" type="button" data-place="Pasig">Pasig</button>
-      <button class="weather-chip" type="button" data-place="Quezon City">Quezon City</button>
-      <button class="weather-chip" type="button" data-place="Tagaytay">Tagaytay</button>
-      <button class="weather-chip" type="button" data-place="Baguio">Baguio</button>
-      <button class="weather-chip" type="button" data-place="Cebu City">Cebu City</button>
-      <button class="weather-chip" type="button" data-place="Davao City">Davao City</button>
-    </div>
+        <!-- Quick location chips -->
+        <div class="weather-chips" aria-label="Suggested places">
+          <button class="weather-chip" type="button" data-place="Pasig">Pasig</button>
+          <button class="weather-chip" type="button" data-place="Quezon City">Quezon City</button>
+          <button class="weather-chip" type="button" data-place="Tagaytay">Tagaytay</button>
+          <button class="weather-chip" type="button" data-place="Baguio">Baguio</button>
+          <button class="weather-chip" type="button" data-place="Cebu City">Cebu City</button>
+          <button class="weather-chip" type="button" data-place="Davao City">Davao City</button>
+        </div>
 
-    <!-- Loading state -->
-    <div id="loadingState" class="weather-loading hidden" aria-live="polite">
-      <span class="loader-dot"></span>
-      <span>Checking latest weather data...</span>
-    </div>
+        <!-- Loading state -->
+        <div id="loadingState" class="weather-loading hidden" aria-live="polite">
+          <span class="loader-dot"></span>
+          <span>Checking latest weather data...</span>
+        </div>
 
-    <!-- Error state -->
-    <div id="errorState" class="weather-error hidden" aria-live="polite"></div>
-  </div>
-
-  <!-- =====================================================
-       SMART WEATHER ADVICE ENGINE
-       Compact decision card for quick yes/no style guidance
-       ===================================================== -->
-  <div class="smart-engine glass-card" id="smartEngineCard">
-    <div class="smart-engine-header">
-      <div class="smart-engine-badge">🌦️ Smart Weather Advice Engine</div>
-      <p class="smart-engine-copy">
-        Mabilisang decision guide base sa current weather at selected time.
-      </p>
-    </div>
-
-    <div class="smart-engine-box">
-      <div class="smart-row">
-        <span class="smart-icon">☀️</span>
-        <span class="smart-label">Pwede lumabas:</span>
-        <strong id="smartGoOut">--</strong>
+        <!-- Error state -->
+        <div id="errorState" class="weather-error hidden" aria-live="polite"></div>
       </div>
 
-      <div class="smart-row">
-        <span class="smart-icon">☂️</span>
-        <span class="smart-label">Magdala ng payong:</span>
-        <strong id="smartUmbrella">--</strong>
+      <!-- =====================================================
+           SMART WEATHER ADVICE ENGINE
+           Compact decision card for quick yes/no style guidance
+           ===================================================== -->
+      <div class="smart-engine glass-card" id="smartEngineCard">
+        <div class="smart-engine-header">
+          <div class="smart-engine-badge">🌦️ Smart Weather Advice Engine</div>
+          <p class="smart-engine-copy">
+            Mabilisang decision guide base sa current weather at selected time.
+          </p>
+        </div>
+
+        <div class="smart-engine-box">
+          <div class="smart-row">
+            <span class="smart-icon">☀️</span>
+            <span class="smart-label">Pwede lumabas:</span>
+            <strong id="smartGoOut">--</strong>
+          </div>
+
+          <div class="smart-row">
+            <span class="smart-icon">☂️</span>
+            <span class="smart-label">Magdala ng payong:</span>
+            <strong id="smartUmbrella">--</strong>
+          </div>
+
+          <div class="smart-row">
+            <span class="smart-icon">🧺</span>
+            <span class="smart-label">Pwede magsampay:</span>
+            <strong id="smartDrying">--</strong>
+          </div>
+
+          <div class="smart-row">
+            <span class="smart-icon">👕</span>
+            <span class="smart-label">Maglaba ngayon:</span>
+            <strong id="smartLaundry">--</strong>
+          </div>
+        </div>
       </div>
 
-      <div class="smart-row">
-        <span class="smart-icon">🧺</span>
-        <span class="smart-label">Pwede magsampay:</span>
-        <strong id="smartDrying">--</strong>
-      </div>
+      <!-- =====================================================
+           MAIN WEATHER SUMMARY CARD
+           Shows the main answer, explanation, emoji, and stats
+           ===================================================== -->
+      <div class="weather-summary glass-card">
+        <div class="summary-top">
+          <div>
+            <div id="summaryPill" class="summary-pill">📍 Waiting for location</div>
+            <h2 id="locationTitle">Pick a place in the Philippines</h2>
+            <div id="bigAnswer" class="big-answer">Ready na mag rain-check.</div>
+            <p id="mainExplanation" class="main-explanation">
+              Dito lalabas ang simple Taglish explanation para mabilis maintindihan ng bisita mo.
+            </p>
+          </div>
 
-      <div class="smart-row">
-        <span class="smart-icon">👕</span>
-        <span class="smart-label">Maglaba ngayon:</span>
-        <strong id="smartLaundry">--</strong>
+          <div class="summary-icon-wrap">
+            <div id="summaryEmoji" class="summary-emoji" aria-label="Current weather icon">☁️</div>
+          </div>
+        </div>
+
+        <!-- Quick weather stats -->
+        <div class="summary-grid">
+          <div class="summary-stat">
+            <span>Temperature</span>
+            <strong id="tempValue">--</strong>
+          </div>
+
+          <div class="summary-stat">
+            <span>Rain now</span>
+            <strong id="rainValue">--</strong>
+          </div>
+
+          <div class="summary-stat">
+            <span>Wind</span>
+            <strong id="windValue">--</strong>
+          </div>
+
+          <div class="summary-stat">
+            <span>Updated</span>
+            <strong id="updatedValue">--</strong>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- =====================================================
-       MAIN WEATHER SUMMARY CARD
-       Shows the main answer, explanation, emoji, and stats
-       ===================================================== -->
-  <div class="weather-summary glass-card">
   </section>
 
   <!-- =========================================================
