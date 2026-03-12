@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * DOM REFERENCES
-   * Lahat ng UI elements na ina-update ng weather page
+   * Lahat ng UI elements na ginagamit at ina-update ng page
    * =========================================================
    */
   const placeInput = document.getElementById('placeInput');
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const readingGuide = document.getElementById('readingGuide');
   const hourlyList = document.getElementById('hourlyList');
 
-  // Timeline meta UI sa hourly card
   const timelineMeta = document.getElementById('timelineMeta');
   const timelineTime = document.querySelector('.timeline-time');
   const timelinePlace = document.querySelector('.timeline-place');
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const laundryText = document.getElementById('laundryText');
   const bringList = document.getElementById('bringList');
   const laundryList = document.getElementById('laundryList');
-  // Smart Weather Advice Engine UI
+
   const smartGoOut = document.getElementById('smartGoOut');
   const smartUmbrella = document.getElementById('smartUmbrella');
   const smartDrying = document.getElementById('smartDrying');
@@ -47,17 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * INTERNAL STATE
-   * Dito tinatago ang latest fetched weather para magamit ulit
-   * kapag pumipili ang user ng oras sa hourly card.
+   * latestWeatherBundle = latest geocode + weather response
+   * activeTimeIndex = -1 for current, 0..5 for hourly row
    * =========================================================
    */
   let latestWeatherBundle = null;
-  let activeTimeIndex = -1; // -1 = current weather, 0..5 = hourly row index
+  let activeTimeIndex = -1;
 
   /**
    * =========================================================
    * WEATHER LABELS
-   * Human-readable labels ng weather codes
+   * Open-Meteo weather code -> readable label
    * =========================================================
    */
   const WEATHER_LABELS = {
@@ -88,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * WEATHER IMAGE MAP
-   * Image pair per weather category
+   * Per weather category, may image para sa go-out at laundry
    * =========================================================
    */
   const WEATHER_IMAGES = {
@@ -129,15 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * UI HELPERS
-   * Loading and error state controls
+   * Helper functions para sa loading at error state
    * =========================================================
    */
   function setLoading(isLoading) {
-    loadingState.classList.toggle('hidden', !isLoading);
-    searchBtn.disabled = isLoading;
+    if (loadingState) loadingState.classList.toggle('hidden', !isLoading);
+    if (searchBtn) searchBtn.disabled = isLoading;
   }
 
   function setError(message = '') {
+    if (!errorState) return;
     errorState.textContent = message;
     errorState.classList.toggle('hidden', !message);
   }
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * INPUT NORMALIZER
-   * Nililinis ang location input
+   * Nililinis ang input para consistent ang place search
    * =========================================================
    */
   function normalizePlaceName(value) {
@@ -154,10 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * SHORT REGION LABEL
-   * Ginagawang mas maiksi ang region/admin label para sa UI
-   * Example:
-   * National Capital Region -> NCR
+   * REGION LABEL SHORTENER
+   * Pinapaikli ang mahahabang region names para sa UI
    * =========================================================
    */
   function shortRegionLabel(admin1 = '') {
@@ -172,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * BASIC PAGE MOOD
-   * Broad mood lang para sa page atmosphere
+   * WEATHER GROUP
+   * Broad visual group para sa overall page mood
    * =========================================================
    */
   function weatherGroup(code, rainNow) {
@@ -186,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * DETAILED WEATHER CATEGORY
-   * Ito ang ginagamit para sa advice at image switching
+   * Mas detailed kaysa weatherGroup para sa advice logic
    * =========================================================
    */
   function getWeatherCategory(snapshot, upcomingProbabilities = []) {
@@ -210,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * WEATHER ICON
-   * Quick visual emoji sa summary card
+   * WEATHER EMOJI
+   * Emoji sa summary card depende sa weather group
    * =========================================================
    */
   function weatherEmojiFor(group, code) {
@@ -224,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * TIME FORMATTERS
-   * Para readable ang oras at last updated text
+   * Pang-format ng hour labels at updated text
    * =========================================================
    */
   function formatTime(iso, timezone = 'Asia/Manila') {
@@ -249,8 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * =========================================================
-   * WEATHER LABEL RESOLVER
-   * Code -> readable label
+   * WEATHER TEXT
+   * Open-Meteo weather code -> UI text
    * =========================================================
    */
   function weatherText(code) {
@@ -260,37 +258,41 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * PAGE MOOD APPLIER
-   * Nagpapalit ng body class ayon sa broad weather mood
+   * Nagpapalit ng body class at art classes depende sa mood
    * =========================================================
    */
   function applyPageMood(group) {
     document.body.classList.remove('weather-clear', 'weather-cloudy', 'weather-rain', 'weather-storm');
     document.body.classList.add(`weather-${group}`);
 
-    goOutArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
-    laundryArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
+    if (goOutArt) {
+      goOutArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
+      goOutArt.classList.add(`art-${group}`);
+    }
 
-    goOutArt.classList.add(`art-${group}`);
-    laundryArt.classList.add(`art-${group}`);
+    if (laundryArt) {
+      laundryArt.classList.remove('art-clear', 'art-cloudy', 'art-rain', 'art-storm');
+      laundryArt.classList.add(`art-${group}`);
+    }
   }
 
   /**
    * =========================================================
    * IMAGE SWITCHER
-   * Nagpapalit ng image depende sa detailed category
+   * Pinapalitan ang advice images base sa weather category
    * =========================================================
    */
   function updateAdviceImages(category) {
     const selected = WEATHER_IMAGES[category] || WEATHER_IMAGES.partlyCloudy;
 
-    goOutImage.src = selected.goOut;
-    laundryImage.src = selected.laundry;
+    if (goOutImage) goOutImage.src = selected.goOut;
+    if (laundryImage) laundryImage.src = selected.laundry;
   }
 
   /**
    * =========================================================
-   * SUMMARY TEXT
-   * Top answer kung umuulan ba at anong ibig sabihin nun
+   * SUMMARY TEXT BUILDER
+   * Gumagawa ng pangunahing sagot kung umuulan ba o hindi
    * =========================================================
    */
   function summarizeRain(place, group, rainNow, currentProb) {
@@ -332,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * GOING OUT ADVICE
-   * Advice para sa paglabas batay sa selected time snapshot
+   * Advice para sa paglabas
    * =========================================================
    */
   function getGoOutAdvice(category, temp, wind, nextThreeProb) {
@@ -378,8 +380,12 @@ document.addEventListener('DOMContentLoaded', () => {
         text: 'Tuloy-tuloy ang ulan ngayon o mukhang tuloy-tuloy sa susunod na oras.',
         items: [
           'Magdala ng payong o lightweight raincoat.',
-          temp >= 31 ? 'Mainit pa rin kahit maulan, so breathable clothes pa rin ang best.' : 'Mas okay ang extra layer or pamalit kung mababasa ka.',
-          wind >= 20 ? 'May hangin din, so secure your bag at iwas sa sobrang gaan na payong.' : 'Lagyan ng protection ang gadgets at important papers.'
+          temp >= 31
+            ? 'Mainit pa rin kahit maulan, so breathable clothes pa rin ang best.'
+            : 'Mas okay ang extra layer or pamalit kung mababasa ka.',
+          wind >= 20
+            ? 'May hangin din, so secure your bag at iwas sa sobrang gaan na payong.'
+            : 'Lagyan ng protection ang gadgets at important papers.'
         ]
       };
     }
@@ -390,7 +396,9 @@ document.addEventListener('DOMContentLoaded', () => {
         text: 'May ambon o mataas ang chance ng ulan sa next hours, kaya mas okay kung prepared ka bago umalis.',
         items: [
           'Magdala ng compact umbrella o light rain jacket.',
-          temp >= 31 ? 'Piliin ang preskong suot kahit may chance ng ulan.' : 'Okay ang regular outfit, pero better kung mabilis matuyo ang tela.',
+          temp >= 31
+            ? 'Piliin ang preskong suot kahit may chance ng ulan.'
+            : 'Okay ang regular outfit, pero better kung mabilis matuyo ang tela.',
           'Mag-ingat sa basa at madulas na daan.'
         ]
       };
@@ -426,7 +434,9 @@ document.addEventListener('DOMContentLoaded', () => {
       items: [
         'Hindi priority ang payong, pero okay pa rin kung gusto mo ng backup.',
         temp >= 32 ? 'Mainit ang panahon, so tubig at light clothes ang best dala.' : 'Comfortable clothes and regular shoes should be fine.',
-        nextThreeProb >= 40 ? 'May konting chance ng ulan later, so check ulit bago umalis nang matagal.' : 'Mas convenient ito for errands, short trips, or quick cafe runs.'
+        nextThreeProb >= 40
+          ? 'May konting chance ng ulan later, so check ulit bago umalis nang matagal.'
+          : 'Mas convenient ito for errands, short trips, or quick cafe runs.'
       ]
     };
   }
@@ -434,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * LAUNDRY ADVICE
-   * Advice para sa paglalaba batay sa selected time snapshot
+   * Advice para sa paglalaba at pagpapatuyo
    * =========================================================
    */
   function getLaundryAdvice(category, wind, temp) {
@@ -481,7 +491,9 @@ document.addEventListener('DOMContentLoaded', () => {
         items: [
           'Okay ang laba kung may indoor sampayan o dryer.',
           'Kung outdoor lang ang option mo, mas mabuting ipagpaliban muna.',
-          temp >= 31 && wind >= 10 ? 'May konting drying help from init at hangin, pero ulan pa rin ang deciding factor.' : 'Expect na mabagal ang pagpapatuyo ng damit.'
+          temp >= 31 && wind >= 10
+            ? 'May konting drying help from init at hangin, pero ulan pa rin ang deciding factor.'
+            : 'Expect na mabagal ang pagpapatuyo ng damit.'
         ]
       };
     }
@@ -527,8 +539,12 @@ document.addEventListener('DOMContentLoaded', () => {
       text: 'Sa current weather at short forecast, ito ang pinaka-safe window para sa labada.',
       items: [
         'Okay magsampay sa labas kung may direct airflow at decent sunlight.',
-        wind >= 10 ? 'May enough hangin para makatulong sa pagpapatuyo.' : 'Hindi sobrang mahangin, pero okay pa rin kung maaraw at hindi maulan.',
-        temp >= 31 ? 'Samantalahin ang init dahil mas mabilis matuyo ang damit.' : 'Bantayan pa rin ang next update kahit maganda ang forecast ngayon.'
+        wind >= 10
+          ? 'May enough hangin para makatulong sa pagpapatuyo.'
+          : 'Hindi sobrang mahangin, pero okay pa rin kung maaraw at hindi maulan.',
+        temp >= 31
+          ? 'Samantalahin ang init dahil mas mabilis matuyo ang damit.'
+          : 'Bantayan pa rin ang next update kahit maganda ang forecast ngayon.'
       ]
     };
   }
@@ -536,31 +552,32 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * =========================================================
    * LIST RENDERER
-   * Array -> <li> list
+   * Array -> <li> items
    * =========================================================
    */
   function renderList(target, items) {
+    if (!target) return;
     target.innerHTML = items.map(item => `<li>${item}</li>`).join('');
   }
 
   /**
    * =========================================================
-   * UPCOMING PROBABILITIES HELPER
-   * Kumukuha ng next N probabilities mula sa selected index
+   * UPCOMING PROBABILITIES
+   * Kumukuha ng next N precipitation probabilities
    * =========================================================
    */
   function getUpcomingProbabilities(hourly, startIndex, count = 3) {
     return hourly.precipitation_probability
       .slice(startIndex, startIndex + count)
-      .map(n => Number(n || 0));
+      .map(value => Number(value || 0));
   }
 
   /**
    * =========================================================
    * SNAPSHOT BUILDER
-   * Gumagawa ng single selected-time snapshot.
-   * - index = -1 => current weather
-   * - index >= 0 => hourly weather row
+   * Gumagawa ng selected time snapshot
+   * -1 = current weather
+   * 0..5 = hourly forecast row
    * =========================================================
    */
   function buildSelectedSnapshot(bundle, index) {
@@ -593,67 +610,57 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
- * =========================================================
- * SMART ENGINE DECISION MAKER
- * Compact yes/no style outputs for quick reading
- * =========================================================
- */
-function getSmartEngineState(category) {
-  if (category === 'typhoon') {
-    return {
-      goOut: 'NO',
-      umbrella: 'NO',
-      drying: 'NO',
-      laundry: 'NOT RECOMMENDED'
-    };
-  }
+   * =========================================================
+   * SMART ENGINE STATE
+   * Quick yes/no style output para sa compact smart card
+   * =========================================================
+   */
+  function getSmartEngineState(category) {
+    if (category === 'typhoon') {
+      return {
+        goOut: 'NO',
+        umbrella: 'NO',
+        drying: 'NO',
+        laundry: 'NOT RECOMMENDED'
+      };
+    }
 
-  if (category === 'thunderstorm') {
-    return {
-      goOut: 'NO',
-      umbrella: 'YES',
-      drying: 'NO',
-      laundry: 'INDOOR ONLY'
-    };
-  }
+    if (category === 'thunderstorm') {
+      return {
+        goOut: 'NO',
+        umbrella: 'YES',
+        drying: 'NO',
+        laundry: 'INDOOR ONLY'
+      };
+    }
 
-  if (category === 'heavyRain') {
-    return {
-      goOut: 'LIMITED',
-      umbrella: 'YES',
-      drying: 'NO',
-      laundry: 'INDOOR ONLY'
-    };
-  }
+    if (category === 'heavyRain') {
+      return {
+        goOut: 'LIMITED',
+        umbrella: 'YES',
+        drying: 'NO',
+        laundry: 'INDOOR ONLY'
+      };
+    }
 
-  if (category === 'moderateRain') {
-    return {
-      goOut: 'YES',
-      umbrella: 'YES',
-      drying: 'NO',
-      laundry: 'OK, INDOOR DRYING'
-    };
-  }
+    if (category === 'moderateRain' || category === 'lightRain') {
+      return {
+        goOut: 'YES',
+        umbrella: 'YES',
+        drying: 'NO',
+        laundry: 'OK, INDOOR DRYING'
+      };
+    }
 
-  if (category === 'lightRain') {
-    return {
-      goOut: 'YES',
-      umbrella: 'YES',
-      drying: 'NO',
-      laundry: 'OK, INDOOR DRYING'
-    };
-  }
+    if (category === 'overcast') {
+      return {
+        goOut: 'YES',
+        umbrella: 'OPTIONAL',
+        drying: 'RISKY',
+        laundry: 'YES, BUT WATCH THE SKY'
+      };
+    }
 
-  if (category === 'overcast') {
-    return {
-      goOut: 'YES',
-      umbrella: 'OPTIONAL',
-      drying: 'RISKY',
-      laundry: 'YES, BUT WATCH THE SKY'
-    };
-  }
-
-  if (category === 'partlyCloudy') {
     return {
       goOut: 'YES',
       umbrella: 'OPTIONAL',
@@ -662,20 +669,10 @@ function getSmartEngineState(category) {
     };
   }
 
-  return {
-    goOut: 'YES',
-    umbrella: 'OPTIONAL',
-    drying: 'YES',
-    laundry: 'YES'
-  };
-}
-  
-
   /**
    * =========================================================
-   * MAIN UI RENDERER FOR SELECTED TIME
-   * Lahat ng summary, advice, image, at mood dito ina-update
-   * base sa active selected time row.
+   * MAIN RENDER FUNCTION
+   * Ina-update lahat ng dynamic UI base sa selected time
    * =========================================================
    */
   function renderSelectedTime(index) {
@@ -704,11 +701,12 @@ function getSmartEngineState(category) {
     const laundry = getLaundryAdvice(category, wind, temp);
     const smartState = getSmartEngineState(category);
 
-    summaryPill.textContent = index === -1
-      ? `📍 ${placeName}`
-      : `📍 ${placeName} • ${snapshot.label}`;
+    if (summaryPill) {
+      summaryPill.textContent = index === -1
+        ? `📍 ${placeName}`
+        : `📍 ${placeName} • ${snapshot.label}`;
+    }
 
-    // Timeline meta update
     if (timelineTime && timelinePlace) {
       timelineTime.textContent = snapshot.label;
       timelinePlace.textContent = shortPlaceName;
@@ -716,28 +714,32 @@ function getSmartEngineState(category) {
       timelineMeta.textContent = `${snapshot.label} • ${shortPlaceName}`;
     }
 
-    locationTitle.textContent = placeName;
-    bigAnswer.textContent = summary.answer;
-    mainExplanation.textContent = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
+    if (locationTitle) locationTitle.textContent = placeName;
+    if (bigAnswer) bigAnswer.textContent = summary.answer;
+    if (mainExplanation) {
+      mainExplanation.textContent = `${summary.explanation} Selected time: ${snapshot.label}. Condition: ${weatherText(snapshot.weather_code)}.`;
+    }
 
-    tempValue.textContent = `${Math.round(temp)}°C`;
-    rainValue.textContent = `${rainNow.toFixed(1)} mm`;
-    windValue.textContent = `${Math.round(wind)} km/h`;
-    updatedValue.textContent = formatUpdated(snapshot.time, weather.timezone);
-    summaryEmoji.textContent = weatherEmojiFor(group, snapshot.weather_code);
+    if (tempValue) tempValue.textContent = `${Math.round(temp)}°C`;
+    if (rainValue) rainValue.textContent = `${rainNow.toFixed(1)} mm`;
+    if (windValue) windValue.textContent = `${Math.round(wind)} km/h`;
+    if (updatedValue) updatedValue.textContent = formatUpdated(snapshot.time, weather.timezone);
+    if (summaryEmoji) summaryEmoji.textContent = weatherEmojiFor(group, snapshot.weather_code);
 
-    readingGuide.textContent = index === -1
-      ? 'Ang current view ay base sa latest current weather plus short forecast. Maaari mong i-click ang ibang oras sa “Weather timeline” para makita ang projected advice at status sa oras na iyon.'
-      : `Ang current view ay naka-base sa selected time na ${snapshot.label}. Kaya ang advice, images, at status ay naka-sync sa oras na pinili mo.`;
+    if (readingGuide) {
+      readingGuide.textContent = index === -1
+        ? 'Ang current view ay base sa latest current weather plus short forecast. Maaari mong i-click ang ibang oras sa “Weather timeline” para makita ang projected advice at status sa oras na iyon.'
+        : `Ang current view ay naka-base sa selected time na ${snapshot.label}. Kaya ang advice, images, at status ay naka-sync sa oras na pinili mo.`;
+    }
 
-    goOutTitle.textContent = goOut.title;
-    goOutText.textContent = goOut.text;
-    laundryTitle.textContent = laundry.title;
-    laundryText.textContent = laundry.text;
+    if (goOutTitle) goOutTitle.textContent = goOut.title;
+    if (goOutText) goOutText.textContent = goOut.text;
+    if (laundryTitle) laundryTitle.textContent = laundry.title;
+    if (laundryText) laundryText.textContent = laundry.text;
 
     renderList(bringList, goOut.items);
     renderList(laundryList, laundry.items);
-    // Smart engine quick outputs
+
     if (smartGoOut) smartGoOut.textContent = smartState.goOut;
     if (smartUmbrella) smartUmbrella.textContent = smartState.umbrella;
     if (smartDrying) smartDrying.textContent = smartState.drying;
@@ -750,23 +752,33 @@ function getSmartEngineState(category) {
 
   /**
    * =========================================================
-   * HOURLY FORECAST RENDERER
-   * Nagre-render ng clickable time rows.
-   * May extra row sa unahan para sa Current time.
+   * HOURLY RENDERER
+   * Gumagawa ng clickable current + next 6 hourly rows
    * =========================================================
    */
   function renderHourly(hourly, timezone, selectedIndex = -1) {
+    if (!hourlyList || !hourly) return;
+
+    const currentProbability = Math.max(
+      0,
+      Math.min(100, Math.round(hourly.precipitation_probability?.[0] || 0))
+    );
+    const currentAmount = Number(hourly.precipitation?.[0] || 0);
+
     const currentRow = `
       <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
         <div class="hour-time-label">Current time</div>
-        <div class="hour-bar"><span style="width:${Math.max(0, Math.min(100, Math.round(hourly.precipitation_probability[0] || 0)))}%"></span></div>
-        <div>${Number(hourly.precipitation[0] || 0).toFixed(1)} mm</div>
+        <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
+        <div>${currentAmount.toFixed(1)} mm</div>
       </button>
     `;
 
     const rows = hourly.time.slice(0, 6).map((time, index) => {
-      const probability = Math.max(0, Math.min(100, Math.round(hourly.precipitation_probability[index] || 0)));
-      const amount = Number(hourly.precipitation[index] || 0);
+      const probability = Math.max(
+        0,
+        Math.min(100, Math.round(hourly.precipitation_probability?.[index] || 0))
+      );
+      const amount = Number(hourly.precipitation?.[index] || 0);
 
       return `
         <button class="hour-row ${selectedIndex === index ? 'active' : ''}" type="button" data-time-index="${index}">
@@ -790,7 +802,7 @@ function getSmartEngineState(category) {
   /**
    * =========================================================
    * GEOCODING REQUEST
-   * Place name -> lat/lon
+   * Place name -> latitude / longitude
    * =========================================================
    */
   async function geocodePlace(place) {
@@ -814,10 +826,7 @@ function getSmartEngineState(category) {
   /**
    * =========================================================
    * WEATHER REQUEST
-   * Kumuha ng current + hourly weather data
-   * Note:
-   * Dinagdagan natin ng hourly temperature at wind para
-   * mas meaningful ang advice kapag hourly row ang selected.
+   * Current + hourly weather data from Open-Meteo
    * =========================================================
    */
   async function getWeather(latitude, longitude) {
@@ -834,8 +843,7 @@ function getSmartEngineState(category) {
   /**
    * =========================================================
    * MAIN SEARCH FUNCTION
-   * Fetches location + weather, saves latest bundle,
-   * then defaults to Current time selected view.
+   * Geocode -> weather -> save bundle -> render current view
    * =========================================================
    */
   async function searchWeather(place) {
@@ -867,18 +875,24 @@ function getSmartEngineState(category) {
    * SEARCH BUTTON EVENT
    * =========================================================
    */
-  searchBtn?.addEventListener('click', () => searchWeather(placeInput.value));
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+      searchWeather(placeInput ? placeInput.value : '');
+    });
+  }
 
   /**
    * =========================================================
-   * ENTER KEY SEARCH
+   * ENTER KEY EVENT
    * =========================================================
    */
-  placeInput?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      searchWeather(placeInput.value);
-    }
-  });
+  if (placeInput) {
+    placeInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        searchWeather(placeInput.value);
+      }
+    });
+  }
 
   /**
    * =========================================================
@@ -887,8 +901,8 @@ function getSmartEngineState(category) {
    */
   document.querySelectorAll('.weather-chip').forEach(button => {
     button.addEventListener('click', () => {
-      const place = button.dataset.place;
-      placeInput.value = place;
+      const place = button.dataset.place || '';
+      if (placeInput) placeInput.value = place;
       searchWeather(place);
     });
   });
@@ -903,11 +917,12 @@ function getSmartEngineState(category) {
   /**
    * =========================================================
    * AUTO REFRESH EVERY 5 MINUTES
-   * Kapag current place ang page, nire-refresh ang data
-   * pero ibinabalik sa current time selected view.
+   * Nirerefresh ang current place para updated ang data
    * =========================================================
    */
   setInterval(() => {
+    if (!locationTitle) return;
+
     const currentPlace = normalizePlaceName(locationTitle.textContent.split(',')[0]);
 
     if (currentPlace && currentPlace !== 'Pick a place in the Philippines') {
