@@ -242,11 +242,15 @@
     <section class="weather-grid weather-grid-secondary" aria-label="Hourly forecast and guide">
       <!-- Hourly Forecast -->
       <article class="glass-card hourly-card">
-        <h3>Next few hours</h3>
+        <h3>Current time + next few hours</h3>
         <p class="section-copy">
-          Para makita mo kung mukhang tuloy-tuloy ang ulan o pa-start pa lang.
+          I-click mo ang current time o anumang oras sa list para mag-update ang status, advice, at images base sa selected time.
         </p>
-        <div id="hourlyList" class="hourly-list"></div>
+        <div
+          id="hourlyList"
+          class="hourly-list"
+          aria-label="Current time and next few hours weather selector"
+        ></div>
       </article>
 
       <!-- Reading Guide -->
