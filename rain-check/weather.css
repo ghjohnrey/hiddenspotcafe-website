@@ -1271,5 +1271,43 @@ html, body{
     font-size: 0.95rem;
   }
 }
+/* =========================================================
+   MOBILE CARD WIDTH ALIGNMENT
+   Ginagawang pantay ang lapad ng first 3 cards sa image cards
+   ========================================================= */
+@media (max-width: 640px) {
+  .weather-hero-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
+  .weather-main {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .weather-shell,
+  .weather-grid,
+  .weather-grid-main,
+  .weather-grid-secondary {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .weather-intro,
+  .smart-engine,
+  .weather-summary,
+  .advice-card,
+  .hourly-card,
+  .guide-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 
