@@ -3,7 +3,7 @@
 <head>
   <!-- =========================================================
        BASIC PAGE META
-       Title, viewport, description, and page styles
+       Page title, viewport, description, and page styles
        ========================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,17 +13,18 @@
     content="Check if umuulan now in a specific place in the Philippines, with simple advice for going out and laundry."
   />
 
-  <!-- Global site styles -->
+  <!-- =========================================================
+       STYLESHEETS
+       Global site styles first, then Rain Check page styles
+       ========================================================= -->
   <link rel="stylesheet" href="/style.css" />
-
-  <!-- Rain Check page-specific styles -->
   <link rel="stylesheet" href="./weather.css" />
 </head>
 
 <body class="weather-page weather-cloudy">
   <!-- =========================================================
        SITE NAVIGATION
-       Reuses the main Hidden Spot Cafe navbar
+       Main site navbar
        ========================================================= -->
   <nav class="navbar">
     <div class="nav-accent"></div>
@@ -34,7 +35,7 @@
         <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
-      <!-- Desktop / main nav links -->
+      <!-- Main nav links -->
       <div class="nav-links" id="navLinks">
         <a href="/" class="nav-link">Home</a>
         <a href="/menu/" class="nav-link">Menu</a>
@@ -42,8 +43,14 @@
         <a href="/rain-check/" class="nav-link">Rain Check</a>
       </div>
 
-      <!-- Mobile hamburger -->
-      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" role="button" tabindex="0">
+      <!-- Mobile menu button -->
+      <div
+        class="hamburger"
+        id="hamburger"
+        aria-label="Open navigation menu"
+        role="button"
+        tabindex="0"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -54,11 +61,11 @@
 
   <!-- =========================================================
        HERO SECTION
-       Top section with animated weather background, search area,
-       and main weather summary card
+       Top section with animated background, search card,
+       smart engine card, and summary card
        ========================================================= -->
   <section class="weather-hero-section" aria-label="Rain Check weather hero">
-    <!-- Animated background effects -->
+    <!-- Background FX layers -->
     <div class="weather-bg fx-clouds" aria-hidden="true"></div>
     <div class="weather-bg fx-rain" aria-hidden="true" id="rainFx"></div>
     <div class="weather-bg fx-stars" aria-hidden="true" id="starsFx"></div>
@@ -67,7 +74,7 @@
     <div class="weather-shell">
       <!-- =====================================================
            INTRO / SEARCH CARD
-           User enters a place in the Philippines here
+           User types a Philippine location here
            ===================================================== -->
       <div class="weather-intro glass-card">
         <div class="weather-badge">🌧️ Hidden Spot Cafe • Rain Check</div>
@@ -80,7 +87,7 @@
           <strong>maglaba at magsampay</strong> base sa current weather at short forecast.
         </p>
 
-        <!-- Search input and main button -->
+        <!-- Search input + button -->
         <div class="weather-search-row">
           <input
             id="placeInput"
@@ -92,7 +99,7 @@
           <button id="searchBtn" class="weather-btn" type="button">Check now</button>
         </div>
 
-        <!-- Quick location chips -->
+        <!-- Suggested location chips -->
         <div class="weather-chips" aria-label="Suggested places">
           <button class="weather-chip" type="button" data-place="Pasig">Pasig</button>
           <button class="weather-chip" type="button" data-place="Quezon City">Quezon City</button>
@@ -114,7 +121,7 @@
 
       <!-- =====================================================
            SMART WEATHER ADVICE ENGINE
-           Compact decision card for quick yes/no style guidance
+           Quick yes/no style decision helper
            ===================================================== -->
       <div class="smart-engine glass-card" id="smartEngineCard">
         <div class="smart-engine-header">
@@ -153,7 +160,7 @@
 
       <!-- =====================================================
            MAIN WEATHER SUMMARY CARD
-           Shows the main answer, explanation, emoji, and stats
+           Main answer, explanation, emoji, and quick stats
            ===================================================== -->
       <div class="weather-summary glass-card">
         <div class="summary-top">
@@ -171,7 +178,7 @@
           </div>
         </div>
 
-        <!-- Quick weather stats -->
+        <!-- Quick stats -->
         <div class="summary-grid">
           <div class="summary-stat">
             <span>Temperature</span>
@@ -199,12 +206,12 @@
 
   <!-- =========================================================
        MAIN CONTENT
-       Advice cards + hourly forecast + explanation guide
+       Advice cards + hourly forecast + guide card
        ========================================================= -->
   <main class="weather-main">
     <!-- =======================================================
          ADVICE CARDS
-         Going out advice and laundry advice with dynamic images
+         Going out advice + laundry advice
          ======================================================= -->
     <section class="weather-grid weather-grid-main" aria-label="Weather advice cards">
       <!-- Going Out Advice -->
@@ -276,14 +283,13 @@
 
     <!-- =======================================================
          SECONDARY INFO SECTION
-         Hourly forecast card + guide/explanation card
+         Hourly timeline + reading guide
          ======================================================= -->
     <section class="weather-grid weather-grid-secondary" aria-label="Hourly forecast and guide">
       <!-- Hourly Forecast -->
       <article class="glass-card hourly-card">
         <h3>Weather timeline</h3>
 
-        <!-- Timeline location/status meta -->
         <div id="timelineMeta" class="timeline-meta">
           <span class="timeline-time">Now</span>
           <span class="timeline-dot"></span>
@@ -318,7 +324,6 @@
 
   <!-- =========================================================
        FOOTER
-       Rain Check footer with Messenger link
        ========================================================= -->
   <footer>
     <p>Rain Check by Hidden Spot Cafe</p>
@@ -332,7 +337,7 @@
 
   <!-- =========================================================
        SCRIPTS
-       Global site script first, then Rain Check page logic
+       Global site script first, then page-specific script
        ========================================================= -->
   <script src="/script.js"></script>
   <script src="./weather.js"></script>
