@@ -1168,4 +1168,108 @@ html, body{
   max-width:100%;
 }
 
+/* =========================================================
+   SMART WEATHER ADVICE ENGINE
+   Compact quick-decision card shown after search on mobile
+   ========================================================= */
+
+.smart-engine {
+  display: none;
+  padding: 22px;
+}
+
+.smart-engine-header {
+  margin-bottom: 14px;
+}
+
+.smart-engine-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  color: #f2f4ff;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.smart-engine-copy {
+  margin: 12px 0 0;
+  color: #d3d7f5;
+  line-height: 1.6;
+  font-size: 0.96rem;
+}
+
+.smart-engine-box {
+  background: rgba(8, 10, 18, 0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  padding: 16px 18px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+
+.smart-row {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.smart-row + .smart-row {
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.smart-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.smart-label {
+  color: #f2f4ff;
+  font-size: 1rem;
+}
+
+.smart-row strong {
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: right;
+}
+
+/* Desktop layout: keep hidden by default if you only want it on mobile */
+@media (max-width: 980px) {
+  .smart-engine {
+    display: block;
+    order: 2;
+  }
+
+  .weather-summary {
+    order: 3;
+  }
+}
+
+/* Mobile polish */
+@media (max-width: 640px) {
+  .smart-engine {
+    padding: 18px;
+  }
+
+  .smart-engine-box {
+    padding: 14px 14px;
+    border-radius: 18px;
+  }
+
+  .smart-row {
+    grid-template-columns: 22px 1fr auto;
+    gap: 8px;
+  }
+
+  .smart-label,
+  .smart-row strong {
+    font-size: 0.95rem;
+  }
+}
+
 
