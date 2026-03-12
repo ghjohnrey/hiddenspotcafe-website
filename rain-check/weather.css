@@ -740,3 +740,35 @@
     max-width: 100%;
   }
 }
+/* =========================================================
+   HOURLY CLICKABLE STATE
+   Ginagawang clickable ang bawat hour row at may active state.
+   ========================================================= */
+.hour-row {
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hour-row:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.hour-row.active {
+  border-color: rgba(120, 140, 255, 0.45);
+  background: linear-gradient(135deg, rgba(120, 140, 255, 0.14), rgba(168, 85, 247, 0.12));
+  box-shadow: 0 0 0 1px rgba(120, 140, 255, 0.14) inset;
+}
+
+.hour-row.current-row .hour-time-label::before {
+  content: "Now";
+  display: inline-block;
+  margin-right: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
