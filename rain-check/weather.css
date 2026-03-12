@@ -1168,3 +1168,18 @@ body {
 .location-btn {
   background: linear-gradient(135deg, #4f7cff, #5f9cff);
 }
+
+.weather-search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 12px;
+  margin-top: 24px;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .weather-search-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
