@@ -522,6 +522,10 @@
   z-index: 0;
 }
 
+.fx-clouds {
+  overflow: hidden;
+}
+
 .fx-clouds::before,
 .fx-clouds::after {
   content: "";
@@ -530,32 +534,34 @@
   width: 260px;
   height: 74px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.12);
   box-shadow:
-    48px -18px 0 10px rgba(255, 255, 255, 0.12),
-    112px -10px 0 10px rgba(255, 255, 255, 0.12),
-    168px 0 0 0 rgba(255, 255, 255, 0.12);
+    48px -18px 0 10px rgba(255,255,255,0.12),
+    112px -10px 0 10px rgba(255,255,255,0.12),
+    168px 0 0 0 rgba(255,255,255,0.12);
   filter: blur(2px);
-  animation: cloudDrift 28s linear infinite;
+  animation: cloudDriftX 28s linear infinite;
+  will-change: transform;
 }
 
 .fx-clouds::before {
-  left: -260px;
+  left: -320px;
 }
 
 .fx-clouds::after {
   top: 150px;
-  left: -320px;
-  transform: scale(0.82);
+  left: -360px;
   animation-duration: 36s;
+  animation-delay: -8s;
+  scale: 0.82;
 }
 
-@keyframes cloudDrift {
+@keyframes cloudDriftX {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(calc(100vw + 520px));
+    transform: translateX(calc(100% + 420px));
   }
 }
 
@@ -564,17 +570,25 @@
   transition: opacity 0.4s ease;
 }
 
+.fx-rain {
+  overflow: hidden;
+}
+
 .fx-rain::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 80px);
   background-image: repeating-linear-gradient(
     115deg,
     rgba(151, 199, 255, 0.00) 0 18px,
-    rgba(151, 199, 255, 0.28) 18px 20px,
+    rgba(151, 199, 255, 0.22) 18px 20px,
     rgba(151, 199, 255, 0.00) 20px 34px
   );
   animation: rainMove 0.55s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes rainMove {
@@ -1060,4 +1074,37 @@ body {
   border-radius: 50%;
   background: linear-gradient(135deg,#ff6a6a,#ff3d3d);
   box-shadow: 0 0 6px rgba(255,70,70,0.5);
+}
+/* =========================================================
+   HARD OVERFLOW FIX FOR WEATHER FX
+   ========================================================= */
+
+html,
+body {
+  overflow-x: clip;
+}
+
+.weather-page,
+.weather-hero-section,
+.weather-shell,
+.weather-main {
+  overflow-x: clip;
+}
+
+.weather-bg,
+.weather-glow {
+  inset: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.weather-grid,
+.weather-grid-main,
+.weather-grid-secondary,
+.weather-intro,
+.weather-summary,
+.advice-card,
+.hourly-card,
+.guide-card {
+  min-width: 0;
 }
