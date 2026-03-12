@@ -1,25 +1,44 @@
 /* =========================================================
    Hidden Spot Cafe — Rain Check page styles
    File: /rain-check/weather.css
-   Notes:
-   - Uses global /style.css for navbar and footer base styling
-   - This version is updated for REAL WEBP image cards
-   - Old CSS illustration backgrounds are removed/simplified
+
+   CLEANED VERSION NOTES:
+   - Tinanggal ang duplicated at conflicting rules
+   - Iningatan lahat ng useful styles
+   - Inayos ang mobile overflow at card width consistency
+   - Nilagyan ng comments bawat major block para madaling i-debug
    ========================================================= */
 
 
 /* =========================================================
+   GLOBAL PAGE SAFETY
+   Prevent unwanted horizontal scroll and set base defaults
+   ========================================================= */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  color: #eaeaf0;
+}
+
+
+/* =========================================================
    PAGE BACKGROUND / OVERALL ATMOSPHERE
-   Ito ang main background ng buong weather page.
    Nagbabago ang mood gamit ang body classes:
    .weather-clear / .weather-cloudy / .weather-rain / .weather-storm
    ========================================================= */
 .weather-page {
+  min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.18) 0%, rgba(168, 85, 247, 0) 36%),
     radial-gradient(circle at 80% 10%, rgba(67, 97, 238, 0.2) 0%, rgba(67, 97, 238, 0) 32%),
     radial-gradient(circle at 50% -10%, #303060 0%, #14142a 48%, #050509 90%);
-  min-height: 100vh;
   transition: background 0.4s ease;
 }
 
@@ -54,20 +73,23 @@
 
 /* =========================================================
    HERO SECTION + PAGE WIDTH
-   Main wrapper ng top section at content width control.
+   Top layout wrapper and content width control
    ========================================================= */
 .weather-hero-section {
   position: relative;
+  width: 100%;
   overflow: hidden;
   padding: 110px 20px 30px;
 }
 
 .weather-shell,
 .weather-main {
-  max-width: 1200px;
-  margin: 0 auto;
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .weather-shell {
@@ -76,10 +98,14 @@
   gap: 24px;
 }
 
+.weather-main {
+  padding: 10px 20px 60px;
+}
+
 
 /* =========================================================
    GLASS CARDS
-   Reusable card style para sa intro, summary, advice, etc.
+   Reusable card style for intro, summary, hourly, guide
    ========================================================= */
 .glass-card {
   background: rgba(18, 18, 34, 0.62);
@@ -94,39 +120,62 @@
 .weather-summary,
 .hourly-card,
 .guide-card,
-.advice-card {
+.smart-engine {
   padding: 28px;
 }
 
 
 /* =========================================================
    BADGES / PILLS
-   Small UI labels tulad ng Rain Check badge at location pill.
+   Small labels across the UI
    ========================================================= */
 .weather-badge,
 .summary-pill,
-.art-label {
+.art-label,
+.smart-engine-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.08);
-  color: #f8d6ff;
-  border-radius: 999px;
-  padding: 8px 12px;
   font-size: 13px;
   letter-spacing: 0.02em;
+}
+
+.weather-badge,
+.summary-pill,
+.art-label {
+  color: #f8d6ff;
+}
+
+.smart-engine-badge {
+  color: #f2f4ff;
+  font-weight: 600;
 }
 
 
 /* =========================================================
    TYPOGRAPHY
-   Main text styles para readable at cinematic pa rin.
+   Main text styles
    ========================================================= */
 .weather-intro h1 {
   font-size: clamp(2.3rem, 5vw, 4.25rem);
   line-height: 1.02;
   margin: 16px 0 14px;
+}
+
+.weather-summary h2 {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  margin: 14px 0 8px;
+}
+
+.big-answer {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 900;
+  margin: 8px 0;
+  letter-spacing: -0.02em;
 }
 
 .weather-intro p,
@@ -135,7 +184,8 @@
 #readingGuide,
 .guide-note,
 .art-copy p,
-.advice-list li {
+.advice-list li,
+.smart-engine-copy {
   color: #d6d6e7;
   line-height: 1.7;
 }
@@ -150,6 +200,20 @@
   grid-template-columns: 1fr auto;
   gap: 12px;
   margin-top: 24px;
+  min-width: 0;
+}
+
+.weather-search-row > * {
+  min-width: 0;
+}
+
+.weather-input,
+.weather-btn,
+.weather-chip,
+.summary-stat,
+.hour-row {
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .weather-input {
@@ -174,7 +238,7 @@
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
-  color: white;
+  color: #fff;
   background: linear-gradient(135deg, #a855f7, #4361ee);
   box-shadow: 0 14px 28px rgba(108, 72, 214, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -200,10 +264,10 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.07);
-  color: white;
+  color: #fff;
   padding: 10px 14px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .weather-chip:hover {
@@ -213,8 +277,8 @@
 .weather-loading,
 .weather-error {
   margin-top: 16px;
-  border-radius: 16px;
   padding: 14px 16px;
+  border-radius: 16px;
 }
 
 .weather-loading {
@@ -224,6 +288,12 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+.weather-error {
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid rgba(255, 77, 109, 0.28);
+  color: #ffd6de;
+}
+
 .loader-dot {
   width: 12px;
   height: 12px;
@@ -231,6 +301,10 @@
   background: linear-gradient(135deg, #a855f7, #60a5fa);
   box-shadow: 0 0 0 rgba(168, 85, 247, 0.45);
   animation: weatherPulse 1.2s infinite;
+}
+
+.hidden {
+  display: none !important;
 }
 
 @keyframes weatherPulse {
@@ -247,24 +321,18 @@
   }
 }
 
-.weather-error {
-  background: rgba(255, 77, 109, 0.12);
-  border: 1px solid rgba(255, 77, 109, 0.28);
-  color: #ffd6de;
-}
-
-.hidden {
-  display: none !important;
-}
-
 
 /* =========================================================
    SUMMARY CARD
-   Top-right result card with main weather answer and stats.
+   Main result card at the top
    ========================================================= */
-.weather-summary h2 {
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  margin: 14px 0 8px;
+.weather-summary,
+.weather-intro,
+.advice-card,
+.hourly-card,
+.guide-card,
+.smart-engine {
+  overflow: hidden;
 }
 
 .summary-top {
@@ -286,6 +354,33 @@
   animation: floatEmoji 3s ease-in-out infinite;
 }
 
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.summary-stat {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.summary-stat span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #cfc1ff;
+  letter-spacing: 0.08em;
+}
+
+.summary-stat strong {
+  font-size: 1.05rem;
+}
+
 @keyframes floatEmoji {
   0%, 100% {
     transform: translateY(0);
@@ -295,52 +390,16 @@
   }
 }
 
-.big-answer {
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  font-weight: 900;
-  margin: 8px 0;
-  letter-spacing: -0.02em;
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 24px;
-}
-
-.summary-stat {
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 16px;
-}
-
-.summary-stat span {
-  display: block;
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #cfc1ff;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-}
-
-.summary-stat strong {
-  font-size: 1.05rem;
-}
-
 
 /* =========================================================
    MAIN CONTENT GRID
-   Layout ng cards sa ibaba ng hero section.
+   Layout ng cards sa lower section
    ========================================================= */
-.weather-main {
-  padding: 10px 20px 60px;
-}
-
 .weather-grid {
   display: grid;
   gap: 24px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .weather-grid-main {
@@ -355,11 +414,9 @@
 
 /* =========================================================
    ADVICE CARDS
-   Cards para sa Going Out at Laundry advice.
-   Updated ito para sa REAL IMAGE display, hindi na fake CSS art.
+   Image cards for Going Out and Laundry advice
    ========================================================= */
 .advice-card {
-  overflow: hidden;
   padding: 0;
   background: rgba(18, 18, 34, 0.62);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -377,60 +434,51 @@
   background: #151827;
 }
 
-/* Actual image element */
 .advice-image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
   display: block;
   z-index: 1;
   transform: scale(1.01);
 }
 
-/* Gradient overlay para readable ang text sa ibabaw ng image */
 .art-overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
     linear-gradient(180deg, rgba(8, 10, 20, 0.10) 0%, rgba(8, 10, 20, 0.18) 35%, rgba(8, 10, 20, 0.76) 100%),
     radial-gradient(circle at top right, rgba(255, 180, 100, 0.12) 0%, rgba(255, 180, 100, 0) 30%);
-  z-index: 2;
 }
 
-/* Light cinematic sparkle layer */
 .advice-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 3;
+  pointer-events: none;
+  opacity: 0.55;
   background-image:
     linear-gradient(transparent 0%, transparent 80%, rgba(255, 255, 255, 0.03) 100%),
     radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.10) 0 2px, transparent 3px),
     radial-gradient(circle at 60% 10%, rgba(255, 255, 255, 0.08) 0 1.5px, transparent 3px),
     radial-gradient(circle at 72% 26%, rgba(255, 255, 255, 0.08) 0 2px, transparent 4px),
     radial-gradient(circle at 18% 34%, rgba(255, 255, 255, 0.06) 0 1px, transparent 3px);
-  opacity: 0.55;
   animation: sparkleDrift 8s linear infinite;
 }
 
-@keyframes sparkleDrift {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-  100% { transform: translateX(0); }
-}
-
-/* Copy/text layer sa ibabaw ng image */
 .art-copy {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 4;
-  padding: 24px;
   max-width: 82%;
+  padding: 24px;
 }
 
 .art-copy h3 {
@@ -460,330 +508,73 @@
   padding-left: 18px;
 }
 
+@keyframes sparkleDrift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+
+/* =========================================================
+   HOURLY TIMELINE META
+   Small meta pill above the hourly list
+   ========================================================= */
+.timeline-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d9ddff;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.timeline-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+}
+
+.timeline-time::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(170, 180, 255, 0.8);
+}
+
+.timeline-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.timeline-place {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.timeline-place::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6a6a, #ff3d3d);
+  box-shadow: 0 0 6px rgba(255, 70, 70, 0.5);
+}
+
 
 /* =========================================================
    HOURLY FORECAST CARD
-   Small list view para sa next few hours forecast.
+   Clickable premium hourly rows
    ========================================================= */
-.hourly-list {
-  display: grid;
-  gap: 12px;
-}
-
-.hour-row {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 12px;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 12px 14px;
-}
-
-.hour-bar {
-  position: relative;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.hour-bar span {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #60a5fa, #a855f7);
-}
-
-
-/* =========================================================
-   GUIDE CARD
-   Explanation card para maintindihan ng user ang logic.
-   ========================================================= */
-.guide-note {
-  margin-top: 16px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-
-/* =========================================================
-   BACKGROUND FX
-   Moving clouds, rain streaks, stars, glow
-   ========================================================= */
-.weather-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.fx-clouds {
-  overflow: hidden;
-}
-
-.fx-clouds::before,
-.fx-clouds::after {
-  content: "";
-  position: absolute;
-  top: 60px;
-  width: 260px;
-  height: 74px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  box-shadow:
-    48px -18px 0 10px rgba(255,255,255,0.12),
-    112px -10px 0 10px rgba(255,255,255,0.12),
-    168px 0 0 0 rgba(255,255,255,0.12);
-  filter: blur(2px);
-  animation: cloudDriftX 28s linear infinite;
-  will-change: transform;
-}
-
-.fx-clouds::before {
-  left: -320px;
-}
-
-.fx-clouds::after {
-  top: 150px;
-  left: -360px;
-  animation-duration: 36s;
-  animation-delay: -8s;
-  scale: 0.82;
-}
-
-@keyframes cloudDriftX {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(100% + 420px));
-  }
-}
-
-.fx-rain {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.fx-rain {
-  overflow: hidden;
-}
-
-.fx-rain::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-}
-
-@keyframes rainMove {
-  from {
-    transform: translateY(-24px);
-  }
-  to {
-    transform: translateY(24px);
-  }
-}
-
-.fx-stars {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.fx-stars::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px),
-    radial-gradient(circle at 28% 10%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
-    radial-gradient(circle at 56% 16%, rgba(255, 255, 255, 0.5) 0 1px, transparent 2px),
-    radial-gradient(circle at 74% 8%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2px);
-  animation: twinkleSky 3s ease-in-out infinite;
-}
-
-@keyframes twinkleSky {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
-}
-
-.weather-clear #rainFx,
-.weather-cloudy #rainFx {
-  opacity: 0;
-}
-
-.weather-rain #rainFx,
-.weather-storm #rainFx {
-  opacity: 1;
-}
-
-.weather-storm #starsFx {
-  opacity: 0.3;
-}
-
-.weather-clear .weather-glow {
-  opacity: 1;
-}
-
-.weather-glow {
-  position: absolute;
-  top: 40px;
-  right: 10%;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 211, 105, 0.8) 0%, rgba(255, 211, 105, 0.18) 55%, rgba(255, 211, 105, 0) 74%);
-  filter: blur(6px);
-  opacity: 0.15;
-  z-index: 0;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   Layout adjustments para sa tablet at mobile
-   ========================================================= */
-@media (max-width: 980px) {
-  .weather-shell,
-  .weather-grid-main,
-  .weather-grid-secondary {
-    grid-template-columns: 1fr;
-  }
-
-  .art-copy {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 640px) {
-  .weather-hero-section {
-    padding: 96px 14px 18px;
-  }
-
-  .weather-main {
-    padding: 10px 14px 48px;
-  }
-
-  .weather-intro,
-  .weather-summary,
-  .hourly-card,
-  .guide-card {
-    padding: 20px;
-  }
-
-  .weather-search-row {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-top {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .advice-media {
-    min-height: 280px;
-  }
-
-  .art-copy {
-    padding: 20px;
-  }
-
-  .advice-list {
-    padding: 20px;
-  }
-
-  .hour-row {
-    grid-template-columns: 68px 1fr auto;
-  }
-}
-/* =========================================================
-   MOBILE OVERFLOW FIX
-   Inaayos nito yung input/button para hindi lumampas
-   sa card/container sa maliit na screen.
-   ========================================================= */
-.weather-search-row,
-.weather-search-row > * {
-  min-width: 0;
-}
-
-.weather-input,
-.weather-btn,
-.weather-chip,
-.summary-stat,
-.hour-row {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-
-.weather-intro,
-.weather-summary,
-.advice-card,
-.hourly-card,
-.guide-card {
-  overflow: hidden;
-}
-
-@media (max-width: 640px) {
-  .weather-search-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .weather-input,
-  .weather-btn {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-/* =========================================================
-   HOURLY CLICKABLE STATE
-   Ginagawang clickable ang bawat hour row at may active state.
-   ========================================================= */
-.hour-row {
-  cursor: pointer;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-}
-
-.hour-row:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.09);
-}
-
-.hour-row.active {
-  border-color: rgba(120, 140, 255, 0.45);
-  background: linear-gradient(135deg, rgba(120, 140, 255, 0.14), rgba(168, 85, 247, 0.12));
-  box-shadow: 0 0 0 1px rgba(120, 140, 255, 0.14) inset;
-}
-
-.hour-row.current-row .hour-time-label::before {
-  content: "Now";
-  display: inline-block;
-  margin-right: 8px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.1);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  vertical-align: middle;
-}
-/* =========================================================
-   PREMIUM HOURLY SELECTOR UI
-   Better contrast, cleaner spacing, and app-like active state
-   ========================================================= */
-
 .hourly-list {
   display: grid;
   gap: 14px;
@@ -802,7 +593,6 @@
   background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.035));
   color: #dfe3ff;
   cursor: pointer;
-  box-sizing: border-box;
   transition:
     transform 0.18s ease,
     border-color 0.18s ease,
@@ -827,7 +617,6 @@
     0 14px 30px rgba(29, 35, 80, 0.28);
 }
 
-/* left time label */
 .hour-time-label,
 .hour-row div:first-child {
   color: #eef1ff;
@@ -837,7 +626,6 @@
   line-height: 1.2;
 }
 
-/* right mm value */
 .hour-row div:last-child {
   color: #d9dcff;
   font-size: 0.98rem;
@@ -848,10 +636,9 @@
 
 .hour-row.active div:first-child,
 .hour-row.active div:last-child {
-  color: #ffffff;
+  color: #fff;
 }
 
-/* progress bar background */
 .hour-bar {
   position: relative;
   height: 12px;
@@ -860,7 +647,6 @@
   overflow: hidden;
 }
 
-/* progress fill */
 .hour-bar span {
   position: absolute;
   inset: 0 auto 0 0;
@@ -868,11 +654,6 @@
   border-radius: inherit;
   background: linear-gradient(90deg, #60a5fa, #a855f7);
   box-shadow: 0 0 12px rgba(120, 140, 255, 0.22);
-}
-
-/* current row styling */
-.current-row {
-  border-style: solid;
 }
 
 .current-row .hour-time-label {
@@ -894,319 +675,187 @@
   border-radius: 999px;
   background: rgba(140, 150, 255, 0.18);
   border: 1px solid rgba(160, 170, 255, 0.18);
-  color: #ffffff;
+  color: #fff;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
 }
 
-/* small refinement for selected row */
 .hour-row.active .hour-time-label::before {
   background: rgba(140, 150, 255, 0.24);
   border-color: rgba(170, 180, 255, 0.22);
 }
 
-/* mobile adjustments */
-@media (max-width: 640px) {
-  .hour-row {
-    grid-template-columns: 92px 1fr 72px;
-    gap: 10px;
-    padding: 12px 12px;
-    border-radius: 16px;
-  }
 
-  .hour-time-label,
-  .hour-row div:first-child {
-    font-size: 0.95rem;
-  }
-
-  .hour-row div:last-child {
-    font-size: 0.92rem;
-  }
-
-  .hour-bar {
-    height: 10px;
-  }
-
-  .current-row .hour-time-label::before {
-    min-height: 22px;
-    padding: 3px 9px;
-    font-size: 10px;
-  }
-}
 /* =========================================================
-   RAIN / STORM FX GLITCH FIX
-   Inaayos ang horizontal overflow at misalignment kapag
-   active ang rainy background effects.
+   GUIDE CARD
+   Additional explanation card
    ========================================================= */
-
-/* Pigilan ang buong page sa pag-horizontal scroll */
-html,
-body {
-  overflow-x: hidden;
+.guide-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Siguraduhin na ang weather page mismo ay hindi lalampas */
-.weather-page {
-  overflow-x: hidden;
-}
 
-/* I-lock ang hero section sa viewport width */
-.weather-hero-section {
-  overflow: hidden;
-  width: 100%;
-}
-
-/* Ang animated FX layers dapat naka-clamp lang sa hero area */
-.weather-bg,
-.weather-bg::before,
-.weather-bg::after,
-.weather-glow {
-  max-width: 100%;
-}
-
-/* Rain layer: huwag hayaang mag-cause ng extra width */
-.fx-rain,
-.fx-stars,
-.fx-clouds {
-  overflow: hidden;
-}
-
-/* Mas stable na rain animation area */
-.fx-rain::before {
-  left: -10%;
-  right: -10%;
-  width: 120%;
-  max-width: none;
-}
-
-/* Cloud animation should stay visual-only, not affect layout */
-.fx-clouds::before,
-.fx-clouds::after {
-  will-change: transform;
-}
-
-/* Advice images should never push layout wider */
-.advice-image {
-  max-width: 100%;
-}
-
-/* Safety fix para sa cards and grids */
-.weather-shell,
-.weather-main,
-.weather-grid,
-.weather-grid-main,
-.weather-grid-secondary,
-.weather-intro,
-.weather-summary,
-.advice-card,
-.hourly-card,
-.guide-card {
-  min-width: 0;
-  max-width: 100%;
-}
 /* =========================================================
-   PREMIUM TIMELINE META
+   BACKGROUND FX
+   Clouds, rain, stars, and glow effects
    ========================================================= */
-
-.timeline-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 6px 0 12px;
-  padding: 8px 14px;
-  border-radius: 999px;
-
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-
-  color: #d9ddff;
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-/* time part */
-.timeline-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #ffffff;
-}
-
-/* clock icon */
-.timeline-time::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid rgba(170,180,255,0.8);
-  position: relative;
-}
-
-/* dot separator */
-.timeline-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-}
-
-/* location text */
-.timeline-place {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* location icon */
-.timeline-place::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: linear-gradient(135deg,#ff6a6a,#ff3d3d);
-  box-shadow: 0 0 6px rgba(255,70,70,0.5);
-}
-/* =========================================================
-   HARD OVERFLOW FIX FOR WEATHER FX
-   ========================================================= */
-
-html{
-  scroll-behavior:smooth;
-  overflow-x:hidden;
-}
-
-body{
-  margin:0;
-  overflow-x:hidden;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at 50% -20%, #303060 0%, #14142a 50%, #050509 90%);
-  color:#eaeaf0;
-
-  /* Because navbar is fixed at the top */
-  padding-top:40px;
-}
-
-.weather-page,
-.weather-hero-section,
-.weather-shell,
-.weather-main {
-  overflow-x: clip;
-}
-
 .weather-bg,
 .weather-glow {
+  position: absolute;
   inset: 0;
   width: 100%;
   max-width: 100%;
+  pointer-events: none;
 }
 
-.weather-grid,
-.weather-grid-main,
-.weather-grid-secondary,
-.weather-intro,
-.weather-summary,
-.advice-card,
-.hourly-card,
-.guide-card {
-  min-width: 0;
+.weather-bg {
+  z-index: 0;
 }
 
-/* =====================================
-   WEATHER PAGE HARD OVERFLOW FIX
-===================================== */
-
-.weather-page,
-.weather-shell,
-.weather-main,
-.weather-hero,
-.weather-hero-section,
-.weather-grid,
-.weather-grid-main,
-.weather-grid-secondary {
-  max-width:100%;
-  overflow-x:hidden;
+.weather-glow {
+  top: 40px;
+  right: 10%;
+  width: 180px;
+  height: 180px;
+  inset: auto 10% auto auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 105, 0.8) 0%, rgba(255, 211, 105, 0.18) 55%, rgba(255, 211, 105, 0) 74%);
+  filter: blur(6px);
+  opacity: 0.15;
+  z-index: 0;
 }
 
-.weather-bg,
-.weather-glow,
-.weather-fx,
+.fx-clouds,
 .fx-rain,
-.fx-clouds {
-  max-width:100%;
-  overflow:hidden;
+.fx-stars {
+  overflow: hidden;
 }
 
-/* prevent phantom horizontal scroll */
-html, body{
-  overflow-x:hidden;
+.fx-clouds::before,
+.fx-clouds::after {
+  content: "";
+  position: absolute;
+  top: 60px;
+  width: 260px;
+  height: 74px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    48px -18px 0 10px rgba(255, 255, 255, 0.12),
+    112px -10px 0 10px rgba(255, 255, 255, 0.12),
+    168px 0 0 0 rgba(255, 255, 255, 0.12);
+  filter: blur(2px);
+  animation: cloudDriftX 28s linear infinite;
+  will-change: transform;
 }
 
-/* =====================================
-   WEATHER BACKGROUND HARD CONTAINMENT
-===================================== */
-
-.weather-hero-section{
-  position:relative;
-  overflow:hidden;
+.fx-clouds::before {
+  left: -320px;
 }
 
-.weather-bg,
-.weather-glow{
-  position:absolute;
-  inset:0;
-  width:100%;
-  max-width:100%;
-  overflow:hidden;
-  pointer-events:none;
+.fx-clouds::after {
+  top: 150px;
+  left: -360px;
+  animation-duration: 36s;
+  animation-delay: -8s;
+  scale: 0.82;
 }
 
-/* Prevent animation layers from stretching page */
-.weather-bg::before,
-.weather-bg::after{
-  max-width:100%;
+.fx-rain {
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
+
+.fx-rain::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.fx-stars {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.fx-stars::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 10%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 56% 16%, rgba(255, 255, 255, 0.5) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 8%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2px);
+  animation: twinkleSky 3s ease-in-out infinite;
+}
+
+.weather-clear #rainFx,
+.weather-cloudy #rainFx {
+  opacity: 0;
+}
+
+.weather-rain #rainFx,
+.weather-storm #rainFx {
+  opacity: 1;
+}
+
+.weather-storm #starsFx {
+  opacity: 0.3;
+}
+
+.weather-clear .weather-glow {
+  opacity: 1;
+}
+
+@keyframes cloudDriftX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + 420px));
+  }
+}
+
+@keyframes twinkleSky {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
 
 /* =========================================================
    SMART WEATHER ADVICE ENGINE
-   Compact quick-decision card shown after search on mobile
+   Extra compact decision card, mostly for smaller screens
    ========================================================= */
-
 .smart-engine {
   display: none;
-  padding: 22px;
 }
 
 .smart-engine-header {
   margin-bottom: 14px;
 }
 
-.smart-engine-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.08);
-  color: #f2f4ff;
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
 .smart-engine-copy {
   margin: 12px 0 0;
-  color: #d3d7f5;
-  line-height: 1.6;
   font-size: 0.96rem;
+  color: #d3d7f5;
 }
 
 .smart-engine-box {
+  padding: 16px 18px;
+  border-radius: 22px;
   background: rgba(8, 10, 18, 0.75);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 22px;
-  padding: 16px 18px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
 }
 
@@ -1233,13 +882,23 @@ html, body{
 }
 
 .smart-row strong {
-  color: #ffffff;
+  color: #fff;
   font-size: 1rem;
   text-align: right;
 }
 
-/* Desktop layout: keep hidden by default if you only want it on mobile */
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   Stack layout below 980px
+   ========================================================= */
 @media (max-width: 980px) {
+  .weather-shell,
+  .weather-grid-main,
+  .weather-grid-secondary {
+    grid-template-columns: 1fr;
+  }
+
   .smart-engine {
     display: block;
     order: 2;
@@ -1248,10 +907,113 @@ html, body{
   .weather-summary {
     order: 3;
   }
+
+  .art-copy {
+    max-width: 100%;
+  }
 }
 
-/* Mobile polish */
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   Mobile spacing, width consistency, and overflow fixes
+   ========================================================= */
 @media (max-width: 640px) {
+  .weather-hero-section {
+    padding: 96px 0 18px;
+  }
+
+  .weather-main {
+    padding: 10px 0 48px;
+  }
+
+  .weather-shell,
+  .weather-grid,
+  .weather-grid-main,
+  .weather-grid-secondary {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .weather-intro,
+  .weather-summary,
+  .advice-card,
+  .hourly-card,
+  .guide-card,
+  .smart-engine {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .weather-intro,
+  .weather-summary,
+  .hourly-card,
+  .guide-card,
+  .smart-engine {
+    padding: 20px;
+  }
+
+  .weather-search-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .weather-input,
+  .weather-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .summary-top {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .advice-media {
+    min-height: 280px;
+  }
+
+  .art-copy {
+    padding: 20px;
+  }
+
+  .advice-list {
+    padding: 20px;
+  }
+
+  .hour-row {
+    grid-template-columns: 92px 1fr 72px;
+    gap: 10px;
+    padding: 12px 12px;
+    border-radius: 16px;
+  }
+
+  .hour-time-label,
+  .hour-row div:first-child {
+    font-size: 0.95rem;
+  }
+
+  .hour-row div:last-child {
+    font-size: 0.92rem;
+  }
+
+  .hour-bar {
+    height: 10px;
+  }
+
+  .current-row .hour-time-label::before {
+    min-height: 22px;
+    padding: 3px 9px;
+    font-size: 10px;
+  }
+
   .smart-engine {
     padding: 18px;
   }
@@ -1271,43 +1033,3 @@ html, body{
     font-size: 0.95rem;
   }
 }
-/* =========================================================
-   MOBILE CARD WIDTH ALIGNMENT
-   Ginagawang pantay ang lapad ng first 3 cards sa image cards
-   ========================================================= */
-@media (max-width: 640px) {
-  .weather-hero-section {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .weather-main {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .weather-shell,
-  .weather-grid,
-  .weather-grid-main,
-  .weather-grid-secondary {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
-  .weather-intro,
-  .smart-engine,
-  .weather-summary,
-  .advice-card,
-  .hourly-card,
-  .guide-card {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
