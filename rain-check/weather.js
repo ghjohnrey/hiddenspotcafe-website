@@ -359,3 +359,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 300000);
 });
+
+const WEATHER_IMAGES = {
+  clear: {
+    goOut: "/rain-check/weather-images/clear-go-out.webp",
+    laundry: "/rain-check/weather-images/clear-laundry.webp"
+  },
+  partlyCloudy: {
+    goOut: "/rain-check/weather-images/partly-cloudy-go-out.webp",
+    laundry: "/rain-check/weather-images/partly-cloudy-laundry.webp"
+  },
+  overcast: {
+    goOut: "/rain-check/weather-images/overcast-go-out.webp",
+    laundry: "/rain-check/weather-images/overcast-laundry.webp"
+  },
+  lightRain: {
+    goOut: "/rain-check/weather-images/light-rain-go-out.webp",
+    laundry: "/rain-check/weather-images/light-rain-laundry.webp"
+  },
+  moderateRain: {
+    goOut: "/rain-check/weather-images/moderate-rain-go-out.webp",
+    laundry: "/rain-check/weather-images/moderate-rain-laundry.webp"
+  },
+  heavyRain: {
+    goOut: "/rain-check/weather-images/heavy-rain-go-out.webp",
+    laundry: "/rain-check/weather-images/heavy-rain-laundry.webp"
+  },
+  thunderstorm: {
+    goOut: "/rain-check/weather-images/thunderstorm-go-out.webp",
+    laundry: "/rain-check/weather-images/thunderstorm-laundry.webp"
+  },
+  typhoon: {
+    goOut: "/rain-check/weather-images/typhoon-go-out.webp",
+    laundry: "/rain-check/weather-images/typhoon-laundry.webp"
+  }
+};
