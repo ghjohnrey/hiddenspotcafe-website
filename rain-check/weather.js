@@ -849,13 +849,13 @@ function renderHourly(hourly, timezone, selectedIndex = -1) {
 
   const currentAmount = Number(hourly.precipitation?.[currentHourIndex] || 0);
 
-  const currentRow = `
-    <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
-      <div class="hour-time-label">Current time</div>
-      <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
-      <div>${currentAmount.toFixed(1)} mm</div>
-    </button>
-  `;
+const currentRow = `
+  <button class="hour-row current-row ${selectedIndex === -1 ? 'active' : ''}" type="button" data-time-index="-1">
+    <div class="hour-time-label now-label">${formatNowLabel()}</div>
+    <div class="hour-bar"><span style="width:${currentProbability}%"></span></div>
+    <div>${currentAmount.toFixed(1)} mm</div>
+  </button>
+`;
 
   const rows = visibleTimes.map((time, visibleIndex) => {
     const actualIndex = nextStartIndex + visibleIndex;
@@ -1506,3 +1506,18 @@ function renderSuggestions(results = []) {
     }
   }, 300000);
 });
+
+/**
+ * =========================================================
+ * LIVE CLOCK UPDATE
+ * Updates "Now • HH:MM" every minute without API calls
+ * =========================================================
+ */
+setInterval(() => {
+
+  const label = document.querySelector('.now-label');
+  if (!label) return;
+
+  label.textContent = formatNowLabel();
+
+}, 60000);
