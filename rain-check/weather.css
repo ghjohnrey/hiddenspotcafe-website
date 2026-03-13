@@ -1287,5 +1287,17 @@ body {
   border-color: rgba(160, 170, 255, 0.12) !important;
 }
 
+/* =========================================================
+   REMOVE STATIC "NOW" PILL IN CURRENT ROW
+   Para hindi na redundant ang first row label
+   ========================================================= */
+.current-row .hour-time-label::before {
+  display: none !important;
+  content: none !important;
+}
+
+.current-row .hour-time-label {
+  display: block !important;
+}
 
 
