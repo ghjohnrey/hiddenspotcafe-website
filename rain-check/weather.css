@@ -1303,4 +1303,10 @@ body {
   display: block !important;
 }
 
+.suggestion-empty{
+  padding:12px 14px;
+  font-size:13px;
+  color:#9aa3b2;
+  cursor:default;
+}
 
