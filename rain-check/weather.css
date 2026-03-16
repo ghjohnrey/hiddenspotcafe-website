@@ -433,6 +433,7 @@ body {
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: #151827;
+  border-radius: 24px 24px 0 0;
 }
 
 .advice-image {
@@ -445,6 +446,7 @@ body {
   display: block;
   z-index: 1;
   transform: scale(1.01);
+  border-radius: inherit;
 }
 
 .art-overlay {
@@ -454,6 +456,7 @@ body {
   background:
     linear-gradient(180deg, rgba(8, 10, 20, 0.10) 0%, rgba(8, 10, 20, 0.18) 35%, rgba(8, 10, 20, 0.76) 100%),
     radial-gradient(circle at top right, rgba(255, 180, 100, 0.12) 0%, rgba(255, 180, 100, 0) 30%);
+  border-radius: inherit;
 }
 
 .advice-media::after {
