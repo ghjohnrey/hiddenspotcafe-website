@@ -1310,13 +1310,18 @@ body {
   cursor:default;
 }
 
-.weather-search-row,
-.weather-search-wrap {
+.weather-hero-section,
+.weather-shell,
+.weather-intro {
   position: relative;
-  z-index: 10001;
+  z-index: 50;
 }
 
-.advice-card {
+.weather-main {
   position: relative;
   z-index: 1;
+}
+
+.suggestions-box {
+  z-index: 99999;
 }
