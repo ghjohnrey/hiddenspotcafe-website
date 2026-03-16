@@ -1018,7 +1018,7 @@ function normalizePhotonFeature(item) {
     const cleaned = normalizePlaceName(keyword);
 
     if (!cleaned || cleaned.length < 2) {
-      renderSuggestions([]);
+      renderSuggestions(null);
       return [];
     }
 
@@ -1050,16 +1050,22 @@ function normalizePhotonFeature(item) {
  * Shows clean detailed search suggestions
  * =========================================================
  */
-function renderSuggestions(results = []) {
+function renderSuggestions(results = null) {
   if (!suggestionsBox) return;
 
-  if (!items.length) {
-    suggestions.innerHTML = `
-      <div class="suggestion-item suggestion-empty">
+  if (results === null) {
+    suggestionsBox.innerHTML = '';
+    suggestionsBox.classList.add('hidden');
+    return;
+  }
+
+  if (!results.length) {
+    suggestionsBox.innerHTML = `
+      <div class="suggestion-empty">
         No places found
       </div>
     `;
-    suggestions.classList.remove('hidden');
+    suggestionsBox.classList.remove('hidden');
     return;
   }
 
@@ -1097,7 +1103,7 @@ function renderSuggestions(results = []) {
         placeInput.value = [chosen.name, chosen.admin1].filter(Boolean).join(', ');
       }
 
-      renderSuggestions([]);
+      renderSuggestions(null);
       searchWeatherFromSuggestion(chosen, '');
     });
   });
@@ -1379,7 +1385,7 @@ function renderSuggestions(results = []) {
    */
   if (searchBtn) {
     searchBtn.addEventListener('click', () => {
-      renderSuggestions([]);
+      renderSuggestions(null);
 
       if (selectedSuggestion) {
         searchWeatherFromSuggestion(selectedSuggestion, '');
@@ -1398,7 +1404,7 @@ function renderSuggestions(results = []) {
   if (placeInput) {
     placeInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
-        renderSuggestions([]);
+        renderSuggestions(null);
 
         if (selectedSuggestion) {
           searchWeatherFromSuggestion(selectedSuggestion, '');
@@ -1447,7 +1453,7 @@ function renderSuggestions(results = []) {
       (suggestionsBox && suggestionsBox.contains(event.target));
 
     if (!clickedInside) {
-      renderSuggestions([]);
+      renderSuggestions(null);
     }
   });
 
@@ -1459,7 +1465,7 @@ function renderSuggestions(results = []) {
   if (currentLocationBtn) {
     currentLocationBtn.addEventListener('click', () => {
       selectedSuggestion = null;
-      renderSuggestions([]);
+      renderSuggestions(null);
       searchCurrentLocationWeather();
     });
   }
@@ -1475,7 +1481,7 @@ function renderSuggestions(results = []) {
       selectedSuggestion = null;
 
       if (placeInput) placeInput.value = place;
-      renderSuggestions([]);
+      renderSuggestions(null);
       searchWeather(place);
     });
   });
