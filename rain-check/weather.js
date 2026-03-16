@@ -1053,9 +1053,13 @@ function normalizePhotonFeature(item) {
 function renderSuggestions(results = []) {
   if (!suggestionsBox) return;
 
-  if (!results.length) {
-    suggestionsBox.innerHTML = '';
-    suggestionsBox.classList.add('hidden');
+  if (!items.length) {
+    suggestions.innerHTML = `
+      <div class="suggestion-item suggestion-empty">
+        No places found
+      </div>
+    `;
+    suggestions.classList.remove('hidden');
     return;
   }
 
