@@ -5,7 +5,11 @@
     "url": "/stories/the-742-jeep.html",
     "readTime": "2 min",
     "date": "2026-02-25",
-    "tags": ["urban", "mystery", "jeepney"],
+    "tags": [
+      "urban",
+      "mystery",
+      "jeepney"
+    ],
     "excerpt": "A jeep arrives at the exact same time every day—until it offers a different destination."
   },
   {
@@ -14,7 +18,11 @@
     "url": "/stories/vendor-small-wishes.html",
     "readTime": "3 min",
     "date": "2026-02-25",
-    "tags": ["hopeful", "slice-of-life", "magic"],
+    "tags": [
+      "hopeful",
+      "slice-of-life",
+      "magic"
+    ],
     "excerpt": "She sells wishes for five pesos—small ones that change everything."
   },
   {
@@ -23,26 +31,41 @@
     "url": "/stories/girl-who-could-pause-time.html",
     "readTime": "2 min",
     "date": "2026-02-25",
-    "tags": ["psych", "mrt", "surreal"],
+    "tags": [
+      "psych",
+      "mrt",
+      "surreal"
+    ],
     "excerpt": "Freezing the world feels safe… until someone else moves."
   },
   {
-  "title": "The Beep Card That Charged Based on Your Feelings",
-  "slug": "beep-card-feelings",
-  "url": "/stories/beep-card-feelings.html",
-  "readTime": "2 min",
-  "date": "2026-02-26",
-  "tags": ["mrt", "urban", "twist", "taglish", "trending"],
-  "excerpt": "Her Beep card doesn’t charge by distance — it charges by how heavy your day will be.",
-  "ogQuote": "Minsan, advance payment siya for relief,hero"
-},
+    "title": "The Beep Card That Charged Based on Your Feelings",
+    "slug": "beep-card-feelings",
+    "url": "/stories/beep-card-feelings.html",
+    "readTime": "2 min",
+    "date": "2026-02-26",
+    "tags": [
+      "mrt",
+      "urban",
+      "twist",
+      "taglish",
+      "trending"
+    ],
+    "excerpt": "Her Beep card doesn’t charge by distance — it charges by how heavy your day will be.",
+    "ogQuote": "Minsan, advance payment siya for relief,hero"
+  },
   {
     "title": "The Jeep That Only Stops for the Tired",
     "slug": "jeep-only-stops-tired",
     "url": "/stories/jeep-only-stops-tired.html",
     "readTime": "2 min",
     "date": "2026-02-25",
-    "tags": ["jeepney", "emotional", "mystery", "taglish"],
+    "tags": [
+      "jeepney",
+      "emotional",
+      "mystery",
+      "taglish"
+    ],
     "excerpt": "At exactly 9:18 PM, a jeep appears — but only for people who are pagod na pagod na."
   },
   {
@@ -51,197 +74,376 @@
     "url": "/stories/five-extra-minutes.html",
     "readTime": "2 min",
     "date": "2026-02-26",
-    "tags": ["time", "choice", "urban", "taglish"],
+    "tags": [
+      "time",
+      "choice",
+      "urban",
+      "taglish"
+    ],
     "excerpt": "For ten pesos, she sells five extra minutes — but you can only use it once."
   },
   {
-  "title": "The Fare That Told You to Breathe",
-  "slug": "fare-that-told-you-to-breathe",
-  "url": "/stories/fare-that-told-you-to-breathe.html",
-  "readTime": "3 min",
-  "date": "2026-03-03",
-  "tags": ["commute", "urban", "relatable", "taglish", "twist"],
-  "excerpt": "Sa isang normal na tap-in, lumabas ang pamasahe na parang message—at alam nito kung kailan ka dapat huminga muna.",
-  "ogQuote": "Minsan, hindi mo kailangan ng faster ride—kailangan mo lang ng pause."
+    "title": "The Fare That Told You to Breathe",
+    "slug": "fare-that-told-you-to-breathe",
+    "url": "/stories/fare-that-told-you-to-breathe.html",
+    "readTime": "3 min",
+    "date": "2026-03-03",
+    "tags": [
+      "commute",
+      "urban",
+      "relatable",
+      "taglish",
+      "twist"
+    ],
+    "excerpt": "Sa isang normal na tap-in, lumabas ang pamasahe na parang message—at alam nito kung kailan ka dapat huminga muna.",
+    "ogQuote": "Minsan, hindi mo kailangan ng faster ride—kailangan mo lang ng pause."
   },
   {
-  "title": "The Receipt That Printed Your Tomorrow",
-  "slug": "receipt-that-printed-tomorrow",
-  "url": "/stories/receipt-that-printed-tomorrow.html",
-  "readTime": "3 min",
-  "date": "2026-03-03",
-  "tags": ["commute", "urban", "twist", "taglish", "relatable"],
-  "excerpt": "Sa terminal, may resibo kang matatanggap—pero hindi siya proof of payment. Preview siya ng araw mo.",
-  "ogQuote": "Kung may resibo ang bukas, minsan ang bayad mo ay kung paano ka magre-react ngayon."
+    "title": "The Receipt That Printed Your Tomorrow",
+    "slug": "receipt-that-printed-tomorrow",
+    "url": "/stories/receipt-that-printed-tomorrow.html",
+    "readTime": "3 min",
+    "date": "2026-03-03",
+    "tags": [
+      "commute",
+      "urban",
+      "twist",
+      "taglish",
+      "relatable"
+    ],
+    "excerpt": "Sa terminal, may resibo kang matatanggap—pero hindi siya proof of payment. Preview siya ng araw mo.",
+    "ogQuote": "Kung may resibo ang bukas, minsan ang bayad mo ay kung paano ka magre-react ngayon."
   },
   {
-  "title": "The Umbrella That Only Opens When You’re Honest",
-  "slug": "umbrella-honest",
-  "url": "/stories/umbrella-honest.html",
-  "readTime": "3 min",
-  "date": "2026-03-03",
-  "tags": ["commute", "urban", "taglish", "twist", "comedy", "trending"],
-  "excerpt": "On her way to school and work, an umbrella starts exposing what people won’t say—one honest drop at a time.",
-  "ogQuote": "Minsan, mas basa ka sa loob kaysa sa ulan."
-   },
-   {
-  "title": "The Sidewalk That Started Giving You Ratings",
-  "slug": "sidewalk-ratings",
-  "url": "/stories/sidewalk-ratings.html",
-  "readTime": "3 min",
-  "date": "2026-03-03",
-  "tags": ["commute", "walking", "urban", "comedy", "slice-of-life", "taglish", "twist", "trending"],
-  "excerpt": "On the way to school and work, the sidewalk suddenly starts rating you — not your outfit, but how you’re handling life.",
-  "ogQuote": "Minsan, hindi mo kailangan bilisan—kailangan mo lang tigilan ang pag-self roast."
-   },
-   {
-  "title": "The Library Card That Wouldn’t Let You In Hungry",
-  "slug": "library-card-hungry",
-  "url": "/stories/library-card-hungry.html",
-  "readTime": "3 min",
-  "date": "2026-03-06",
-  "tags": ["school", "campus", "library", "taglish", "slice-of-life", "light-mystery"],
-  "excerpt": "A tired student keeps getting blocked by the library gate for one strange reason: hindi pa raw siya kumakain.",
-  "ogQuote": "Minsan, hindi ka tamad—gutom ka lang."
+    "title": "The Umbrella That Only Opens When You’re Honest",
+    "slug": "umbrella-honest",
+    "url": "/stories/umbrella-honest.html",
+    "readTime": "3 min",
+    "date": "2026-03-03",
+    "tags": [
+      "commute",
+      "urban",
+      "taglish",
+      "twist",
+      "comedy",
+      "trending"
+    ],
+    "excerpt": "On her way to school and work, an umbrella starts exposing what people won’t say—one honest drop at a time.",
+    "ogQuote": "Minsan, mas basa ka sa loob kaysa sa ulan."
   },
   {
-  "title": "The Library Seat That Remembered You",
-  "slug": "library-seat-remembered-you",
-  "url": "/stories/library-seat-remembered-you.html",
-  "readTime": "3 min",
-  "date": "2026-03-06",
-  "tags": ["library", "campus", "taglish", "slice-of-life", "genz", "urban"],
-  "excerpt": "Sa campus library, may isang upuan na laging bakante para sa mga estudyanteng halos sumuko na.",
-  "ogQuote": "Minsan, hindi ka nawawala—pagod ka lang, at may bagay na naaalala ka pa rin."
+    "title": "The Sidewalk That Started Giving You Ratings",
+    "slug": "sidewalk-ratings",
+    "url": "/stories/sidewalk-ratings.html",
+    "readTime": "3 min",
+    "date": "2026-03-03",
+    "tags": [
+      "commute",
+      "walking",
+      "urban",
+      "comedy",
+      "slice-of-life",
+      "taglish",
+      "twist",
+      "trending"
+    ],
+    "excerpt": "On the way to school and work, the sidewalk suddenly starts rating you — not your outfit, but how you’re handling life.",
+    "ogQuote": "Minsan, hindi mo kailangan bilisan—kailangan mo lang tigilan ang pag-self roast."
   },
   {
-  "title": "The Vending Machine Beside Room 204",
-  "slug": "vending-machine-room-204",
-  "url": "/stories/vending-machine-room-204.html",
-  "readTime": "3 min",
-  "date": "2026-03-06",
-  "tags": ["school", "studentlife", "slice-of-life", "taglish", "urban", "mystery"],
-  "excerpt": "Every time he skipped lunch to save money, the broken vending machine beside Room 204 gave him exactly what he needed.",
-  "ogQuote": "Hindi lahat ng rescue dramatic. Minsan, mainit lang na tinapay sa pagitan ng classes."
-   },
-  {
-  "title": "The Name on the Whiteboard Was Mine",
-  "slug": "the-name-on-the-whiteboard-was-mine",
-  "url": "/stories/the-name-on-the-whiteboard-was-mine.html",
-  "readTime": "3 min",
-  "date": "2026-03-08",
-  "tags": ["school", "classroom", "taglish", "light-mystery", "studentlife", "urban", "genz", "millennial"],
-  "excerpt": "Pagpasok niya sa classroom, may nakasulat na tanong sa whiteboard—pangalan niya mismo ang unang salita.",
-  "ogQuote": "Minsan, isang simpleng “okay ka lang ba?” ang pinakaunang bagay na kailangan mong marinig."
+    "title": "The Library Card That Wouldn’t Let You In Hungry",
+    "slug": "library-card-hungry",
+    "url": "/stories/library-card-hungry.html",
+    "readTime": "3 min",
+    "date": "2026-03-06",
+    "tags": [
+      "school",
+      "campus",
+      "library",
+      "taglish",
+      "slice-of-life",
+      "light-mystery"
+    ],
+    "excerpt": "A tired student keeps getting blocked by the library gate for one strange reason: hindi pa raw siya kumakain.",
+    "ogQuote": "Minsan, hindi ka tamad—gutom ka lang."
   },
   {
-  "title": "The Elevator That Opened on the Wrong Floor",
-  "slug": "elevator-opened-on-the-wrong-floor",
-  "url": "/stories/elevator-opened-on-the-wrong-floor.html",
-  "readTime": "3 min",
-  "date": "2026-03-08",
-  "tags": ["school", "campus", "taglish", "light-mystery", "slice-of-life", "genz", "studentlife", "urban"],
-  "excerpt": "Pagod na student, wrong floor ang binuksan ng elevator—at doon niya nakita yung conversation na kailangan pala niya buong week.",
-  "ogQuote": "Minsan, mali lang talaga yung floor para mapunta ka sa tamang pahinga."
-},
+    "title": "The Library Seat That Remembered You",
+    "slug": "library-seat-remembered-you",
+    "url": "/stories/library-seat-remembered-you.html",
+    "readTime": "3 min",
+    "date": "2026-03-06",
+    "tags": [
+      "library",
+      "campus",
+      "taglish",
+      "slice-of-life",
+      "genz",
+      "urban"
+    ],
+    "excerpt": "Sa campus library, may isang upuan na laging bakante para sa mga estudyanteng halos sumuko na.",
+    "ogQuote": "Minsan, hindi ka nawawala—pagod ka lang, at may bagay na naaalala ka pa rin."
+  },
   {
-  "title": "The Queue Number That Wasn’t Mine",
-  "slug": "queue-number-that-wasnt-mine",
-  "url": "/stories/queue-number-that-wasnt-mine.html",
-  "readTime": "3 min",
-  "date": "2026-03-08",
-  "tags": ["school", "campus", "taglish", "slice-of-life", "light-mystery", "studentlife", "urban", "genz"],
-  "excerpt": "Isang pagod na student ang kumuha ng maling queue number sa campus clinic—at doon nagsimula ang usapang hindi niya alam na kailangan niya pala.",
-  "ogQuote": "Minsan, maling number lang ang kailangan para may tamang kumausap sa’yo."
-},
+    "title": "The Vending Machine Beside Room 204",
+    "slug": "vending-machine-room-204",
+    "url": "/stories/vending-machine-room-204.html",
+    "readTime": "3 min",
+    "date": "2026-03-06",
+    "tags": [
+      "school",
+      "studentlife",
+      "slice-of-life",
+      "taglish",
+      "urban",
+      "mystery"
+    ],
+    "excerpt": "Every time he skipped lunch to save money, the broken vending machine beside Room 204 gave him exactly what he needed.",
+    "ogQuote": "Hindi lahat ng rescue dramatic. Minsan, mainit lang na tinapay sa pagitan ng classes."
+  },
   {
-  "title": "Ang Promise na Naiwan sa Platform",
-  "slug": "ang-promise-na-naiwan-sa-platform",
-  "url": "/stories/ang-promise-na-naiwan-sa-platform.html",
-  "readTime": "3 min",
-  "date": "2026-03-10",
-  "tags": ["taglishstory", "tenderreunion", "subtlehumor", "studentlife", "commutelife", "urbanstories", "genzstories", "millennialreaders"],
-  "excerpt": "Bago sumikat ang araw, may napulot na folded note ang isang tahimik na student sa campus gate. Akala niya simpleng prank lang—hanggang sa isang gabi sa huling train platform, may isang estrangherong may hawak ng bagay na matagal na niyang hinanap.",
-  "ogQuote": "Minsan, akala mo nawala na ang isang bagay—hindi mo alam, may tinutupad lang pala itong lumang pangako."
-},
+    "title": "The Name on the Whiteboard Was Mine",
+    "slug": "the-name-on-the-whiteboard-was-mine",
+    "url": "/stories/the-name-on-the-whiteboard-was-mine.html",
+    "readTime": "3 min",
+    "date": "2026-03-08",
+    "tags": [
+      "school",
+      "classroom",
+      "taglish",
+      "light-mystery",
+      "studentlife",
+      "urban",
+      "genz",
+      "millennial"
+    ],
+    "excerpt": "Pagpasok niya sa classroom, may nakasulat na tanong sa whiteboard—pangalan niya mismo ang unang salita.",
+    "ogQuote": "Minsan, isang simpleng “okay ka lang ba?” ang pinakaunang bagay na kailangan mong marinig."
+  },
   {
-  "title": "The Reviewer He Left Beside Me",
-  "slug": "reviewer-he-left-beside-me",
-  "url": "/stories/reviewer-he-left-beside-me.html",
-  "readTime": "3 min",
-  "date": "2026-03-06",
-  "tags": ["school", "campus", "taglish", "coming-of-age", "students", "examweek", "urbanstories"],
-  "excerpt": "Akala niya random lang ang kaklase na tumabi sa kanya sa waiting area outside the exam room—hindi niya alam, ilang buwan na pala siyang tahimik na sinasalba nito sa maliliit na paraan.",
-  "ogQuote": "Minsan, hindi mo kailangan ng grand gesture—may isang taong tahimik nang nagsasabing, “Kaya mo ’to.”"
-},
+    "title": "The Elevator That Opened on the Wrong Floor",
+    "slug": "elevator-opened-on-the-wrong-floor",
+    "url": "/stories/elevator-opened-on-the-wrong-floor.html",
+    "readTime": "3 min",
+    "date": "2026-03-08",
+    "tags": [
+      "school",
+      "campus",
+      "taglish",
+      "light-mystery",
+      "slice-of-life",
+      "genz",
+      "studentlife",
+      "urban"
+    ],
+    "excerpt": "Pagod na student, wrong floor ang binuksan ng elevator—at doon niya nakita yung conversation na kailangan pala niya buong week.",
+    "ogQuote": "Minsan, mali lang talaga yung floor para mapunta ka sa tamang pahinga."
+  },
   {
-  "title": "The Professor Who Let the Room Go Quiet",
-  "slug": "the-professor-who-let-the-room-go-quiet",
-  "url": "/stories/the-professor-who-let-the-room-go-quiet.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["campus", "school", "taglish", "drama", "genz", "studentlife"],
-  "excerpt": "During a classroom report, a student freezes in front of everyone—until one professor notices what she never said out loud.",
-  "ogQuote": "Minsan, ang pinakamalaking tulong ay yung taong marunong makapansin kahit wala kang masabi."
-},
+    "title": "The Queue Number That Wasn’t Mine",
+    "slug": "queue-number-that-wasnt-mine",
+    "url": "/stories/queue-number-that-wasnt-mine.html",
+    "readTime": "3 min",
+    "date": "2026-03-08",
+    "tags": [
+      "school",
+      "campus",
+      "taglish",
+      "slice-of-life",
+      "light-mystery",
+      "studentlife",
+      "urban",
+      "genz"
+    ],
+    "excerpt": "Isang pagod na student ang kumuha ng maling queue number sa campus clinic—at doon nagsimula ang usapang hindi niya alam na kailangan niya pala.",
+    "ogQuote": "Minsan, maling number lang ang kailangan para may tamang kumausap sa’yo."
+  },
   {
-  "title": "The Slide That Stayed Blank",
-  "slug": "slide-that-stayed-blank",
-  "url": "/stories/slide-that-stayed-blank.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["campus", "slice-of-life", "taglish", "studentlife", "classroom", "emotional"],
-  "excerpt": "A short Taglish campus story about a student who froze during reporting—and the professor who noticed it wasn’t just nerves.",
-  "ogQuote": "Minsan, hindi ka lang kinakabahan. Pagod ka na pala."
-},
+    "title": "Ang Promise na Naiwan sa Platform",
+    "slug": "ang-promise-na-naiwan-sa-platform",
+    "url": "/stories/ang-promise-na-naiwan-sa-platform.html",
+    "readTime": "3 min",
+    "date": "2026-03-10",
+    "tags": [
+      "taglishstory",
+      "tenderreunion",
+      "subtlehumor",
+      "studentlife",
+      "commutelife",
+      "urbanstories",
+      "genzstories",
+      "millennialreaders"
+    ],
+    "excerpt": "Bago sumikat ang araw, may napulot na folded note ang isang tahimik na student sa campus gate. Akala niya simpleng prank lang—hanggang sa isang gabi sa huling train platform, may isang estrangherong may hawak ng bagay na matagal na niyang hinanap.",
+    "ogQuote": "Minsan, akala mo nawala na ang isang bagay—hindi mo alam, may tinutupad lang pala itong lumang pangako."
+  },
   {
-  "title": "The Lunchbox Beside the Blue Tumbler",
-  "slug": "the-lunchbox-beside-the-blue-tumbler",
-  "url": "/stories/the-lunchbox-beside-the-blue-tumbler.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["worklife", "taglish", "urban", "comedy", "youngworkers", "everydaylife"],
-  "excerpt": "Isang simpleng nakalimutang lunchbox sa water refill station ang nagpaalala sa kanya na may mga taong napapansin siya kahit hindi halata.",
-  "ogQuote": "Minsan, akala mo ini-ignore ka lang—hindi mo alam, inaayos ka pala nila ng konti."
-},
+    "title": "The Reviewer He Left Beside Me",
+    "slug": "reviewer-he-left-beside-me",
+    "url": "/stories/reviewer-he-left-beside-me.html",
+    "readTime": "3 min",
+    "date": "2026-03-06",
+    "tags": [
+      "school",
+      "campus",
+      "taglish",
+      "coming-of-age",
+      "students",
+      "examweek",
+      "urbanstories"
+    ],
+    "excerpt": "Akala niya random lang ang kaklase na tumabi sa kanya sa waiting area outside the exam room—hindi niya alam, ilang buwan na pala siyang tahimik na sinasalba nito sa maliliit na paraan.",
+    "ogQuote": "Minsan, hindi mo kailangan ng grand gesture—may isang taong tahimik nang nagsasabing, “Kaya mo ’to.”"
+  },
   {
-  "title": "Ang Mga Tiklop na Paalala Bago Umuwi",
-  "slug": "ang-mga-tiklop-na-paalala-bago-umuwi",
-  "url": "/stories/ang-mga-tiklop-na-paalala-bago-umuwi.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["softmystery", "softvulnerability", "taglishstory", "studentlife", "commutelife", "urbanstories", "rainynight", "genzstories", "millennialreads"],
-  "excerpt": "Isang tahimik na estudyante ang nakapulot ng folded note bago ang exam, pero sa gabi ng pag-uwi sa platform, saka lang niya na-realize na may taong matagal nang nag-iiwan ng maliliit na palatandaan para sa kanya.",
-  "ogQuote": "Minsan akala mo isang note lang ang dumating sa araw mo—hanggang marealize mong matagal ka na palang hinahanap ng kabutihan."
-},
+    "title": "The Professor Who Let the Room Go Quiet",
+    "slug": "the-professor-who-let-the-room-go-quiet",
+    "url": "/stories/the-professor-who-let-the-room-go-quiet.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "campus",
+      "school",
+      "taglish",
+      "drama",
+      "genz",
+      "studentlife"
+    ],
+    "excerpt": "During a classroom report, a student freezes in front of everyone—until one professor notices what she never said out loud.",
+    "ogQuote": "Minsan, ang pinakamalaking tulong ay yung taong marunong makapansin kahit wala kang masabi."
+  },
   {
-  "title": "The ID Lace Waiting by the Hallway",
-  "slug": "id-lace-waiting-by-the-hallway",
-  "url": "/stories/id-lace-waiting-by-the-hallway.html",
-  "readTime": "3 min",
-  "date": "2026-03-11",
-  "tags": ["campus", "taglish", "melancholic", "hopeful", "friendship", "hidden-stories", "genzstories", "millennialstories", "social-media-fiction", "emotional", "relatable", "melancholic-but-hopeful"],
-  "excerpt": "After overtime in a quiet campus hallway, a caregiver finds the missing evidence everyone had been looking for—then meets someone who had been waiting nearby for a thank-you many years late.",
-  "ogQuote": "Minsan, akala mo tapos ka nang mapansin ng mundo. Hindi mo alam, may isang taong bumalik para sabihing hindi ka niya nakalimutan."
-},
+    "title": "The Slide That Stayed Blank",
+    "slug": "slide-that-stayed-blank",
+    "url": "/stories/slide-that-stayed-blank.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "campus",
+      "slice-of-life",
+      "taglish",
+      "studentlife",
+      "classroom",
+      "emotional"
+    ],
+    "excerpt": "A short Taglish campus story about a student who froze during reporting—and the professor who noticed it wasn’t just nerves.",
+    "ogQuote": "Minsan, hindi ka lang kinakabahan. Pagod ka na pala."
+  },
   {
-  "title": "Yung Usap sa Tapat ng Gate",
-  "slug": "yung-usap-sa-tapat-ng-gate",
-  "url": "/stories/yung-usap-sa-tapat-ng-gate.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["schoollife", "rainyday", "heartwarmingdrama", "taglishstory", "urbanstories", "genzstories", "millennialreads", "studentlife"],
-  "excerpt": "Isang maikling Taglish story tungkol sa estudyanteng akala niya mag-isa siyang bumubuo ng linggo niya—hanggang may isang usap sa maulang hapon na nagpaalala sa kanya na may mga taong tahimik palang sumasalo.",
-  "ogQuote": "Minsan, isang simpleng ‘Alam kong nahihirapan ka’ lang ang kailangan para gumaan ang buong linggo mo."
-},
+    "title": "The Lunchbox Beside the Blue Tumbler",
+    "slug": "the-lunchbox-beside-the-blue-tumbler",
+    "url": "/stories/the-lunchbox-beside-the-blue-tumbler.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "worklife",
+      "taglish",
+      "urban",
+      "comedy",
+      "youngworkers",
+      "everydaylife"
+    ],
+    "excerpt": "Isang simpleng nakalimutang lunchbox sa water refill station ang nagpaalala sa kanya na may mga taong napapansin siya kahit hindi halata.",
+    "ogQuote": "Minsan, akala mo ini-ignore ka lang—hindi mo alam, inaayos ka pala nila ng konti."
+  },
   {
-  "title": "Yung Usap sa Bus na Dinala Ko Buong Linggo",
-  "slug": "yung-usap-sa-bus-na-dinala-ko-buong-linggo",
-  "url": "/stories/yung-usap-sa-bus-na-dinala-ko-buong-linggo.html",
-  "readTime": "3 min",
-  "date": "2026-03-09",
-  "tags": ["school", "bus", "rush-hour", "heartwarming-drama", "taglish", "urban", "students", "commute"],
-  "excerpt": "Sa siksikang biyahe papuntang school, isang simpleng usap ang nagpabago sa buong linggo niya.",
-  "ogQuote": "Hindi mo kailangang tapusin ang buong sem ngayong umaga. Umabot ka lang sa first class."
-}
+    "title": "Ang Mga Tiklop na Paalala Bago Umuwi",
+    "slug": "ang-mga-tiklop-na-paalala-bago-umuwi",
+    "url": "/stories/ang-mga-tiklop-na-paalala-bago-umuwi.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "softmystery",
+      "softvulnerability",
+      "taglishstory",
+      "studentlife",
+      "commutelife",
+      "urbanstories",
+      "rainynight",
+      "genzstories",
+      "millennialreads"
+    ],
+    "excerpt": "Isang tahimik na estudyante ang nakapulot ng folded note bago ang exam, pero sa gabi ng pag-uwi sa platform, saka lang niya na-realize na may taong matagal nang nag-iiwan ng maliliit na palatandaan para sa kanya.",
+    "ogQuote": "Minsan akala mo isang note lang ang dumating sa araw mo—hanggang marealize mong matagal ka na palang hinahanap ng kabutihan."
+  },
+  {
+    "title": "The ID Lace Waiting by the Hallway",
+    "slug": "id-lace-waiting-by-the-hallway",
+    "url": "/stories/id-lace-waiting-by-the-hallway.html",
+    "readTime": "3 min",
+    "date": "2026-03-11",
+    "tags": [
+      "campus",
+      "taglish",
+      "melancholic",
+      "hopeful",
+      "friendship",
+      "hidden-stories",
+      "genzstories",
+      "millennialstories",
+      "social-media-fiction",
+      "emotional",
+      "relatable",
+      "melancholic-but-hopeful"
+    ],
+    "excerpt": "After overtime in a quiet campus hallway, a caregiver finds the missing evidence everyone had been looking for—then meets someone who had been waiting nearby for a thank-you many years late.",
+    "ogQuote": "Minsan, akala mo tapos ka nang mapansin ng mundo. Hindi mo alam, may isang taong bumalik para sabihing hindi ka niya nakalimutan."
+  },
+  {
+    "title": "Yung Usap sa Tapat ng Gate",
+    "slug": "yung-usap-sa-tapat-ng-gate",
+    "url": "/stories/yung-usap-sa-tapat-ng-gate.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "schoollife",
+      "rainyday",
+      "heartwarmingdrama",
+      "taglishstory",
+      "urbanstories",
+      "genzstories",
+      "millennialreads",
+      "studentlife"
+    ],
+    "excerpt": "Isang maikling Taglish story tungkol sa estudyanteng akala niya mag-isa siyang bumubuo ng linggo niya—hanggang may isang usap sa maulang hapon na nagpaalala sa kanya na may mga taong tahimik palang sumasalo.",
+    "ogQuote": "Minsan, isang simpleng ‘Alam kong nahihirapan ka’ lang ang kailangan para gumaan ang buong linggo mo."
+  },
+  {
+    "title": "Yung Usap sa Bus na Dinala Ko Buong Linggo",
+    "slug": "yung-usap-sa-bus-na-dinala-ko-buong-linggo",
+    "url": "/stories/yung-usap-sa-bus-na-dinala-ko-buong-linggo.html",
+    "readTime": "3 min",
+    "date": "2026-03-09",
+    "tags": [
+      "school",
+      "bus",
+      "rush-hour",
+      "heartwarming-drama",
+      "taglish",
+      "urban",
+      "students",
+      "commute"
+    ],
+    "excerpt": "Sa siksikang biyahe papuntang school, isang simpleng usap ang nagpabago sa buong linggo niya.",
+    "ogQuote": "Hindi mo kailangang tapusin ang buong sem ngayong umaga. Umabot ka lang sa first class."
+  },
+  {
+    "title": "Yung Tawanan sa Pantry Bago Tumila ang Ulan",
+    "slug": "yung-tawanan-sa-pantry-bago-tumila-ang-ulan",
+    "url": "/stories/yung-tawanan-sa-pantry-bago-tumila-ang-ulan.html",
+    "readTime": "3 min",
+    "date": "2026-03-19",
+    "tags": [
+      "office",
+      "rainy day",
+      "heartwarming",
+      "taglish",
+      "hopeful message",
+      "everyday moment",
+      "interns",
+      "working life"
+    ],
+    "excerpt": "Minsan, isang simpleng tawanan sa pantry habang umiiwas sa ulan ang kailangan para gumaan ulit ang araw.",
+    "ogQuote": "Minsan, gumagaan ang araw sa taong hindi mo inexpect."
+  }
 ]
