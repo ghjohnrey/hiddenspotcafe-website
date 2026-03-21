@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <!--
+ =====================================================================
+ ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+ =====================================================================
+
+ GOAL:
+ - When you share a story link on Facebook, the preview should show:
+ ✅ Correct title
+ ✅ Correct description
+ ✅ Correct OG image (1200x630)
+ ✅ OG image text taken from your JSON script (#og-data)
+
+ ---------------------------------------------------------------------
+ ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+ ---------------------------------------------------------------------
+ Slug rules (STRICT):
+ - lowercase only
+ - numbers allowed
+ - hyphen separated
+ - NO spaces
+ - NO special characters
+
+ Examples:
+ ✅ beep-card-feelings
+ ✅ fare-that-told-you-to-breathe
+ ✅ the-742-jeep
+ ❌ Fare That Told You to Breathe
+ ❌ fare_that_told_you
+
+ ---------------------------------------------------------------------
+ ✅ STEP 1 — File + URL MUST match the slug
+ ---------------------------------------------------------------------
+ Your final story URL MUST be ONE of these formats:
+
+ Option A (recommended, clean URL):
+ https://hiddenspotcafe.com/stories/<slug>
+
+ Option B (.html URL):
+ https://hiddenspotcafe.com/stories/<slug>.html
+
+ IMPORTANT:
+ - Your Worker tries BOTH. So either is okay.
+ - BUT your canonical tag + share links must match what you publish.
+
+ ---------------------------------------------------------------------
+ ✅ STEP 2 — REQUIRED edits in <head> for every story
+ ---------------------------------------------------------------------
+ Replace EVERY <slug> and EVERY title/description/quote:
+
+ (1) <title>...</title>
+ (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+ - canonical should match your final URL
+ - avoid redirects if possible
+
+ (3) Open Graph tags (Facebook/Discord/etc.)
+ - og:title (story title)
+ - og:description (one short sentence)
+ - og:url (final URL)
+
+ (4) OG Image tags (VERY IMPORTANT)
+ MUST be stable + exact slug match:
+ https://hiddenspotcafe.com/og/stories/<slug>.png
+
+ DO NOT do:
+ ❌ ?v=123
+ ❌ -v3
+ ❌ random filenames
+ unless you accept you’ll have to keep that URL forever.
+
+ (5) Twitter tags (recommended)
+ - twitter:image should match og:image
+
+ (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+ <script type="application/json" id="og-data">{...}</script>
+
+ Rules for JSON:
+ ✅ Double quotes only
+ ✅ No trailing commas
+ ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+ ✅ Use normal quotes in text if possible
+
+ Minimum required fields:
+ - "quote": "..."
+
+ Optional:
+ - "title": "..." (Worker currently does not display title on image,
+ but you can keep it for future)
+
+ ---------------------------------------------------------------------
+ ✅ STEP 3 — REQUIRED edits in <body> for every story
+ ---------------------------------------------------------------------
+ (1) Hero content:
+ - <h1>Story Title</h1>
+ - Hero <p>Short description</p>
+
+ (2) Meta chips:
+ - read time
+ - tags (#tag)
+
+ (3) Share link + Copy link MUST match the final URL:
+ - Share URL must use your slug
+ - Copy button must copy the same final URL
+
+ ---------------------------------------------------------------------
+ ✅ STEP 4 — Other files you MUST update when publishing a new story
+ ---------------------------------------------------------------------
+ 1) /stories/stories.json (your grid/search/listing data)
+ - Add a new entry:
+ { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+ IMPORTANT:
+ - JSON must be valid
+ - No trailing commas
+ - The "url" should match your actual story URL (either .html or clean)
+
+ 2) /stories/index.html (or /stories/ page)
+ - If your listing is generated from stories.json, make sure it loads/updates.
+
+ 3) (Optional but good) /sitemap.xml
+ - Add the new story URL (better discovery)
+
+ ---------------------------------------------------------------------
+ ✅ STEP 5 — Verification (do this every publish)
+ ---------------------------------------------------------------------
+ A) Open your story page:
+ https://hiddenspotcafe.com/stories/<slug>
+
+ B) Open your OG image directly:
+ https://hiddenspotcafe.com/og/stories/<slug>.png
+ - It MUST show a 1200x630 image (not logo, not 1x1)
+
+ C) Confirm Facebook UA sees the OG image tag:
+ Windows CMD:
+ curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+ D) Confirm Worker source (GET request, not HEAD):
+ curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+ Look for:
+ X-OG-Source: html OR html-dot
+
+ E) Facebook Debugger:
+ - Scrape: https://hiddenspotcafe.com/stories/<slug>
+ - Click "Scrape Again" 2x
+
+ If FB Debugger still shows old preview:
+ - It may be caching the old image for that URL.
+ - Wait a bit, then "Scrape Again" again.
+ - (Your Worker now uses short cache to help updates.)
+
+ =====================================================================
+ END CHECKLIST
+ =====================================================================
+ -->
+
+ <!-- Basic -->
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+ <!-- ✅ CHANGE: Story title -->
+ <title>Yung Library Card sa Basang Court</title>
+
+ <!-- Performance hints -->
+ <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+ <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+ <!-- Styles -->
+ <link rel="stylesheet" href="/style.css" />
+ <link rel="stylesheet" href="/stories/stories.css" />
+
+ <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+ <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-library-card-sa-basang-court" />
+
+ <!-- Open Graph -->
+ <meta property="og:locale" content="en_PH" />
+ <meta property="og:site_name" content="Hidden Spot Cafe" />
+ <meta property="og:type" content="article" />
+
+ <!-- ✅ CHANGE: OG title/desc/url -->
+ <meta property="og:title" content="Yung Library Card sa Basang Court" />
+ <meta property="og:description" content="May napulot akong library card sa campus gate, pero mas nakakagulat yung memoryang sumunod pagkatapos." />
+ <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-library-card-sa-basang-court" />
+
+ <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+ <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-library-card-sa-basang-court.png" />
+ <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-library-card-sa-basang-court.png" />
+ <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-library-card-sa-basang-court.png" />
+ <meta property="og:image:type" content="image/png" />
+ <meta property="og:image:width" content="1200" />
+ <meta property="og:image:height" content="630" />
+ <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Library Card sa Basang Court" />
+
+ <!-- Twitter/X -->
+ <meta name="twitter:card" content="summary_large_image" />
+ <meta name="twitter:title" content="Yung Library Card sa Basang Court" />
+ <meta name="twitter:description" content="May napulot akong library card sa campus gate, pero mas nakakagulat yung memoryang sumunod pagkatapos." />
+ <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-library-card-sa-basang-court.png" />
+
+ <!--
+ Data for Worker OG renderer
+ - Worker extracts this JSON and uses \"quote\" as the text in the OG image.
+ - Keep valid JSON (double quotes only, no trailing comma).
+ -->
+ <script type="application/json" id="og-data">
+ {
+ "title": "Yung Library Card sa Basang Court",
+ "quote": "Minsan, akala mo nawawala ka lang—yun pala may kabutihang pabalik na sa’yo."
+ }
+ </script>
+</head>
+
+<body class="stories-page">
+ <!-- Navbar -->
+ <nav class="navbar" aria-label="Primary navigation">
+ <div class="nav-accent" aria-hidden="true"></div>
+
+ <div class="nav-container">
+ <a href="/" aria-label="Go to homepage">
+ <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+ </a>
+
+ <div class="nav-links" id="navLinks">
+ <a href="/" class="nav-link">Home</a>
+ <a href="/menu/" class="nav-link">Menu</a>
+ <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+ </div>
+
+ <button
+ class="hamburger"
+ id="hamburger"
+ type="button"
+ aria-label="Toggle navigation menu"
+ aria-controls="navLinks"
+ aria-expanded="false"
+ >
+ <span aria-hidden="true"></span>
+ <span aria-hidden="true"></span>
+ <span aria-hidden="true"></span>
+ </button>
+ </div>
+ </nav>
+
+ <!-- Main -->
+ <main class="stories-container">
+ <header class="stories-hero">
+ <!-- ✅ CHANGE: Title + short intro -->
+ <h1>Yung Library Card sa Basang Court</h1>
+ <p>Isang maikling Taglish story tungkol sa napulot na library card, ulan, at kabutihang biglang bumalik.</p>
+ </header>
+
+ <article class="story-reading-card">
+ <div class="story-meta">
+ <!-- ✅ CHANGE: Read time + tags -->
+ <span>⏱️ 3 min read</span>
+ <span class="tag">#campus</span>
+ <span class="tag">#taglish</span>
+ <span class="tag">#light-cozy</span>
+ </div>
+
+ <div class="story-divider" aria-hidden="true"></div>
+
+ <p>Galing akong jeep noon, basa yung isang manggas ko at kunwari okay lang ako kahit tatlong beses nang nagtanong si Mama sa chat kung bakit ang tipid ko sumagot.</p>
+ <p>Pagbaba ko sa campus gate, pa-ambon na malakas na rin, tapos may kung anong kumislap sa tabi ng gutter na akala ko coin lang.</p>
+
+ <p>Library card pala.</p>
+ <p>May picture, may student number, at medyo kinain na ng tubig yung gilid, pero kita pa rin yung pangalan: Lia Ramos.</p>
+
+ <p>Ang una kong naisip, “Grabe, may mas lutang pa pala sa’kin.”</p>
+ <p>So imbes na dumiretso ako pauwi, pumasok muna ako sa loob kasi naalala kong sa may covered court madalas tambayan ng mga tao pag umuulan.</p>
+
+ <p>After sunset na nun, kaya yung basketball court parang half-gold, half-blue yung ilaw.</p>
+ <p>May mga nagkukwentuhan sa bleachers, may dalawang nag-aasaran sa free throw line, may varsity na mukhang tinatamad na rin umuwi, at may tahimik kong kaibigan na si Enzo na nakaupo lang sa dulo hawak yung paper cup ng vending machine coffee niya.</p>
+
+ <p>Paglapit ko, tinaas ko agad yung card.</p>
+ <p>“Guys, sino si Lia Ramos at bakit feeling ko side quest ’to?”</p>
+
+ <p>Natawa sila.</p>
+ <p>Si Mara pa nga sabi, “Baka ikaw na ang pinili ng tadhana maging delivery rider ng library.”</p>
+
+ <p>Nakigulo rin ako kahit totoo lang, pagod na pagod ako that day.</p>
+ <p>Yung tipong ang dali sabihin na okay lang kahit hindi naman, lalo na kung ayaw mong humaba usapan.</p>
+
+ <p>Si Enzo, tahimik lang, tumingin saglit sa card, tapos sabi niya, “Parang kilala ko ’yang pangalan.”</p>
+ <p>Yun lang, tapos balik ulit siya sa kape niya na parang extra lang siya sa eksena.</p>
+
+ <p>Habang hinihintay namin kung may makakaalala, umupo muna ako sa bleachers.</p>
+ <p>Doon ko narinig yung random conversations sa paligid—may nagrereklamo sa prof, may nagtatanong kung open pa yung siomaian, may isang nagsasabing wag munang umamin kung hindi sure.</p>
+
+ <p>Ewan ko, ang normal lang ng tunog ng lahat.</p>
+ <p>Parang lahat may kanya-kanyang bitbit na maliit na problema, tapos pinagkakasya lang sa ilalim ng bubong habang umuulan.</p>
+
+ <p>Biglang may tumawag mula sa kabilang side ng court.</p>
+ <p>“Hoy, may nawawalan ba ng library card?”</p>
+
+ <p>Tumaas agad kamay ko, pero hindi para sa’kin.</p>
+ <p>“May napulot ako!” sigaw ko pabalik.</p>
+
+ <p>Lumapit yung girl na may dalang dalawang plastic ng turon at nanghingi ng description.</p>
+ <p>Nung sinabi ko yung pangalan, napasnap siya ng daliri at sabi, “Ay, friend ’yan ng blockmate ko, nagpanic kanina sa gate kasi akala niya nahulog sa jeep.”</p>
+
+ <p>“Saan siya?” tanong ko.</p>
+ <p>“Pumunta raw sa registrar, tapos babalik dito kasi may hinihintay.”</p>
+
+ <p>So ayun, hawak ko pa rin yung card habang naghihintay.</p>
+ <p>Tapos hindi ko alam bakit, pero may kung anong pamilyar sa pangalan na hindi ko agad mahuli.</p>
+
+ <p>Parang may maliit na katok sa utak ko.</p>
+ <p>Hindi malakas, pero paulit-ulit.</p>
+
+ <p>Maya-maya, nagsalita si Enzo ulit.</p>
+ <p>“First year tayo, diba may umulan din nang ganyan kalala?”</p>
+
+ <p>Tumingin ako sa kanya.</p>
+ <p>“Oo, eh ano naman?”</p>
+
+ <p>“May girl sa gate nun na umiiyak kasi nawalan ng wallet,” sabi niya, diretso lang.</p>
+ <p>“Tapos may nag-abot ng pamasahe at naglakad pabalik sa ulan kasi ayaw magpabanggit ng pangalan.”</p>
+
+ <p>Natawa agad si Mara.</p>
+ <p>“Sino ’to, urban legend ng covered court?”</p>
+
+ <p>Pero hindi tumawa si Enzo.</p>
+ <p>Tumingin lang siya sa’kin, tapos sa library card, na parang may simpleng equation na gusto niya lang ako mismo ang sumagot.</p>
+
+ <p>Doon ko naalala.</p>
+ <p>First year ako, bagong lipat, sobrang sabog, at isang gabi umiyak nga ako sa gate kasi naiwan ko wallet ko sa jeep.</p>
+
+ <p>Ayoko nang maalala yung part na yun kasi nakakahiya.</p>
+ <p>May stranger na nag-abot sa’kin ng pamasahe, tapos sinabi lang, “Sige na, makakauwi ka pa,” bago umalis na parang normal lang yung ginawa niya.</p>
+
+ <p>Hindi ko nakita nang maayos mukha niya noon dahil sa ulan.</p>
+ <p>Pero yung pangalan na narinig ko sa guard pagkatapos—Lia—biglang bumalik nang buo sa utak ko.</p>
+
+ <p>“Sandali,” sabi ko, halos pabulong.</p>
+ <p>“Siya yata yung tumulong sa’kin dati.”</p>
+
+ <p>Tahimik nang dalawang segundo, tapos si Mara ang unang napasigaw.</p>
+ <p>“Ay wow, full circle ang ate mo!”</p>
+
+ <p>Natawa tuloy ako, yung totoong tawa na matagal kong hindi nagagawa that week.</p>
+ <p>Hindi dahil dramatic siya, kundi dahil ang weird lang isipin na sa dami ng pwede kong mapulot, ito pa talaga.</p>
+
+ <p>Maya-maya dumating si Lia, basang-basa rin at hingal na hingal.</p>
+ <p>Pagkakita niya sa card, napahawak siya sa dibdib niya na parang may nawawalang isang buong valid ID system sa buhay niya.</p>
+
+ <p>“Thank you, grabe,” sabi niya.</p>
+ <p>“Kanina pa ’ko ikot nang ikot.”</p>
+
+ <p>Inabot ko sa kanya yung card, tapos bago ko pa mapigilan sarili ko, natanong ko na.</p>
+ <p>“Ikaw ba yung tumulong sa isang first year dito years ago? Sa gate din. Nawalan ng wallet. Mukhang tanga umiyak sa ulan.”</p>
+
+ <p>Napakunot muna noo niya, tapos bigla siyang natawa.</p>
+ <p>“Ikaw ’yon?”</p>
+
+ <p>Mas lalo akong natawa sa hiya.</p>
+ <p>“Oo, unfortunately.”</p>
+
+ <p>“Ay hala,” sabi niya, “naalala ko kasi after nun, may tumulong din sa’kin sa enrollment line. Tapos sabi ko, sige nga, ipapasa ko rin ’to kapag may chance.”</p>
+
+ <p>Doon sumingit si Mara.</p>
+ <p>“So chain reaction pala ’to?”</p>
+
+ <p>Tumango si Lia, tapos itinuro si Enzo.</p>
+ <p>“Actually siya rin yata dahilan kaya ako napaalala ulit nun. May iniabot siyang payong sa friend ko last sem nang walang sabi-sabi.”</p>
+
+ <p>Lahat kami napatingin kay Enzo.</p>
+ <p>Siya na pinakatahimik, siya pa pala yung parang low-budget manager ng kabutihan sa campus.</p>
+
+ <p>Namula pa siya nang konti.</p>
+ <p>“Wag niyo akong tignan, payong lang naman ’yun.”</p>
+
+ <p>Doon na kami sabay-sabay nagtawanan.</p>
+ <p>Hindi yung OA na tawa, kundi yung tawang nakakagaan, lalo na pag galing kayo lahat sa mahabang araw.</p>
+
+ <p>Habang humihina yung ulan, narealize ko na ang tagal ko ring nagpapanggap na okay lang ako mag-isa sa lahat.</p>
+ <p>Pero minsan pala, isang naibalik na bagay lang, isang simpleng alala, o isang tahimik na kaibigan lang ang kailangan para maalala mong may mga kabutihang umiikot kahit hindi mo napapansin.</p>
+
+ <p>Pauwi na kami nang sabay-sabay, at si Mara sabi, “So technically, Enzo ang founder ng kindness program?”</p>
+ <p>Napailing si Enzo habang tumatawa na rin, tapos sabi niya, “Tumahimik nga kayo.”</p>
+
+ <p>Pero hanggang gate, inaasar pa rin namin siya.</p>
+ <p>At for the first time that week, hindi ko na kailangang magkunwaring okay lang ako, kasi totoo na.</p>
+ <div class="story-actions" aria-label="Story actions">
+ <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+ <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+ <a
+ class="action-btn"
+ target="_blank"
+ rel="noopener"
+ href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-library-card-sa-basang-court"
+ >
+ Share on Facebook
+ </a>
+
+ <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+ </div>
+ </article>
+ </main>
+
+ <!-- Footer -->
+ <footer>
+ <p>© 2026 Hidden Spot Cafe</p>
+ </footer>
+
+ <!-- Scripts -->
+ <script src="/script.js"></script>
+ <script>
+ const btn = document.getElementById("copyLinkBtn");
+
+ if (btn) {
+ btn.addEventListener("click", async () => {
+ try {
+ // ✅ CHANGE: Copy link must match canonical/final URL
+ await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-library-card-sa-basang-court");
+
+ btn.textContent = "✅ Copied!";
+ setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+ } catch {
+ alert("Copy failed. Please copy from the address bar.");
+ }
+ });
+ }
+ </script>
+</body>
+</html>
