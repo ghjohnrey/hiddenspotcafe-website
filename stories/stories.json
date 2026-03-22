@@ -1,4 +1,4 @@
-[
+=[
   {
     "title": "The 7:42 Jeep",
     "slug": "the-742-jeep",
@@ -481,5 +481,23 @@
     ],
     "excerpt": "May napulot akong library card sa campus gate, pero mas nakakagulat yung memoryang sumunod pagkatapos.",
     "ogQuote": "Minsan, akala mo nawawala ka lang—yun pala may kabutihang pabalik na sa’yo."
+  },
+  {
+    "title": "Yung Relo sa Training Room",
+    "slug": "yung-relo-sa-training-room",
+    "url": "/stories/yung-relo-sa-training-room.html",
+    "readTime": "3 min",
+    "date": "2026-03-22",
+    "tags": [
+      "train-platform",
+      "taglish",
+      "lighthearted-comedy",
+      "nurse",
+      "kindness-chain",
+      "last-ride",
+      "gen-z-millennial"
+    ],
+    "excerpt": "May napulot akong relong naiwan sa training room, pero sa paghahanap ng may-ari, may nabunyag na kabutihang matagal ko nang di napapansin.",
+    "ogQuote": "Minsan yung tahimik, sila pala yung unang nagsimula ng kabutihan."
   }
 ]
