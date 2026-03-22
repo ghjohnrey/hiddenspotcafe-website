@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Yung Relo sa Training Room</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-relo-sa-training-room" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Yung Relo sa Training Room" />
+  <meta property="og:description" content="May napulot akong relong naiwan sa training room, pero sa paghahanap ng may-ari, may nabunyag na kabutihang matagal ko nang di napapansin." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-relo-sa-training-room" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-relo-sa-training-room.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-relo-sa-training-room.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-relo-sa-training-room.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Relo sa Training Room" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yung Relo sa Training Room" />
+  <meta name="twitter:description" content="May napulot akong relong naiwan sa training room, pero sa paghahanap ng may-ari, may nabunyag na kabutihang matagal ko nang di napapansin." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-relo-sa-training-room.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Yung Relo sa Training Room",
+      "quote": "Minsan yung tahimik, sila pala yung unang nagsimula ng kabutihan."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Yung Relo sa Training Room</h1>
+      <p>Short Taglish story about a lost watch, a last train, and the quiet kindness people don’t always see.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#train-platform</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#lighthearted-comedy</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Katatapos ko lang ng skills demo sa isang classroom na hiniram ng ospital para sa community training, at ang nasa isip ko lang talaga noon ay sana umabot ako sa last train.</p>
+
+      <p>Just before payday pa, so sakto lang pera ko sa pamasahe, instant coffee, at konting yabang na kunwari okay pa ako.</p>
+
+      <p>Habang nagliligpit ako ng BP cuff at extension cord, may kumalansing sa ilalim ng pinakahuling armchair.</p>
+
+      <p>Pagyuko ko, isang silver na relo ang nakita ko, medyo gasgas ang gilid pero halatang inaalagaan.</p>
+
+      <p>Sabi ko sa sarili ko, “Ayun na naman, side quest bago umuwi.”</p>
+
+      <p>Wala nang tao sa room maliban sa akin at sa amoy ng whiteboard marker, kaya nilagay ko muna sa bulsa ng scrub top ko yung relo at tumakbo na ako pa-platform.</p>
+
+      <p>Pagdating ko doon, halos last call vibes na ang lahat.</p>
+
+      <p>May ilaw na malamig, may pagod na mga mukha, at may amoy ng instant coffee mula sa vending machine sa gilid na parang official scent ng mga taong sumasabit na lang sa araw nila.</p>
+
+      <p>Nakita ko sina Mara at Jen sa may yellow line.</p>
+
+      <p>Pareho ko silang kaibigan sa ward, pero magkaiba sila ng energy—si Mara laging may baong chika, si Jen laging mukhang may iniisip kahit nakatawa.</p>
+
+      <p>“Uy, buhay ka pa,” bungad ni Mara. “Akala namin dun ka na titira sa training room.”</p>
+
+      <p>“Pwede naman,” sabi ko. “May upuan, may electric fan, may emotional damage.”</p>
+
+      <p>Tumawa si Mara, pero si Jen napatingin agad sa dibdib ko.</p>
+
+      <p>“May nakita kang silver watch?” tanong niya, biglang alert.</p>
+
+      <p>Inangat ko yung relo mula sa bulsa ko. “Ito ba?”</p>
+
+      <p>Parang gusto niya agad hablutin, pero napigil siya. “Hindi sa akin,” sabi niya. “Kay Paolo yata.”</p>
+
+      <p>Si Paolo yung pinakatahimik sa batch namin.</p>
+
+      <p>Yung tipo ng tao na mag-aabot ng alcohol bago pa may humingi, magre-refill ng bond paper nang hindi inaannounce, tapos mawawala ulit na parang NPC na sobrang useful.</p>
+
+      <p>“Bakit nasa classroom niya?” tanong ko.</p>
+
+      <p>“Siya yung nag-set up kanina bago ka dumating,” sagot ni Mara. “Tapos nagmadali umalis kasi may dadaanan daw.”</p>
+
+      <p>Sakto namang dumating si Paolo mula sa stairs, hingal, may hawak na tatlong paper cup ng kape.</p>
+
+      <p>Pagtingin niya sa relo sa kamay ko, para siyang nanalo at napahiya at the same time.</p>
+
+      <p>“Akin nga,” sabi niya. “Akala ko naiwan ko na forever.”</p>
+
+      <p>Iniabot ko sa kanya yung relo. “Libre ang lost and found service ko, pero tumatanggap ako ng donations.”</p>
+
+      <p>Inangat niya yung isang paper cup. “Ito na nga oh. Original plan ko talaga ibigay sa inyo.”</p>
+
+      <p>Si Mara agad kumuha. “Suspicious. May nagawa ka bang mali?”</p>
+
+      <p>Doon na ako natawa, kasi fair question naman.</p>
+
+      <p>Umupo kami sa bench habang naghihintay ng train, hawak ang murang kape na sobrang init pero parang yun na ang final reward ng araw.</p>
+
+      <p>Napansin ko na may maliit na masking tape sa gilid ng cup ko.</p>
+
+      <p>Akala ko sulat lang ng pangalan, pero nakalagay: “For the one who stayed late. Thanks.”</p>
+
+      <p>Napatingin ako kay Paolo. “Ikaw nagsulat nito?”</p>
+
+      <p>Namula siya nang very slight. “Wala lang yun.”</p>
+
+      <p>Si Mara, syempre, hindi papayag sa “wala lang.” “Teka lang,” sabi niya. “Ikaw ba yung nagbabayad minsan ng kulang sa vending machine? Yung tipong pag short kami ng tres, biglang okay na?”</p>
+
+      <p>Tahimik si Paolo.</p>
+
+      <p>Mas lalong nag-ingay si Mara. “Wait. Ikaw rin ba yung nag-iiwan ng instant coffee sachet sa nurse station pag petsa de peligro?”</p>
+
+      <p>Tumingin si Jen sa kanya. “At saka yung umbrella na may sticky note na ‘isauli kung maalala’?”</p>
+
+      <p>Hindi sumagot si Paolo, which was basically a yes.</p>
+
+      <p>Natawa ako kasi sobrang weird na sabay-sabay kaming may realization sa train platform, hawak ang kape, mukhang mga contestant sa game show na biglang gets na ang puzzle.</p>
+
+      <p>“Grabe,” sabi ko. “Ikaw pala yung low-budget fairy godmother ng ward.”</p>
+
+      <p>Napailing siya. “Ang corny.”</p>
+
+      <p>“Pero accurate,” sabi ni Mara.</p>
+
+      <p>Akala ko doon lang matatapos yung biruan, pero si Jen biglang tumingin sa cup niya nang matagal.</p>
+
+      <p>Tapos mahina niyang sinabi, “Yung one week na hindi ako makapasok nang maayos… ikaw ba yung nag-cover nung locker penalty ko?”</p>
+
+      <p>Hindi agad sumagot si Paolo.</p>
+
+      <p>Sabay dumaan yung hangin mula sa padating na tren, kaya mas lalong tumahimik yung moment.</p>
+
+      <p>Then he scratched the back of his neck and said, “Small amount lang naman.”</p>
+
+      <p>Hindi na natawa si Jen.</p>
+
+      <p>“Paolo,” sabi niya, “that week kasi yung due ng gamot ng papa ko. Hindi ko alam kung paano ko hahatiin yung pera ko.”</p>
+
+      <p>Wala nang umimik sa amin.</p>
+
+      <p>Kasi biglang hindi na tungkol sa kape, sa sachet, o sa umbrella yung usapan.</p>
+
+      <p>Biglang naging tungkol siya sa mga araw na may tahimik palang sumasalo sa maliliit na sablay ng ibang tao para lang hindi na lumaki.</p>
+
+      <p>Tumikhim si Paolo, halatang gusto na niyang i-dismiss lahat. “Guys, relax. Hindi naman big deal.”</p>
+
+      <p>“Sa’yo hindi,” sabi ni Jen, sabay tawa na naiiyak. “Sa akin, oo.”</p>
+
+      <p>Doon ko rin naramdaman yung kurot ng hiya.</p>
+
+      <p>Kasi may secret din akong dala buong linggo: ako yung naglalagay ng extra biscuits sa locker ni Mama sa bahay para hindi niya mahalatang kapos din ako.</p>
+
+      <p>Hindi ko sinasabi sa kahit kanino kasi ayokong magmukhang naghihirap kami nang todo.</p>
+
+      <p>Pagod akong magmukhang composed, even sa mga kaibigan ko.</p>
+
+      <p>Pero habang nakikita ko si Paolo na gusto na lang mawala sa eksena kahit siya pala ang simula ng kabutihan, naisip ko, baka okay lang din palang hindi laging solo ang bigat.</p>
+
+      <p>Sabi ko, “Alam mo, buti napulot ko yang relo mo.”</p>
+
+      <p>“Para ma-expose ako?” sabi niya.</p>
+
+      <p>“Hindi,” sagot ko. “Para maalala naming may dahilan kung bakit medyo bearable pa rin maging adult kahit petsa de peligro.”</p>
+
+      <p>Tumawa si Mara. Si Jen umoo habang pinupunasan yung gilid ng mata niya na kunwari may napasok lang.</p>
+
+      <p>Pagdating ng train, siksikan na ulit, maingay na ulit, normal na ulit.</p>
+
+      <p>Pero bago kami sumakay, inabot ni Paolo sa akin yung isa pang paper cup na extra pala.</p>
+
+      <p>May panibagong tape.</p>
+
+      <p>“For the quiet ones too,” nakasulat.</p>
+
+      <p>Tiningnan ko siya at umiling. “Alam mo, nakakainis ka. Ba’t ka ganyan?”</p>
+
+      <p>“May relo na ako ulit,” sabi niya. “Mas may time na ako mang-inis.”</p>
+
+      <p>Corny ulit, pero gumana.</p>
+
+      <p>Habang nasa loob ng tren, hawak ko yung kape at iniisip na minsan kaya mo pala dalhin ang secret mo nang mas magaan kapag may ibang taong nagpapaalala na hindi kailangang i-announce ang kabutihan para maging totoo.</p>
+
+      <p>At minsan, yung akala mong simpleng nawawalang relo lang, yun pala yung magtuturo sa inyong lahat kung sino ang tahimik na unang nagpaandar ng chain reaction ng pag-aalaga.</p>
+
+      <p>Pagbaba ko sa station ko, hindi pa rin payday at hindi pa rin solved ang lahat.</p>
+
+      <p>Pero somehow, mas magaan na yung pakiramdam ko.</p>
+
+      <p>Dahil sa isang relong napulot ko sa classroom, nalaman ko na may mga taong tahimik lang pero sila pala yung dahilan kung bakit hindi tuluyang sumasablay ang araw ng iba.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-relo-sa-training-room"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-relo-sa-training-room");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
