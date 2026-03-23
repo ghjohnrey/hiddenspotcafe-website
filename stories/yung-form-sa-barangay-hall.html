@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Yung Form sa Barangay Hall</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-form-sa-barangay-hall" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Yung Form sa Barangay Hall" />
+  <meta property="og:description" content="Isang simpleng dokumento lang sana ang aasikasuhin namin, pero mas humirap pa dahil sa sistemang dapat nagpapadali." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-form-sa-barangay-hall" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-form-sa-barangay-hall.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-form-sa-barangay-hall.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-form-sa-barangay-hall.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Form sa Barangay Hall" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yung Form sa Barangay Hall" />
+  <meta name="twitter:description" content="Isang simpleng dokumento lang sana ang aasikasuhin namin, pero mas humirap pa dahil sa sistemang dapat nagpapadali." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-form-sa-barangay-hall.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Yung Form sa Barangay Hall",
+      "quote": "Minsan, hindi system ang mali sa papel—yung layo ng gumawa sa totoong buhay."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Yung Form sa Barangay Hall</h1>
+      <p>Akala ko simpleng request lang ang aasikasuhin namin, hanggang makilala ko ulit yung sistemang minsan ko nang ipinagmamalaki.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#barangay-hall</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#slice-of-life-drama</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Hindi naman dapat mahirap yung pakay namin noon.</p>
+      <p>Kailangan lang ni Mama ng barangay certification para maituloy yung isang requirement sa benefit application niya matapos mamatay si Papa last year.</p>
+      <p>Isang papel lang, sabi ko pa habang naglalakad kami papunta sa barangay hall. “Mabilis lang ’to, Ma. Digital na raw dito.”</p>
+
+      <p>Pagpasok namin, sinalubong agad kami ng amoy ng mainit na electric fan, lumang papel, at pawis ng mga nauna nang nakapila.</p>
+      <p>May mga plastic chair na hindi pantay ang paa, isang mahabang mesa sa gilid, at isang computer desk sa harap na parang pagod na rin sa dami ng inaasikaso kada araw.</p>
+      <p>Nakaupo si Liza sa may monitor, mabilis mag-type kahit ang bagal ng internet, tapos may hawak pang ballpen sa kabilang kamay na parang ready siyang bumalik sa papel anumang oras.</p>
+
+      <p>“Arvin, ikaw na nga mag-fill out nito,” sabi ni Mama sabay abot sa phone niya.</p>
+      <p>“Nai-stress ako sa mga kahon-kahon na ’yan. Akala ko pipirma lang.”</p>
+      <p>Ngumiti ako nang pilit. “Ako na, Ma.”</p>
+
+      <p>Methodical akong tao, pero mabilis din akong ma-overwhelm kapag sabay-sabay na yung mali.</p>
+      <p>Kaya gustong-gusto ko noon yung idea ng systems—drop-downs, validations, auto-fill, lahat nakaayos, walang hulaan.</p>
+      <p>Noong internship ko sa civil engineering firm na tumutulong sa local rollout ng mga LGU tools, isa ako sa mga sobrang proud na nagsasabing mas gagaan ang buhay ng tao kapag less paper na.</p>
+
+      <p>Kaya nung nakita ko yung login screen sa monitor ni Liza, parang may kung anong kumurot sa batok ko.</p>
+      <p>Pamilyar yung kulay. Pamilyar yung layout. Pati yung wording ng buttons.</p>
+      <p>Hindi ko muna pinansin.</p>
+
+      <p>“Ano pong request?” tanong ni Liza.</p>
+      <p>Ipinaliwanag ni Mama nang mahina, medyo paulit-ulit dahil kinakabahan na naman siya pag nasa opisina.</p>
+      <p>Tumango si Liza. “Sige po, encode lang natin. Minsan mabilis, minsan totoo ring ayaw makisama.”</p>
+
+      <p>Kinuha ko yung form at ako na nag-type sa maliit na keyboard na medyo malagkit ang spacebar.</p>
+      <p>Buong pangalan, address, years of residency, reason for request, contact number.</p>
+      <p>Simple lang dapat, pero pagdating sa address field, nag-red agad yung box.</p>
+
+      <p><em>Input format invalid.</em></p>
+      <p>Tinitigan ko ulit. Tama naman.</p>
+      <p>Sinubukan kong bawasan yung punctuation. Nilagyan ko ng puro letters. Binalik ko sa full address. Pare-pareho lang—red pa rin.</p>
+
+      <p>“Ganyan talaga minsan,” sabi ni Liza, hindi na mukhang surprised.</p>
+      <p>“Kapag masyadong mahaba yung street name, ayaw niya. Pinapaikli ko na lang kung ano’ng kasya.”</p>
+
+      <p>Napatingin ako sa kanya. “Pero official address ’to.”</p>
+      <p>“Oo nga eh,” sabi niya sabay kibit-balikat. “Pero kung gusto nating umusad, tayo ang mag-aadjust.”</p>
+
+      <p>May tumawag sa likod namin para mag-follow up ng ibang request. May isang matandang nakaupo sa plastic chair na paulit-ulit nagtatanong kung saan pipirma.</p>
+      <p>Sa gilid, pinapaypayan ni Mama ang sarili niya gamit yung photocopy ng valid ID ni Papa, tahimik pero halatang naiinitan at napapagod na.</p>
+
+      <p>Nagpatuloy ako.</p>
+      <p>Pagdating sa attachment upload, kailangan daw picturan yung ID at proof of billing gamit yung webcam na nakapatong sa monitor.</p>
+      <p>Dalawang beses nag-freeze. Yung pangatlo, sobrang labo na parang multo lang yung kuha.</p>
+
+      <p>“Pwede bang scan na lang?” tanong ko.</p>
+      <p>“Pwede sana,” sabi ni Liza, “kaso pag in-skip ko ’yan, babalik ako sa umpisa.”</p>
+
+      <p>Natawa ako nang konti, pero yung klase ng tawa na walang saya.</p>
+      <p>Kilala ko kasi yung flow na ’yon.</p>
+      <p>Ako mismo yung nag-suggest noon sa testing na gawing mandatory ang image field para “complete ang records” at “less human error.”</p>
+
+      <p>Doon ko naramdaman yung init hindi lang ng hapon kundi ng hiya.</p>
+      <p>Parang ang lakas ng boses ng dati kong sarili sa utak ko—confident, maayos magsalita, laging may slide deck, laging may phrase na user-friendly.</p>
+      <p>Samantalang si Mama, hindi makasabay sa on-screen instructions dahil English lahat at ang liit pa ng text.</p>
+
+      <p>“Anak, mali ba?” tanong niya.</p>
+      <p>“Hindi, Ma,” sabi ko agad. “System lang ’to.”</p>
+      <p>Pagkasabi ko nun, napahinto ako.</p>
+
+      <p>System lang ’to.</p>
+      <p>Ang dali sabihin no’n kapag ikaw yung hindi apektado.</p>
+
+      <p>After ilang subok, pumasok din kami sa final step.</p>
+      <p>Akala ko tapos na, pero may lumabas na notice: <em>For verification queue.</em></p>
+      <p>Ibig sabihin, hindi maipi-print agad. Kailangan pa raw hintayin ma-approve sa central dashboard.</p>
+
+      <p>“Gaano katagal?” tanong ko.</p>
+      <p>Tumingin si Liza sa screen, tapos sa amin. “Depende po. Minsan one hour. Minsan bukas. Minsan babalik ulit kasi may hindi raw tugma.”</p>
+
+      <p>Hindi sumagot si Mama.</p>
+      <p>Umupo lang siya nang dahan-dahan sa plastic chair, hawak pa rin yung envelope ng requirements na ilang beses na naming inayos sa bahay.</p>
+      <p>Doon ko unang nakita sa mukha niya yung pagod na hindi maingay.</p>
+
+      <p>Hindi yung galit. Hindi yung iyak.</p>
+      <p>Yung pagod na parang sanay nang mahirapan sa mga bagay na sinasabing simple lang.</p>
+
+      <p>“Sensya na ha,” sabi ni Liza kay Mama. “Mas madali pa nga minsan dati nung sulat-kamay. Ngayon, bawal naman kaming lumihis masyado kasi may audit trail.”</p>
+      <p>Wala siyang yabang magsalita, wala ring depensa. Practical lang talaga siya, parang araw-araw na niyang tinatahi nang tahimik yung butas ng system gamit sarili niyang pasensya.</p>
+
+      <p>Tumingin ako ulit sa interface.</p>
+      <p>Nakita ko sa ibaba yung maliit na footer text na halos walang makakapansin.</p>
+      <p>Nandoon yung pangalan ng internship partner company namin. Nandoon din yung version code na minsan kong nilagay sa QA report.</p>
+
+      <p>Biglang lumiit yung kwarto.</p>
+      <p>Parang ang ingay ng electric fan, ang bagal ng internet, at ang lagkit ng keyboard, lahat sabay-sabay kong naramdaman.</p>
+      <p>Hindi ko na kailangang hulaan.</p>
+
+      <p>Yung system na pinagmamalaki kong bahagi ako, kahit maliit lang, yun din yung nagpapabalik-balik ngayon sa sarili kong nanay.</p>
+
+      <p>Hindi naman ako lead developer. Hindi naman ako yung may final say.</p>
+      <p>Intern lang ako noon na naglagay ng suggestions, nag-test ng forms, at natuwang gumana sa demo.</p>
+      <p>Pero sa init ng barangay hall na ’yon, ang hirap magtago sa salitang “lang.”</p>
+
+      <p>“Liza,” sabi ko, medyo mahina, “pwede bang malaman kung ano usually ang bumabagsak dito?”</p>
+      <p>Tiningnan niya ako, tapos binuksan ang isang listahan ng failed cases.</p>
+      <p>Ang dami.</p>
+      <p>Mahahabang address. Walang middle name pero required sa lumang record. Malabong uploads. Timeouts. Senior citizens na inuulit mula umpisa dahil nag-expire ang session.</p>
+
+      <p>Parang may humampas sa akin na hindi naman dramatic, pero tuloy-tuloy.</p>
+      <p>Bawat item sa listahan, isang totoong tao.</p>
+      <p>Bawat “edge case” na tawag namin noon, buhay pala ng ibang tao kapag nasa labas na ng presentation room.</p>
+
+      <p>“Ma,” sabi ko, “pasensya na.”</p>
+      <p>Nagulat siya. “Bakit?”</p>
+      <p>Umupo ako sa tabi niya. “Wala. Na-realize ko lang na hindi porket maayos sa screen, maayos na rin sa totoong buhay.”</p>
+
+      <p>Tumango lang siya, parang hindi niya gets lahat pero gets niya yung bigat.</p>
+      <p>“Ganun talaga,” sabi niya. “Ang importante, may tumutulong.”</p>
+
+      <p>Si Liza yung unang tumayo ulit.</p>
+      <p>Kumuha siya ng maliit na logbook sa drawer at nagsulat ng pangalan ni Mama, contact number, at note kung anong stage na kami tumigil.</p>
+      <p>“Ganito na lang po,” sabi niya. “Pag nag-push through na sa dashboard, ako na tatawag. Para hindi na kayo pumila ulit nang matagal.”</p>
+
+      <p>Simple lang yun.</p>
+      <p>Walang bagong app, walang bagong feature, walang presentation.</p>
+      <p>Isang taong marunong dumiskarte para hindi mas lalong mapagod ang kapwa.</p>
+
+      <p>Habang palabas kami, sinabi ni Mama, “Akala ko mapapagalitan ka pa kanina sa inis mo.”</p>
+      <p>Napangiti ako kahit pagod. “Ako rin.”</p>
+
+      <p>Sa labas ng barangay hall, mas mainit pa yata kaysa sa loob, pero parang doon ako mas nakahinga.</p>
+      <p>Kasi unang beses ko yatang naisip nang buo na may diperensya rin pala ang mga bagay na mukha kong kontrolado kapag nasa drawing board lang.</p>
+
+      <p>Kinagabihan, hinanap ko sa luma kong email yung project files at notes ko sa internship.</p>
+      <p>Hindi para magdrama. Hindi rin para maghanap ng sisisihin.</p>
+      <p>Gusto ko lang maalala kung saan nagsimulang maging mas mahalaga ang malinis na workflow kaysa sa taong pipila sa ilalim ng mahinang electric fan.</p>
+
+      <p>Hindi pa rin namin nakuha agad yung document nang araw na ’yon.</p>
+      <p>Pero kinabukasan, tumawag si Liza. Ready na raw.</p>
+      <p>At bago ko ibaba yung tawag, nagsabi ako na babalik ako hindi lang para kunin yung papel ni Mama, kundi para ayusin sa abot ng kaya ko yung paraan ng pagtingin ko sa mga sistemang ginagawa namin.</p>
+
+      <p>Kasi minsan, hindi system ang mali sa papel.</p>
+      <p>Yung layo ng gumawa sa totoong buhay.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-form-sa-barangay-hall"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-form-sa-barangay-hall");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
