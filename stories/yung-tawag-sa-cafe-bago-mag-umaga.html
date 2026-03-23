@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Yung Tawag sa Café Bago Mag-Umaga</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-tawag-sa-cafe-bago-mag-umaga.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Yung Tawag sa Café Bago Mag-Umaga" />
+  <meta property="og:description" content="Sa isang 2AM break sa café, doon ko unti-unting na-realize na hindi lang signal ang nawawala sa amin." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-tawag-sa-cafe-bago-mag-umaga.html" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-tawag-sa-cafe-bago-mag-umaga.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-tawag-sa-cafe-bago-mag-umaga.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-tawag-sa-cafe-bago-mag-umaga.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Tawag sa Café Bago Mag-Umaga" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yung Tawag sa Café Bago Mag-Umaga" />
+  <meta name="twitter:description" content="Sa isang 2AM break sa café, doon ko unti-unting na-realize na hindi lang signal ang nawawala sa amin." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-tawag-sa-cafe-bago-mag-umaga.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Yung Tawag sa Café Bago Mag-Umaga",
+      "quote": "Minsan, hindi signal ang mahina. Yung loob lang sabihin ang totoo."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Yung Tawag sa Café Bago Mag-Umaga</h1>
+      <p>Isang tahimik na Taglish story tungkol sa mga tawag na napuputol bago pa masabi ang totoo.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#bpo</span>
+        <span class="tag">#long-distance</span>
+        <span class="tag">#night-shift</span>
+        <span class="tag">#quiet-emotional-drama</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Alas dos na naman ng umaga nang mapunta ako sa café sa tabi ng building namin, yung laging may mahina pero malungkot na playlist at mga charger na nakakalat sa bakanteng mesa.</p>
+      <p>Galing ako sa shift, pero hindi pa ako umuuwi agad kasi iyon yung oras na usually tumatawag si Aya.</p>
+
+      <p>Long-distance na kami for almost a year, kaya nasanay na akong yung pinaka-matino naming usapan nangyayari habang amoy kape pa uniform ko at sabog pa isip ko galing queue.</p>
+      <p>Dati umaabot kami ng isang oras sa call, minsan lampas pa, pero nitong mga nakaraang linggo parang laging may humihila pababa sa usapan namin.</p>
+
+      <p>“Hello? Rinig mo ko?” sabi ko habang ina-adjust yung earphones ko.</p>
+      <p>“Rinig kita. Ikaw ba, rinig mo ko o nag-a-assume ka lang?” biro niya, tapos tumawa siya nang mahina.</p>
+
+      <p>Ganoon si Aya kahit pagod na siya, laging may biro sa dulo ng boses niya na parang gustong pigilan yung bigat.</p>
+      <p>Ako naman, sanay magkunwari na okay lang lahat kahit ilang beses ko nang gustong sabihing miss na miss ko na siya nang hindi pabiro.</p>
+
+      <p>Sa totoo lang, kahit simpleng “pagod ako” hirap akong sabihin nang diretsuhan.</p>
+      <p>Palagi kong nilalagyan ng “okay lang naman” o “kaya pa naman” para hindi masyadong totoo.</p>
+
+      <p>Nasa kabilang mesa si Trish, ka-team ko, naka-headset pa sa leeg at inuubos yung iced coffee niya na parang wala nang pag-asa matulog.</p>
+      <p>Hindi kami sobrang close, pero siya yung tipong mapapansin kahit maliit na pagbabago sa tao.</p>
+
+      <p>Noong una, napapangiti pa ako habang kausap si Aya.</p>
+      <p>Ngayon, mas madalas akong nakatingin sa screen ng phone kaysa sa sarili kong iniisip.</p>
+
+      <p>“Ang hina ng signal,” sabi ko nang biglang mag-putol-putol yung audio niya.</p>
+      <p>“Oo nga,” sagot niya. “Or baka ayaw lang talaga tayong pag-usapin ng mundo.”</p>
+
+      <p>Tumawa ako kahit may kumirot na konti sa dibdib ko.</p>
+      <p>Ang totoo, ilang gabi nang pareho yung eksena: may konting kwento, may konting tawa, tapos biglang puputol ang call na parang may iniiwasan kaming pareho.</p>
+
+      <p>Napansin ni Trish iyon kahit hindi siya nakikinig nang buo.</p>
+      <p>Pagbalik ko sa table namin, tinulak niya palapit yung extra charger sa akin at sinabing, “Bro, hindi lang yata signal ang problema n’yo.”</p>
+
+      <p>Ngumiti lang ako. “Pagod lang siguro siya.”</p>
+      <p>“Ikaw din naman,” sabi niya, sabay higop. “Pero ikaw, nandito ka pa rin.”</p>
+
+      <p>Hindi ko na sinagot.</p>
+      <p>Mas madali kasing isipin na mahina lang internet kaysa amining may nag-iiba na talaga.</p>
+
+      <p>Kinabukasan, tumawag ulit si Aya habang nasa café ako.</p>
+      <p>Mas maikli na naman yung call, pero ang dami niyang tanong na weirdly practical.</p>
+
+      <p>“Same address ka pa rin ba?” tanong niya.</p>
+      <p>“Oo. Bakit?”</p>
+
+      <p>“Wala lang. Baka ipadala ko na yung hoodie mo saka yung charger mong naiwan dito.”</p>
+      <p>“Pwede naman sa susunod na uwi ko kunin.”</p>
+
+      <p>Sandaling tumahimik si Aya sa kabilang linya.</p>
+      <p>Tapos binalik niya agad sa biro. “Ay wow, may future plans. Sige noted.”</p>
+
+      <p>Pagkababa ko ng phone, si Trish agad nagsalita.</p>
+      <p>“Inaayos na niya yung mga naiwan mo sa kanya.”</p>
+
+      <p>“Ha?”</p>
+      <p>“Wala. Baka mali ako,” sabi niya, pero hindi kampante yung mukha niya.</p>
+
+      <p>Nainis pa ako nang konti sa sinabi niya.</p>
+      <p>Hindi dahil masama, kundi dahil parang may tinamaan na parte sa akin na matagal ko nang iniiwasan.</p>
+
+      <p>Sumunod na gabi, tumawag si Aya habang naglalakad ako papunta sa café.</p>
+      <p>Maingay sa labas, may mga rider, may mga guard, may mga empleyadong bagong-out na pare-parehong mukhang kulang sa tulog.</p>
+
+      <p>“Kumain ka na?” tanong niya.</p>
+      <p>“Oo.”</p>
+
+      <p>“Sure?”</p>
+      <p>“Oo nga.”</p>
+
+      <p>“Yung mama mo, nakapag-checkup na ba?”</p>
+      <p>“Next week pa. Bakit parang ang dami mong checklist?”</p>
+
+      <p>Natawa siya, pero saglit lang.</p>
+      <p>“Wala. Gusto ko lang alam ko.”</p>
+
+      <p>Pagkaupo ko sa café, naputol na naman ang call.</p>
+      <p>Nakailang redial ako bago siya bumalik, pero iba na yung boses niya pagbalik.</p>
+
+      <p>Mas tahimik.</p>
+      <p>Mas parang may inaayos sa sarili bago magsalita.</p>
+
+      <p>“Nico,” sabi niya, “pag hindi ako masyadong makatawag these next days, huwag ka masyadong mag-isip, okay?”</p>
+      <p>“Paano namang hindi mag-iisip e ganyan mo sabihin?”</p>
+
+      <p>Napabuntong-hininga siya sa kabilang linya.</p>
+      <p>Tapos biglang sinabi ng phone ko na weak connection ulit.</p>
+
+      <p>Napamura ako nang mahina.</p>
+      <p>Si Trish, na kararating lang galing counter, tumingin sa akin at umupo sa tapat ko.</p>
+
+      <p>“May desisyon na siya,” sabi niya diretso.</p>
+      <p>“Ang bilis mo naman.”</p>
+
+      <p>“Hindi ako mabilis. Obvious lang minsan pag may nagpapaalam na hindi pa nagsasabi.”</p>
+      <p>“Nag-a-assume ka lang.”</p>
+
+      <p>“Sana nga,” sabi niya. “Pero hindi na siya nagtatanong tungkol sa susunod n’yong pagkikita. Puro tungkol na sa mga maiiwan sa’yo.”</p>
+
+      <p>Tumahimik ako kasi doon ko lang narealize na tama siya.</p>
+      <p>Ilang linggo na ngang walang “pag nagkita tayo” sa mga usapan namin.</p>
+
+      <p>Puro “kumakain ka ba,” “natutulog ka ba,” “same address ka pa rin ba.”</p>
+      <p>Parang may inaabot siyang mga huling bilin nang hindi niya tahasang sinasabi.</p>
+
+      <p>Noong gabing iyon, hindi na ako agad umuwi.</p>
+      <p>Nakaupo lang ako sa café habang umiikot yung charger cord sa daliri ko at pinapanood yung reflection ko sa madilim na bintana.</p>
+
+      <p>Naalala ko lahat ng beses na gusto kong sabihin kay Aya na nahihirapan na rin ako, na hindi ko na alam paano maging present sa relasyong nasa screen lang halos nabubuhay.</p>
+      <p>Pero imbes na sabihin, lagi kong pinipili yung safe na sagot, yung hindi makakadagdag sa pagod niya.</p>
+
+      <p>Baka ganoon din siya.</p>
+      <p>Baka pareho lang kaming nagtitipid ng totoo hanggang sa wala nang natira.</p>
+
+      <p>Bago mag-alas tres, tumawag siya ulit.</p>
+      <p>Clear yung linya this time, nakakagulat sa sobrang linaw.</p>
+
+      <p>“Sorry,” sabi niya agad. “Hindi dahil sa signal kaya ako nawawala.”</p>
+      <p>Hindi ako sumagot agad.</p>
+
+      <p>“May tinanggap akong trabaho sa Singapore,” dagdag niya.</p>
+      <p>“Alis ko next week.”</p>
+
+      <p>Pakiramdam ko biglang humina lahat ng tunog sa café.</p>
+      <p>Nandoon pa rin yung music at kalansing ng baso, pero parang lumayo sila.</p>
+
+      <p>“Kailan mo pa alam?” tanong ko.</p>
+      <p>“Ilang araw na.”</p>
+
+      <p>Napakagat ako sa labi.</p>
+      <p>Hindi dahil galit agad, kundi dahil biglang nag-connect lahat ng putol-putol na gabing pinilit kong tawaging bad signal lang.</p>
+
+      <p>“Bakit hindi mo sinabi?”</p>
+      <p>“Kasi alam ko na yung kasunod no’n,” sabi niya. “At ayoko sanang ipasa sa’yo nang biglaan.”</p>
+
+      <p>Tumahimik ako.</p>
+      <p>Sa totoo lang, alam ko rin yung kasunod.</p>
+
+      <p>“Ayoko ka nang itali sa routine na pareho na nating pinipilit,” sabi niya.</p>
+      <p>“Hindi na kita matawagan nang maayos, hindi na rin kita maabot kahit anong bait natin sa isa’t isa.”</p>
+
+      <p>Nagpanting tenga ko sa lungkot ng mga simpleng salitang iyon.</p>
+      <p>Walang sigawan, walang iyakan na OA, pero mas masakit dahil ang linaw-linaw niya.</p>
+
+      <p>“So tapos na?” tanong ko.</p>
+      <p>“Matagal ko nang dinadamdam,” sabi niya. “Ngayon ko lang nasasabi.”</p>
+
+      <p>Napatingin ako kay Trish sa kabilang side ng mesa.</p>
+      <p>Hindi siya nakikialam, pero kita ko sa mukha niyang alam na niya bago ko pa tanggapin.</p>
+
+      <p>Huminga ako nang malalim.</p>
+      <p>For once, ayoko nang itago yung totoong gusto kong sabihin.</p>
+
+      <p>“Nasaktan ako,” sabi ko.</p>
+      <p>“At namimiss kita. At sana sinabi mo nang mas maaga.”</p>
+
+      <p>May maikling katahimikan.</p>
+      <p>Tapos mahina siyang tumawa, pero this time hindi na pantakip sa lungkot.</p>
+
+      <p>“Ikaw rin sana,” sabi niya. “Hindi lang ako yung hindi nagsabi.”</p>
+
+      <p>Wala akong naitawa roon kasi tama siya.</p>
+      <p>Ilang buwan din akong present sa tawag pero absent sa totoo kong nararamdaman.</p>
+
+      <p>Hindi na humaba yung usapan namin.</p>
+      <p>Wala namang dramatic ending, wala ring huling pangakong hindi rin kayang panindigan.</p>
+
+      <p>Bago niya ibaba, sinabi lang niya, “Ingat ka lagi, Nico.”</p>
+      <p>At doon ko mas naramdaman na paalam na talaga iyon kasi wala nang “mamaya ulit” sa dulo.</p>
+
+      <p>Pagkababa ng call, hindi muna ako gumalaw.</p>
+      <p>Si Trish ang unang nagsalita. “Tara, samahan na lang kita hanggang sakayan.”</p>
+
+      <p>Natawa ako nang konti kahit mabigat pa rin dibdib ko.</p>
+      <p>“Mukha ba akong kawawa?”</p>
+
+      <p>“Medyo,” sabi niya. “Pero mostly mukhang puyat lang.”</p>
+
+      <p>Napailing ako.</p>
+      <p>Ang labo pero doon ako halos mapangiti nang totoo ulit.</p>
+
+      <p>Paglabas namin ng café, malamig na nang kaunti yung hangin at paputla na yung langit sa dulo ng kalsada.</p>
+      <p>Yung oras na hindi mo na alam kung gabi pa ba o malapit nang umaga.</p>
+
+      <p>Doon ko naisip na minsan hindi naman talaga call drop ang pinaka-masakit.</p>
+      <p>Mas mabigat pala yung matagal nang may nawawala, tapos pareho kayong tahimik habang nangyayari iyon.</p>
+
+      <p>At minsan, yung unang nakakapansin ng dulo, hindi yung taong nasa relasyon.</p>
+      <p>Kundi yung taong tahimik lang na nakaupo sa tapat mo, nanonood habang unti-unti kang hindi na makadinig kahit malinaw na ang linya.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-tawag-sa-cafe-bago-mag-umaga.html"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-tawag-sa-cafe-bago-mag-umaga.html");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+=============================================
+End of HTML Template
+=============================================
