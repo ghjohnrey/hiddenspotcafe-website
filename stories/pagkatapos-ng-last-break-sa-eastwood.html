@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Pagkatapos ng Last Break sa Eastwood</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagkatapos-ng-last-break-sa-eastwood" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Pagkatapos ng Last Break sa Eastwood" />
+  <meta property="og:description" content="A short Taglish BPO story about hidden debt, late-night coffee, and the quiet cost of surviving the month." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagkatapos-ng-last-break-sa-eastwood" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-last-break-sa-eastwood.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-last-break-sa-eastwood.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-last-break-sa-eastwood.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagkatapos ng Last Break sa Eastwood" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pagkatapos ng Last Break sa Eastwood" />
+  <meta name="twitter:description" content="A short Taglish BPO story about hidden debt, late-night coffee, and the quiet cost of surviving the month." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-last-break-sa-eastwood.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Pagkatapos ng Last Break sa Eastwood",
+      "quote": "Minsan, akala mo utang mo lang ang tinatakpan mo, pero buhay din pala ng iba ang nakasandal doon."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Pagkatapos ng Last Break sa Eastwood</h1>
+      <p>Short Taglish BPO story for anyone who has ever stretched one paycheck too far just to make it through the month.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#bpo-life</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#grounded-interpersonal-drama</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Sa totoo lang, kaya ko namang magmukhang okay sa floor.</p>
+      <p>Naka-headset ako, plantsado ang boses, at sanay na akong magsabi ng “I completely understand your concern” kahit sarili kong concern hindi ko maayos-ayos.</p>
+      <p>Night shift kami sa Eastwood, at mga bandang 2:40 a.m. lagi akong bumababa sa last break para bumili ng kape at kung ano mang kaya pang i-swipe ng buy now, pay later app ko.</p>
+      <p>Hindi dahil gusto ko talagang gumastos.</p>
+      <p>Mas totoo siguro na ayokong aminin na kulang na kulang na naman ako bago pa dumating ang susunod na sweldo.</p>
+
+      <p>Doon ko madalas nakakasabay si Mara.</p>
+      <p>Kabaligtaran ko siya sa ugali—madaldal, mabilis tumawa, at may talent gawing mukhang light ang kahit anong sabit.</p>
+      <p>Pag sinasabi niyang, “Kaya pa ’to,” parang gusto mo na lang maniwala kahit halatang pagod na rin siya.</p>
+      <p>Hindi kami sobrang close noon, pero enough para mag-asaran sa pantry at magkampihan kapag biglang toxic ang queue.</p>
+
+      <p>Yung café sa kanto, maliit lang.</p>
+      <p>May dalawang ilaw na medyo warm, tatlong lamesa sa labas, at electric fan na maingay pero walang gustong magreklamo kasi bukas pa rin sila kahit lampas hatinggabi.</p>
+      <p>Si Tita Vangie ang laging nasa counter.</p>
+      <p>Minsan may anak siyang tulog sa likod, minsan may hawak siyang calculator habang nagbubuhos ng iced coffee sa plastic cup.</p>
+
+      <p>“Same?” tanong niya sa akin gabi-gabi.</p>
+      <p>At halos gabi-gabi, oo ang sagot ko.</p>
+      <p>Iced coffee, tuna pesto, tapos minsan banana loaf na hindi ko naman talaga dapat binibili.</p>
+      <p>Pero pagod ka, gutom ka, at malayo pa ang payday, ang dali masaktan ng disiplina.</p>
+
+      <p>Hindi ko alam na si Mara rin pala, may sariling version ng same routine.</p>
+      <p>Ang alam ko lang, lagi rin siyang may hawak na brown paper bag pag-akyat namin ulit sa office.</p>
+      <p>Akala ko cash niya binabayaran.</p>
+      <p>Akala niya rin siguro cash ako.</p>
+
+      <p>Nabunyag lang lahat noong isang Miyerkules na sakto namang petsa de peligro.</p>
+      <p>Pagbukas ko ng app sa counter, puro loading lang.</p>
+      <p>Tinry ko ulit. Tapos ulit.</p>
+      <p>Pagkatapos, lumabas yung message na ayaw mo talagang makita kapag sakto lang pera mo: <strong>ACCOUNT TEMPORARILY FROZEN.</strong></p>
+
+      <p>Napamura ako nang mahina.</p>
+      <p>Hindi dramatic, yung pagod lang na tunog ng taong may inaasahan sanang isang bagay ngayong gabi.</p>
+      <p>Katabi ko si Mara, tapos narinig ko siyang huminga nang malalim.</p>
+      <p>Paglingon ko, same screen ang nasa phone niya.</p>
+
+      <p>Nagkatinginan kami nang isang buong second na parang pareho naming gustong magpanggap na hindi namin nakita.</p>
+      <p>Siya yung unang natawa, pero alanganin.</p>
+      <p>“Huwag mo ’kong i-judge,” sabi niya.</p>
+      <p>Sabi ko, “Ikaw nga huwag mo ’kong i-judge.”</p>
+
+      <p>Doon lang kami naging honest sa isa’t isa.</p>
+      <p>Hindi pala niya ginagamit yung app para luho lang; pinaghahati-hatian niya yung grocery sa bahay, gamot ng nanay niya, at pamasahe kapag kinapos.</p>
+      <p>Ako naman, nagsimula sa isang emergency na phone repair, tapos sunod-sunod na lang—kape, pagkain, minsang toiletries, minsang ulam pauwi.</p>
+      <p>Yung maliliit na “okay lang, next cutoff ko na babayaran” ang pinakamadaling dumami.</p>
+
+      <p>Akala namin mapapahiya kami kay Tita Vangie.</p>
+      <p>Pero ang sabi lang niya, “Okay lang, iho, iha. Cash muna siguro talaga tonight. May problema yata yung partner app.”</p>
+      <p>Tapos ngumiti siya, pero halatang pilit.</p>
+      <p>Sa likod ng counter, may nakaipit na papel sa lumang clip board, at narinig kong bumulong siya sa sarili niya habang nagta-type sa keypad ng calculator.</p>
+      <p>“Sana pumasok na bukas. Kulang pa renta.”</p>
+
+      <p>Hindi ko alam kung bakit tumama agad sa akin ’yon.</p>
+      <p>Baka dahil pare-pareho kaming mukhang sanay mag-compute nang tahimik.</p>
+      <p>Hindi na ako umorder.</p>
+      <p>Si Mara rin.</p>
+      <p>Bumalik kami sa office na tubig lang ang hawak, tapos masyado kaming tahimik para sa dalawang taong kakagaling lang sa shared embarrassment.</p>
+
+      <p>After shift, imbes na umuwi agad, niyaya ako ni Mara bumalik sa café.</p>
+      <p>Sarado na halos ang ibang stalls sa paligid, pero bukas pa rin yung ilaw ni Tita Vangie.</p>
+      <p>Naka-upo siya noon, hinihiwalay ang resibo at delivery slips.</p>
+      <p>Nag-sorry kami pareho, kahit hindi ko rin alam kung para saan exactly.</p>
+
+      <p>Doon niya nasabi na simula noong tumaas ang bilihin, kumapit siya sa installment app para hindi mawalan ng customers sa madaling-araw.</p>
+      <p>Kapag ginagamit daw namin iyon, may pumapasok agad na bayad sa side niya kahit hulugan sa side namin.</p>
+      <p>Hindi raw malaki ang tubo, pero sapat para ma-cover ang gatas ng anak niya, dagdag sa renta, at pambayad sa helper na pang-umaga.</p>
+      <p>Tapos natawa siya nang pagod at sinabing, “Kayo-kayo ring mga taga-building ang bumubuhay sa puyat naming lahat dito.”</p>
+
+      <p>Na-realize ko tuloy na ang tingin ko dati sa bawat swipe, pribadong problema lang.</p>
+      <p>Parang utang ko, buhay ko, stress ko.</p>
+      <p>Pero hindi pala ganoon kasarado ang ikot ng pera kapag pare-pareho kayong kapit sa parehong maliit na bagay para maka-survive.</p>
+      <p>Yung tinatago kong habit, parte na pala ng pang-upa ng ibang tao.</p>
+      <p>Yung kinakahiya naming dalawa ni Mara, siya namang inaasahan ni Tita Vangie para umabot hanggang katapusan.</p>
+
+      <p>Ang weird no’n pakinggan, pero hindi siya comforting.</p>
+      <p>Mas nakakailang siya.</p>
+      <p>Kasi ibig sabihin, hindi puwedeng puro takbo lang ako na parang neutral lahat ng desisyon ko.</p>
+      <p>May dulo pala sa labas ng phone screen ang bawat “confirm payment.”</p>
+
+      <p>Nag-offer si Mara na magbayad muna nang cash sa abot ng kaya niya kapag may extra.</p>
+      <p>Ako naman, sabi ko aayusin ko na yung listahan ko ng due dates at titigilan ko nang isama ang kape sa mga bagay na kunwari emergency.</p>
+      <p>Hindi kami biglang naging responsible adults after one conversation.</p>
+      <p>Sa totoo lang, pareho pa rin kaming natawa nang mapait kasi alam naming mahirap pa rin pagdating ng susunod na cutoff.</p>
+
+      <p>Pero simula noon, iba na yung pakiramdam pag bumababa ako sa last break.</p>
+      <p>Hindi na automatic swipe.</p>
+      <p>Minsan tubig lang. Minsan pandesal lang. Minsan wala talaga.</p>
+      <p>At kapag umo-order ako, alam ko na kung bakit ko ginagawa at kung hanggang saan lang dapat.</p>
+
+      <p>Noong bumalik yung app after two days, unang pumasok sa isip ko hindi relief.</p>
+      <p>Hiya muna.</p>
+      <p>Tapos konting lungkot.</p>
+      <p>Tapos isang simpleng bagay na matagal ko nang iniiwasan: kailangan ko talagang tingnan nang diretso kung paano ako nabubuhay kada buwan.</p>
+
+      <p>Nung gabing iyon, tatlo kami sa labas ng café—ako, si Mara, at si Tita Vangie na nakasandal sa pinto habang humihina yung ingay ng kalsada.</p>
+      <p>May hawak akong kape, cash ang bayad, at hindi naman biglang gumaan ang buhay.</p>
+      <p>Pero kahit paano, mas malinaw na siya.</p>
+      <p>Minsan pala, ang pinaka-uncomfortable na realization hindi yung marami kang utang.</p>
+      <p>Kundi yung tahimik na paraan kung paano ka nakakabit sa survival ng ibang tao nang hindi mo man lang napapansin.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagkatapos-ng-last-break-sa-eastwood"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagkatapos-ng-last-break-sa-eastwood");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
