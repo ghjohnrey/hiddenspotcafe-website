@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Bago Tumahimik ang Rank Match</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/bago-tumahimik-ang-rank-match" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Bago Tumahimik ang Rank Match" />
+  <meta property="og:description" content="Mas madali akong pakinggan sa game kaysa sa totoong buhay, hanggang sa isang pagkawala ko ang nagdala sa squad ko sa bahay." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/bago-tumahimik-ang-rank-match" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/bago-tumahimik-ang-rank-match.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/bago-tumahimik-ang-rank-match.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/bago-tumahimik-ang-rank-match.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Bago Tumahimik ang Rank Match" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bago Tumahimik ang Rank Match" />
+  <meta name="twitter:description" content="Mas madali akong pakinggan sa game kaysa sa totoong buhay, hanggang sa isang pagkawala ko ang nagdala sa squad ko sa bahay." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/bago-tumahimik-ang-rank-match.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Bago Tumahimik ang Rank Match",
+      "quote": "Minsan, sa laro ka muna maririnig bago sa bahay."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Bago Tumahimik ang Rank Match</h1>
+      <p>Mas madali akong pakinggan sa game kaysa sa totoong buhay, hanggang sa isang pagkawala ko ang nagdala sa squad ko sa bahay.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#gaming</span>
+        <span class="tag">#senior-high</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#family</span>
+        <span class="tag">#online-life</span>
+        <span class="tag">#coming-of-age-interpersonal-drama</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Mas maayos ako magsalita sa game kaysa sa totoong buhay.</p>
+      <p>Sa school, tahimik lang ako. Yung tipong kaya kong matapos ang buong group activity na halos “sige” at “ikaw na bahala” lang ang ambag kong salita.</p>
+      <p>Pero pagdating ng gabi, pag nakahiga na ako sa kutson sa sala ng bahay namin sa Taguig at umiikot na lang yung electric fan sa gilid, iba na ako.</p>
+      <p>Doon ako si Ken na marunong mag-call ng push, marunong mag-timing ng clash, at may boses na sinusunod ng tatlong tao na hindi ko pa naman kilala nang buo.</p>
+
+      <p>Maliit lang squad namin.</p>
+      <p>Ako, si Lia, at si TitoRex.</p>
+      <p>Si Lia mabilis mag-isip pero maiksi sumagot. Yung usual niyang chat, “left,” “wait,” “wag sabay,” tapos sakto lagi.</p>
+      <p>Si TitoRex naman calm lang. Never nag-on ng mic.</p>
+      <p>Typing lang siya lagi sa maliit na team chat namin, at madalas late pumasok sa lobby na parang galing pa sa kung anong pagod sa labas.</p>
+
+      <p>Noong una, okay lang naman lahat.</p>
+      <p>Pagkatapos ng assignments, laro. Pagkatapos ng laro, tulog. Tapos school ulit kinabukasan.</p>
+      <p>Kaso habang tumatagal, mas hinihintay ko na yung alas-dose ng gabi kaysa uwian sa school.</p>
+      <p>Doon lang kasi ako may silbi na hindi halata.</p>
+
+      <p>Nagsimula sa maliit.</p>
+      <p>Hindi ko na agad sinasagot si Mama pag tinatanong niya kung tapos na ba project ko. Lagi kong sagot, “Mamaya na.”</p>
+      <p>Hindi ko na rin napapansin kung ilang beses na akong sinisita ng adviser namin dahil laging antok sa first subject.</p>
+      <p>May isang quiz pa nga na kalahati lang ang nasagutan ko dahil nakatulog ako habang nire-review ko kunwari yung notes, pero totoo niyan, hawak ko pa yung phone ko sa ilalim ng unan.</p>
+
+      <p>Alam kong lumalayo ako sa normal kong araw, pero tahimik lang yung pagkadulas.</p>
+      <p>Walang isang malaking eksenang sisira sa lahat. Parang araw-araw lang akong may maliit na iniiwasan.</p>
+      <p>Yung kaklase kong nagyayaya mag-practice para sa reporting. Yung teacher kong tatlong beses nang nagsabing baka gusto kong magpasa habang maaga pa. Yung mismong bahay namin na dati naman kaya kong tiisin kahit medyo mabigat.</p>
+
+      <p>Ang weird pa, si TitoRex ang unang nakapansin.</p>
+      <p>One night, after isang talo na kasalanan ko rin naman, nag-type siya, “pahinga ka muna, Ken.”</p>
+      <p>Natawa pa ako noon.</p>
+      <p>Nag-reply ako, “game lang to.”</p>
+      <p>Sumagot si Lia, “pag laging ganyan sinasabi, hindi na game lang.”</p>
+
+      <p>Nairita ako nang konti.</p>
+      <p>Hindi dahil mali sila, pero dahil sila pa yung nakakita.</p>
+      <p>Kaya lalo akong tumagal online.</p>
+      <p>Mas madali kasing mag-ready sa next match kaysa ayusin yung actual na buhay mo.</p>
+
+      <p>Then one Thursday, sumabog din.</p>
+      <p>Hindi siya dramatic na tipong may suntukan o principal’s office agad. Mas nakakahiya pa nga kasi simple lang.</p>
+      <p>May reporting kami sa klase, at ako yung may hawak ng final file.</p>
+      <p>Nakatulala ako buong gabi sa laro, kaya mali yung na-send ko sa group chat. Lumang version.</p>
+      <p>Pagdating sa harap, nagulo lahat. Hindi makasunod yung groupmates ko. Yung teacher namin hindi naman sumigaw, pero mas masakit yung tahimik niyang, “Ken, anong nangyari sa’yo?”</p>
+
+      <p>Wala akong nasagot.</p>
+      <p>After class, hindi ako dumiretso pauwi. Umupo lang ako sa may covered court ng school, hawak yung phone ko na parang may dapat akong gawin pero wala naman akong kayang buksan.</p>
+      <p>Nag-chat si Lia sa game.</p>
+      <p>“Rank?”</p>
+      <p>Hindi ako nag-reply.</p>
+      <p>Nag-chat ulit si TitoRex.</p>
+      <p>“Ken?”</p>
+      <p>Hindi rin.</p>
+
+      <p>Kinagabihan, hindi ako nag-login.</p>
+      <p>For the first time in months, tahimik yung account ko.</p>
+      <p>Akala ko hanggang doon lang. Isang gabing mawawala, tapos balik ulit ako pag humupa na yung hiya.</p>
+      <p>Pero kinabukasan, may kumatok sa gate namin bandang hapon.</p>
+
+      <p>Pagbukas ko, si Lia.</p>
+      <p>Naka-uniform pa, may dala pang tote bag, at mukhang napilitan lang din huminga nang malalim bago kumatok ulit.</p>
+      <p>“Ikaw si Ken, obviously,” sabi niya, sabay taas ng kilay. “Ang hirap mo hanapin online kasi offline ka. So nagtanong ako sa kaklase ng kaklase ng pinsan ko. Huwag mo nang tanungin.”</p>
+
+      <p>Hindi ko alam kung matatawa ako o maiinis.</p>
+      <p>“Bakit ka nandito?”</p>
+      <p>“Kasi bigla kang nawala,” sabi niya. “At kasi may isang tao na mas gustong pumunta pero hindi niya alam paano.”</p>
+
+      <p>Lumingon siya sa kalsada.</p>
+      <p>May lalaking nakatayo sa tapat ng sari-sari store, may hawak na helmet, tahimik lang, parang aantayin muna na payagan siya ng buong lugar.</p>
+      <p>Kahit malayo, kilala ko na agad.</p>
+      <p>Tatay ko.</p>
+
+      <p>O mas tama siguro, yung tatay kong matagal nang hindi umuuwi dito.</p>
+      <p>Paminsan-minsan lang magparamdam, madalas puro pangako na hindi tumutuloy.</p>
+      <p>Nag-init agad tenga ko.</p>
+      <p>“Ano’ng ginagawa niya dito?”</p>
+      <p>Hindi sumagot si Lia agad. Tinignan niya lang ako na parang ayaw niya ring maging messenger ng kung anong gulo ng pamilya namin.</p>
+
+      <p>“Si TitoRex siya,” sabi niya pagkatapos.</p>
+      <p>Parang may huminto sa ingay ng fan sa loob ng bahay kahit nasa labas naman kami.</p>
+      <p>“Ano?”</p>
+      <p>“Nalaman ko kagabi,” sabi niya. “Nag-message siya sa akin kasi hindi ka sumasagot. Akala ko weird lang na sobrang worried niya. Tapos sinabi niya.”</p>
+
+      <p>Natawa ako, pero hindi masaya.</p>
+      <p>“So ano? Naglaro siya para magkunwaring close kami?”</p>
+      <p>“Hindi,” sabi ni Lia, diretso. “Mukha namang hindi siya marunong magkunwari. Mukha siyang taong hindi marunong magsalita nang tama kaya doon na lang siya nagpakilala.”</p>
+
+      <p>Wala akong naitawag na sagot doon.</p>
+      <p>Kasi totoo naman.</p>
+      <p>Sa lahat ng gabing iniisip kong may random older teammate lang akong mahilig mag-remind na ‘wag puro rank at matulog na, may kakaibang pamilyar pala sa paraan ng pag-type niya.</p>
+      <p>Yung sobrang maingat. Yung laging parang may gustong sabihin pero hanggang “ingat” lang ang naipapadala.</p>
+
+      <p>Lumapit si Tatay nang dahan-dahan.</p>
+      <p>Hindi siya nag-drama. Hindi rin siya humingi agad ng sorry na parang sapat na isang salita sa lahat ng taon.</p>
+      <p>Sabi lang niya, “Mas madali kang kausapin doon.”</p>
+      <p>Tapos, “Ayoko lang sana maubusan ulit ng paraan.”</p>
+
+      <p>Nakakainis pakinggan, pero hindi ko rin masabing kasinungalingan.</p>
+      <p>Kasi sa game nga naman, sumasagot ako. Sa game, hindi ko siya napuputulan ng usapan. Sa game, hindi ko agad nararamdaman na anak ako na may dahilan para magtanim ng sama ng loob.</p>
+
+      <p>May ilang segundo na walang nagsalita.</p>
+      <p>Si Lia lang yung awkward na tumingin sa amin pareho, tapos bumulong ng, “Sige, magwa-water break ako sa tindahan,” sabay lumayo para bigyan kami ng space.</p>
+
+      <p>Hindi kami nagkaayos agad ni Tatay that day.</p>
+      <p>Wala ring malaking yakapan. Wala ring miracle line na bumura sa lahat.</p>
+      <p>Pero first time in a long time, umupo kami sa parehong monoblock sa tapat ng bahay at nag-usap nang hindi nagmamadali.</p>
+      <p>Tungkol sa school. Tungkol sa game. Tungkol sa kung bakit pala siya laging tahimik sa mic kasi nahihiya siyang baka pag narinig ko boses niya, umalis ako agad sa lobby.</p>
+
+      <p>Nung gabing iyon, hindi muna ako nag-rank.</p>
+      <p>Binuksan ko lang yung app, tiningnan yung squad chat, tapos nagsend ako ng, “bukas ulit.”</p>
+      <p>Si Lia nag-react lang ng thumbs up.</p>
+      <p>Si TitoRex, after ilang segundo, nag-type ng, “copy.”</p>
+
+      <p>Simple lang, pero iba yung bigat.</p>
+      <p>Dati pakiramdam ko yung laro yung dahilan kung bakit ako unti-unting nawawala sa daily life ko.</p>
+      <p>Pero nung tumahimik ako roon, doon ko rin nalaman na minsan, yung place na tinataguan mo, puwede ring maging tulay pabalik.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbago-tumahimik-ang-rank-match"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/bago-tumahimik-ang-rank-match");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
