@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Bago Ko Hininto ang Huling Transfer</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/bago-ko-hininto-ang-huling-transfer" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Bago Ko Hininto ang Huling Transfer" />
+  <meta property="og:description" content="Tinulungan ko lang sana si Mang Lito sa phone niya, hanggang napansin kong iisa raw ang kausap niya pero pabago-bago ang pinapadalhan niya ng pera." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/bago-ko-hininto-ang-huling-transfer" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/bago-ko-hininto-ang-huling-transfer.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/bago-ko-hininto-ang-huling-transfer.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/bago-ko-hininto-ang-huling-transfer.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Bago Ko Hininto ang Huling Transfer" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bago Ko Hininto ang Huling Transfer" />
+  <meta name="twitter:description" content="Tinulungan ko lang sana si Mang Lito sa phone niya, hanggang napansin kong iisa raw ang kausap niya pero pabago-bago ang pinapadalhan niya ng pera." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/bago-ko-hininto-ang-huling-transfer.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Bago Ko Hininto ang Huling Transfer",
+      "quote": "Hindi pala pera lang ang hinahabol niya, kundi boses na tumatawag gabi-gabi."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Bago Ko Hininto ang Huling Transfer</h1>
+      <p>Short Taglish story about online scams, quiet loneliness, and the kind of help that gets complicated.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#social-drama</span>
+        <span class="tag">#scam</span>
+        <span class="tag">#barangay</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Sa barangay namin sa Valenzuela, normal na yung may biglang tatawag sa bintana para magpatulong sa phone.</p>
+      <p>Minsan pang-load, minsan pambayad sa tubig, minsan simpleng “Carla, paano ulit iyan?”</p>
+
+      <p>Kaya hindi na bago sa akin si Mang Lito.</p>
+      <p>Tahimik siyang senior na laging naka-puting sando sa loob ng polo niya, tsinelas, at salamin na laging medyo bumababa sa ilong.</p>
+
+      <p>Kapag wala akong klase, tinutulungan ko siya minsan sa online transfers.</p>
+      <p>Mabilis lang usually, tapos babalik na ako sa modules ko o sa part-time work ko.</p>
+
+      <p>Noong una, akala ko ordinary lang lahat.</p>
+      <p>Sasabihin niya, “Ipadala mo nga rito, anak, sabi ng customer service para maayos daw account ko.”</p>
+
+      <p>Hindi ko rin agad kinuwestiyon kasi sobrang common na ngayon ng app issues.</p>
+      <p>Mahina signal, maling OTP, locked account, kung anu-ano.</p>
+
+      <p>Pero after a few days, may napansin ako.</p>
+      <p>Iba-iba yung numbers na pinapadalhan niya, pero iisa raw ang kausap niya.</p>
+
+      <p>“Bakit iba na naman, Mang?” tanong ko habang hawak ko phone niya sa tapat ng sari-sari store ni Aling Mercy.</p>
+      <p>“Backup number daw nila,” sagot niya agad, parang sanay na rin sa explanation.</p>
+
+      <p>Kinabahan ako nang konti, pero pinush ko pa rin yung transfer noon.</p>
+      <p>Maliit lang naman, sabi ko sa sarili ko, baka talagang proseso lang.</p>
+
+      <p>Kinabukasan, dumaan ulit siya habang nasa gate ako at inaantay delivery ng printouts.</p>
+      <p>Same request, ibang pangalan na naman ang recipient.</p>
+
+      <p>Doon na ako nainis.</p>
+      <p>Hindi kay Mang Lito, kundi sa kung sino mang kausap niya na halatang pinapaikot lang siya.</p>
+
+      <p>“Mang, sure ba kayong legit ‘to?” tanong ko.</p>
+      <p>Ngumiti lang siya nang alanganin. “Oo yata. Mabait naman kausap.”</p>
+
+      <p>Weird na sagot iyon.</p>
+      <p>Hindi niya sinabing official, hindi niya sinabing verified, ang sabi niya lang mabait.</p>
+
+      <p>Hindi ako mapakali buong hapon.</p>
+      <p>Habang nagta-type ako ng paper sa laptop, paulit-ulit sa isip ko yung listahan ng numbers na nakita ko sa history niya.</p>
+
+      <p>Kinaumagahan, pinuntahan ko siya na may dalang taho at konting lakas ng loob.</p>
+      <p>Sabi ko, tingnan namin nang maayos yung account para matapos na.</p>
+
+      <p>Pumayag naman siya agad.</p>
+      <p>Pagpasok ko sa bahay niya, doon ko ulit naramdaman yung tahimik na hindi normal.</p>
+
+      <p>May maliit na electric fan sa sulok, calendar na luma na ng dalawang buwan, at TV na bukas pero halos naka-mute.</p>
+      <p>Parang may tunog ang bahay, pero wala talagang kasama.</p>
+
+      <p>Binuksan ko messages at call logs niya.</p>
+      <p>Puro unknown numbers, puro short calls sa gabi, tapos sunod-sunod na “sir process natin yan” at “konting send lang po para ma-release.”</p>
+
+      <p>Sabi ko, “Mang, scam na ‘to.”</p>
+      <p>Akala ko magugulat siya o makikipagtalo.</p>
+
+      <p>Pero ang ginawa niya, umupo lang siya nang mas mabagal.</p>
+      <p>Tapos inayos niya yung tuwalya sa balikat niya na parang mas big deal pa iyon kaysa sa sinabi ko.</p>
+
+      <p>“Alam ko namang parang mali na,” sabi niya pagkatapos ng ilang segundo.</p>
+      <p>Napatingin ako sa kanya kasi hindi iyon ang ine-expect kong marinig.</p>
+
+      <p>“Eh bakit tuloy pa rin kayo nang tuloy?”</p>
+      <p>Hindi agad siya sumagot.</p>
+
+      <p>Sa labas, may dumaan na tricycle at may batang bumibili ng yelo sa kanto.</p>
+      <p>Sa loob, parang lalong luminis yung katahimikan.</p>
+
+      <p>“Kasi gabi-gabi siyang tumatawag,” sabi niya.</p>
+      <p>“Kinukumusta niya ako bago matulog.”</p>
+
+      <p>Nahinto ako.</p>
+      <p>Biglang lumiit yung tingin ko sa buong scam, kasi hindi na lang pala pera ang laman nito.</p>
+
+      <p>“Minsan nagtatanong kung nakakain na ako,” dugtong niya.</p>
+      <p>“Minsan sasabihin niya, pasensya na po kung natagalan, aasikasuhin ko po kayo.”</p>
+
+      <p>Hindi naman maganda pakinggan sa normal na sitwasyon iyon.</p>
+      <p>Pero sa bahay na iyon, na halos electric fan lang ang sumasagot sa kanya, iba pala ang dating.</p>
+
+      <p>“Akala ko pag naayos na raw, tatawag pa rin siya,” sabi ni Mang Lito, sabay iwas ng tingin.</p>
+      <p>“Kaya nung humingi ulit, nagpadala na lang ako.”</p>
+
+      <p>Wala akong nasabi agad.</p>
+      <p>Sanay akong magalit sa scammer, pero hindi ako ready sa parte na may hinahawakan pala silang lungkot.</p>
+
+      <p>Tiningnan ko ulit yung phone niya.</p>
+      <p>May bagong message na naman: “Sir para ma-finalize po natin today.”</p>
+
+      <p>Dati siguro, automatic ko lang ide-delete iyon.</p>
+      <p>Pero ngayon, parang mas mabigat pindutin yung block.</p>
+
+      <p>Sabi ko, “Mang, hindi po ito customer service.”</p>
+      <p>“At lalong hindi po ito kaibigan.”</p>
+
+      <p>Huminga siya nang mabagal, tapos tumango.</p>
+      <p>Hindi dramatic, hindi umiiyak, basta yung tango ng taong alam na niya pero ayaw pa rin niyang marinig.</p>
+
+      <p>Ako na yung nag-block sa lahat ng numbers.</p>
+      <p>Tapos tinulungan ko siyang i-report yung account at palitan yung settings niya.</p>
+
+      <p>Pagkatapos, hindi muna ako umalis.</p>
+      <p>Nagkape lang kami ng 3-in-1 habang bukas ang pinto at maingay ang kalsada sa labas.</p>
+
+      <p>Kung anu-ano lang napag-usapan namin.</p>
+      <p>Tungkol sa dati niyang trabaho, sa asawa niyang wala na, saka sa anak niyang nasa probinsya at bihirang makatawag.</p>
+
+      <p>Doon ko lang narealize na kaya pala kabisado ko ang tutorial ng app niya, pero hindi ko kabisado kung gaano siya kadalas mag-isa.</p>
+      <p>Mas madaling magturo ng pindot kaysa umupo at makinig.</p>
+
+      <p>Bago ako umuwi, nag-abot siya ng phone ulit.</p>
+      <p>“Last na, Carla,” sabi niya, medyo nahihiya.</p>
+
+      <p>Kinabahan ako, akala ko may isi-send na naman.</p>
+      <p>Pero contact page lang pala ang bukas.</p>
+
+      <p>“Pwede bang number mo na lang ilagay ko rito sa favorites?”</p>
+      <p>“Para kung malito ako, ikaw na lang tatawagan ko. Kahit sabihan mo lang ako na huwag akong tanga.”</p>
+
+      <p>Natawa ako doon, first time ko siyang narinig magbiro nang ganoon.</p>
+      <p>“Sige, pero bawal yung last line,” sabi ko.</p>
+
+      <p>Inilagay ko number ko, pati barangay gc number at hotline ng bangko niya sa notes.</p>
+      <p>Tapos nilakihan ko font ng contacts para hindi na siya mahirapan.</p>
+
+      <p>Paglabas ko ng bahay niya, pareho pa rin naman ang barangay.</p>
+      <p>May nagbebenta pa rin ng fishball, may nagbabayad pa rin ng QR sa tindahan, may mga batang sumisigaw sa eskinita.</p>
+
+      <p>Pero iba na yung bigat sa pakiramdam ko.</p>
+      <p>Kasi may mga tao palang hindi lang naloloko dahil hindi sila marunong sa phone.</p>
+
+      <p>Minsan naloloko sila dahil may boses sa kabilang linya na marunong pumalit sa katahimikan.</p>
+      <p>At minsan, bago mo pigilan ang huling transfer, kailangan mo munang makita kung ano talaga ang nawawala.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbago-ko-hininto-ang-huling-transfer"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/bago-ko-hininto-ang-huling-transfer");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+=============================================
+End of HTML Template
+=============================================
