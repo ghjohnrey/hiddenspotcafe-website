@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Pagkatapos ng Huling Ticket sa Floor 18</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagkatapos-ng-huling-ticket-sa-floor-18.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Pagkatapos ng Huling Ticket sa Floor 18" />
+  <meta property="og:description" content="Tuwing overtime, may isang tao na laging nauunang sumagot sa mga problema ko sa computer at sa mga tanong na ayokong pangalanan." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagkatapos-ng-huling-ticket-sa-floor-18.html" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-huling-ticket-sa-floor-18.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-huling-ticket-sa-floor-18.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-huling-ticket-sa-floor-18.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagkatapos ng Huling Ticket sa Floor 18" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pagkatapos ng Huling Ticket sa Floor 18" />
+  <meta name="twitter:description" content="Tuwing overtime, may isang tao na laging nauunang sumagot sa mga problema ko sa computer at sa mga tanong na ayokong pangalanan." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-huling-ticket-sa-floor-18.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Pagkatapos ng Huling Ticket sa Floor 18",
+      "quote": "Pareho pala kaming nagpapalipas ng oras para sa isa’t isa."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Pagkatapos ng Huling Ticket sa Floor 18</h1>
+      <p>Tuwing overtime, may isang tao na laging nauunang sumagot sa mga problema ko sa computer at sa mga tanong na ayokong pangalanan.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#office romance</span>
+        <span class="tag">#makati</span>
+        <span class="tag">#overtime</span>
+        <span class="tag">#it support</span>
+        <span class="tag">#hr</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#emotional</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Sa office, hindi naman ako yung tipong binibigyan ng meaning ang maliliit na bagay.</p>
+      <p>HR assistant ako, so sanay akong umiwas sa tsismis, sa side comments, at sa mga tingin na parang may gustong i-confirm kahit wala naman.</p>
+
+      <p>Kaya nung napansin kong si Marco from IT laging sobrang bilis sumagot sa support tickets ko, hindi ko agad nilagyan ng kulay.</p>
+      <p>Iniisip ko lang, baka mabilis lang talaga siya magtrabaho, or baka ako lang yung laging minamalas sa printer, VPN, at Excel na biglang ayaw mag-copy paste pag pagod na ako.</p>
+
+      <p>Mostly gabi ko siya nakikita.</p>
+      <p>Yung tipong lampas alas otso na, malamig na masyado yung aircon sa floor, tapos kalahati na lang ng ilaw ang bukas sa office kasi uwian na ng normal na tao.</p>
+
+      <p>Ako, nandun pa rin.</p>
+      <p>Siya rin, parang laging nandun lang sa tamang oras.</p>
+
+      <p>“Lia, nagha-hang ulit?” tanong niya minsan, nakatayo sa cubicle ko bago ko pa ma-send nang maayos yung ticket.</p>
+      <p>Napatingin ako sa screen ko, tapos sa kanya. “Oo, pero kakalagay ko pa lang.”</p>
+
+      <p>Umangat lang balikat niya na parang normal lang lahat.</p>
+      <p>“Nakita ko agad sa dashboard,” sabi niya, sabay yuko sa desk ko para i-check yung docking cable.</p>
+
+      <p>Hindi naman siya madaldal.</p>
+      <p>Yung boses niya laging kalmado, parang walang gustong patunayan, pero may habit siya na inaayos muna yung isang bagay kahit okay naman na, parang pinapahaba lang niya nang konti yung sandali.</p>
+
+      <p>Minsan keyboard issue.</p>
+      <p>Minsan monitor flicker.</p>
+
+      <p>Minsan wala naman talagang sira, pero may excuse para mapadaan siya sa cubicle ko.</p>
+      <p>At minsan, nakakainis na aminin, gumagawa rin ako ng way para hindi agad matapos yung ginagawa ko.</p>
+
+      <p>“Hindi ka pa uuwi?” tanong niya one Thursday, habang pinipihit niya yung swivel chair ko paharap sa CPU.</p>
+      <p>“May onboarding file pa ako for tomorrow,” sabi ko.</p>
+
+      <p>Tumango siya. “Ako rin. May ticket backlog.”</p>
+      <p>Pero nung sumilip ako sa monitor niya pagdaan ko sa IT bay para kumuha ng tubig, dalawa na lang yung open.</p>
+
+      <p>Two days later, nagloko na naman laptop ko habang gumagawa ako ng headcount file.</p>
+      <p>Nag-restart nang kusa tapos hindi bumalik yung shared folder.</p>
+
+      <p>Nag-submit ako ng ticket, then nagpunta ako sa pantry para huminga.</p>
+      <p>Pagbalik ko, nandoon na si Marco sa upuan ko, nakatingin sa screen na parang matagal na siyang naghihintay.</p>
+
+      <p>“Ambilis mo,” sabi ko, medyo napatawa.</p>
+      <p>Saka lang siya ngumiti nang konti. “Timing lang.”</p>
+
+      <p>Hindi ko na sinagot, pero buong gabi ko siyang naisip.</p>
+      <p>Hindi dahil dramatic ako, pero may mga tao kasing hindi maingay, tapos bigla mo na lang mapapansin na sila pala yung pinakaconsistent sa araw mo.</p>
+
+      <p>Sa totoo lang, doon ako pinaka-nakakabahan.</p>
+      <p>Hindi sa possibility na gusto ko siya, kundi sa possibility na baka gusto ko na yung part ng araw ko na may inaasahan akong darating.</p>
+
+      <p>Kaya mas lalo akong naging careful.</p>
+      <p>Pag may magtatanong sa pantry kung bakit madalas nasa floor namin si Marco, sasabihin ko lang, “IT siya, malamang.”</p>
+
+      <p>Pag naaabutan niya akong mag-oorder ng late dinner sa lobby app, simple lang din usapan namin.</p>
+      <p>“Anong order mo?” “Sandwich lang.” “Ikaw?” “Kape na mali ang decision.”</p>
+
+      <p>Walang umaamin.</p>
+      <p>Walang umaarte.</p>
+
+      <p>Pero may mga bagay na kahit hindi sabihin, naiipon.</p>
+      <p>Yung sabay kayong natatawa pag ayaw gumana ng meeting room TV, yung pag-iiwan niya ng extra paper cup sa desk ko kasi alam niyang ayoko ng sobrang tamis na coffee, yung pag-check ko sa oras tuwing alas nuebe dahil doon siya madalas umiikot.</p>
+
+      <p>One Tuesday night, halos kami na lang yung nasa Floor 18.</p>
+      <p>May dalawang finance staff sa dulo, tapos yung guards na lang sa labas ng glass door ang ibang tunog sa paligid.</p>
+
+      <p>Nag-hang yung laptop ko ulit, pero totoo na this time.</p>
+      <p>Pagod na pagod na ako, so instead na magkunwaring composed, napa-bulong talaga ako ng, “Please naman, huwag ngayon.”</p>
+
+      <p>Nag-ticket ako.</p>
+      <p>Then after ilang minuto, may Teams notification na pumasok sa screen ko mula sa IT queue group.</p>
+
+      <p>Hindi para sa akin dapat, mukhang internal update lang.</p>
+      <p>Pero nag-pop up siya nang buo bago ko pa ma-close.</p>
+
+      <p><strong>Marco claimed ticket #HR-4418.</strong></p>
+      <p><strong>Reason: I’ll take this one.</strong></p>
+
+      <p>Wala sanang kakaiba doon, pero may kasunod pang message galing sa isa niyang ka-team.</p>
+      <p><strong>Bro, ikaw na naman kay Lia? Sige na nga.</strong></p>
+
+      <p>Biglang uminit mukha ko kahit sobrang lamig sa floor.</p>
+      <p>Hindi dahil nakakahiya, kundi dahil may isang bagay na biglang nag-click lahat sabay-sabay.</p>
+
+      <p>Yung bilis niya.</p>
+      <p>Yung timing niya.</p>
+
+      <p>Yung halos lagi siyang available tuwing ako ang may problema.</p>
+      <p>Hindi pala aksidente lahat.</p>
+
+      <p>Napaupo ako nang tuwid at natawa ako mag-isa, yung tahimik lang.</p>
+      <p>Kasi sa totoo lang, ilang linggo na rin akong gumagawa ng sarili kong version ng parehong kalokohan.</p>
+
+      <p>Matagal nang tapos yung ibang reports ko minsan, pero hindi ko sini-send agad.</p>
+      <p>Inaabot ko hanggang alas nuwebe o alas diyes para lang may dahilan akong nandun pa rin.</p>
+
+      <p>Minsan kaya ko namang umuwi nang maaga, pero hindi ko ginagawa.</p>
+      <p>Kasi may maliit na parte sa akin na umaasang maririnig ko yung boses niyang magsasabing, “Lia, check ko lang saglit.”</p>
+
+      <p>Noong lumapit siya sa desk ko that night, dala niya yung usual screwdriver set niya kahit software issue lang naman.</p>
+      <p>Tumingin siya sa akin, tapos sa screen, then huminga nang medyo alangan.</p>
+
+      <p>“Nag-crash?” tanong niya.</p>
+      <p>“Oo,” sabi ko. “At may iba pa yata akong nadiskubre tonight.”</p>
+
+      <p>Napahinto siya.</p>
+      <p>First time ko siyang makitang parang hindi handa.</p>
+
+      <p>“Ah?” sabi niya, mahinang-mahina.</p>
+      <p>Tinuro ko yung Teams pop-up na hindi ko pa rin nasasara.</p>
+
+      <p>Mga dalawang segundo kaming walang sinabi.</p>
+      <p>Then napakamot siya sa batok, umiwas ng tingin, at natawa nang konti sa sarili niya.</p>
+
+      <p>“Okay,” sabi niya. “Mukhang hindi na talaga dashboard timing ang excuse ko.”</p>
+      <p>Natawa rin ako, pero mabagal lang, kasi nakakagaan pala minsan yung katotohanan pag pareho kayong pagod magpanggap.</p>
+
+      <p>“For the record,” sabi ko, “hindi lang ikaw ang reason kung bakit ang dami kong overtime lately.”</p>
+      <p>Doon siya tumingin diretso sa akin.</p>
+
+      <p>Hindi dramatic yung moment.</p>
+      <p>Walang background music, walang biglang confession speech, wala ring palakpakan mula sa office gods.</p>
+
+      <p>May hum lang ng aircon.</p>
+      <p>May ilaw ng Makati sa bintana.</p>
+
+      <p>May dalawang taong halatang pagod na, pero parehong ayaw pang umuwi.</p>
+
+      <p>“So…” sabi niya, inaayos yung lanyard niya na parang kailangan niyang pagkatiwalaan yung kamay niya sa isang bagay.</p>
+      <p>“So,” sagot ko, “baka puwede namang ayusin mo muna laptop ko, tapos sabay tayong bumaba?”</p>
+
+      <p>Ngumiti siya nang mas totoo kaysa dati.</p>
+      <p>“That, Lia, kaya kong i-prioritize.”</p>
+
+      <p>Hindi naging kami that night.</p>
+      <p>Hindi rin biglang nagbago lahat kinabukasan.</p>
+
+      <p>Pero pagkatapos ng huling ticket sa Floor 18, hindi na pareho yung overtime.</p>
+      <p>Kasi minsan, sapat na pala yung malaman na yung hinihintay mo gabi-gabi, hinihintay ka rin.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagkatapos-ng-huling-ticket-sa-floor-18.html"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagkatapos-ng-huling-ticket-sa-floor-18.html");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
