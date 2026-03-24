@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Habang Gising ang Ward 3</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/habang-gising-ang-ward-3" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Habang Gising ang Ward 3" />
+  <meta property="og:description" content="Isang pagod na intern ang unti-unting nakakaintindi na may mga pasyenteng hindi lang gamot ang hinahanap sa ospital." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/habang-gising-ang-ward-3" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/habang-gising-ang-ward-3.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/habang-gising-ang-ward-3.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/habang-gising-ang-ward-3.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Habang Gising ang Ward 3" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Habang Gising ang Ward 3" />
+  <meta name="twitter:description" content="Isang pagod na intern ang unti-unting nakakaintindi na may mga pasyenteng hindi lang gamot ang hinahanap sa ospital." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/habang-gising-ang-ward-3.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Habang Gising ang Ward 3",
+      "quote": "Hindi lahat ng nananatili, nagpapagamot pa."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Habang Gising ang Ward 3</h1>
+      <p>Short Taglish hospital story about pagod, duty, at mga taong minsang ospital lang ang may kayang ibigay na pahinga.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#hospital</span>
+        <span class="tag">#manila</span>
+        <span class="tag">#human-drama</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Third straight night ko na noon sa public hospital, pero parang iisang mahabang gabi lang lahat.</p>
+      <p>Pagpasok ko pa lang sa ward, halo na agad yung amoy ng antiseptic, lugaw, pawis, at kape na ilang beses nang ni-reheat sa pantry.</p>
+
+      <p>Intern pa lang ako, so expected na sa akin yung takbo dito, kuha doon, sulat dito, endorse doon.</p>
+      <p>Idealistic pa rin naman ako kahit paano, pero may mga oras na ramdam ko nang nauuna mapagod yung katawan ko bago pa makahabol yung utak.</p>
+
+      <p>Laging puno ang hallway namin.</p>
+      <p>May bantay na tulog sa monoblock, may batang umiiyak sa tabi ng electric fan, may stretcher na hindi na halos makasingit sa dami ng tao.</p>
+
+      <p>Doon ko madalas makita si Aling Rosa.</p>
+      <p>Maliit lang siya, laging may bitbit na lumang eco bag, at lagi siyang may tono na parang nakikipag-away kahit simpleng tanong lang naman ang sasagutin.</p>
+
+      <p>Noong una akala ko pasaway lang siya na watcher.</p>
+      <p>Maya’t maya kasi siyang lumalabas, bumabalik, nakikisuyo ng extra kumot, tapos minsan bigla na lang uupo malapit sa station namin na parang may hinihintay.</p>
+
+      <p>“Aling Rosa, bawal po dito,” sabi ko sa kanya one time habang nag-aayos ako ng chart.</p>
+      <p>Tumingin siya sa akin, tapos sabi, “Eh saan ako pupunta, doc, kung nandito asawa ko?”</p>
+
+      <p>Wala naman akong matinong sagot, so tumango na lang ako.</p>
+      <p>Sa totoo lang, hindi ko rin alam minsan kung anong sagot ang tama sa lugar na kulang na nga sa gamit, kulang pa sa space.</p>
+
+      <p>Asawa niya si Mang Nestor, isang tahimik na lalaking ilang araw nang walang malay.</p>
+      <p>Naka-oxygen siya, payat, at halos hindi gumagalaw maliban sa mahinang angat-baba ng dibdib niya.</p>
+
+      <p>Si Nurse Beth ang mas sanay sa ganoong eksena.</p>
+      <p>Practical siya magsalita, laging diretso, pero alam mong siya rin yung tipong magtatabi ng biscuit sa drawer para sa bantay na hindi pa kumakain.</p>
+
+      <p>“Paolo, tubig ka muna,” sabi niya sa akin bandang alas dos habang nakatungo ako sa charting.</p>
+      <p>“Mukha ka nang pasyente kaysa doktor.”</p>
+
+      <p>Napatawa ako kahit pagod na pagod na ako.</p>
+      <p>“Okay pa ako, Nurse.”</p>
+
+      <p>Tiningnan niya ako mula ulo hanggang sapatos.</p>
+      <p>“Yan din sabi ng lahat bago sumemplang sa duty.”</p>
+
+      <p>Bandang alas tres, bumalik na naman si Aling Rosa sa station.</p>
+      <p>May hawak siyang plastik ng pandesal, pero hindi niya kinakain.</p>
+
+      <p>“Doc, puwede bang dito lang muna ako?” tanong niya.</p>
+      <p>“Malamig sa may waiting area. Saka ang ingay doon.”</p>
+
+      <p>Napatingin ako sa waiting area.</p>
+      <p>May tatlong mag-anak na dikit-dikit sa dalawang upuan, may isang matandang nakayuko sa mesa, at may batang natutulog sa karton sa sahig.</p>
+
+      <p>“Saglit lang po,” sabi ko, kahit alam kong hindi rin iyon totoong sagot.</p>
+      <p>Umupo siya sa dulo at niyakap yung eco bag niya na parang unan.</p>
+
+      <p>Maya-maya, inutusan ako ni Nurse Beth na i-double check yung file ni Mang Nestor dahil may hindi tugma sa admissions note.</p>
+      <p>Akala ko simpleng clerical thing lang, kaya dinala ko yung folder sa gilid habang humihigop ng malamig nang kape.</p>
+
+      <p>Pagbukas ko ng chart, doon ko napansin yung paulit-ulit na pangalan.</p>
+      <p>Same patient, same companion, halos magkakadikit pa ang dates ng previous admissions.</p>
+
+      <p>Noong una inisip ko, baka lumalala lang talaga yung case.</p>
+      <p>Pero habang binabasa ko yung old notes, paulit-ulit din yung line na “stable for discharge” at “advised home care.”</p>
+
+      <p>Napahinto ako.</p>
+      <p>Kung stable for discharge na pala dati, bakit paulit-ulit silang bumabalik?</p>
+
+      <p>Hinila ni Nurse Beth palapit yung isa pang lumang record at tinapik niya yung isang note gamit ang ballpen.</p>
+      <p>“Tingnan mo itong social service endorsement.”</p>
+
+      <p>Nandoon, maikli lang: no permanent address, temporarily staying near the market, limited food access.</p>
+      <p>Tapos may isa pang mas luma: returned to ER two days after discharge due to caregiver exhaustion and lack of safe shelter.</p>
+
+      <p>Biglang lumiit yung buong station sa paningin ko.</p>
+      <p>Hindi pala simpleng makulit si Aling Rosa. Hindi pala siya pabalik-balik dahil hindi siya sumusunod.</p>
+
+      <p>Bumabalik sila kasi dito lang may ilaw, may bantay, may tubig, at may chance na hindi sila itaboy sa kalagitnaan ng gabi.</p>
+
+      <p>Napatingin ako sa kanya.</p>
+      <p>Tulog siya sa upuan, nakaupo lang nang maayos, hawak pa rin yung pandesal na malamig na.</p>
+
+      <p>Hindi ako naiyak o na-speechless in a dramatic way.</p>
+      <p>Mas nakakahiya nga eh, kasi ang unang naramdaman ko talaga is hiya sa sarili ko dahil ilang beses ko siyang tiningnan na parang istorbo lang siya sa duty.</p>
+
+      <p>“Gets mo na?” mahinang tanong ni Nurse Beth.</p>
+      <p>Tumango ako.</p>
+
+      <p>“Hindi lahat ng naka-admit dito, may inuuwian na maayos,” dagdag niya habang nagre-refill ng forms.</p>
+      <p>“Minsan bed na nga lang ang pinakamalapit sa ligtas.”</p>
+
+      <p>Pagbalik ko sa ward, inayos ko yung kumot ni Mang Nestor kahit hindi naman ako ang naka-assign doon.</p>
+      <p>Tapos naghanap ako ng extrang tinapay at mainit na tubig para kay Aling Rosa pag gising niya.</p>
+
+      <p>Noong umaga, hindi naman magically gumaan lahat.</p>
+      <p>Puno pa rin ang hallway, may panibagong pasyente na naman, at kulang pa rin kami sa tulog, tao, at oras.</p>
+
+      <p>Pero bago ako mag-endorse, nilapitan ko si Aling Rosa.</p>
+      <p>Sabi ko, “Aling Rosa, check ko po kung puwedeng ma-follow up ulit kayo sa social service bago ma-discharge si Mang Nestor.”</p>
+
+      <p>Tiningnan niya ako nang matagal, parang di sigurado kung maniniwala.</p>
+      <p>“Sige, doc,” sabi niya, mas mahina kaysa dati.</p>
+
+      <p>Paglabas ko ng ward, kumikislap na yung umagang ilaw sa dulo ng corridor.</p>
+      <p>Pagod pa rin ako, sobra, pero first time that night, parang naalala ko ulit kung bakit ako nandito.</p>
+
+      <p>Hindi para ayusin lahat.</p>
+      <p>Minsan para lang mapansin nang maayos yung sakit na hindi lumalabas sa laboratory request.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fhabang-gising-ang-ward-3"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/habang-gising-ang-ward-3");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+=============================================
+End of HTML Template
+=============================================
