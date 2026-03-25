@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Pagbaba sa Cubao, Gets Ko Na</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagbaba-sa-cubao-gets-ko-na" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Pagbaba sa Cubao, Gets Ko Na" />
+  <meta property="og:description" content="Akala ko biro lang ang pagiging delulu ko kay Mia, hanggang sa may isang madaling-araw na iba na pala ang dating ng katahimikan namin." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagbaba-sa-cubao-gets-ko-na" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagbaba-sa-cubao-gets-ko-na.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagbaba-sa-cubao-gets-ko-na.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagbaba-sa-cubao-gets-ko-na.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagbaba sa Cubao, Gets Ko Na" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pagbaba sa Cubao, Gets Ko Na" />
+  <meta name="twitter:description" content="Akala ko biro lang ang pagiging delulu ko kay Mia, hanggang sa may isang madaling-araw na iba na pala ang dating ng katahimikan namin." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagbaba-sa-cubao-gets-ko-na.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Pagbaba sa Cubao, Gets Ko Na",
+      "quote": "Akala ko biro lang ako sa kanya."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Pagbaba sa Cubao, Gets Ko Na</h1>
+      <p>Short Taglish office story about jokes that stopped feeling like jokes on the ride home.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#bpo-office</span>
+        <span class="tag">#night-shift</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>May mga biro talagang ilang beses mong inuulit hanggang ikaw na mismo ang nalilito kung joke pa ba talaga siya.</p>
+      <p>Ganun ako sa “delulu is the solulu” phase ko kay Mia.</p>
+
+      <p>Sa QC kami nagwo-work, night shift, sa isang BPO building na laging malamig kahit madaling-araw na.</p>
+      <p>Facilities mechanic ako doon, pero dahil shared yung maliit naming admin row sa floor, katabi ko halos gabi-gabi si Mia na nasa workforce team.</p>
+
+      <p>Normal naman lahat sa umpisa.</p>
+      <p>Yung tipong hihiramin niya stapler ko, tapos hihingi ako ng candy sa drawer niya na parang may standing agreement kami kahit wala naman.</p>
+
+      <p>Pag dead air ang floor at tapos na yung rounds ko sa pantry AC at busted na pinto sa training room, bumabalik ako sa station ko.</p>
+      <p>Madalas gising pa rin siya, naka-headset sa isang tenga, tapos magcha-chat ng, “Uy, buhay ka pa?”</p>
+
+      <p>Sasagot naman ako ng, “Para sa’yo, oo.”</p>
+      <p>Tapos may kasunod agad na “delulu lang ako, relax.”</p>
+
+      <p>Natatawa siya lagi.</p>
+      <p>Minsan rereply siya ng thumbs up, minsan “sira ka,” minsan “balik ka na nga sa trabaho mo, Carlo.”</p>
+
+      <p>Sa totoo lang, doon ako lalo ginaganahan.</p>
+      <p>Kahit simpleng usapan lang tungkol sa antok, 7-Eleven coffee, o kung bakit laging sira ang isang elevator, feeling ko may special slot ako sa gabi niya.</p>
+
+      <p>Hindi ko naman sineryoso nang todo.</p>
+      <p>Half-joke lang talaga siya sa isip ko, kasi mas safe pag inuunahan mo na ng katatawanan yung sarili mo.</p>
+
+      <p>Nasanay na rin kami sa routine na sabay bumaba pag out.</p>
+      <p>Tatawid kami sa may waiting shed, minsan maghihiwalay sa jeep, minsan pareho kaming aabot hanggang Cubao bago magkaibang sakay.</p>
+
+      <p>Doon usually humahaba ang usapan.</p>
+      <p>Mas madali sigurong maging totoo pag pareho kayong puyat at wala nang ibang tao masyado sa paligid.</p>
+
+      <p>“Hindi ka ba napapagod sa akin?” tanong ko minsan habang naghihintay kami ng bus.</p>
+      <p>“Sa’yo hindi,” sagot niya, sabay higop ng kape.</p>
+
+      <p>Siyempre, pinalaki ko agad sa utak ko yun.</p>
+      <p>Uwi akong nakangiti na parang may sariling background music, kahit alam kong puwede namang friendly lang talaga siya.</p>
+
+      <p>Hanggang sa isang gabi, narinig ko sarili kong nagbibiro sa pantry kasama yung isang tech sa IT.</p>
+      <p>Sabi ko, “Okay lang, delulu is the solulu. Pa-fall lang ako professionally.”</p>
+
+      <p>Natawa sila.</p>
+      <p>Paglingon ko, nandoon si Mia sa may vending machine, tahimik lang, hawak yung binili niyang tubig.</p>
+
+      <p>Wala naman siyang sinabi.</p>
+      <p>Pero simula noon, parang may konting atras.</p>
+
+      <p>Nagre-reply pa rin siya, oo, pero mas maikli.</p>
+      <p>Hindi na rin siya nagyayayang sabay bumaba minsan, at dalawang beses siyang nauna nang umuwi nang hindi ako hinintay.</p>
+
+      <p>Doon ako biglang nahiya sa mga sariling banat ko.</p>
+      <p>Baka nga ako lang talaga ang nag-eedit ng meaning sa mga simpleng bagay.</p>
+
+      <p>After three nights, saka ulit kami nagkasabay sa out.</p>
+      <p>Maaga na nun, yung tipong kulay abo na ang langit at may mga unang jeep nang dumadaan sa tapat ng building.</p>
+
+      <p>Tahimik lang kami habang naglalakad papuntang sakayan.</p>
+      <p>Hindi awkward na OA, pero yung tahimik na alam mong may dapat sabihin ang isa sa inyo.</p>
+
+      <p>Ako na nauna.</p>
+      <p>“Uy, sorry pala kung minsan ang daldal ko. Joke lang naman lagi yun.”</p>
+
+      <p>Pagkasabi ko, gusto ko agad bawiin.</p>
+      <p>Ewan ko ba bakit yun pa yung napili kong linya.</p>
+
+      <p>Huminto si Mia sa gilid ng shed.</p>
+      <p>Tumingin siya sa kalsada bago sa akin, parang inaayos niya muna yung tamang level ng honesty.</p>
+
+      <p>“Ayun nga yung problema,” sabi niya.</p>
+      <p>“Akala ko rin joke lang sa’yo.”</p>
+
+      <p>Hindi ako agad nakasagot.</p>
+      <p>Biglang lumiit yung lahat ng pinangtatawanan ko tungkol sa sarili ko.</p>
+
+      <p>Hinigpitan niya lang yung hawak sa tote bag niya.</p>
+      <p>“Kaya hindi ako kumikibo. Kasi pag sineryoso kita tapos trip mo lang pala, ako rin yung mapapahiya.”</p>
+
+      <p>Wala siyang drama sa boses.</p>
+      <p>Mas nakakakaba tuloy, kasi totoo.</p>
+
+      <p>Sabi ko, “Mia, hindi kita trintrip.”</p>
+      <p>Mahina lang, pero first time kong sinabi yun nang walang kasunod na punchline.</p>
+
+      <p>Tumingin siya sa akin na parang chine-check niya kung magbibiro pa ba ako after two seconds.</p>
+      <p>Hindi na ako ngumiti nang pa-cute. Hindi na rin ako umatras.</p>
+
+      <p>“Late ko na nga yata na-gets,” dagdag ko.</p>
+      <p>“Akala ko pag ginagawang biro, less nakakahiya.”</p>
+
+      <p>Napangiti siya nang konti.</p>
+      <p>“Hindi lahat nadadaan sa disclaimer.”</p>
+
+      <p>Dumating yung jeep niya, pero hindi siya agad sumakay.</p>
+      <p>“Next time,” sabi niya, “sabihin mo nang maayos. Para alam ko kung saan ako lulugar.”</p>
+
+      <p>Tumango ako.</p>
+      <p>Simple lang, pero parang first time kong may inayos na hindi pinto, ilaw, o aircon.</p>
+
+      <p>Pagsakay niya, sumandal ako sa poste ng shed at natawa mag-isa.</p>
+      <p>Hindi dahil delulu ako, kundi dahil ang tagal kong nagtago sa likod ng biro.</p>
+
+      <p>Pagbaba ko sa Cubao, doon ko talaga gets.</p>
+      <p>May mga taong hindi umalis, kahit iniisip nilang hindi ka seryoso—at minsan, ikaw na lang talaga ang kailangan humabol nang diretso.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagbaba-sa-cubao-gets-ko-na"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagbaba-sa-cubao-gets-ko-na");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
