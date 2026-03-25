@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Pagdating ng Maling Parcel</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagdating-ng-maling-parcel" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Pagdating ng Maling Parcel" />
+  <meta property="og:description" content="Akala ko voice notes lang ang pinaka-familiar sa akin sa kanya, hanggang sa isang maling delivery ang nagpatigil sa routine naming dalawa." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagdating-ng-maling-parcel" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagdating-ng-maling-parcel.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagdating-ng-maling-parcel.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagdating-ng-maling-parcel.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagdating ng Maling Parcel" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pagdating ng Maling Parcel" />
+  <meta name="twitter:description" content="Akala ko voice notes lang ang pinaka-familiar sa akin sa kanya, hanggang sa isang maling delivery ang nagpatigil sa routine naming dalawa." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagdating-ng-maling-parcel.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Pagdating ng Maling Parcel",
+      "quote": "Boses mo pala yung lagi kong hinihintay."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Pagdating ng Maling Parcel</h1>
+      <p>Isang mahinang gabi, isang maling delivery, at isang boses na biglang naging pamilyar.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#online seller</span>
+        <span class="tag">#delivery rider</span>
+        <span class="tag">#metro manila</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#light-cozy</span>
+        <span class="tag">#quiet nights</span>
+        <span class="tag">#small business</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>May mga boses talagang hindi mo naman kilala, pero parang parte na ng araw mo.</p>
+      <p>Ganun nagsimula si kuya rider na laging nagvo-voice note sa akin imbes na mag-type.</p>
+
+      <p>Hindi ko pa alam noon na si Ken pala siya, at mas lalong hindi ko alam na halos araw-araw na pala kaming nagkakasalubong nang hindi namin napapansin.</p>
+
+      <p>Online seller ako, kaya halos dikit na sa palad ko yung phone ko.</p>
+      <p>Kahit kumakain, naghuhugas ng baso, o naglalakad sa tapat ng bahay, isang tingin lang sa screen, instinct na agad.</p>
+
+      <p>Sa area namin, makikitid yung streets at mabilis dumilim pag gabi.</p>
+      <p>Pagkatapos ng alas-sais, ilaw na lang ng sari-sari store, konting ilaw sa mga gate, at tunog ng tricycle na dumadaan paminsan-minsan yung kasama ko.</p>
+
+      <p>Routine ko na mag-abang ng bookings sa gabi.</p>
+      <p>Doon kasi madalas active yung buyers ko, lalo na yung mga humahabol ng next-day delivery.</p>
+
+      <p>Noong una, customer at rider lang naman talaga yung usapan namin.</p>
+      <p>“Ma’am, papunta na po.”</p>
+      <p>“Ma’am, nasa dulo na po ako ng street.”</p>
+
+      <p>Pero imbes na typed message, laging maliit na voice note.</p>
+      <p>Maikli lang, diretso, at mababa yung boses na parang laging kalmado kahit halatang nagmamadali siya sa biyahe.</p>
+
+      <p>Nasanay na rin ako.</p>
+      <p>Kapag may pumasok na notification at audio file ang laman, alam ko na agad na siya yun.</p>
+
+      <p>Minsan tatawa pa ako mag-isa.</p>
+      <p>Kasi kahit simple lang yung sinasabi niya, parang may effort pa ring hindi nakakainis pakinggan.</p>
+
+      <p>“Ma’am, pakibaba na lang po. Nasa tapat po ako ng blue gate.”</p>
+      <p>“Ma’am, saglit lang po, may isang liko pa.”</p>
+
+      <p>Ang nakakatuwa, madalas sa iisang area lang ang deliveries niya.</p>
+      <p>Kaya minsan isang gabi, dalawa o tatlong beses kaming nagkakausap para sa iba-ibang parcel ko.</p>
+
+      <p>Hindi naman kami close.</p>
+      <p>Pero dumating sa point na pamilyar na sa akin yung pacing ng boses niya.</p>
+
+      <p>Tapos may isang weird na detail na napansin ko.</p>
+      <p>Halos gabi-gabi, may nadaanan akong rider na humihinto sandali sa kanto bago lumiko sa street namin.</p>
+
+      <p>Same helmet.</p>
+      <p>Same tahimik na galaw.</p>
+      <p>Minsan may hawak pang phone na parang nakikinig muna bago bumaba ng motor.</p>
+
+      <p>Hindi ko lang iniisip nang malalim.</p>
+      <p>Sa totoo lang, marami naman talagang rider sa area namin.</p>
+
+      <p>Hanggang sa isang gabi na sunod-sunod yung orders ko at sabay-sabay din yung dating ng chat.</p>
+      <p>May isang parcel para sa buyer sa kabilang street, may isang pick-up, tapos may isang delivery na dapat sa bahay namin.</p>
+
+      <p>Nagkaulo-loko yung inbox ko.</p>
+      <p>May notification sa app, may tawag si buyer, tapos may voice note na pumasok ulit.</p>
+
+      <p>“Ma’am, nasa gate na po ako. Paki-check na lang po yung name sa parcel, parang iba po yata.”</p>
+
+      <p>Paglabas ko, may isang rider na nakatayo sa ilalim ng ilaw ng sari-sari store.</p>
+      <p>Bitbit niya yung parcel ko, pero mali nga yung hawak niyang pouch.</p>
+
+      <p>Pagtingin niya sa akin, saglit siyang natigil.</p>
+      <p>Ako rin.</p>
+
+      <p>Siya pala yung rider na madalas kong nakikita sa kanto.</p>
+      <p>At siya rin yung boses na ilang linggo ko nang naririnig sa phone.</p>
+
+      <p>“Ikaw pala yun,” bigla kong nasabi.</p>
+
+      <p>Napangiti siya nang konti, parang nahiya rin sa sinabi ko.</p>
+      <p>“Kayo rin pala yung laging kausap ko sa voice note.”</p>
+
+      <p>Natawa ako, pero mahina lang.</p>
+      <p>“Akala ko trip mo lang talagang hindi mag-chat.”</p>
+
+      <p>Umayos siya ng hawak sa parcel bago sumagot.</p>
+      <p>“Mas mabilis kasi magsalita kaysa mag-type. Tsaka...”</p>
+
+      <p>Sandali siyang tumingin sa akin, then sa phone niya.</p>
+      <p>“Mas okay pakinggan pag kayo yung kausap.”</p>
+
+      <p>Hindi naman siya dramatic magsalita.</p>
+      <p>Parang normal na sentence lang, pero ewan ko, doon ako natahimik.</p>
+
+      <p>Sa dami ng orders na hinahabol ko gabi-gabi, hindi ko inasahan na may isang simpleng linya na magpapabagal sa akin.</p>
+
+      <p>Kinuha ko yung parcel at tiningnan yung label.</p>
+      <p>Mali nga talaga, kaya sabay naming inayos sa ilalim ng mahinang ilaw habang may batang bumibili ng softdrinks sa tabi namin.</p>
+
+      <p>Walang background music.</p>
+      <p>Walang biglang hangin.</p>
+      <p>Amoy karton lang, tunog ng motor, at yung boses niyang mas malinaw pala sa personal.</p>
+
+      <p>Bago siya umalis, nagtanong siya, “Kayo po ba yung minsang nakatayo sa tapat ng gate habang nagre-reply sa buyers?”</p>
+
+      <p>Napatawa ako.</p>
+      <p>“Oo. At ikaw ba yung laging humihinto sa kanto bago pumasok dito?”</p>
+
+      <p>Umiling siya na may konting tawa.</p>
+      <p>“Oo. Chine-check ko muna kung tamang house number.”</p>
+
+      <p>Hindi ko sinabi na ilang beses ko na rin siyang napansin.</p>
+      <p>Hindi rin niya siguro sasabihin na pamilyar na rin ako sa kanya kahit hindi pa kami nagpapakilala nang maayos.</p>
+
+      <p>Pero bago siya umandar, inabot niya yung tamang parcel at sinabing, “Sige po, ma’am Lara. Bukas ulit malamang.”</p>
+
+      <p>First time ko marinig yung pangalan ko mula sa kanya nang hindi dumadaan sa app.</p>
+      <p>At ewan ko, parang mas iba pakinggan.</p>
+
+      <p>“Sige, Ken,” sagot ko.</p>
+      <p>First time ko ring sabihin yung pangalan niya nang diretsahan.</p>
+
+      <p>Pagpasok ko ng bahay, may isa na naman akong bagong notification.</p>
+      <p>Voice note ulit.</p>
+
+      <p>“Ma’am, este... Lara. Naibigay ko na pala yung tama. Good night po.”</p>
+
+      <p>Pinakinggan ko ulit isang beses.</p>
+      <p>Tapos natawa na lang ako mag-isa.</p>
+
+      <p>Ang dami pala naming almost.</p>
+      <p>Almost magkakilala, almost magkatugma yung mukha at boses, almost ordinary night lang ulit.</p>
+
+      <p>Pero dahil sa isang maling parcel, naging mas totoo bigla yung dati puro notification lang.</p>
+
+      <p>Simula noon, tuwing may pumapasok na maliit na voice note, hindi na lang siya tunog ng delivery update.</p>
+      <p>Parang parte na siya ng gabi ko.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagdating-ng-maling-parcel"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagdating-ng-maling-parcel");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+=============================================
+End of HTML Template
+=============================================
