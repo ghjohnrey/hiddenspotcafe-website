@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Habang Bukas ang Webinar Room</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/habang-bukas-ang-webinar-room" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Habang Bukas ang Webinar Room" />
+  <meta property="og:description" content="Hindi ko akalaing may mapapansin pala sa akin sa dami ng tahimik na mukha sa late-night webinars." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/habang-bukas-ang-webinar-room" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/habang-bukas-ang-webinar-room.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/habang-bukas-ang-webinar-room.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/habang-bukas-ang-webinar-room.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Habang Bukas ang Webinar Room" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Habang Bukas ang Webinar Room" />
+  <meta name="twitter:description" content="Hindi ko akalaing may mapapansin pala sa akin sa dami ng tahimik na mukha sa late-night webinars." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/habang-bukas-ang-webinar-room.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Habang Bukas ang Webinar Room",
+      "quote": "Minsan, hindi ka naghahanap ng aral—boses lang ng ibang tao."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Habang Bukas ang Webinar Room</h1>
+      <p>Isang maikling Taglish story tungkol sa katahimikan, late-night webinars, at dalawang taong pareho lang palang may hinihintay.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#fresh-grad</span>
+        <span class="tag">#unemployed</span>
+        <span class="tag">#webinar</span>
+        <span class="tag">#late-night</span>
+        <span class="tag">#metro-manila</span>
+        <span class="tag">#emotional</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Hindi ko na mabilang kung ilang webinar na yung inattendan ko na naka-off cam, naka-mute, tapos halos wala ring notes.</p>
+      <p>Pag may nakita akong libre, register agad.</p>
+
+      <p>Career growth. Personal branding. Resume tips. Kahit anong may Zoom link, pinapatos ko.</p>
+      <p>Fresh grad ako at ilang buwan nang nasa bahay sa Quezon City, kaya minsan mas madaling sumali kaysa isipin kung anong ginagawa ko sa buhay ko.</p>
+
+      <p>Usually gabi yung mga pinaka-pinapanuod ko.</p>
+      <p>Yung tipong tapos na kumain lahat sa bahay, mahina na yung TV sa sala, tapos ilaw lang ng laptop ko yung maliwanag sa kwarto.</p>
+
+      <p>May routine na ako roon.</p>
+      <p>Higa nang konti bago mag-start, ayos ng buhok kahit naka-off cam naman, tapos earphones na medyo isang side lang gumagana.</p>
+
+      <p>Sa participant list, may mga pangalan na paulit-ulit ko nang nakikita.</p>
+      <p>Isa doon si Mark.</p>
+
+      <p>Hindi ko naman siya kilala.</p>
+      <p>Wala ring profile picture na malinaw, initials lang madalas, pero lagi siyang present from start hanggang pinakahuling “Thank you everyone” ng host.</p>
+
+      <p>Noong una, wala lang.</p>
+      <p>Pare-pareho lang naman kaming mga tahimik na attendees na gusto lang magmukhang may direksyon.</p>
+
+      <p>Pero habang tumatagal, napapansin ko na tuwing chine-check ko yung participant list, andoon siya.</p>
+      <p>Kapag 10:58 pa lang at naghihintay pa ng start, present na. Kapag lagpas na sa official end time at nagkukwentuhan pa yung host at speaker, online pa rin.</p>
+
+      <p>One night, tungkol sa job searching yung webinar.</p>
+      <p>Naka-half screen lang sa laptop ko habang nag-aayos ako ng lumang CV na ilang beses ko nang nirevise pero hindi pa rin masend nang maayos.</p>
+
+      <p>May private chat na pumasok.</p>
+      <p>“Hi. Napapansin ko lang, lagi ka ring present dito.”</p>
+
+      <p>Napatitig ako sa message.</p>
+      <p>Galing kay Mark.</p>
+
+      <p>Hindi ako agad nag-reply.</p>
+      <p>Hindi dahil creeped out ako, pero dahil hindi ko alam kung anong klaseng sagot ang normal sa ganung oras, sa ganung setup.</p>
+
+      <p>After mga two minutes, nag-type ako.</p>
+      <p>“Oo nga eh. Ikaw rin.”</p>
+
+      <p>Simple lang yung usapan namin pagkatapos noon.</p>
+      <p>Minsan tungkol sa speaker na masyadong mahaba mag-intro, minsan tungkol sa internet na biglang pumapangit pag may important part na.</p>
+
+      <p>Wala namang malalim agad.</p>
+      <p>Pero kapag may private chat sa gilid habang may nagsasalita sa Zoom, gumagaan nang konti yung gabi ko.</p>
+
+      <p>Naging pattern na siya.</p>
+      <p>Pag may pareho kaming nasalihang webinar, may isa o dalawang message. “Okay ba audio mo?” “Antok na ko.” “Parang recycled slides ‘to ah.”</p>
+
+      <p>Minsan natatawa ako mag-isa sa kwarto.</p>
+      <p>Minsan hinihintay ko talagang lumitaw muna pangalan niya sa participant list bago ako tuluyang mag-settle sa upuan.</p>
+
+      <p>Tapos may isang linggo na sunod-sunod akong umattend ng late-night sessions na halos wala na akong naiintindihan.</p>
+      <p>Nasa screen ko yung tungkol sa freelancing basics, pero ang totoo, nakikinig lang ako sa boses ng host na paulit-ulit, steady, parang may kasama sa kwarto.</p>
+
+      <p>Doon ako tinamaan ng pagod.</p>
+      <p>Hindi pala ako eager matuto every time. Minsan ayoko lang nung tunog ng electric fan at sarili kong paghinga pag sobrang tahimik na ng bahay.</p>
+
+      <p>Nag-chat si Mark nang gabing iyon.</p>
+      <p>“Uy, okay ka lang? Parang tahimik ka tonight.”</p>
+
+      <p>Natawa ako kasi tahimik naman talaga ako palagi.</p>
+      <p>Pero for some reason, doon ako naging honest.</p>
+
+      <p>Sabi ko, “To be honest, hindi ko alam kung bakit pa ko umaattend sa iba dito.”</p>
+      <p>After a while, sinundan ko ng, “Minsan gusto ko lang may marinig na boses sa gabi.”</p>
+
+      <p>Matagal bago siya nag-reply.</p>
+      <p>Akala ko napasobra ako sa pagiging totoo.</p>
+
+      <p>Tapos dumating yung message niya.</p>
+      <p>“Same. Hindi rin ako lagi nandito dahil sa topic.”</p>
+
+      <p>Nakatitig lang ako sa screen.</p>
+      <p>May speaker sa Zoom na nagsasabing kailangan daw consistent ka sa goals mo, pero iba yung bigat nung nasa chat box.</p>
+
+      <p>Sumunod pa yung message niya.</p>
+      <p>“May mga webinar na sinasalihan ko kasi nakita kong registered ka rin. Pag nakita ko pangalan mo, tinutuloy ko.”</p>
+
+      <p>Hindi ako kinilig in the usual way.</p>
+      <p>Mas unang pumasok yung lungkot na may halong ginhawa, kasi ang tahimik pala naming dalawa pero pareho kaming may hinihintay.</p>
+
+      <p>Hindi ko alam agad ang isasagot.</p>
+      <p>Kaya ang sinend ko lang, “Akala ko ako lang yung ganun.”</p>
+
+      <p>Nag-reply siya, “Akala ko rin.”</p>
+
+      <p>Pagkatapos nun, hindi naman biglang naging espesyal lahat.</p>
+      <p>Wala namang dramatic call, wala ring confession na pang-series.</p>
+
+      <p>Pero nang matapos yung webinar, hindi kami agad nag-leave.</p>
+      <p>Naiwan lang kami roon habang unti-unting nababawasan yung participants at paulit-ulit nang sinasabi ng host na recording will be sent by email.</p>
+
+      <p>Sabi ni Mark, “May webinar ulit sa Friday. Hindi masyadong interesting yung topic.”</p>
+      <p>Sabi ko, “Okay lang. Sali pa rin ako.”</p>
+
+      <p>Then nag-type siya ng, “Sige. Kita tayo doon.”</p>
+
+      <p>Hindi ko alam kung kailan ako huling natuwa sa isang bagay na ganun lang kasimple.</p>
+      <p>Pero nung sinara ko yung laptop, hindi na masyadong maingay yung katahimikan ng kwarto ko.</p>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fhabang-bukas-ang-webinar-room"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/habang-bukas-ang-webinar-room");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+=============================================
+End of HTML Template
+=============================================
