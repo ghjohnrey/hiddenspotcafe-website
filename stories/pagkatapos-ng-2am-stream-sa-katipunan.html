@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Pagkatapos ng 2 A.M. Stream sa Katipunan</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagkatapos-ng-2am-stream-sa-katipunan" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Pagkatapos ng 2 A.M. Stream sa Katipunan" />
+  <meta property="og:description" content="Sa isang 24/7 cafe sa QC, may dalawang taong matagal palang magkasabay sa pagod kahit hindi pa nag-uusap." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagkatapos-ng-2am-stream-sa-katipunan" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-2am-stream-sa-katipunan.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-2am-stream-sa-katipunan.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-2am-stream-sa-katipunan.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagkatapos ng 2 A.M. Stream sa Katipunan" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pagkatapos ng 2 A.M. Stream sa Katipunan" />
+  <meta name="twitter:description" content="Sa isang 24/7 cafe sa QC, may dalawang taong matagal palang magkasabay sa pagod kahit hindi pa nag-uusap." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-2am-stream-sa-katipunan.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Pagkatapos ng 2 A.M. Stream sa Katipunan",
+      "quote": "Hindi pala ako nag-iisang nagpupuyat."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Pagkatapos ng 2 A.M. Stream sa Katipunan</h1>
+      <p>Sa isang 24/7 cafe sa QC, may dalawang taong matagal palang magkasabay sa pagod kahit hindi pa nag-uusap.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#studywithme</span>
+        <span class="tag">#college</span>
+        <span class="tag">#workingstudent</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>May phase ako dati na hindi ako makapag-aral kapag sobrang tahimik.</p>
+      <p>Hindi dahil gusto ko ng ingay, pero may kakaibang bigat kapag ako lang mag-isa sa mesa, lalo na pag lampas midnight na at parang lahat ng tao may kasama maliban sa akin.</p>
+      <p>Kaya nahulog ako sa habit na manood ng study with me livestream habang gumagawa ng readings.</p>
+      <p>Hindi naman ako active sa chat.</p>
+      <p>Naka-minimize lang sa gilid ng laptop ko, tapos paminsan-minsan tumitingin ako sa comments para maalala na may ibang gising din, ibang stressed din, ibang may deadline din.</p>
+
+      <p>Doon ko unang napansin si Renz.</p>
+      <p>Hindi ko siya kilala, pero halos gabi-gabi nandun yung username niya sa live chat.</p>
+      <p>Minsan simpleng “clock in na,” minsan “break muna tubig,” minsan “back to review,” tapos madalas may kasunod na coffee emoji o uniform emoji na ewan ko kung saan niya nakukuha.</p>
+      <p>Napansin ko rin na sa maliit na profile photo niya, parang lagi siyang naka-work uniform.</p>
+      <p>Working student siguro, sabi ko sa sarili ko.</p>
+
+      <p>Eventually, naging parte na siya ng routine ko kahit hindi naman kami nag-uusap.</p>
+      <p>Pag wala siya sa chat, napapatingin ako kung anong oras na.</p>
+      <p>Pag nandun siya, parang mas madaling tapusin yung isang chapter o kahit isang page lang.</p>
+      <p>Ang weird aminin, pero may comfort sa consistent na stranger.</p>
+
+      <p>Mas naging regular din ako sa isang 24/7 cafe malapit sa university sa Katipunan.</p>
+      <p>Hindi siya yung aesthetic na sobrang social-media-ready.</p>
+      <p>Medyo malamig ang aircon, laging may hum ng refrigerator, may ilang students na tulog na sa laptop, at may mga night shift workers na pumapasok para humigop ng kape bago bumiyahe ulit.</p>
+      <p>Gusto ko doon kasi walang pumapansin kung ilang oras ka nang nakaupo.</p>
+
+      <p>Usually sa dulo ako pumupwesto, sa may outlet na medyo tago.</p>
+      <p>Isang drink, reviewers, yellow highlighter, tapos yung livestream sa screen ko na nakatagilid lang.</p>
+      <p>Hindi ko alam kung bakit, pero pakiramdam ko mas kaya kong mag-function kapag may tahimik na presensya sa paligid, kahit online lang.</p>
+
+      <p>Isang gabi, past 1 a.m. na yata, napansin kong mabagal ang net sa dorm kaya nag-decide akong sa cafe na lang mag-review.</p>
+      <p>Pagpasok ko, halos kalahati na lang ang tao.</p>
+      <p>May dalawang students sa kabilang side, may rider na natutulog habang yakap ang helmet, at may isang guy sa may bintana na naka-dark blue uniform at nakayuko sa reviewer.</p>
+      <p>Hindi ko siya masyadong tiningnan noon.</p>
+      <p>Nag-order lang ako, umupo sa usual spot, at binuksan yung livestream.</p>
+
+      <p>Pag-tingin ko sa chat, nandoon ulit yung username.</p>
+      <p><em>Renz: time in</em>.</p>
+      <p>Natawa pa ako nang kaunti kasi halos sabay kami lagi ng oras.</p>
+      <p>Tapos after ilang minuto, may bagong comment.</p>
+      <p><em>Renz: sa mga nasa cafe pa, laban lang</em>.</p>
+
+      <p>Napatigil ako.</p>
+      <p>Hindi dahil dramatic yung line, pero dahil ewan, parang masyadong sakto.</p>
+      <p>Tumingin ako sa paligid out of instinct, tapos doon ko ulit nakita yung guy sa may bintana.</p>
+      <p>Naka-uniform pa rin, may reviewer, may earphones, tapos may phone na nakatagilid sa gilid ng tumbler niya.</p>
+
+      <p>Hindi pa rin ako sure noon.</p>
+      <p>Baka coincidence lang.</p>
+      <p>Baka madaming cafe ang bukas sa oras na iyon.</p>
+      <p>Kaya binalikan ko na lang yung notes ko kahit halos wala na akong naiintindihan sa binabasa ko.</p>
+
+      <p>Mga twenty minutes later, tumayo ako para bumili ng water.</p>
+      <p>Pagbalik ko, may lalaking bahagyang umatras para makadaan ako sa makitid na pagitan ng chairs.</p>
+      <p>“Sorry,” sabay sabi namin pareho.</p>
+      <p>Ang corny, oo, pero natawa ako nang mahina.</p>
+      <p>Siya rin.</p>
+
+      <p>“Ikaw yung laging sa dulo umuupo, no?” tanong niya.</p>
+      <p>Hindi naman creepy yung tono niya.</p>
+      <p>Parang matagal ka nang pamilyar sa mukha ng kaklase mo pero first time mo lang kinausap.</p>
+
+      <p>“Ha?” yun lang nasabi ko, kasi totoo namang na-caught off guard ako.</p>
+      <p>Tapos itinuro niya yung mesa ko gamit ang chin niya, parang ayaw niyang maging big deal.</p>
+      <p>“I mean, napapansin kita rito minsan. Same spot lagi.”</p>
+
+      <p>Doon ko napansin nang maayos yung mukha niya.</p>
+      <p>Pagod yung mata, may ID lace pa sa bulsa ng uniform niya, at may expression siyang parang sanay na mag-juggle ng trabaho at school pero ayaw gawing personality yun.</p>
+      <p>“Ikaw ba si Renz?” tanong ko bago ko pa mapigilan sarili ko.</p>
+
+      <p>Napakurap siya, tapos napatawa nang mahina.</p>
+      <p>“Ikaw ba si Aya?”</p>
+
+      <p>Hindi ko alam kung bakit ako biglang nahiya gayong username lang naman ang alam namin sa isa’t isa.</p>
+      <p>Pero may kakaibang feeling na parang matagal na kaming nasa parehong kwarto, iba lang ang ilaw.</p>
+
+      <p>Umupo siya sa tapat ko nang ilang minuto lang daw, kasi break niya naman.</p>
+      <p>Doon ko nalaman na working student nga siya at galing pa sa shift bago dumiretso sa review.</p>
+      <p>Sabi niya, sinimulan niya yung study with me habit noong madalas niya akong makita sa cafe na mag-isa, tahimik lang, minsan halatang pagod na pero di pa rin umaalis.</p>
+      <p>“Naisip ko kasi,” sabi niya, sabay ikot ng straw sa iced coffee, “baka mas madaling magpuyat kapag may pakiramdam kang may kasabay ka.”</p>
+
+      <p>Hindi agad ako sumagot.</p>
+      <p>Kasi totoo naman.</p>
+      <p>Hindi ko lang in-expect na yung online habit na akala ko random lang, may ugat pala sa parehong cafe na inuuwian ko kapag ayokong umuwi agad sa lungkot ng dorm.</p>
+
+      <p>“So ikaw pala yung unang nauna,” sabi ko.</p>
+      <p>“Akala ko influencer mindset ka lang sa chat.”</p>
+      <p>Natawa siya. “Grabe naman sa influencer. Nagre-remind lang ako ng tubig kasi minsan nakakalimutan ko rin.”</p>
+
+      <p>Ang gaan ng usapan namin, pero may tahimik na part na mas tumama sa akin.</p>
+      <p>Pareho pala kaming gumagamit ng livestream hindi dahil mas productive kami pag may timer, kundi dahil mas bearable ang pagod kapag may maliit na proof na may ibang lumalaban din sa parehong oras.</p>
+
+      <p>Bandang 2 a.m., bumalik siya sa table niya.</p>
+      <p>Ako rin sa akin.</p>
+      <p>Wala namang big dramatic moment, wala ring instant na love story na parang pelikula.</p>
+      <p>Pero after that night, tuwing bubuksan ko yung livestream at makikita ko yung username niya, iba na yung pakiramdam.</p>
+
+      <p>Hindi na lang siya consistent na stranger.</p>
+      <p>Siya na yung lalaking minsang nag-start ng habit dahil nakita niya akong mag-isang nagpupuyat sa cafe, tapos hindi niya alam na ako naman, matagal nang kumakapit sa presence niya para hindi maramdaman na ako lang mag-isa.</p>
+
+      <p>Noong nagsara yung livestream kinabukasan, hindi ako agad nalungkot tulad ng dati.</p>
+      <p>Kasi pagtingin ko sa bintana ng cafe, may kumaway sa akin mula sa kabilang mesa, naka-uniform pa rin, may hawak na reviewer, at parang sinasabi nang walang effort na, “Nandito lang ako.”</p>
+      <p>At for the first time in a long time, hindi ko na naramdaman na mabigat ang gabi.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagkatapos-ng-2am-stream-sa-katipunan"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagkatapos-ng-2am-stream-sa-katipunan");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
