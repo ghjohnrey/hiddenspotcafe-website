@@ -1,45 +1,48 @@
 /* =========================================================
    Hidden Spot Cafe — Global Styles
    File: /style.css
-   Soft Blue Study Lounge Version (Balanced Blue Fix)
+   Notes:
+   - Keep page-specific styles in their own CSS (ex: /stories/stories.css)
+   - This file covers: body, header, navbar, menu cards, utilities, footer
    ========================================================= */
 
 
 /* =========================================================
-   0) ROOT TOKENS
+   0) PREMIUM COZY STUDY CAFE TOKENS
+   - Balanced system: Blue (focus) + Warm (cafe comfort)
+   - Avoids: too dark ❌ / too white ❌ / too cold ❌
+   - Goal: Premium, calm, tambay-friendly
    ========================================================= */
 
 :root{
-  --bg-page-top: #EAF4FB;
-  --bg-page-mid: #DCEAF4;
-  --bg-page-bottom: #D3E2EC;
+  /* Base background */
+  --bg-main: #E4EEF5;
+  --bg-deep: #D6E3EC;
 
-  --bg-surface: #F6FBFE;
-  --bg-soft: #EAF2F7;
-  --bg-card: #EEF6FB;
-  --bg-card-2: #DDEAF4;
-  --bg-glass: rgba(234,244,251,0.78);
-  --bg-glass-strong: rgba(221,234,244,0.90);
+  /* Surfaces */
+  --surface-glass: rgba(255,255,255,0.72);
+  --surface-glass-strong: rgba(255,255,255,0.92);
+  --surface-card: #F4EFEA;
+  --surface-card-2: #E8DED3;
 
-  --text-main: #2B3A42;
-  --text-soft: #53636D;
-  --text-muted: #72838E;
+  /* Text */
+  --text-main: #26343C;
+  --text-soft: #5A6A73;
+  --text-muted: #7A8A93;
 
-  --accent: #7FAACB;
-  --accent-strong: #6F9FC4;
-  --accent-deep: #557F9F;
-  --accent-line: #A8C6DB;
+  /* Brand accents */
+  --accent-blue: #5E8FB4;
+  --accent-blue-strong: #4F7FA2;
 
-  --line-soft: rgba(43,58,66,0.10);
-  --line-mid: rgba(43,58,66,0.16);
-  --line-blue: rgba(127,170,203,0.24);
+  --accent-warm: #C89B6D;
+  --accent-warm-soft: #E4C7A6;
 
-  --shadow-soft: rgba(43,58,66,0.08);
-  --shadow-mid: rgba(43,58,66,0.12);
+  /* Lines & shadows */
+  --line: rgba(38,52,60,0.12);
+  --line-warm: rgba(200,155,109,0.25);
 
-  --success-soft: #DDEEE2;
-  --danger-soft: #F6DEDE;
-  --warm-soft: #F4E7D6;
+  --shadow-soft: rgba(0,0,0,0.06);
+  --shadow-mid: rgba(0,0,0,0.10);
 }
 
 
@@ -54,8 +57,11 @@ html{
 body{
   margin:0;
   font-family:Arial, sans-serif;
+
+  /* Premium layered background (not flat, not dark) */
   background:
-    radial-gradient(circle at 50% -20%, var(--bg-page-top) 0%, var(--bg-page-mid) 45%, var(--bg-page-bottom) 100%);
+    radial-gradient(circle at 50% -20%, #EEF5FA 0%, var(--bg-main) 40%, var(--bg-deep) 100%);
+
   color:var(--text-main);
 
   /* Because navbar is fixed at the top */
@@ -65,6 +71,8 @@ body{
 
 /* =========================================================
    2) HERO HEADER (Global banner header)
+   - Sparkles are absolutely positioned inside this header
+   - Dark overlay retained BUT softened for premium contrast
    ========================================================= */
 
 header{
@@ -73,20 +81,22 @@ header{
 
   text-align:center;
   padding:120px 20px;
+
+  /* Balanced cinematic overlay (not washed, not too dark) */
   background:
-    linear-gradient(rgba(234,244,251,0.34), rgba(211,226,236,0.52)),
+    linear-gradient(rgba(20,30,40,0.40), rgba(20,30,40,0.55)),
     url("assets/images/banners/magic-banner.png");
+
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
 
-  border-bottom:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line);
 }
 
 h1{
   font-size:40px;
   margin-bottom:10px;
-  color:var(--text-main);
 }
 
 .section{
@@ -105,39 +115,44 @@ h1{
   height:3px;
   background:white;
   border-radius:50%;
-  opacity:0.45;
+  opacity:0.4;
   animation:twinkle 4s infinite ease-in-out;
 }
 
 @keyframes twinkle{
-  0%   { opacity:0.12; transform:scale(1); }
-  50%  { opacity:0.55; transform:scale(1.4); }
-  100% { opacity:0.12; transform:scale(1); }
+  0%   { opacity:0.1; transform:scale(1); }
+  50%  { opacity:0.6; transform:scale(1.4); }
+  100% { opacity:0.1; transform:scale(1); }
 }
 
 
 /* =========================================================
    4) PRIMARY CTA BUTTON (Message Us)
+   - Upgraded to premium blue gradient
    ========================================================= */
 
 .message-btn{
   display:inline-block;
   margin-top:20px;
   padding:12px 25px;
-  background:linear-gradient(90deg, var(--accent-strong), var(--accent));
+
+  background:linear-gradient(90deg, var(--accent-blue-strong), var(--accent-blue));
   color:white;
+
   text-decoration:none;
   border-radius:30px;
   font-weight:bold;
+
   animation:pulse 2.4s infinite;
   transition:0.3s ease;
-  box-shadow:0 10px 22px rgba(127,170,203,0.24);
+
+  box-shadow:0 10px 22px rgba(94,143,180,0.25);
 }
 
 @keyframes pulse{
-  0%   { box-shadow:0 0 0 0 rgba(127,170,203,0.35); }
-  70%  { box-shadow:0 0 0 18px rgba(127,170,203,0); }
-  100% { box-shadow:0 0 0 0 rgba(127,170,203,0); }
+  0%   { box-shadow:0 0 0 0 rgba(94,143,180,0.35); }
+  70%  { box-shadow:0 0 0 18px rgba(94,143,180,0); }
+  100% { box-shadow:0 0 0 0 rgba(94,143,180,0); }
 }
 
 .message-btn:hover{
@@ -147,6 +162,7 @@ h1{
 
 /* =========================================================
    5) NAVBAR (Glass + accent + interactions)
+   - Light premium glass instead of dark bar
    ========================================================= */
 
 .navbar{
@@ -156,27 +172,29 @@ h1{
   width:100%;
   z-index:1000;
 
-  background:rgba(225,236,244,0.82);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  background:var(--surface-glass);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 
-  border-bottom:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line);
   transition:0.3s ease;
   margin:0;
 }
 
+/* Shadow when scrolling (added via JS) */
 .navbar.scrolled{
-  background:rgba(211,226,236,0.94);
-  box-shadow:0 10px 25px var(--shadow-soft);
+  background:var(--surface-glass-strong);
+  box-shadow:0 8px 22px var(--shadow-soft);
 }
 
+/* Animated top accent line (refined palette) */
 .nav-accent{
   position:absolute;
   top:0;
   left:0;
   width:100%;
   height:3px;
-  background:linear-gradient(90deg,#B8D3E6,#7FAACB,#A8C6DB,#D7E8F3,#89B2CF);
+  background:linear-gradient(90deg,var(--accent-blue),var(--accent-warm),var(--accent-blue));
   background-size:400% 400%;
   animation:gradientMove 8s linear infinite;
 }
@@ -186,6 +204,7 @@ h1{
   100% { background-position:100% 50%; }
 }
 
+/* Navbar layout container */
 .nav-container{
   max-width:1200px;
   margin:auto;
@@ -202,6 +221,7 @@ h1{
   position:relative;
 }
 
+/* Logo shimmer effect overlay */
 .nav-container::after{
   content:"";
   position:absolute;
@@ -209,7 +229,7 @@ h1{
   left:-75%;
   width:50%;
   height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.38),transparent);
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
   animation:shine 5s infinite;
   pointer-events:none;
 }
@@ -220,6 +240,7 @@ h1{
   100% { left:125%; }
 }
 
+/* Navbar links */
 .nav-links{
   display:flex;
   gap:30px;
@@ -237,6 +258,7 @@ h1{
   color:var(--text-main);
 }
 
+/* Underline animation (blue + warm = brand identity) */
 .nav-link::after{
   content:"";
   position:absolute;
@@ -244,7 +266,7 @@ h1{
   bottom:-6px;
   width:0%;
   height:2px;
-  background:linear-gradient(90deg,var(--accent-strong),var(--accent));
+  background:linear-gradient(90deg,var(--accent-blue),var(--accent-warm));
   transition:0.3s ease;
 }
 
@@ -252,6 +274,7 @@ h1{
   width:100%;
 }
 
+/* Active page highlight */
 .nav-link.active{
   color:var(--text-main);
 }
@@ -274,7 +297,7 @@ h1{
 
 .nav-container img:hover{
   transform:scale(1.05);
-  filter:drop-shadow(0 0 8px rgba(127,170,203,0.22));
+  filter:drop-shadow(0 0 8px rgba(94,143,180,0.25));
 }
 
 
@@ -311,17 +334,20 @@ h1{
 }
 
 .hamburger.open span{
-  background:var(--accent-strong);
-  box-shadow:0 0 8px rgba(127,170,203,0.35);
+  background:var(--accent-blue);
+  box-shadow:0 0 8px rgba(94,143,180,0.4);
 }
 
+/* Mobile navbar behavior */
 @media (max-width:768px){
   .nav-links{
     position:absolute;
     top:70px;
     right:0;
     width:100%;
-    background:rgba(221,234,244,0.96);
+
+    background:var(--surface-glass-strong);
+
     flex-direction:column;
     text-align:center;
     gap:20px;
@@ -333,8 +359,7 @@ h1{
     pointer-events:none;
 
     transition:0.4s ease;
-    border-bottom:1px solid var(--line-soft);
-    box-shadow:0 12px 24px rgba(43,58,66,0.08);
+    box-shadow:0 12px 24px var(--shadow-soft);
   }
 
   .nav-links.active{
@@ -364,30 +389,37 @@ h1{
 
 /* =========================================================
    9) MENU / PRODUCT CARD
+   - Core identity: warm paper + subtle depth
    ========================================================= */
 
 .card{
   position:relative;
+
   background:linear-gradient(
     180deg,
-    rgba(240,247,252,0.96),
-    rgba(221,234,244,0.96)
+    var(--surface-card),
+    var(--surface-card-2)
   );
+
   padding:20px;
   border-radius:18px;
+
   backdrop-filter:blur(8px);
-  border:1px solid var(--line-blue);
+
+  border:1px solid var(--line-warm);
+
   transition:0.3s ease;
   overflow:hidden;
-  box-shadow:0 10px 24px rgba(43,58,66,0.08);
+
+  box-shadow:0 12px 28px var(--shadow-soft);
 }
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 16px 30px rgba(43,58,66,0.12);
-  border-color:rgba(127,170,203,0.34);
+  box-shadow:0 18px 38px var(--shadow-mid);
 }
 
+/* Badge used ONLY for menu cards (do not reuse for stories) */
 .badge{
   position:absolute;
   top:10px;
@@ -410,7 +442,7 @@ h1{
 .price{
   font-weight:bold;
   margin-top:8px;
-  color:#8D6E63;
+  color:#B07A4F;
 }
 
 .desc{
@@ -451,23 +483,21 @@ h1{
 }
 
 .package-card{
-  background:linear-gradient(
-    180deg,
-    rgba(238,244,248,0.96),
-    rgba(221,234,244,0.96)
-  );
+  background:var(--surface-card);
   padding:20px;
   margin:15px;
   border-radius:16px;
-  border:1px solid rgba(127,170,203,0.20);
+
+  border:1px solid var(--line-warm);
+
   transition:0.4s ease;
-  box-shadow:0 10px 24px rgba(43,58,66,0.08);
+
+  box-shadow:0 10px 24px var(--shadow-soft);
 }
 
 .package-card:hover{
   transform:scale(1.05);
-  box-shadow:0 16px 32px rgba(127,170,203,0.18);
-  border-color:rgba(127,170,203,0.30);
+  box-shadow:0 18px 36px rgba(200,155,109,0.25);
 }
 
 
@@ -484,30 +514,36 @@ iframe{
   height:350px;
   border:none;
   border-radius:15px;
-  box-shadow:0 12px 28px rgba(43,58,66,0.08);
+
+  box-shadow:0 12px 28px var(--shadow-soft);
 }
 
 
 /* =========================================================
    13) SHARE BUTTON (Facebook)
+   - Replaced with warm cafe button for variety
    ========================================================= */
 
 .share-btn{
   display:inline-block;
   margin-top:15px;
   padding:10px 20px;
-  background:linear-gradient(90deg,#6F9FC4,#5E8FB4);
-  color:white;
+
+  background:linear-gradient(90deg,var(--accent-warm),var(--accent-warm-soft));
+  color:#3A2A1F;
+
   text-decoration:none;
   border-radius:30px;
   font-weight:bold;
+
   transition:0.3s ease;
-  box-shadow:0 8px 18px rgba(127,170,203,0.22);
+
+  box-shadow:0 8px 18px rgba(200,155,109,0.25);
 }
 
 .share-btn:hover{
   transform:scale(1.05);
-  box-shadow:0 0 15px rgba(127,170,203,0.28);
+  box-shadow:0 0 15px rgba(200,155,109,0.35);
 }
 
 
@@ -519,15 +555,15 @@ footer{
   text-align:center;
   padding:40px 20px;
   margin-top:60px;
-  background:rgba(221,234,244,0.72);
-  color:var(--text-muted);
-  border-top:1px solid var(--line-soft);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
+
+  background:var(--surface-card-2);
+  color:#4A3A2F;
+
+  border-top:1px solid var(--line-warm);
 }
 
 footer a{
-  color:var(--accent-deep);
+  color:var(--accent-blue-strong);
   text-decoration:none;
   font-weight:bold;
 }
