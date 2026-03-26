@@ -1,10 +1,40 @@
 /* =========================================================
    Hidden Spot Cafe — Global Styles
    File: /style.css
-   Notes:
-   - Keep page-specific styles in their own CSS (ex: /stories/stories.css)
-   - This file covers: body, header, navbar, menu cards, utilities, footer
+   Soft Blue Study Lounge Version
    ========================================================= */
+
+
+/* =========================================================
+   0) ROOT TOKENS
+   ========================================================= */
+
+:root{
+  --bg-page-top: #F7FBFD;
+  --bg-page-bottom: #EAF2F7;
+  --bg-surface: #FFFFFF;
+  --bg-soft: #F3F7FA;
+  --bg-card: #EEF4F8;
+  --bg-card-2: #E1ECF4;
+
+  --text-main: #2B3A42;
+  --text-soft: #53636D;
+  --text-muted: #7B8B95;
+
+  --accent: #7FAACB;
+  --accent-strong: #6A97BA;
+  --accent-deep: #557F9F;
+
+  --line-soft: rgba(43,58,66,0.08);
+  --line-mid: rgba(43,58,66,0.14);
+
+  --shadow-soft: rgba(43,58,66,0.08);
+  --shadow-mid: rgba(43,58,66,0.14);
+
+  --success-soft: #DDEEE2;
+  --danger-soft: #F6DEDE;
+  --warm-soft: #F4E7D6;
+}
 
 
 /* =========================================================
@@ -18,8 +48,9 @@ html{
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:radial-gradient(circle at 50% -20%, #303060 0%, #14142a 50%, #050509 90%);
-  color:#eaeaf0;
+  background:
+    radial-gradient(circle at 50% -20%, #FFFFFF 0%, #F3F7FA 38%, #EAF2F7 100%);
+  color:var(--text-main);
 
   /* Because navbar is fixed at the top */
   padding-top:40px;
@@ -28,26 +59,28 @@ body{
 
 /* =========================================================
    2) HERO HEADER (Global banner header)
-   - Sparkles are absolutely positioned inside this header
    ========================================================= */
 
 header{
-  position:relative;   /* Needed for sparkles */
+  position:relative;
   overflow:hidden;
 
   text-align:center;
   padding:120px 20px;
   background:
-    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+    linear-gradient(rgba(247,251,253,0.72), rgba(225,236,244,0.82)),
     url("assets/images/banners/magic-banner.png");
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
+
+  border-bottom:1px solid var(--line-soft);
 }
 
 h1{
   font-size:40px;
   margin-bottom:10px;
+  color:var(--text-main);
 }
 
 .section{
@@ -66,14 +99,14 @@ h1{
   height:3px;
   background:white;
   border-radius:50%;
-  opacity:0.4;
+  opacity:0.45;
   animation:twinkle 4s infinite ease-in-out;
 }
 
 @keyframes twinkle{
-  0%   { opacity:0.1; transform:scale(1); }
-  50%  { opacity:0.6; transform:scale(1.4); }
-  100% { opacity:0.1; transform:scale(1); }
+  0%   { opacity:0.12; transform:scale(1); }
+  50%  { opacity:0.55; transform:scale(1.4); }
+  100% { opacity:0.12; transform:scale(1); }
 }
 
 
@@ -85,19 +118,20 @@ h1{
   display:inline-block;
   margin-top:20px;
   padding:12px 25px;
-  background:#a855f7;
+  background:linear-gradient(90deg, var(--accent-strong), var(--accent));
   color:white;
   text-decoration:none;
   border-radius:30px;
   font-weight:bold;
-  animation:pulse 2s infinite;
+  animation:pulse 2.4s infinite;
   transition:0.3s ease;
+  box-shadow:0 10px 22px rgba(127,170,203,0.22);
 }
 
 @keyframes pulse{
-  0%   { box-shadow:0 0 0 0 rgba(168,85,247,0.7); }
-  70%  { box-shadow:0 0 0 20px rgba(168,85,247,0); }
-  100% { box-shadow:0 0 0 0 rgba(168,85,247,0); }
+  0%   { box-shadow:0 0 0 0 rgba(127,170,203,0.35); }
+  70%  { box-shadow:0 0 0 18px rgba(127,170,203,0); }
+  100% { box-shadow:0 0 0 0 rgba(127,170,203,0); }
 }
 
 .message-btn:hover{
@@ -116,29 +150,27 @@ h1{
   width:100%;
   z-index:1000;
 
-  background:rgba(15,15,25,0.65);
+  background:rgba(255,255,255,0.72);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
 
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  border-bottom:1px solid var(--line-soft);
   transition:0.3s ease;
   margin:0;
 }
 
-/* Shadow when scrolling (added via JS) */
 .navbar.scrolled{
-  background:rgba(10,10,20,0.9);
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  background:rgba(255,255,255,0.90);
+  box-shadow:0 10px 25px var(--shadow-soft);
 }
 
-/* Animated top accent line */
 .nav-accent{
   position:absolute;
   top:0;
   left:0;
   width:100%;
   height:3px;
-  background:linear-gradient(90deg,#a855f7,#ff4d6d,#2ecc71,#4361ee,#c77dff);
+  background:linear-gradient(90deg,#B8D3E6,#7FAACB,#A8C6DB,#D7E8F3,#89B2CF);
   background-size:400% 400%;
   animation:gradientMove 8s linear infinite;
 }
@@ -148,7 +180,6 @@ h1{
   100% { background-position:100% 50%; }
 }
 
-/* Navbar layout container */
 .nav-container{
   max-width:1200px;
   margin:auto;
@@ -160,12 +191,11 @@ h1{
   font-weight:bold;
   font-size:18px;
   letter-spacing:1px;
-  color:#ffffff;
+  color:var(--text-main);
 
-  position:relative; /* Needed for shimmer */
+  position:relative;
 }
 
-/* Logo shimmer effect overlay */
 .nav-container::after{
   content:"";
   position:absolute;
@@ -173,7 +203,7 @@ h1{
   left:-75%;
   width:50%;
   height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.45),transparent);
   animation:shine 5s infinite;
   pointer-events:none;
 }
@@ -184,7 +214,6 @@ h1{
   100% { left:125%; }
 }
 
-/* Navbar links */
 .nav-links{
   display:flex;
   gap:30px;
@@ -193,16 +222,15 @@ h1{
 .nav-link{
   position:relative;
   text-decoration:none;
-  color:#c9c9ff;
+  color:var(--text-soft);
   font-weight:500;
   transition:0.3s ease;
 }
 
 .nav-link:hover{
-  color:#ffffff;
+  color:var(--text-main);
 }
 
-/* Underline animation */
 .nav-link::after{
   content:"";
   position:absolute;
@@ -210,7 +238,7 @@ h1{
   bottom:-6px;
   width:0%;
   height:2px;
-  background:linear-gradient(90deg,#a855f7,#c77dff);
+  background:linear-gradient(90deg,var(--accent-strong),var(--accent));
   transition:0.3s ease;
 }
 
@@ -218,9 +246,8 @@ h1{
   width:100%;
 }
 
-/* Active page highlight */
 .nav-link.active{
-  color:#ffffff;
+  color:var(--text-main);
 }
 
 .nav-link.active::after{
@@ -241,17 +268,16 @@ h1{
 
 .nav-container img:hover{
   transform:scale(1.05);
-  filter:drop-shadow(0 0 8px rgba(255,255,255,0.3));
+  filter:drop-shadow(0 0 8px rgba(127,170,203,0.22));
 }
 
 
 /* =========================================================
    7) HAMBURGER MENU (Mobile)
-   - Animation to X when .open is added by JS
    ========================================================= */
 
 .hamburger{
-  display:none;                 /* shown only on mobile via media query */
+  display:none;
   flex-direction:column;
   gap:6px;
   cursor:pointer;
@@ -261,12 +287,11 @@ h1{
 .hamburger span{
   width:28px;
   height:3px;
-  background:white;
+  background:var(--text-main);
   border-radius:3px;
   transition:all 0.3s ease;
 }
 
-/* Animate into X */
 .hamburger.open span:nth-child(1){
   transform:rotate(45deg) translate(6px,6px);
 }
@@ -280,18 +305,17 @@ h1{
 }
 
 .hamburger.open span{
-  background:#c77dff;
-  box-shadow:0 0 8px rgba(199,125,255,0.7);
+  background:var(--accent-strong);
+  box-shadow:0 0 8px rgba(127,170,203,0.35);
 }
 
-/* Mobile navbar behavior */
 @media (max-width:768px){
   .nav-links{
     position:absolute;
     top:70px;
     right:0;
     width:100%;
-    background:rgba(10,10,20,0.95);
+    background:rgba(255,255,255,0.96);
     flex-direction:column;
     text-align:center;
     gap:20px;
@@ -303,6 +327,8 @@ h1{
     pointer-events:none;
 
     transition:0.4s ease;
+    border-bottom:1px solid var(--line-soft);
+    box-shadow:0 12px 24px rgba(43,58,66,0.08);
   }
 
   .nav-links.active{
@@ -336,25 +362,27 @@ h1{
 
 .card{
   position:relative;
-  background:rgba(20,20,35,0.85);
+  background:rgba(255,255,255,0.82);
   padding:20px;
   border-radius:18px;
   backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.05);
+  border:1px solid var(--line-soft);
   transition:0.3s ease;
   overflow:hidden;
+  box-shadow:0 10px 24px rgba(43,58,66,0.06);
 }
 
 .card:hover{
   transform:translateY(-6px);
+  box-shadow:0 16px 30px rgba(43,58,66,0.10);
+  border-color:rgba(127,170,203,0.28);
 }
 
-/* Badge used ONLY for menu cards (do not reuse for stories) */
 .badge{
   position:absolute;
   top:10px;
   left:10px;
-  background:#ff2e63;
+  background:#E89B93;
   color:white;
   padding:5px 10px;
   font-size:12px;
@@ -372,12 +400,12 @@ h1{
 .price{
   font-weight:bold;
   margin-top:8px;
-  color:#ffd369;
+  color:#8D6E63;
 }
 
 .desc{
   font-size:14px;
-  color:#bbb;
+  color:var(--text-muted);
   margin-top:6px;
   min-height:40px;
 }
@@ -413,17 +441,19 @@ h1{
 }
 
 .package-card{
-  background:#141428;
+  background:rgba(255,255,255,0.84);
   padding:20px;
   margin:15px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,0.05);
+  border:1px solid var(--line-soft);
   transition:0.4s ease;
+  box-shadow:0 10px 24px rgba(43,58,66,0.06);
 }
 
 .package-card:hover{
   transform:scale(1.05);
-  box-shadow:0 0 25px rgba(168,85,247,0.6);
+  box-shadow:0 16px 32px rgba(127,170,203,0.18);
+  border-color:rgba(127,170,203,0.28);
 }
 
 
@@ -440,6 +470,7 @@ iframe{
   height:350px;
   border:none;
   border-radius:15px;
+  box-shadow:0 12px 28px rgba(43,58,66,0.08);
 }
 
 
@@ -451,17 +482,18 @@ iframe{
   display:inline-block;
   margin-top:15px;
   padding:10px 20px;
-  background:#1877f2;
+  background:linear-gradient(90deg,#7FAACB,#6A97BA);
   color:white;
   text-decoration:none;
   border-radius:30px;
   font-weight:bold;
   transition:0.3s ease;
+  box-shadow:0 8px 18px rgba(127,170,203,0.20);
 }
 
 .share-btn:hover{
   transform:scale(1.05);
-  box-shadow:0 0 15px rgba(24,119,242,0.6);
+  box-shadow:0 0 15px rgba(127,170,203,0.28);
 }
 
 
@@ -473,12 +505,15 @@ footer{
   text-align:center;
   padding:40px 20px;
   margin-top:60px;
-  background:#0f0f1a;
-  color:#999;
+  background:rgba(255,255,255,0.66);
+  color:var(--text-muted);
+  border-top:1px solid var(--line-soft);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
 }
 
 footer a{
-  color:#a855f7;
+  color:var(--accent-deep);
   text-decoration:none;
   font-weight:bold;
 }
