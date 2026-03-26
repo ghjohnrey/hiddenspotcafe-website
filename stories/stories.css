@@ -1,28 +1,10 @@
 /* =========================================================
-   Hidden Spot Cafe — Stories Styles
-   Soft Blue Study Lounge Version
+   Hidden Spot Cafe — Stories Styles (Magical but Clean)
+   File: /stories/stories.css
+   Notes:
+   - Loads after /style.css, so it can override global styles safely.
+   - Avoids using .badge (global menu uses .badge with absolute positioning).
    ========================================================= */
-
-:root{
-  --bg-page: #F3F7FA;
-  --bg-surface: #E1ECF4;
-  --bg-card: #D3E2EC;
-
-  --text-main: #2B3A42;
-  --text-soft: #53636D;
-  --text-muted: #6E7F89;
-
-  --accent: #7FAACB;
-  --accent-strong: #6A97BA;
-
-  --border-soft: rgba(43,58,66,0.10);
-  --border-mid: rgba(43,58,66,0.16);
-
-  --shadow-soft: rgba(43,58,66,0.10);
-  --shadow-mid: rgba(43,58,66,0.14);
-
-  --white-glow: rgba(255,255,255,0.45);
-}
 
 
 /* =========================================================
@@ -46,12 +28,13 @@
   margin: 0 auto 18px;
   border-radius: 18px;
 
+  /* Magical but clean glass */
   background:
-    radial-gradient(circle at 30% 0%, rgba(127,170,203,0.22), transparent 55%),
-    linear-gradient(rgba(255,255,255,0.78), rgba(225,236,244,0.96));
+    radial-gradient(circle at 30% 0%, rgba(199,125,255,0.18), transparent 55%),
+    linear-gradient(rgba(10,10,20,0.58), rgba(10,10,20,0.78));
 
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 12px 30px var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -61,26 +44,27 @@
   margin: 0 0 8px;
   font-size: 34px;
   letter-spacing: 0.2px;
-  color: var(--text-main);
 }
 
 .stories-hero p{
   margin: 0 auto;
   max-width: 52ch;
-  color: var(--text-soft);
+  color: rgba(255,255,255,0.78);
   line-height: 1.6;
   font-size: 15px;
 }
 
 
 /* =========================================================
-   3) HERO BUTTONS
+   3) HERO BUTTONS (Fix alignment mismatch)
+   - Your global buttons are <a> tags with different padding/baseline behavior.
+   - We standardize them inside this hero actions wrapper.
    ========================================================= */
 
 .stories-hero-actions{
   display:flex;
   justify-content:center;
-  align-items:center;
+  align-items:center;     /* <-- ensures same vertical alignment */
   gap: 16px;
   flex-wrap:wrap;
   margin-top: 16px;
@@ -88,25 +72,20 @@
 
 .stories-hero-actions .message-btn,
 .stories-hero-actions .share-btn{
-  display:inline-flex;
+  display:inline-flex;    /* <-- fixes baseline weirdness */
   align-items:center;
   justify-content:center;
-  line-height: 1;
-  min-height: 20px;
-  padding: 12px 25px;
+  line-height: 1;         /* <-- prevents text sitting higher/lower */
+  min-height: 20px;       /* nice tap target for mobile */
+  padding: 12px 25px;     /* unify feel */
   border-radius: 999px;
   text-align:center;
   white-space: nowrap;
-
-  background: rgba(255,255,255,0.72);
-  color: var(--text-main);
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 6px 16px rgba(43,58,66,0.08);
 }
 
 
 /* =========================================================
-   4) SEARCH BAR
+   4) SEARCH BAR (Big, bordered, icon inside)
    ========================================================= */
 
 .stories-search{
@@ -117,9 +96,9 @@
   padding: 14px 14px;
   border-radius: 18px;
 
-  background: rgba(255,255,255,0.78);
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 10px 24px rgba(43,58,66,0.08);
+  background: rgba(20,20,35,0.62);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -130,10 +109,9 @@
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.7;
+  opacity: 0.9;
   pointer-events:none;
   font-size: 16px;
-  color: var(--text-muted);
 }
 
 .stories-search input{
@@ -141,18 +119,18 @@
   border:none;
   outline:none;
   background:transparent;
-  color: var(--text-main);
+  color:#eaeaf0;
   font-size: 16px;
-  padding: 6px 10px 6px 40px;
+  padding: 6px 10px 6px 40px; /* space for icon */
 }
 
 .stories-search input::placeholder{
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.55);
 }
 
 
 /* =========================================================
-   5) FEATURED STORY
+   5) FEATURED STORY (Premium top card)
    ========================================================= */
 
 .featured-wrap{
@@ -170,11 +148,11 @@
   padding: 18px 18px;
 
   background:
-    radial-gradient(circle at 25% 0%, rgba(127,170,203,0.18), transparent 55%),
-    linear-gradient(rgba(255,255,255,0.92), rgba(211,226,236,0.94));
+    radial-gradient(circle at 25% 0%, rgba(199,125,255,0.22), transparent 55%),
+    linear-gradient(rgba(20,20,35,0.85), rgba(10,10,20,0.75));
 
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 16px 38px var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.42);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -183,8 +161,7 @@
 
 .featured-card:hover{
   transform: translateY(-3px);
-  border-color: rgba(127,170,203,0.48);
-  box-shadow: 0 18px 40px var(--shadow-mid);
+  border-color: rgba(199,125,255,0.40);
 }
 
 .featured-kicker{
@@ -193,7 +170,7 @@
   justify-content:space-between;
   gap:10px;
   margin-bottom:10px;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.70);
   font-size: 13px;
 }
 
@@ -203,9 +180,9 @@
   gap:8px;
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(127,170,203,0.28);
-  background: rgba(127,170,203,0.14);
-  color: var(--text-main);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(168,85,247,0.12);
+  color:#ffffff;
   font-size: 12px;
 }
 
@@ -214,12 +191,12 @@
   font-size: 24px;
   line-height: 1.18;
   letter-spacing: 0.2px;
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 .featured-excerpt{
   margin: 0 0 14px;
-  color: var(--text-soft);
+  color: rgba(255,255,255,0.78);
   line-height: 1.65;
   font-size: 15px;
   max-width: 70ch;
@@ -239,23 +216,22 @@
   padding: 11px 14px;
   border-radius: 14px;
   font-weight:bold;
-  color:#ffffff;
+  color:#fff;
 
-  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
-  border: 1px solid rgba(127,170,203,0.30);
-  box-shadow: 0 10px 20px rgba(127,170,203,0.20);
+  background: linear-gradient(90deg, rgba(168,85,247,0.95), rgba(199,125,255,0.95));
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 20px rgba(168,85,247,0.22);
 
   transition: 0.2s ease;
 }
 
 .read-btn:hover{
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(127,170,203,0.26);
 }
 
 
 /* =========================================================
-   6) LIST GRID + CARDS
+   6) LIST GRID + CARDS (Whole card clickable)
    ========================================================= */
 
 #stories-list{
@@ -270,6 +246,7 @@
   color:inherit;
 }
 
+
 .story-card-link *{
   text-decoration:none;
 }
@@ -279,11 +256,11 @@
   padding: 18px 18px;
 
   background:
-    radial-gradient(circle at 20% 0%, rgba(127,170,203,0.14), transparent 52%),
-    rgba(255,255,255,0.86);
+    radial-gradient(circle at 20% 0%, rgba(168,85,247,0.16), transparent 52%),
+    rgba(20,20,35,0.78);
 
-  border: 1px solid var(--border-soft);
-  box-shadow: 0 10px 26px rgba(43,58,66,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
 
   transition: 0.22s ease;
 
@@ -293,8 +270,8 @@
 
 .story-card:hover{
   transform: translateY(-4px);
-  border-color: rgba(127,170,203,0.42);
-  box-shadow: 0 14px 32px rgba(43,58,66,0.12);
+  border-color: rgba(199,125,255,0.38);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.38);
 }
 
 .story-title{
@@ -302,12 +279,12 @@
   font-size: 20px;
   line-height: 1.25;
   letter-spacing: 0.2px;
-  color: var(--text-main);
+  color: #ffffff;
 }
 
 .story-excerpt{
   margin:0 0 12px;
-  color: var(--text-soft);
+  color: rgba(255,255,255,0.74);
   line-height: 1.6;
   font-size: 14.5px;
 }
@@ -316,7 +293,7 @@
   display:flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.66);
   font-size: 13px;
   margin-bottom: 10px;
 }
@@ -329,22 +306,23 @@
 
 
 /* =========================================================
-   7) TAG PILLS
+   7) TAG PILLS (Used both on index + story pages)
    ========================================================= */
 
 .tag{
   display:inline-flex;
   padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(127,170,203,0.20);
-  color: var(--accent-strong);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #c9c9ff;
   font-size: 12px;
-  background: rgba(127,170,203,0.10);
+  background: rgba(168,85,247,0.10);
 }
 
 
 /* =========================================================
-   8) STORY BADGES
+   8) STORY BADGES (TRENDING / NEW TODAY)
+   - Uses .story-badge so it won't conflict with global .badge
    ========================================================= */
 
 .badge-row{
@@ -356,7 +334,7 @@
 }
 
 .story-badge{
-  position: static;
+  position: static; /* important: avoid absolute overlap */
   display:inline-flex;
   align-items:center;
   gap:6px;
@@ -365,21 +343,20 @@
   font-size:12px;
   font-weight:700;
   letter-spacing:0.3px;
-  border:1px solid var(--border-soft);
-  background: rgba(255,255,255,0.58);
-  color: var(--text-main);
+  border:1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
 }
 
 .story-badge-new{
-  background: rgba(133, 188, 140, 0.16);
-  border-color: rgba(133, 188, 140, 0.28);
-  color: var(--text-main);
+  background: rgba(46, 204, 113, 0.14);
+  border-color: rgba(46, 204, 113, 0.35);
+  color: rgba(255,255,255,0.92);
 }
 
 .story-badge-trending{
-  background: rgba(232, 143, 143, 0.16);
-  border-color: rgba(232, 143, 143, 0.30);
-  color: var(--text-main);
+  background: rgba(255, 77, 109, 0.14);
+  border-color: rgba(255, 77, 109, 0.38);
+  color: rgba(255,255,255,0.92);
 }
 
 
@@ -396,19 +373,18 @@
 }
 
 .pagination button{
-  border: 1px solid var(--border-soft);
-  background: rgba(255,255,255,0.82);
-  color: var(--text-main);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(20,20,35,0.70);
+  color: #eaeaf0;
   padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
   transition: 0.2s ease;
-  box-shadow: 0 4px 12px rgba(43,58,66,0.06);
 }
 
 .pagination button:hover{
   transform: translateY(-1px);
-  border-color: rgba(127,170,203,0.40);
+  border-color: rgba(199,125,255,0.38);
 }
 
 .pagination button:disabled{
@@ -418,27 +394,28 @@
 }
 
 #pageInfo{
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.72);
   font-size: 13px;
 }
 
 
 /* =========================================================
-   10) STORY DETAIL PAGE
+   10) STORY DETAIL PAGE (Reading card + actions)
+   - Your story pages use: <article class="story-reading-card">...</article>
    ========================================================= */
 
 .story-reading-card{
-  max-width: 860px;
+  max-width: 860px;        /* centers reading card even if container is wider */
   margin: 0 auto;
   border-radius: 20px;
   padding: 20px 18px;
 
   background:
-    radial-gradient(circle at 25% 0%, rgba(127,170,203,0.14), transparent 55%),
-    rgba(255,255,255,0.88);
+    radial-gradient(circle at 25% 0%, rgba(199,125,255,0.20), transparent 55%),
+    rgba(20,20,35,0.82);
 
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 16px 38px rgba(43,58,66,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.42);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -448,20 +425,20 @@
   margin: 0 0 14px;
   line-height: 1.85;
   font-size: 16px;
-  color: var(--text-main);
+  color: rgba(255,255,255,0.86);
 }
 
 .story-reading-card strong{
-  color: #22313A;
+  color: #ffffff;
 }
 
 .story-reading-card em{
-  color: var(--text-soft);
+  color: rgba(255,255,255,0.78);
 }
 
 .story-divider{
   height: 1px;
-  background: rgba(43,58,66,0.10);
+  background: rgba(255,255,255,0.10);
   margin: 14px 0 16px;
 }
 
@@ -473,9 +450,9 @@
 }
 
 .story-actions .action-btn{
-  border: 1px solid var(--border-soft);
-  background: rgba(255,255,255,0.82);
-  color: var(--text-main);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(20,20,35,0.70);
+  color: #eaeaf0;
   padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
@@ -485,12 +462,12 @@
 
 .story-actions .action-btn:hover{
   transform: translateY(-1px);
-  border-color: rgba(127,170,203,0.40);
+  border-color: rgba(199,125,255,0.38);
 }
 
 
 /* =========================================================
-   11) RESPONSIVE
+   11) RESPONSIVE (2-column grid on wider screens)
    ========================================================= */
 
 @media (min-width: 820px){
@@ -505,9 +482,10 @@
 
 /* =========================================================
    12) SAFETY OVERRIDE
+   - If someone accidentally uses <header> without .stories-hero on stories pages
    ========================================================= */
 
 body.stories-page header:not(.stories-hero){
   padding: 60px 18px;
-  background: linear-gradient(rgba(255,255,255,0.78), rgba(225,236,244,0.96));
+  background: linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
 }
