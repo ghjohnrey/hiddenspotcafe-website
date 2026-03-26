@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+  =====================================================================
+  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
+  =====================================================================
+
+  GOAL:
+  - When you share a story link on Facebook, the preview should show:
+    ✅ Correct title
+    ✅ Correct description
+    ✅ Correct OG image (1200x630)
+    ✅ OG image text taken from your JSON script (#og-data)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
+  ---------------------------------------------------------------------
+  Slug rules (STRICT):
+  - lowercase only
+  - numbers allowed
+  - hyphen separated
+  - NO spaces
+  - NO special characters
+
+  Examples:
+  ✅ beep-card-feelings
+  ✅ fare-that-told-you-to-breathe
+  ✅ the-742-jeep
+  ❌ Fare That Told You to Breathe
+  ❌ fare_that_told_you
+
+  ---------------------------------------------------------------------
+  ✅ STEP 1 — File + URL MUST match the slug
+  ---------------------------------------------------------------------
+  Your final story URL MUST be ONE of these formats:
+
+  Option A (recommended, clean URL):
+  https://hiddenspotcafe.com/stories/<slug>
+
+  Option B (.html URL):
+  https://hiddenspotcafe.com/stories/<slug>.html
+
+  IMPORTANT:
+  - Your Worker tries BOTH. So either is okay.
+  - BUT your canonical tag + share links must match what you publish.
+
+  ---------------------------------------------------------------------
+  ✅ STEP 2 — REQUIRED edits in <head> for every story
+  ---------------------------------------------------------------------
+  Replace EVERY <slug> and EVERY title/description/quote:
+
+  (1) <title>...</title>
+  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
+      - canonical should match your final URL
+      - avoid redirects if possible
+
+  (3) Open Graph tags (Facebook/Discord/etc.)
+      - og:title (story title)
+      - og:description (one short sentence)
+      - og:url (final URL)
+
+  (4) OG Image tags (VERY IMPORTANT)
+      MUST be stable + exact slug match:
+      https://hiddenspotcafe.com/og/stories/<slug>.png
+
+      DO NOT do:
+      ❌ ?v=123
+      ❌ -v3
+      ❌ random filenames
+      unless you accept you’ll have to keep that URL forever.
+
+  (5) Twitter tags (recommended)
+      - twitter:image should match og:image
+
+  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
+      <script type="application/json" id="og-data">{...}</script>
+
+      Rules for JSON:
+      ✅ Double quotes only
+      ✅ No trailing commas
+      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
+      ✅ Use normal quotes in text if possible
+
+      Minimum required fields:
+      - "quote": "..."
+
+      Optional:
+      - "title": "..." (Worker currently does not display title on image,
+                       but you can keep it for future)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 3 — REQUIRED edits in <body> for every story
+  ---------------------------------------------------------------------
+  (1) Hero content:
+      - <h1>Story Title</h1>
+      - Hero <p>Short description</p>
+
+  (2) Meta chips:
+      - read time
+      - tags (#tag)
+
+  (3) Share link + Copy link MUST match the final URL:
+      - Share URL must use your slug
+      - Copy button must copy the same final URL
+
+  ---------------------------------------------------------------------
+  ✅ STEP 4 — Other files you MUST update when publishing a new story
+  ---------------------------------------------------------------------
+  1) /stories/stories.json  (your grid/search/listing data)
+     - Add a new entry:
+       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
+
+     IMPORTANT:
+     - JSON must be valid
+     - No trailing commas
+     - The "url" should match your actual story URL (either .html or clean)
+
+  2) /stories/index.html (or /stories/ page)
+     - If your listing is generated from stories.json, make sure it loads/updates.
+
+  3) (Optional but good) /sitemap.xml
+     - Add the new story URL (better discovery)
+
+  ---------------------------------------------------------------------
+  ✅ STEP 5 — Verification (do this every publish)
+  ---------------------------------------------------------------------
+  A) Open your story page:
+     https://hiddenspotcafe.com/stories/<slug>
+
+  B) Open your OG image directly:
+     https://hiddenspotcafe.com/og/stories/<slug>.png
+     - It MUST show a 1200x630 image (not logo, not 1x1)
+
+  C) Confirm Facebook UA sees the OG image tag:
+     Windows CMD:
+     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
+
+  D) Confirm Worker source (GET request, not HEAD):
+     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
+     Look for:
+     X-OG-Source: html OR html-dot
+
+  E) Facebook Debugger:
+     - Scrape: https://hiddenspotcafe.com/stories/<slug>
+     - Click "Scrape Again" 2x
+
+  If FB Debugger still shows old preview:
+  - It may be caching the old image for that URL.
+  - Wait a bit, then "Scrape Again" again.
+  - (Your Worker now uses short cache to help updates.)
+
+  =====================================================================
+  END CHECKLIST
+  =====================================================================
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Bago Nawala ang Isang Pangalan</title>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/bago-nawala-ang-isang-pangalan" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Bago Nawala ang Isang Pangalan" />
+  <meta property="og:description" content="Isang Taglish story tungkol sa group trip na hindi natuloy at sa friendship na tahimik nang nagbago." />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/bago-nawala-ang-isang-pangalan" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/bago-nawala-ang-isang-pangalan.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/bago-nawala-ang-isang-pangalan.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/bago-nawala-ang-isang-pangalan.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Bago Nawala ang Isang Pangalan" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bago Nawala ang Isang Pangalan" />
+  <meta name="twitter:description" content="Isang Taglish story tungkol sa group trip na hindi natuloy at sa friendship na tahimik nang nagbago." />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/bago-nawala-ang-isang-pangalan.png" />
+
+  <!--
+    Data for Worker OG renderer
+    - Worker extracts this JSON and uses "quote" as the text in the OG image.
+    - Keep valid JSON (double quotes only, no trailing comma).
+  -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Bago Nawala ang Isang Pangalan",
+      "quote": "Hindi lahat ng plano natutuloy, pero may mga tao pa ring naiwan."
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+      </div>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Bago Nawala ang Isang Pangalan</h1>
+      <p>Isang Taglish story tungkol sa group trip na hindi natuloy at sa friendship na tahimik nang nagbago.</p>
+    </header>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#group-chat</span>
+        <span class="tag">#friendship</span>
+        <span class="tag">#slice-of-life-social-dynamics</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <p>Nagsimula lang sa isang send ng beach photo—tapos biglang naging plano na dapat matagal nang natuloy.</p>
+
+      <p>Si Caelis ang nag-drop noon sa Messenger group namin, mga alas-diyes ng gabi, habang nasa drafting table pa ako sa office at kunwari masipag pa bilang junior architect.</p>
+
+      <p>“Pwede pa ba humabol sa init bago magtag-ulan?” sabi niya.</p>
+      <p>Tapos may screenshot pa ng murang transient at isang reel ng mga taong tumatakbo sa buhangin na halatang mas may oras sa amin.</p>
+
+      <p>Ako agad unang nag-react.</p>
+      <p>Si Tyren rin, syempre, nag-chat ng “G ako” na parang wala na kaming kailangan pag-usapan.</p>
+
+      <p>Doon nagsimula yung ilang linggo na puro plano.</p>
+
+      <p>Bawat weekend, may bagong version.</p>
+      <p>Zambales ba. Batangas na lang. Day trip na lang. Hindi na beach, cafe crawl na lang. Hindi na Saturday, Sunday morning na lang para hindi magastos.</p>
+
+      <p>Habang mas dumadami yung detalye, mas lalong hindi natutuloy.</p>
+
+      <p>May poll si Caelis.</p>
+      <p>May shared note pa siya ng budget at possible call time. May pa-reminder pang “Guys, para makapag-file ako nang maayos.”</p>
+
+      <p>Ako laging “check ko schedule.”</p>
+      <p>Si Tyren laging “game lang, update ko kayo tomorrow.”</p>
+
+      <p>Ang totoo, pare-pareho lang kaming may dahilan na hindi naman ganun kalaki pakinggan pag isa-isa mo.</p>
+      <p>Pagod. Biglang may deliver. May uwing family thing. May overtime. Minsan tinamad lang talaga pero ayaw mo namang ikaw ang unang aamin.</p>
+
+      <p>Kaya sa group chat na lang umiikot yung biyahe.</p>
+
+      <p>Minsan magkikita kami ni Caelis sa cafe sa may Tomas Morato, hindi para tumuloy, kundi para lang “plantsahin” daw yung plano.</p>
+      <p>Uupo kami na may kape, bubuksan niya yung notes app, tapos after twenty minutes mapupunta rin sa ibang usapan—office chismis, presyo ng gasolina, bakit ang bilis maubos ng isang libo.</p>
+
+      <p>“Ang dali natin magplano no?” sabi ko minsan.</p>
+      <p>“Oo,” sabi niya, humihigop ng iced americano. “Yung pagtuloy lang talaga medyo complicated.”</p>
+
+      <p>Tatawa kami pareho, pero medyo bitin.</p>
+
+      <p>Habang tumatagal, may mga bagay na hindi naman sinabi pero napapansin.</p>
+      <p>Si Tyren, dati unang nagre-react, naging heart na lang tapos wala nang kasunod. Si Caelis, organized pa rin pero mas maikli na mag-reply. Ako, minsan binubuksan ko lang yung chat para hindi magmukhang nawawala.</p>
+
+      <p>May isang Sabado na sobrang detalyado na ng usapan.</p>
+      <p>May meeting point na sa Cubao. May oras ng alis. May listahan pa ng dadalhin na hindi ko alam kung bakit may nagsulat ng “extension cord?”</p>
+
+      <p>Tapos kinabukasan, wala.</p>
+      <p>Seen. Isang thumbs up. Tapos tahimik ulit.</p>
+
+      <p>Hindi naman dramatic yung tahimik.</p>
+      <p>Yung totoo, parang normal na siya.</p>
+
+      <p>Hanggang isang hapon, nasa site visit ako nang mag-vibrate yung phone ko.</p>
+      <p>Nag-send si Caelis ng bagong cafe reel sa group at sabi, “Ito na lang muna, malapit.”</p>
+
+      <p>Pagbukas ko ng chat, may kakaiba.</p>
+
+      <p>Mas maikli yung member list sa taas.</p>
+      <p>Wala na si Tyren.</p>
+
+      <p>Walang “left the group.”</p>
+      <p>Walang explanation. Wala ring nagtanong.</p>
+
+      <p>Tinitigan ko lang yung screen habang may contractor na may tinatanong sa harap ko tungkol sa ceiling line.</p>
+      <p>Ang weird kasi hindi naman ako nagulat agad. Parang napansin ko lang nang buo yung isang bagay na matagal nang andoon.</p>
+
+      <p>Matagal na rin pala kaming hindi kumpleto.</p>
+
+      <p>Hindi lang sa chat.</p>
+      <p>Pati sa totoong buhay.</p>
+
+      <p>Nag-reply ako kay Caelis.</p>
+      <p>“Kape mamaya?”</p>
+
+      <p>Wala nang dagdag.</p>
+      <p>Walang “usapan natin si Tyren.” Walang “trip na lang ulit.”</p>
+
+      <p>“Sige,” sagot niya after a few minutes. “6?”</p>
+
+      <p>Nagkita kami sa isang maliit na cafe sa Scout area na dati naming pinupuntahan pag gusto naming magkunwaring productive sa labas.</p>
+      <p>Walang beach photo. Walang itinerary. Wala ring spreadsheet si Caelis, which honestly felt stranger than it should have.</p>
+
+      <p>Umorder lang kami ng kape at isang cheesecake na hinati nang hindi na pinag-usapan.</p>
+
+      <p>“Busy ka?” tanong niya.</p>
+      <p>“Sakto lang. Ikaw?”</p>
+
+      <p>“Sakto lang din.”</p>
+
+      <p>Yun lang muna.</p>
+      <p>Tapos napunta na sa usual—yung boss niyang mahilig magpa-meeting nang Friday 5 p.m., yung client kong tatlong beses nagpapalit ng gusto, at bakit parang lahat ng bagong kainan ngayon may parehong upuan.</p>
+
+      <p>Normal siya.</p>
+      <p>As in normal lang talaga.</p>
+
+      <p>Pero doon ko naramdaman yung konting kirot.</p>
+      <p>Hindi dahil may umalis sa chat. Hindi rin dahil hindi natuloy yung out-of-town.</p>
+
+      <p>Kundi dahil minsan, hindi pala isang malaking away o betrayal ang kailangan para mag-iba ang closeness.</p>
+      <p>Minsan sunod-sunod lang na “next week pwede ba?” hanggang hindi mo na napapansin na ibang version na kayo ng dati mong grupo.</p>
+
+      <p>Bago kami umalis, chineck ulit ni Caelis yung phone niya.</p>
+      <p>Akala ko may ilalabas na naman siyang bagong plan.</p>
+
+      <p>Pero nilapag niya lang sa mesa.</p>
+      <p>“Tara ulit minsan,” sabi niya.</p>
+
+      <p>Hindi niya sinabi kung kailan.</p>
+      <p>Hindi ko rin tinanong.</p>
+
+      <p>“Oo,” sabi ko.</p>
+
+      <p>Paglabas namin, magkatabi kaming naglakad papuntang kanto bago kami maghiwalay ng sakay.</p>
+      <p>Walang closure. Wala ring promise na this time matutuloy na lahat.</p>
+
+      <p>Pero mas okay siya kaysa sa ilang linggo ng puro “G?” sa chat.</p>
+
+      <p>May mga planong hindi talaga umaabot sa dagat.</p>
+      <p>Pero may mga tao ring hindi naman tuluyang nawawala—nag-iiba lang ng laki yung espasyo na kaya ninyong punan para sa isa’t isa.</p>
+
+      <p>At minsan, sapat na muna yung isang mesa, dalawang kape, at usapang hindi na kailangang pilitin.</p>
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbago-nawala-ang-isang-pangalan"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/bago-nawala-ang-isang-pangalan");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
+        } catch {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
