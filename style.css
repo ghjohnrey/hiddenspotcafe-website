@@ -518,6 +518,57 @@ iframe{
   box-shadow:0 12px 28px var(--shadow-soft);
 }
 
+/* =========================================================
+   1.5) GLOBAL READABILITY / TYPOGRAPHY SAFETY
+   - Fixes low-contrast text after switching to a light premium theme
+   - Applies strong default readability to headings, paragraphs, lists, and small text
+   ========================================================= */
+
+h1, h2, h3, h4, h5, h6{
+  color: var(--text-main);
+}
+
+p,
+li,
+span,
+small{
+  color: var(--text-soft);
+}
+
+/* Stronger readable defaults for section content */
+.section p{
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+.section li{
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+.section strong{
+  color: var(--text-main);
+}
+
+.section em{
+  color: var(--text-main);
+}
+
+/* Optional helper for muted text blocks that became too faint */
+.section .muted,
+.section .subtext,
+.section .desc{
+  color: var(--text-soft);
+}
+
+/* Make highlighted / quote-like lines still readable */
+.section .highlight,
+.section .tagline,
+.section .note{
+  color: var(--accent-warm);
+  font-weight: 600;
+}
+
 
 /* =========================================================
    13) SHARE BUTTON (Facebook)
