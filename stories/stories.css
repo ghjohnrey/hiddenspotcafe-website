@@ -9,9 +9,6 @@
      with the approved premium dark cafe root system.
    - This version also improves the story detail reading experience
      without changing the shared HTML structure.
-   - OPTION A applied:
-     story detail card uses a premium warm paper surface
-     with ultra-subtle reading lines.
    ========================================================= */
 
 
@@ -470,29 +467,22 @@
    - Your story pages use: <article class="story-reading-card">...</article>
    - Matched to the premium card system used on the homepage
    - Optimized for long-form reading comfort
-   - OPTION A: warm paper with ultra-subtle reading lines
    ========================================================= */
 
 .story-reading-card{
-  max-width: 860px;
+  max-width: 860px;        /* centers reading card even if container is wider */
   margin: 0 auto;
   border-radius: 22px;
   padding: 22px 20px 20px;
 
-  /* DARK PAPER (balanced) */
   background:
-    linear-gradient(
-      rgba(255,255,255,0.04),
-      rgba(255,255,255,0.02)
-    ),
-    radial-gradient(circle at 25% 0%, rgba(176,108,255,0.12), transparent 55%),
-    linear-gradient(180deg, rgba(28,28,44,0.96), rgba(12,12,22,0.96));
+    radial-gradient(circle at 25% 0%, rgba(176,108,255,0.16), transparent 55%),
+    linear-gradient(180deg, rgba(28,28,44,0.92), rgba(12,12,22,0.94));
 
-  border: 1px solid rgba(255,255,255,0.08);
-
+  border: 1px solid var(--border-mid);
   box-shadow:
-    0 18px 40px rgba(0,0,0,0.45),
-    0 0 18px rgba(176,108,255,0.06);
+    0 18px 40px rgba(0,0,0,0.40),
+    0 0 20px rgba(176,108,255,0.06);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -502,7 +492,7 @@
   margin: 0 0 18px;
   line-height: 1.95;
   font-size: 16px;
-  color: rgba(240,238,255,0.88);
+  color: rgba(255,255,255,0.88);
   letter-spacing: 0.01em;
   max-width: 70ch;
 }
@@ -513,16 +503,16 @@
 }
 
 .story-reading-card strong{
-  color: #111111;
+  color: #ffffff;
 }
 
 .story-reading-card em{
-  color: #494949;
+  color: rgba(255,255,255,0.80);
 }
 
 .story-divider{
   height: 1px;
-  background: rgba(0,0,0,0.08);
+  background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.12), rgba(255,255,255,0.04));
   margin: 16px 0 18px;
 }
 
@@ -530,20 +520,19 @@
   align-items:center;
   gap: 8px;
   margin-bottom: 6px;
-  color: #5f5a5f;
+  color: var(--text-soft);
   font-size: 13px;
 }
 
 .story-reading-card .story-meta > span:first-child{
-  color: #746c73;
+  color: var(--text-muted);
   margin-right: 2px;
 }
 
 .story-reading-card .tag{
   background: rgba(176,108,255,0.10);
-  border: 1px solid rgba(0,0,0,0.08);
-  color: #4a3b7a;
-  box-shadow: none;
+  border-color: rgba(255,255,255,0.08);
+  color: #d8cff0;
 }
 
 .story-actions{
@@ -555,26 +544,26 @@
 }
 
 .story-actions .action-btn{
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--border-soft);
   background:
-    linear-gradient(180deg, rgba(250,246,241,0.92), rgba(239,232,222,0.94));
-  color: #2b2b2b;
+    linear-gradient(180deg, rgba(24,24,38,0.86), rgba(12,12,22,0.88));
+  color: var(--text-main);
   padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
   text-decoration:none;
   transition: 0.2s ease;
   box-shadow:
-    0 8px 16px rgba(0,0,0,0.10),
-    0 0 0 1px rgba(255,255,255,0.08) inset;
+    0 10px 18px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 }
 
 .story-actions .action-btn:hover{
   transform: translateY(-1px);
-  border-color: rgba(176,108,255,0.20);
+  border-color: rgba(176,108,255,0.24);
   box-shadow:
-    0 10px 20px rgba(0,0,0,0.14),
-    0 0 10px rgba(176,108,255,0.08);
+    0 12px 22px rgba(0,0,0,0.24),
+    0 0 14px rgba(176,108,255,0.10);
 }
 
 
@@ -617,7 +606,6 @@ body.stories-page header:not(.stories-hero){
   .story-reading-card{
     padding: 18px 16px 18px;
     border-radius: 18px;
-    background-size: 100% 26px, 100% 100%;
   }
 
   .story-reading-card p{
