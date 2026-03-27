@@ -654,6 +654,47 @@ header p{
 }
 
 /* =========================================================
+   FIX: Products section intro alignment
+========================================================= */
+
+.products-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.products-section-intro {
+  max-width: 780px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.products-section-intro h2 {
+  margin-bottom: 12px;
+}
+
+.products-section-intro p {
+  margin: 0;
+}
+
+.products {
+  width: 100%;
+}
+
+/* Mobile safety */
+@media (max-width: 768px) {
+  .products-section {
+    padding: 0 14px;
+  }
+
+  .products-section-intro {
+    margin-bottom: 22px;
+  }
+}
+
+/* =========================================================
    15) ABOUT SECTION (Premium Dark Cafe Card)
    ========================================================= */
 
