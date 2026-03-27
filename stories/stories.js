@@ -270,3 +270,113 @@ filtered = (featuredIsVisible && featured)
 
   init();
 });
+/* =========================================================
+   STORY PAGE SEARCH (ADDED)
+   ========================================================= */
+
+(function(){
+
+  // Detect if nasa story page
+  if (!window.currentStorySlug) return;
+
+  const currentSlug = window.currentStorySlug;
+  const currentTags = window.currentStoryTags || [];
+
+  let storiesData = [];
+
+  function normalizeUrl(story){
+    return story.url || `/stories/${story.slug}.html`;
+  }
+
+  function tagOverlap(tagsA, tagsB){
+    return tagsA.filter(t => tagsB.includes(t)).length;
+  }
+
+  function getSuggestions(){
+    let sameTag = storiesData
+      .map(s => ({
+        ...s,
+        score: tagOverlap(s.tags || [], currentTags)
+      }))
+      .filter(s => s.score > 0)
+      .sort((a,b)=>b.score-a.score);
+
+    if (sameTag.length >= 2) return sameTag;
+
+    let random = [...storiesData].sort(()=>0.5-Math.random());
+
+    return [...sameTag, ...random];
+  }
+
+  function render(containerId, list){
+    const el = document.getElementById(containerId);
+    if (!el) return;
+
+    if (!list.length){
+      el.innerHTML = `<div class="story-page-search-empty">No results found</div>`;
+      return;
+    }
+
+    el.innerHTML = list.map(s => `
+      <a class="story-page-search-result" href="${normalizeUrl(s)}">
+        <div class="story-page-search-result-title">${s.title}</div>
+        <div class="story-page-search-result-excerpt">${s.excerpt || ""}</div>
+        <div class="story-page-search-result-meta">${s.readTime || ""}</div>
+      </a>
+    `).join("");
+  }
+
+  function search(q){
+    q = q.toLowerCase();
+
+    return storiesData.filter(s =>
+      s.title.toLowerCase().includes(q) ||
+      s.excerpt.toLowerCase().includes(q) ||
+      (s.tags || []).join(" ").toLowerCase().includes(q)
+    );
+  }
+
+  function bind(inputId, resultId){
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    input.addEventListener("input", ()=>{
+      const q = input.value.trim();
+
+      // TOP SEARCH = no suggestions
+      if (!q && resultId === "storySearchTopResults"){
+        document.getElementById(resultId).innerHTML = "";
+        return;
+      }
+
+      // BOTTOM SEARCH = suggestions
+      if (!q){
+        render(resultId, getSuggestions().slice(0,2));
+        return;
+      }
+
+      render(resultId, search(q).slice(0,5));
+    });
+  }
+
+  async function init(){
+    try{
+      const res = await fetch("/stories/stories.json");
+      const data = await res.json();
+
+      storiesData = data.filter(s => s.slug !== currentSlug);
+
+      // default suggestions (BOTTOM ONLY)
+      render("storySearchBottomResults", getSuggestions().slice(0,2));
+
+      bind("storySearchTop", "storySearchTopResults");
+      bind("storySearchBottom", "storySearchBottomResults");
+
+    }catch(e){
+      console.error("Story search failed", e);
+    }
+  }
+
+  init();
+
+})();
