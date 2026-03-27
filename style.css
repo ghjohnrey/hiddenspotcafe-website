@@ -398,33 +398,7 @@ header p{
   }
 }
 
-.hamburger{
-  display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  z-index:1100;
 
-  appearance:none;
-  -webkit-appearance:none;
-  background:transparent;
-  border:none;
-  padding:8px;
-  margin:0;
-  box-shadow:none;
-  outline:none;
-}
-
-.hamburger:focus,
-.hamburger:focus-visible,
-.hamburger:active{
-  background:transparent;
-  border:none;
-  box-shadow:none;
-  outline:none;
-}
 
 
 /* =========================================================
