@@ -1,140 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hidden Spot Cafe – Potion Lab</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+  <!-- ✅ CHANGE: Homepage title -->
+  <title>Hidden Spot Cafe – Fantasy-Inspired Sparkling Fruit Drinks</title>
 
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="Hidden Spot Cafe is a fantasy-inspired drink shop serving sparkling fruit drinks, barkada packages, and Messenger-first ordering in Taguig City."
+  />
 
+  <!-- ✅ CHANGE: Canonical URL -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/" />
 
-<!-- ===============================
-     OPEN GRAPH META TAGS
-     Controls Facebook sharing preview
+  <link rel="stylesheet" href="style.css">
 
-================================ -->
+  <!-- ===============================
+       OPEN GRAPH META TAGS
+       Controls Facebook sharing preview
+  ================================ -->
 
-<meta property="og:title" content="Hidden Spot Cafe – Potion Lab ✨" />
-<meta property="og:description" content="Taste the magic ✨ Fantasy-inspired sparkling fruit drinks. Message Hidden Spot Cafe now!" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hiddenspotcafe.com/" />
-<meta property="og:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+  <meta property="og:title" content="Hidden Spot Cafe – Fantasy-Inspired Sparkling Fruit Drinks" />
+  <meta
+    property="og:description"
+    content="Hidden Spot Cafe serves fantasy-inspired sparkling fruit drinks, barkada packages, and Messenger-first ordering for magical, refreshing moments."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hiddenspotcafe.com/" />
+  <meta property="og:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
 
-<meta property="og:site_name" content="Hidden Spot Cafe" />
-<meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:locale" content="en_PH" />
 
-<!-- Optional but recommended for better mobile preview -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Hidden Spot Cafe – Potion Lab ✨" />
-<meta name="twitter:description" content="Fantasy-inspired sparkling fruit drinks. Magical in appearance. Refreshing in taste." />
-<meta name="twitter:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+  <!-- Optional but recommended for better mobile preview -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hidden Spot Cafe – Fantasy-Inspired Sparkling Fruit Drinks" />
+  <meta
+    name="twitter:description"
+    content="Fantasy-inspired sparkling fruit drinks, barkada packages, and Messenger-first ordering from Hidden Spot Cafe in Taguig City."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
 
+  <!-- ✅ CHANGE: Structured data for homepage business identity -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "Hidden Spot Cafe",
+      "url": "https://hiddenspotcafe.com/",
+      "image": "https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png",
+      "description": "Hidden Spot Cafe is a fantasy-inspired drink shop serving sparkling fruit drinks, barkada packages, and Messenger-first ordering in Taguig City.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Taguig City",
+        "addressCountry": "PH"
+      },
+      "sameAs": [
+        "https://www.facebook.com/hiddenspotcafe"
+      ]
+    }
+  </script>
 </head>
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar">
-  <div class="nav-accent"></div>
+  <!-- Navigation -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent"></div>
 
-  <div class="nav-container">
+    <div class="nav-container">
 
-    <!-- Logo -->
-    <a href="/">
-      <img src="assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      <!-- Logo -->
+      <a href="/" aria-label="Go to homepage">
+        <img src="assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <!-- Hamburger (Mobile) -->
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+  </nav>
+  <!-- END-Navigation -->
+
+  <header>
+    <h1>Hidden Spot Cafe</h1>
+    <p>Fantasy-inspired sparkling fruit drinks crafted to look magical and taste refreshing.</p>
+    <p>✨ Elixir ₱39 | 🧪 Potion ₱49</p>
+
+    <a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener" class="message-btn">
+      Message Us First
     </a>
 
-    <!-- Navigation Links -->
-    <div class="nav-links" id="navLinks">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/menu/" class="nav-link">Menu</a>
-      <a href="/stories/" class="nav-link">Stories</a>
-      <a href="/rain-check/" class="nav-link">Rain Check</a>
+    <a
+      href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/"
+      target="_blank"
+      rel="noopener"
+      class="share-btn"
+    >
+      Share on Facebook
+    </a>
+  </header>
+
+  <section class="package-section" aria-labelledby="packageHeading">
+    <h2 id="packageHeading">Barkada Packages</h2>
+    <p>Perfect for shared hangouts, small celebrations, and spontaneous café stops with friends.</p>
+
+    <div class="package-card">
+      <h3>🧭 Adventure Package</h3>
+      <p>5 Classic Elixirs for ₱179</p>
     </div>
 
-    <!-- Hamburger (Mobile) -->
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="package-card">
+      <h3>✨ Magical Package</h3>
+      <p>Buy 4 🧪Potions, Get 1 Free</p>
     </div>
+  </section>
 
-  </div>
-</nav>
-<!-- END-Navigation -->
-
-<header>
-  <h1>Hidden Spot Cafe</h1>
-  <p>✨Elixir ₱39 | 🧪Potion ₱49 </p>
-
-  <a href="https://m.me/hiddenspotcafe" target="_blank" class="message-btn">
-    Message Us First
-  </a>
-  
-  <a 
-  href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com" 
-  target="_blank" 
-  class="share-btn">
-  Share on Facebook
-</a>
-
-
-   
-</header>
-
-<section class="package-section">
-  <h2>Barkada Packages</h2>
-  <div class="package-card">
-    <h3>🧭 Adventure Package</h3>
-    <p>5 Classic Elixirs for ₱179</p>
-  </div>
-  <div class="package-card">
-    <h3>✨ Magical Package</h3>
-    <p>Buy 4 🧪Potions, Get 1 Free</p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="products" id="productContainer"></div>
-</section>
-
-<section class="section about-section">
-  <div class="about-card">
-    <h2>About Our ✨Elixirs & Potions 🧪</h2>
-    <p class="about-intro">
-      At <strong>Hidden Spot Cafe – 🧪Potion Lab</strong>, every drink is a 
-      fun, fantasy-inspired sparkling refreshment crafted to look magical 
-      while tasting fruity and bright.
+  <section class="section" aria-labelledby="productSectionHeading">
+    <h2 id="productSectionHeading">Our Sparkling Drinks</h2>
+    <p>
+      Explore our magical lineup of sparkling elixirs and potions made for fruity, refreshing, and fun café moments.
+      Product cards load below and show the drinks currently featured on the page.
     </p>
-    <ul class="about-list">
-      <li>✨ Chilled purified ice</li>
-      <li>✨ Sparkling soda</li>
-      <li>✨ Fruit-flavored syrup</li>
-      <li>✨ Fruit jelly</li>
-      <li>🧪 Optional edible shimmer (food-grade glitter)</li>
-      <li><strong>✨ ALL in 16oz Cup (473ml)</strong></li>
-    </ul>
-    <p class="about-tagline">
-      Magical in appearance. Refreshing in taste.
+
+    <div class="products" id="productContainer"></div>
+  </section>
+
+  <section class="section about-section" aria-labelledby="aboutHeading">
+    <div class="about-card">
+      <h2 id="aboutHeading">About Our ✨Elixirs & Potions 🧪</h2>
+      <p class="about-intro">
+        At <strong>Hidden Spot Cafe – 🧪Potion Lab</strong>, every drink is a
+        fun, fantasy-inspired sparkling refreshment crafted to look magical
+        while tasting fruity and bright.
+      </p>
+      <p>
+        Hidden Spot Cafe is a real local drink shop built around playful presentation, refreshing flavors, and a cozy
+        hidden-spot experience for barkadas, casual visitors, and curious first-timers.
+      </p>
+      <ul class="about-list">
+        <li>✨ Chilled purified ice</li>
+        <li>✨ Sparkling soda</li>
+        <li>✨ Fruit-flavored syrup</li>
+        <li>✨ Fruit jelly</li>
+        <li>🧪 Optional edible shimmer (food-grade glitter)</li>
+        <li><strong>✨ ALL in 16oz Cup (473ml)</strong></li>
+      </ul>
+      <p class="about-tagline">
+        Magical in appearance. Refreshing in taste.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="orderingHeading">
+    <div class="about-card">
+      <h2 id="orderingHeading">Before You Visit</h2>
+      <p>
+        We recommend messaging Hidden Spot Cafe first before visiting. Orders, availability checks, and visit
+        coordination are handled through Messenger so we can assist you properly before you arrive.
+      </p>
+      <p>
+        This helps confirm current availability, package requests, and visiting details for a smoother café experience.
+      </p>
+      <p>
+        <a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order or message us on Messenger</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="map-section" aria-labelledby="mapHeading">
+    <div class="map-card">
+      <h2 id="mapHeading">Discover Us Here</h2>
+      <p>
+        Hidden Spot Cafe is located in Taguig City. Since the café is on the 3rd floor, please message first before
+        visiting so we can help confirm details and guide you better.
+      </p>
+      <iframe
+        title="Hidden Spot Cafe location map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771843042431!5m2!1sen!2sph"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
     </p>
-  </div>
-</section>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
 
-<section class="map-section">
-  <div class="map-card">
-    <h2>Discover Us Here</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241.39286161091303!2d121.05618339031935!3d14.525638741937497!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c93e69a8dde3%3A0xfa6b8d2653081f51!2sHidden%20Spot%20Cafe!5e0!3m2!1sen!2sph!4v1771843042431!5m2!1sen!2sph"></iframe>
-  </div>
-</section>
-
-<footer>
-  <p>Located on the 3rd Floor – Message us before visiting</p>
-  <p><a href="https://m.me/hiddenspotcafe" target="_blank">Order via Messenger</a></p>
-  <p>© 2026 Hidden Spot Cafe</p>
-</footer>
-
-<script src="./script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
