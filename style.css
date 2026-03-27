@@ -620,6 +620,40 @@ header p{
 }
 
 /* =========================================================
+   FIX: Before You Visit alignment + responsive safety
+========================================================= */
+
+.section {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px; /* prevents edge overflow on mobile */
+  box-sizing: border-box;
+}
+
+.about-card {
+  width: 100%;
+  max-width: 900px; /* same feel as other cards */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Optional: tighten spacing consistency */
+.section + .section {
+  margin-top: 40px;
+}
+
+/* Mobile safety (extra protection) */
+@media (max-width: 768px) {
+  .section {
+    padding: 0 14px;
+  }
+
+  .about-card {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
    15) ABOUT SECTION (Premium Dark Cafe Card)
    ========================================================= */
 
