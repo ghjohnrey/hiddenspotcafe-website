@@ -502,7 +502,7 @@
   margin: 0 0 18px;
   line-height: 1.95;
   font-size: 16px;
-  color: #2f2f2f;
+  color: rgba(240,238,255,0.88);
   letter-spacing: 0.01em;
   max-width: 70ch;
 }
