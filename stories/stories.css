@@ -4,6 +4,9 @@
    Notes:
    - Loads after /style.css, so it can override global styles safely.
    - Avoids using .badge (global menu uses .badge with absolute positioning).
+   - Goal here is refinement, not redesign:
+     keep the current Stories page vibe, but align it more closely
+     with the approved premium dark cafe root system.
    ========================================================= */
 
 
@@ -20,36 +23,41 @@
 
 /* =========================================================
    2) HERO (Stories header)
+   - Keeps the current premium hero look
+   - Tightens alignment with root glass cards and depth system
    ========================================================= */
 
 .stories-hero{
   text-align:center;
   padding: 78px 18px 28px;
   margin: 0 auto 18px;
-  border-radius: 18px;
+  border-radius: 22px;
 
-  /* Magical but clean glass */
+  /* Magical but cleaner / more controlled than before */
   background:
-    radial-gradient(circle at 30% 0%, rgba(199,125,255,0.18), transparent 55%),
-    linear-gradient(rgba(10,10,20,0.58), rgba(10,10,20,0.78));
+    radial-gradient(circle at 30% 0%, rgba(176,108,255,0.20), transparent 55%),
+    linear-gradient(180deg, rgba(30,30,48,0.90), rgba(12,12,22,0.94));
 
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  border: 1px solid var(--border-mid);
+  box-shadow:
+    0 16px 34px rgba(0,0,0,0.36),
+    0 0 22px rgba(176,108,255,0.08);
 
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .stories-hero h1{
   margin: 0 0 8px;
   font-size: 34px;
   letter-spacing: 0.2px;
+  color: #ffffff;
 }
 
 .stories-hero p{
   margin: 0 auto;
   max-width: 52ch;
-  color: rgba(255,255,255,0.78);
+  color: var(--text-soft);
   line-height: 1.6;
   font-size: 15px;
 }
@@ -64,7 +72,7 @@
 .stories-hero-actions{
   display:flex;
   justify-content:center;
-  align-items:center;     /* <-- ensures same vertical alignment */
+  align-items:center;
   gap: 16px;
   flex-wrap:wrap;
   margin-top: 16px;
@@ -72,12 +80,12 @@
 
 .stories-hero-actions .message-btn,
 .stories-hero-actions .share-btn{
-  display:inline-flex;    /* <-- fixes baseline weirdness */
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  line-height: 1;         /* <-- prevents text sitting higher/lower */
-  min-height: 20px;       /* nice tap target for mobile */
-  padding: 12px 25px;     /* unify feel */
+  line-height: 1;
+  min-height: 20px;
+  padding: 12px 25px;
   border-radius: 999px;
   text-align:center;
   white-space: nowrap;
@@ -86,6 +94,7 @@
 
 /* =========================================================
    4) SEARCH BAR (Big, bordered, icon inside)
+   - Styled like a premium dark glass input shell
    ========================================================= */
 
 .stories-search{
@@ -96,12 +105,25 @@
   padding: 14px 14px;
   border-radius: 18px;
 
-  background: rgba(20,20,35,0.62);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+  background:
+    linear-gradient(180deg, rgba(26,26,42,0.86), rgba(14,14,26,0.88));
+  border: 1px solid var(--border-soft);
+  box-shadow:
+    0 12px 24px rgba(0,0,0,0.22),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+
+  transition: 0.22s ease;
+}
+
+.stories-search:focus-within{
+  border-color: rgba(176,108,255,0.22);
+  box-shadow:
+    0 12px 24px rgba(0,0,0,0.24),
+    0 0 0 1px rgba(255,255,255,0.02) inset,
+    0 0 18px rgba(176,108,255,0.10);
 }
 
 .stories-search .search-icon{
@@ -119,18 +141,20 @@
   border:none;
   outline:none;
   background:transparent;
-  color:#eaeaf0;
+  color: var(--text-main);
   font-size: 16px;
   padding: 6px 10px 6px 40px; /* space for icon */
 }
 
 .stories-search input::placeholder{
-  color: rgba(255,255,255,0.55);
+  color: var(--text-muted);
 }
 
 
 /* =========================================================
    5) FEATURED STORY (Premium top card)
+   - Stronger hierarchy than the regular cards
+   - Slight warm accent to feel more “featured” / intentional
    ========================================================= */
 
 .featured-wrap{
@@ -144,15 +168,18 @@
 }
 
 .featured-card{
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 18px 18px;
 
   background:
-    radial-gradient(circle at 25% 0%, rgba(199,125,255,0.22), transparent 55%),
-    linear-gradient(rgba(20,20,35,0.85), rgba(10,10,20,0.75));
+    radial-gradient(circle at 22% 0%, rgba(176,108,255,0.20), transparent 50%),
+    radial-gradient(circle at 88% 18%, rgba(240,199,122,0.07), transparent 28%),
+    linear-gradient(180deg, rgba(34,28,52,0.92), rgba(12,12,24,0.95));
 
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 16px 38px rgba(0,0,0,0.42);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 18px 36px rgba(0,0,0,0.34),
+    0 0 22px rgba(176,108,255,0.08);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -161,7 +188,10 @@
 
 .featured-card:hover{
   transform: translateY(-3px);
-  border-color: rgba(199,125,255,0.40);
+  border-color: rgba(240,199,122,0.18);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.38),
+    0 0 24px rgba(176,108,255,0.12);
 }
 
 .featured-kicker{
@@ -170,7 +200,7 @@
   justify-content:space-between;
   gap:10px;
   margin-bottom:10px;
-  color: rgba(255,255,255,0.70);
+  color: var(--text-soft);
   font-size: 13px;
 }
 
@@ -180,10 +210,11 @@
   gap:8px;
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(168,85,247,0.12);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(176,108,255,0.12);
   color:#ffffff;
   font-size: 12px;
+  box-shadow: 0 6px 14px rgba(176,108,255,0.08);
 }
 
 .featured-title{
@@ -196,7 +227,7 @@
 
 .featured-excerpt{
   margin: 0 0 14px;
-  color: rgba(255,255,255,0.78);
+  color: var(--text-soft);
   line-height: 1.65;
   font-size: 15px;
   max-width: 70ch;
@@ -218,20 +249,27 @@
   font-weight:bold;
   color:#fff;
 
-  background: linear-gradient(90deg, rgba(168,85,247,0.95), rgba(199,125,255,0.95));
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 10px 20px rgba(168,85,247,0.22);
+  background: linear-gradient(135deg, var(--accent-purple-deep), var(--accent-purple));
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    0 10px 20px rgba(141,76,230,0.24),
+    0 0 0 1px rgba(255,255,255,0.03) inset;
 
   transition: 0.2s ease;
 }
 
 .read-btn:hover{
   transform: translateY(-1px);
+  box-shadow:
+    0 12px 24px rgba(141,76,230,0.28),
+    0 0 14px rgba(176,108,255,0.16);
 }
 
 
 /* =========================================================
    6) LIST GRID + CARDS (Whole card clickable)
+   - Keeps the current structure
+   - Refined to match root card gradients / borders / shadows
    ========================================================= */
 
 #stories-list{
@@ -246,7 +284,6 @@
   color:inherit;
 }
 
-
 .story-card-link *{
   text-decoration:none;
 }
@@ -256,11 +293,13 @@
   padding: 18px 18px;
 
   background:
-    radial-gradient(circle at 20% 0%, rgba(168,85,247,0.16), transparent 52%),
-    rgba(20,20,35,0.78);
+    radial-gradient(circle at 20% 0%, rgba(176,108,255,0.14), transparent 52%),
+    linear-gradient(180deg, rgba(30,30,48,0.90), rgba(15,15,28,0.92));
 
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+  border: 1px solid var(--border-soft);
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.28),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 
   transition: 0.22s ease;
 
@@ -270,8 +309,10 @@
 
 .story-card:hover{
   transform: translateY(-4px);
-  border-color: rgba(199,125,255,0.38);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.38);
+  border-color: rgba(240,199,122,0.16);
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.34),
+    0 0 18px rgba(176,108,255,0.10);
 }
 
 .story-title{
@@ -284,7 +325,7 @@
 
 .story-excerpt{
   margin:0 0 12px;
-  color: rgba(255,255,255,0.74);
+  color: var(--text-soft);
   line-height: 1.6;
   font-size: 14.5px;
 }
@@ -293,7 +334,7 @@
   display:flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: rgba(255,255,255,0.66);
+  color: var(--text-muted);
   font-size: 13px;
   margin-bottom: 10px;
 }
@@ -307,16 +348,18 @@
 
 /* =========================================================
    7) TAG PILLS (Used both on index + story pages)
+   - Tuned to the root purple system with cleaner borders
    ========================================================= */
 
 .tag{
   display:inline-flex;
   padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #c9c9ff;
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #d8cff0;
   font-size: 12px;
-  background: rgba(168,85,247,0.10);
+  background: rgba(176,108,255,0.10);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
 
@@ -343,25 +386,27 @@
   font-size:12px;
   font-weight:700;
   letter-spacing:0.3px;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #ffffff;
 }
 
 .story-badge-new{
   background: rgba(46, 204, 113, 0.14);
-  border-color: rgba(46, 204, 113, 0.35);
+  border-color: rgba(46, 204, 113, 0.30);
   color: rgba(255,255,255,0.92);
 }
 
 .story-badge-trending{
   background: rgba(255, 77, 109, 0.14);
-  border-color: rgba(255, 77, 109, 0.38);
+  border-color: rgba(255, 77, 109, 0.34);
   color: rgba(255,255,255,0.92);
 }
 
 
 /* =========================================================
    9) PAGINATION
+   - Aligned to the same glass-dark control style
    ========================================================= */
 
 .pagination{
@@ -373,28 +418,38 @@
 }
 
 .pagination button{
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(20,20,35,0.70);
-  color: #eaeaf0;
+  border: 1px solid var(--border-soft);
+  background:
+    linear-gradient(180deg, rgba(24,24,38,0.86), rgba(12,12,22,0.88));
+  color: var(--text-main);
   padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
   transition: 0.2s ease;
+  box-shadow:
+    0 10px 18px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 }
 
 .pagination button:hover{
   transform: translateY(-1px);
-  border-color: rgba(199,125,255,0.38);
+  border-color: rgba(176,108,255,0.24);
+  box-shadow:
+    0 12px 22px rgba(0,0,0,0.24),
+    0 0 14px rgba(176,108,255,0.10);
 }
 
 .pagination button:disabled{
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
+  box-shadow:
+    0 8px 14px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 }
 
 #pageInfo{
-  color: rgba(255,255,255,0.72);
+  color: var(--text-soft);
   font-size: 13px;
 }
 
@@ -402,20 +457,23 @@
 /* =========================================================
    10) STORY DETAIL PAGE (Reading card + actions)
    - Your story pages use: <article class="story-reading-card">...</article>
+   - Matched to the premium card system used on the homepage
    ========================================================= */
 
 .story-reading-card{
   max-width: 860px;        /* centers reading card even if container is wider */
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 20px 18px;
 
   background:
-    radial-gradient(circle at 25% 0%, rgba(199,125,255,0.20), transparent 55%),
-    rgba(20,20,35,0.82);
+    radial-gradient(circle at 25% 0%, rgba(176,108,255,0.18), transparent 55%),
+    linear-gradient(180deg, rgba(30,30,48,0.90), rgba(12,12,22,0.92));
 
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 16px 38px rgba(0,0,0,0.42);
+  border: 1px solid var(--border-mid);
+  box-shadow:
+    0 16px 38px rgba(0,0,0,0.38),
+    0 0 22px rgba(176,108,255,0.08);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -450,19 +508,26 @@
 }
 
 .story-actions .action-btn{
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(20,20,35,0.70);
-  color: #eaeaf0;
+  border: 1px solid var(--border-soft);
+  background:
+    linear-gradient(180deg, rgba(24,24,38,0.86), rgba(12,12,22,0.88));
+  color: var(--text-main);
   padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
   text-decoration:none;
   transition: 0.2s ease;
+  box-shadow:
+    0 10px 18px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
 }
 
 .story-actions .action-btn:hover{
   transform: translateY(-1px);
-  border-color: rgba(199,125,255,0.38);
+  border-color: rgba(176,108,255,0.24);
+  box-shadow:
+    0 12px 22px rgba(0,0,0,0.24),
+    0 0 14px rgba(176,108,255,0.10);
 }
 
 
@@ -474,6 +539,7 @@
   #stories-list{
     grid-template-columns: 1fr 1fr;
   }
+
   .stories-hero{
     padding: 84px 24px 34px;
   }
