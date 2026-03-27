@@ -7,6 +7,8 @@
    - Goal here is refinement, not redesign:
      keep the current Stories page vibe, but align it more closely
      with the approved premium dark cafe root system.
+   - This version also improves the story detail reading experience
+     without changing the shared HTML structure.
    ========================================================= */
 
 
@@ -118,6 +120,10 @@
   transition: 0.22s ease;
 }
 
+.stories-search:hover{
+  border-color: rgba(176,108,255,0.16);
+}
+
 .stories-search:focus-within{
   border-color: rgba(176,108,255,0.22);
   box-shadow:
@@ -178,8 +184,8 @@
 
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow:
-    0 18px 36px rgba(0,0,0,0.34),
-    0 0 22px rgba(176,108,255,0.08);
+    0 20px 44px rgba(0,0,0,0.42),
+    0 0 28px rgba(176,108,255,0.12);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -190,8 +196,8 @@
   transform: translateY(-3px);
   border-color: rgba(240,199,122,0.18);
   box-shadow:
-    0 20px 40px rgba(0,0,0,0.38),
-    0 0 24px rgba(176,108,255,0.12);
+    0 22px 48px rgba(0,0,0,0.44),
+    0 0 30px rgba(176,108,255,0.14);
 }
 
 .featured-kicker{
@@ -290,7 +296,7 @@
 
 .story-card{
   border-radius: 18px;
-  padding: 18px 18px;
+  padding: 16px 16px;
 
   background:
     radial-gradient(circle at 20% 0%, rgba(176,108,255,0.14), transparent 52%),
@@ -353,11 +359,13 @@
 
 .tag{
   display:inline-flex;
+  align-items:center;
   padding: 5px 10px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.10);
   color: #d8cff0;
   font-size: 12px;
+  line-height: 1.2;
   background: rgba(176,108,255,0.10);
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
@@ -458,32 +466,40 @@
    10) STORY DETAIL PAGE (Reading card + actions)
    - Your story pages use: <article class="story-reading-card">...</article>
    - Matched to the premium card system used on the homepage
+   - Optimized for long-form reading comfort
    ========================================================= */
 
 .story-reading-card{
   max-width: 860px;        /* centers reading card even if container is wider */
   margin: 0 auto;
   border-radius: 22px;
-  padding: 20px 18px;
+  padding: 22px 20px 20px;
 
   background:
-    radial-gradient(circle at 25% 0%, rgba(176,108,255,0.18), transparent 55%),
-    linear-gradient(180deg, rgba(30,30,48,0.90), rgba(12,12,22,0.92));
+    radial-gradient(circle at 25% 0%, rgba(176,108,255,0.16), transparent 55%),
+    linear-gradient(180deg, rgba(28,28,44,0.92), rgba(12,12,22,0.94));
 
   border: 1px solid var(--border-mid);
   box-shadow:
-    0 16px 38px rgba(0,0,0,0.38),
-    0 0 22px rgba(176,108,255,0.08);
+    0 18px 40px rgba(0,0,0,0.40),
+    0 0 20px rgba(176,108,255,0.06);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .story-reading-card p{
-  margin: 0 0 14px;
-  line-height: 1.85;
+  margin: 0 0 18px;
+  line-height: 1.95;
   font-size: 16px;
-  color: rgba(255,255,255,0.86);
+  color: rgba(255,255,255,0.88);
+  letter-spacing: 0.01em;
+  max-width: 70ch;
+}
+
+.story-reading-card > p{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .story-reading-card strong{
@@ -491,20 +507,40 @@
 }
 
 .story-reading-card em{
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.80);
 }
 
 .story-divider{
   height: 1px;
-  background: rgba(255,255,255,0.10);
-  margin: 14px 0 16px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  margin: 16px 0 18px;
+}
+
+.story-reading-card .story-meta{
+  align-items:center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+.story-reading-card .story-meta > span:first-child{
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+
+.story-reading-card .tag{
+  background: rgba(176,108,255,0.10);
+  border-color: rgba(255,255,255,0.08);
+  color: #d8cff0;
 }
 
 .story-actions{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  margin-top: 14px;
+  margin-top: 22px;
+  padding-top: 2px;
 }
 
 .story-actions .action-btn{
@@ -543,6 +579,10 @@
   .stories-hero{
     padding: 84px 24px 34px;
   }
+
+  .story-reading-card{
+    padding: 26px 24px 24px;
+  }
 }
 
 
@@ -554,4 +594,31 @@
 body.stories-page header:not(.stories-hero){
   padding: 60px 18px;
   background: linear-gradient(rgba(10,10,20,0.55), rgba(10,10,20,0.75));
+}
+
+
+/* =========================================================
+   13) STORY DETAIL MOBILE TUNING
+   - Keeps long stories comfortable on smaller screens
+   ========================================================= */
+
+@media (max-width: 640px){
+  .story-reading-card{
+    padding: 18px 16px 18px;
+    border-radius: 18px;
+  }
+
+  .story-reading-card p{
+    font-size: 15.5px;
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+
+  .story-reading-card .story-meta{
+    gap: 6px;
+  }
+
+  .story-actions{
+    gap: 8px;
+  }
 }
