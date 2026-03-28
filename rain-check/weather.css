@@ -1596,7 +1596,7 @@ body {
 /* Much lighter glass (around 5%) */
 .goout-card .art-copy,
 .laundry-card .art-copy {
-  background: rgba(180, 20, 34, 0) !important;
+  background: rgba(18, 20, 34, .02) !important;
   backdrop-filter: blur(2px) !important;
   -webkit-backdrop-filter: blur(6px) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
