@@ -1325,3 +1325,18 @@ body {
 .suggestions-box {
   z-index: 99999;
 }
+
+/* LABEL: Going Out / Laundry Advice */
+.art-label {
+  font-size: 14px;              /* dati maliit lang */
+  font-weight: 600;             /* mas bold */
+  letter-spacing: 0.5px;        /* konting spacing para readable */
+  
+  color: rgba(255,255,255,0.95); /* mas solid white */
+  
+  background: rgba(0,0,0,0.35);  /* dark glass para readable sa image */
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  backdrop-filter: blur(6px);   /* glass effect (same theme mo) */
+}
