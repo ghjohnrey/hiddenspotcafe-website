@@ -380,3 +380,86 @@ filtered = (featuredIsVisible && featured)
   init();
 
 })();
+
+
+/* =========================================================
+   STATIC SUGGESTED STORY LINKS (APPENDED)
+   - Renders real clickable internal links after bottom search
+   - Uses stories.json as source
+   - Excludes current story
+   - Randomly selects up to 10 titles
+   - Safe append: does not modify existing search system
+   ========================================================= */
+
+(function () {
+  const suggestedListEl = document.getElementById("storySuggestedLinksList");
+  if (!suggestedListEl) return;
+
+  function normalizeStoryUrl(story) {
+    return story.url || `/stories/${story.slug}.html`;
+  }
+
+  function getCurrentSlug() {
+    if (window.currentStorySlug) return window.currentStorySlug;
+
+    const path = window.location.pathname;
+    return path
+      .replace(/^\/stories\//, "")
+      .replace(/\/$/, "")
+      .replace(/\.html$/, "");
+  }
+
+  function shuffle(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[m]));
+  }
+
+  async function initSuggestedLinks() {
+    try {
+      const res = await fetch("/stories/stories.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to load stories.json");
+
+      const stories = await res.json();
+      if (!Array.isArray(stories)) throw new Error("stories.json must be an array");
+
+      const currentSlug = getCurrentSlug();
+
+      const filtered = stories.filter((story) => story.slug !== currentSlug);
+      const selected = shuffle(filtered).slice(0, 10);
+
+      if (!selected.length) {
+        suggestedListEl.innerHTML = `
+          <div class="story-suggested-link-empty">No suggested stories available right now.</div>
+        `;
+        return;
+      }
+
+      suggestedListEl.innerHTML = selected.map((story) => `
+        <a class="story-suggested-link" href="${escapeHtml(normalizeStoryUrl(story))}">
+          <div class="story-suggested-link-title">${escapeHtml(story.title || "Untitled Story")}</div>
+        </a>
+      `).join("");
+    } catch (error) {
+      console.error("Suggested stories failed", error);
+      suggestedListEl.innerHTML = `
+        <div class="story-suggested-link-empty">Suggested stories are unavailable right now.</div>
+      `;
+    }
+  }
+
+  initSuggestedLinks();
+})();
