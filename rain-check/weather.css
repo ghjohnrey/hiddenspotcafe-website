@@ -1655,3 +1655,8 @@ body {
       rgba(8,10,20,0.18) 100%
     ) !important;
 }
+
+.art-copy {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
