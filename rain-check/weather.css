@@ -1660,3 +1660,7 @@ body {
   background: transparent !important;
   backdrop-filter: none !important;
 }
+
+.art-overlay {
+  display: none !important;
+}
