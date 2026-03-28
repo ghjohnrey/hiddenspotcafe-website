@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 <head>
   <!-- =========================================================
        BASIC PAGE META
-       Page title, viewport, description, and page styles
+       Page title, viewport, description, canonical, and page styles
        ========================================================= -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hidden Spot Cafe | Rain Check</title>
+  <title>Hidden Spot Cafe – Rain Check</title>
   <meta
     name="description"
-    content="Check if umuulan now in a specific place in the Philippines, with simple advice for going out and laundry."
+    content="Use Hidden Spot Cafe Rain Check to see if it is raining now in a place in the Philippines, with simple advice for going out and doing laundry."
   />
+  <link rel="canonical" href="https://hiddenspotcafe.com/rain-check/" />
 
   <!-- =========================================================
        STYLESHEETS
@@ -19,6 +20,52 @@
        ========================================================= -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="./weather.css" />
+
+  <!-- =========================================================
+       OPEN GRAPH / SOCIAL META
+       ========================================================= -->
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hidden Spot Cafe – Rain Check" />
+  <meta
+    property="og:description"
+    content="Check if it is raining now in a place in the Philippines, with simple advice for going out and doing laundry."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/rain-check/" />
+  <meta property="og:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Optional but recommended for better mobile preview -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hidden Spot Cafe – Rain Check" />
+  <meta
+    name="twitter:description"
+    content="Check if it is raining now in a place in the Philippines, with simple advice for going out and doing laundry."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/assets/images/banners/facebook-cover-photo.png" />
+
+  <!-- =========================================================
+       STRUCTURED DATA
+       ========================================================= -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Hidden Spot Cafe Rain Check",
+      "url": "https://hiddenspotcafe.com/rain-check/",
+      "description": "Check if it is raining now in a place in the Philippines, with simple advice for going out and doing laundry.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Hidden Spot Cafe",
+        "url": "https://hiddenspotcafe.com/"
+      }
+    }
+  </script>
 </head>
 
 <body class="weather-page weather-cloudy">
@@ -26,12 +73,12 @@
        SITE NAVIGATION
        Main site navbar
        ========================================================= -->
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Primary navigation">
     <div class="nav-accent"></div>
 
     <div class="nav-container">
       <!-- Logo -->
-      <a href="/" aria-label="Go to Hidden Spot Cafe homepage">
+      <a href="/" aria-label="Go to homepage">
         <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
@@ -40,7 +87,10 @@
         <a href="/" class="nav-link">Home</a>
         <a href="/menu/" class="nav-link">Menu</a>
         <a href="/stories/" class="nav-link">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/rain-check/" class="nav-link active" aria-current="page">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
       </div>
 
       <!-- Mobile menu button -->
@@ -48,8 +98,8 @@
         class="hamburger"
         id="hamburger"
         aria-label="Open navigation menu"
-        role="button"
-        tabindex="0"
+        aria-expanded="false"
+        aria-controls="navLinks"
       >
         <span></span>
         <span></span>
@@ -89,22 +139,22 @@
 
         <!-- Search input + button -->
         <div class="weather-search-row">
-            <div class="weather-search-wrap">
-                <input
-                      id="placeInput"
-                      type="text"
-                      class="weather-input"
-                      placeholder="Landmark, City or Street Name, City"
-                      aria-label="Enter a place in the Philippines"
-                      autocomplete="off"
-                      />
-              <div id="suggestionsBox" class="suggestions-box hidden"></div>
-              </div>
+          <div class="weather-search-wrap">
+            <input
+              id="placeInput"
+              type="text"
+              class="weather-input"
+              placeholder="Landmark, City or Street Name, City"
+              aria-label="Enter a place in the Philippines"
+              autocomplete="off"
+            />
+            <div id="suggestionsBox" class="suggestions-box hidden"></div>
+          </div>
 
-        <button id="searchBtn" class="weather-btn" type="button">Check now</button>
-        <button id="currentLocationBtn" class="weather-btn location-btn" type="button">
-          Current location
-        </button>
+          <button id="searchBtn" class="weather-btn" type="button">Check now</button>
+          <button id="currentLocationBtn" class="weather-btn location-btn" type="button">
+            Current location
+          </button>
         </div>
 
         <!-- Suggested location chips -->
@@ -334,11 +384,18 @@
        FOOTER
        ========================================================= -->
   <footer>
-    <p>Rain Check by Hidden Spot Cafe</p>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
     <p>
-      <a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener noreferrer">
-        Message us on Messenger
-      </a>
+      <a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a>
+    </p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
     </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
