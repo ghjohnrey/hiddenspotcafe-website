@@ -1,27 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 <head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"
+     crossorigin="anonymous"></script>
+  <!-- ✅ CHANGE: Story title -->
   <title>The Girl Who Could Pause Time</title>
 
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="A short Taglish fantasy story for your commute."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/stories/stories.css" />
 
-  <meta property="og:title" content="The Girl Who Could Pause Time" />
-  <meta property="og:description" content="A short Taglish fantasy story for your commute." />
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
   <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Girl Who Could Pause Time" />
+  <meta
+    property="og:description"
+    content="A short Taglish fantasy story for your commute."
+  />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/girl-who-could-pause-time.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/girl-who-could-pause-time.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/girl-who-could-pause-time.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Girl Who Could Pause Time" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="mrt" />
+  <meta property="article:tag" content="urban" />
+  <meta property="article:tag" content="taglish" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Girl Who Could Pause Time" />
+  <meta
+    name="twitter:description"
+    content="A short Taglish fantasy story for your commute."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/girl-who-could-pause-time.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Girl Who Could Pause Time",
+      "quote": "Minsan, akala natin control ang sagot. Pero baka connection pala."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Girl Who Could Pause Time",
+      "description": "A short Taglish fantasy story for your commute.",
+      "url": "https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/girl-who-could-pause-time.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
 </head>
 
 <body class="stories-page">
-
-  <nav class="navbar">
-    <div class="nav-accent"></div>
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
 
     <div class="nav-container">
-      <a href="/">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
       <div class="nav-links" id="navLinks">
@@ -29,9 +134,12 @@
         <a href="/menu/" class="nav-link">Menu</a>
         <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
         <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span>
         <span></span>
         <span></span>
@@ -39,163 +147,245 @@
     </div>
   </nav>
 
+  <!-- Main -->
   <main class="stories-container">
-
     <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
       <h1>The Girl Who Could Pause Time</h1>
       <p>Short Taglish fantasy read for commuters.</p>
     </header>
 
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
     <article class="story-reading-card">
       <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
         <span>⏱️ 2 min read</span>
         <span class="tag">#mrt</span>
         <span class="tag">#urban</span>
         <span class="tag">#taglish</span>
       </div>
 
-      <div class="story-divider"></div>
+      <div class="story-divider" aria-hidden="true"></div>
 
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
       <p>Alam mo ‘yung feeling sa MRT kapag rush hour? Yung siksikan, mainit, tapos parang lahat nagmamadali kahit hindi mo alam kung saan sila pupunta?</p>
 
-        <p>Ganun lagi ang mundo para kay Lia.</p>
+      <p>Ganun lagi ang mundo para kay Lia.</p>
 
-        <p>Seventeen siya nang una niyang ma-discover ang secret niya. Nasa MRT siya, Cubao station, late na sa exam. Pawis na pawis, may umiiyak na bata sa gilid, may magjowang nag-aaway sa harap niya.</p>
+      <p>Seventeen siya nang una niyang ma-discover ang secret niya. Nasa MRT siya, Cubao station, late na sa exam. Pawis na pawis, may umiiyak na bata sa gilid, may magjowang nag-aaway sa harap niya.</p>
 
-        <p>“Stop,” bulong niya.</p>
+      <p>“Stop,” bulong niya.</p>
 
-        <p>Biglang tumahimik.</p>
+      <p>Biglang tumahimik.</p>
 
-        <p>Hindi yung normal na tahimik. As in… freeze.<br>
-        Yung umiiyak na bata, naka-open pa rin ang bibig pero walang tunog.<br>
-        Yung magjowa, nakaturo pa rin ang daliri sa isa’t isa.<br>
-        Yung tren—nakahinto sa gitna ng pagpasok sa station.</p>
+      <p>Hindi yung normal na tahimik. As in… freeze.</p>
+      <p>Yung umiiyak na bata, naka-open pa rin ang bibig pero walang tunog.</p>
+      <p>Yung magjowa, nakaturo pa rin ang daliri sa isa’t isa.</p>
+      <p>Yung tren—nakahinto sa gitna ng pagpasok sa station.</p>
 
-        <p>Time stopped.</p>
+      <p>Time stopped.</p>
 
-        <p>At si Lia lang ang gumagalaw.</p>
+      <p>At si Lia lang ang gumagalaw.</p>
 
-        <p>Noong una, sobrang saya. Parang cheat code sa life.<br>
-        Late ka? Pause. Lakad papunta sa classroom. Resume.<br>
-        May awkward moment? Pause. Huminga. Ayusin ang script sa utak. Resume.<br>
-        Pag overwhelmed ka? Pause. Upong mag-isa sa gitna ng frozen na mundo.</p>
+      <p>Noong una, sobrang saya. Parang cheat code sa life.</p>
+      <p>Late ka? Pause. Lakad papunta sa classroom. Resume.</p>
+      <p>May awkward moment? Pause. Huminga. Ayusin ang script sa utak. Resume.</p>
+      <p>Pag overwhelmed ka? Pause. Upong mag-isa sa gitna ng frozen na mundo.</p>
 
-        <p>Safe.</p>
+      <p>Safe.</p>
 
-        <p>Walang judgment.<br>
-        Walang pressure.<br>
-        Walang expectations.</p>
+      <p>Walang judgment.</p>
+      <p>Walang pressure.</p>
+      <p>Walang expectations.</p>
 
-        <p>Minsan, naglalakad siya sa gitna ng paused na city. Tinititigan niya mga tao. Iniisip niya kung ano kaya iniisip nila bago sila nag-freeze. Kung may nagmamahal ba sa kanila. Kung may nag-aabang sa kanila sa bahay.</p>
+      <p>Minsan, naglalakad siya sa gitna ng paused na city. Tinititigan niya mga tao. Iniisip niya kung ano kaya iniisip nila bago sila nag-freeze. Kung may nagmamahal ba sa kanila. Kung may nag-aabang sa kanila sa bahay.</p>
 
-        <p>Kasi si Lia, wala.</p>
+      <p>Kasi si Lia, wala.</p>
 
-        <p>Hindi naman siya invisible. Pero pakiramdam niya, ganun na rin.<br>
-        Sa school, average.<br>
-        Sa bahay, tahimik.<br>
-        Sa mundo, extra.</p>
+      <p>Hindi naman siya invisible. Pero pakiramdam niya, ganun na rin.</p>
+      <p>Sa school, average.</p>
+      <p>Sa bahay, tahimik.</p>
+      <p>Sa mundo, extra.</p>
 
-        <p>Hanggang isang gabi, sa MRT ulit.</p>
+      <p>Hanggang isang gabi, sa MRT ulit.</p>
 
-        <p>Pagod siya. Gusto na naman niyang i-pause ang lahat.</p>
+      <p>Pagod siya. Gusto na naman niyang i-pause ang lahat.</p>
 
-        <p>“Stop.”</p>
+      <p>“Stop.”</p>
 
-        <p>Tumigil ang mundo.</p>
+      <p>Tumigil ang mundo.</p>
 
-        <p>Pero this time… may narinig siya.</p>
+      <p>Pero this time… may narinig siya.</p>
 
-        <p>Isang hakbang.</p>
+      <p>Isang hakbang.</p>
 
-        <p>Tak.<br>Tak.</p>
+      <p>Tak.</p>
+      <p>Tak.</p>
 
-        <p>May lalaking gumagalaw sa dulo ng bagon.</p>
+      <p>May lalaking gumagalaw sa dulo ng bagon.</p>
 
-        <p>Hindi frozen.</p>
+      <p>Hindi frozen.</p>
 
-        <p>Pareho sila.</p>
+      <p>Pareho sila.</p>
 
-        <p>Nagkatinginan sila.<br>
-        Parehong wide ang eyes. Parehong takot.</p>
+      <p>Nagkatinginan sila.</p>
+      <p>Parehong wide ang eyes. Parehong takot.</p>
 
-        <p>“Akala ko ako lang,” sabi nung guy.</p>
+      <p>“Akala ko ako lang,” sabi nung guy.</p>
 
-        <p>Biglang bumilis ang tibok ng puso ni Lia. Hindi dahil sa crush vibes.<br>
-        Kundi dahil biglang hindi na safe.</p>
+      <p>Biglang bumilis ang tibok ng puso ni Lia. Hindi dahil sa crush vibes.</p>
+      <p>Kundi dahil biglang hindi na safe.</p>
 
-        <p>Kung may isa pa, ilan pa kaya?</p>
+      <p>Kung may isa pa, ilan pa kaya?</p>
 
-        <p>“Gaano ka na katagal nagpa-pause?” tanong niya.</p>
+      <p>“Gaano ka na katagal nagpa-pause?” tanong niya.</p>
 
-        <p>“Since I was fifteen,” sagot niya. “Ikaw?”</p>
+      <p>“Since I was fifteen,” sagot niya. “Ikaw?”</p>
 
-        <p>“Seventeen.”</p>
+      <p>“Seventeen.”</p>
 
-        <p>Nagkatawanan sila. Yung awkward, kinakabahan na tawa ng dalawang taong alam na may mali.</p>
+      <p>Nagkatawanan sila. Yung awkward, kinakabahan na tawa ng dalawang taong alam na may mali.</p>
 
-        <p>“Why do you do it?” tanong niya.</p>
+      <p>“Why do you do it?” tanong niya.</p>
 
-        <p>Napatingin si Lia sa frozen na crowd.</p>
+      <p>Napatingin si Lia sa frozen na crowd.</p>
 
-        <p>“Para hindi ko maramdaman masyado,” sagot niya. “Para hindi masyadong masakit. Para hindi ako maiwan.”</p>
+      <p>“Para hindi ko maramdaman masyado,” sagot niya. “Para hindi masyadong masakit. Para hindi ako maiwan.”</p>
 
-        <p>Tumahimik yung guy. Lumapit siya.</p>
+      <p>Tumahimik yung guy. Lumapit siya.</p>
 
-        <p>“You know,” sabi niya, “kahit i-pause mo, gumagalaw pa rin ang buhay. Hindi mo lang nakikita.”</p>
+      <p>“You know,” sabi niya, “kahit i-pause mo, gumagalaw pa rin ang buhay. Hindi mo lang nakikita.”</p>
 
-        <p>Tumitig si Lia sa sarili niyang reflection sa salamin ng tren.<br>
-        Sa unang pagkakataon, parang hindi niya gustong mag-pause.</p>
+      <p>Tumitig si Lia sa sarili niyang reflection sa salamin ng tren.</p>
+      <p>Sa unang pagkakataon, parang hindi niya gustong mag-pause.</p>
 
-        <p>Nakakatakot mag-resume.<br>
-        Pero mas nakakatakot pala na mag-isa sa isang mundong hindi gumagalaw.</p>
+      <p>Nakakatakot mag-resume.</p>
+      <p>Pero mas nakakatakot pala na mag-isa sa isang mundong hindi gumagalaw.</p>
 
-        <p>Dahan-dahan siyang huminga.</p>
+      <p>Dahan-dahan siyang huminga.</p>
 
-        <p>“Resume.”</p>
+      <p>“Resume.”</p>
 
-        <p>Bumalik ang ingay.<br>
-        Umiiyak ulit ang bata.<br>
-        Nagsisigawan ulit ang magjowa.<br>
-        Umandar ang tren.</p>
+      <p>Bumalik ang ingay.</p>
+      <p>Umiiyak ulit ang bata.</p>
+      <p>Nagsisigawan ulit ang magjowa.</p>
+      <p>Umandar ang tren.</p>
 
-        <p>At sa gitna ng chaos, may isang lalaking nakatingin sa kanya.</p>
+      <p>At sa gitna ng chaos, may isang lalaking nakatingin sa kanya.</p>
 
-        <p>Hindi frozen.<br>
-        Hindi nawawala.</p>
+      <p>Hindi frozen.</p>
+      <p>Hindi nawawala.</p>
 
-        <p>For the first time, hindi niya gustong tumakas.</p>
-      <p><strong>Minsan, akala natin control ang sagot.<br>
-        Pero baka connection pala.</strong></p>
+      <p>For the first time, hindi niya gustong tumakas.</p>
+      <p><strong>Minsan, akala natin control ang sagot.</strong></p>
+      <p><strong>Pero baka connection pala.</strong></p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
 
-      <div class="story-actions">
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
 
-        <a class="action-btn"
-           target="_blank"
-           href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html">
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fgirl-who-could-pause-time.html"
+        >
           Share on Facebook
         </a>
 
         <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
       </div>
     </article>
-
   </main>
 
+  <!-- Footer -->
   <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "girl-who-could-pause-time";
+    window.currentStoryTags = ["mrt", "urban", "taglish"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
   <script>
     const btn = document.getElementById("copyLinkBtn");
+
     if (btn) {
       btn.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(window.location.href);
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/girl-who-could-pause-time.html");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });
