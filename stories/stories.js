@@ -463,3 +463,149 @@ filtered = (featuredIsVisible && featured)
 
   initSuggestedLinks();
 })();
+
+/* =========================================================
+   SEARCH RESULT OVERRIDE (APPENDED)
+   - Makes top and bottom story search use title-only link results
+   - Matches the Suggested Stories visual style
+   - Shows random suggestions on bottom search when empty
+   - Shows exact empty state:
+     "No story found, try other terms."
+   - Safe append: replaces the existing search inputs with cloned inputs
+     so old listeners are removed without rewriting existing code
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.currentStorySlug) return;
+
+  function normalizeStoryUrl(story) {
+    return story.url || `/stories/${story.slug}.html`;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[m]));
+  }
+
+  function shuffle(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function matchesStory(story, query) {
+    const q = query.toLowerCase().trim();
+    if (!q) return true;
+
+    const haystack = [
+      story.title || "",
+      story.excerpt || "",
+      Array.isArray(story.tags) ? story.tags.join(" ") : ""
+    ].join(" ").toLowerCase();
+
+    return haystack.includes(q);
+  }
+
+  function renderTitleLinks(resultId, list) {
+    const el = document.getElementById(resultId);
+    if (!el) return;
+
+    if (!list.length) {
+      el.innerHTML = `
+        <div class="story-suggested-link-empty">No story found, try other terms.</div>
+      `;
+      return;
+    }
+
+    el.innerHTML = list.map((story) => `
+      <a class="story-suggested-link" href="${escapeHtml(normalizeStoryUrl(story))}">
+        <div class="story-suggested-link-title">${escapeHtml(story.title || "Untitled Story")}</div>
+      </a>
+    `).join("");
+  }
+
+  function clearResults(resultId) {
+    const el = document.getElementById(resultId);
+    if (!el) return;
+    el.innerHTML = "";
+  }
+
+  function cloneInputAndRemoveOldListeners(inputId) {
+    const oldInput = document.getElementById(inputId);
+    if (!oldInput || !oldInput.parentNode) return null;
+
+    const newInput = oldInput.cloneNode(true);
+    oldInput.parentNode.replaceChild(newInput, oldInput);
+    return newInput;
+  }
+
+  async function initSearchOverride() {
+    try {
+      const res = await fetch("/stories/stories.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to load stories.json");
+
+      const data = await res.json();
+      if (!Array.isArray(data)) throw new Error("stories.json must be an array");
+
+      const currentSlug = window.currentStorySlug;
+      const storiesData = data.filter((story) => story.slug !== currentSlug);
+
+      const topInput = cloneInputAndRemoveOldListeners("storySearchTop");
+      const bottomInput = cloneInputAndRemoveOldListeners("storySearchBottom");
+
+      if (!topInput && !bottomInput) return;
+
+      function getRandomSuggestions(limit = 10) {
+        return shuffle(storiesData).slice(0, limit);
+      }
+
+      function getSearchResults(query, limit = 10) {
+        return storiesData.filter((story) => matchesStory(story, query)).slice(0, limit);
+      }
+
+      // TOP SEARCH
+      if (topInput) {
+        topInput.addEventListener("input", () => {
+          const q = topInput.value.trim();
+
+          if (!q) {
+            clearResults("storySearchTopResults");
+            return;
+          }
+
+          renderTitleLinks("storySearchTopResults", getSearchResults(q, 10));
+        });
+      }
+
+      // BOTTOM SEARCH
+      if (bottomInput) {
+        // default suggestions when empty
+        renderTitleLinks("storySearchBottomResults", getRandomSuggestions(10));
+
+        bottomInput.addEventListener("input", () => {
+          const q = bottomInput.value.trim();
+
+          if (!q) {
+            renderTitleLinks("storySearchBottomResults", getRandomSuggestions(10));
+            return;
+          }
+
+          renderTitleLinks("storySearchBottomResults", getSearchResults(q, 10));
+        });
+      }
+
+    } catch (error) {
+      console.error("Search override failed", error);
+    }
+  }
+
+  initSearchOverride();
+});
