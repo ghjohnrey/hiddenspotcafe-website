@@ -14,6 +14,9 @@
     double quotes only, no trailing commas.
   - Replace only the story paragraphs inside the FULL STORY CONTENT block.
   - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
 
   <!-- Basic -->
@@ -131,9 +134,12 @@
         <a href="/menu/" class="nav-link">Menu</a>
         <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
         <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span>
         <span></span>
         <span></span>
@@ -315,14 +321,13 @@
         </div>
         <div class="story-page-search-results" id="storySearchBottomResults"></div>
       </div>
-      
+
       <div class="story-divider" aria-hidden="true"></div>
 
       <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
-          <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
-          <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
       </section>
-      
 
       <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
@@ -344,6 +349,17 @@
 
   <!-- Footer -->
   <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
