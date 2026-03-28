@@ -1,27 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 <head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"
+     crossorigin="anonymous"></script>
+  <!-- ✅ CHANGE: Story title -->
   <title>The Girl Who Sold Five Extra Minutes</title>
 
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="A short Taglish fantasy story for your commute."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/stories/stories.css" />
 
-  <meta property="og:title" content="The Girl Who Sold Five Extra Minutes" />
-  <meta property="og:description" content="A short Taglish fantasy story for your commute." />
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/five-extra-minutes.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
   <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="The Girl Who Sold Five Extra Minutes" />
+  <meta
+    property="og:description"
+    content="A short Taglish fantasy story for your commute."
+  />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/five-extra-minutes.html" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/five-extra-minutes.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/five-extra-minutes.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/five-extra-minutes.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Girl Who Sold Five Extra Minutes" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="mrt" />
+  <meta property="article:tag" content="urban" />
+  <meta property="article:tag" content="taglish" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Girl Who Sold Five Extra Minutes" />
+  <meta
+    name="twitter:description"
+    content="A short Taglish fantasy story for your commute."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/five-extra-minutes.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "The Girl Who Sold Five Extra Minutes",
+      "quote": "Hindi mo kailangan ng extra time para mabuhay nang totoo."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Girl Who Sold Five Extra Minutes",
+      "description": "A short Taglish fantasy story for your commute.",
+      "url": "https://hiddenspotcafe.com/stories/five-extra-minutes.html",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/five-extra-minutes.html"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/five-extra-minutes.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
 </head>
 
 <body class="stories-page">
-
-  <nav class="navbar">
-    <div class="nav-accent"></div>
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
 
     <div class="nav-container">
-      <a href="/">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
       </a>
 
       <div class="nav-links" id="navLinks">
@@ -29,9 +134,12 @@
         <a href="/menu/" class="nav-link">Menu</a>
         <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
         <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span>
         <span></span>
         <span></span>
@@ -39,219 +147,301 @@
     </div>
   </nav>
 
+  <!-- Main -->
   <main class="stories-container">
-
     <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
       <h1>The Girl Who Sold Five Extra Minutes</h1>
       <p>Short Taglish fantasy read for commuters.</p>
     </header>
 
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
     <article class="story-reading-card">
       <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
         <span>⏱️ 2 min read</span>
         <span class="tag">#mrt</span>
         <span class="tag">#urban</span>
         <span class="tag">#taglish</span>
       </div>
 
-      <div class="story-divider"></div>
+      <div class="story-divider" aria-hidden="true"></div>
 
-<p>Sa ilalim ng LRT station, may babaeng may hawak na maliit na timer.</p>
-<p>Hindi siya namamalimos. Hindi rin siya nagtitinda ng tubig o candy.</p>
-<p>May karton lang siyang nakasabit sa leeg na may nakasulat:</p>
-<p><strong>“₱10 — 5 Extra Minutes (One Time Use Only)”</strong></p>
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>Sa ilalim ng LRT station, may babaeng may hawak na maliit na timer.</p>
+      <p>Hindi siya namamalimos. Hindi rin siya nagtitinda ng tubig o candy.</p>
 
-<p>Nung una, inisip ko performance art lang.</p>
-<p>O kaya prank na pwedeng mag-viral.</p>
-<p>Sino ba naman magbebenta ng oras?</p>
+      <p>May karton lang siyang nakasabit sa leeg na may nakasulat:</p>
+      <p><strong>“₱10 — 5 Extra Minutes (One Time Use Only)”</strong></p>
 
-<p>Pero that day, late na late ako.</p>
-<p>May interview ako na pwedeng magbago ng buong semester ko.</p>
-<p>Scholarship slot. Isa lang ang kukunin.</p>
-<p>At siyempre, traffic.</p>
+      <p>Nung una, inisip ko performance art lang.</p>
+      <p>O kaya prank na pwedeng mag-viral.</p>
+      <p>Sino ba naman magbebenta ng oras?</p>
 
-<p>Tumingin ako sa phone ko.</p>
-<p>2:55 PM.</p>
-<p>3:00 PM ang interview.</p>
-<p>Malayo pa ako.</p>
+      <p>Pero that day, late na late ako.</p>
+      <p>May interview ako na pwedeng magbago ng buong semester ko.</p>
+      <p>Scholarship slot. Isa lang ang kukunin.</p>
+      <p>At siyempre, traffic.</p>
 
-<p>Nakita ko siya sa gilid, tahimik lang, parang hindi nag-eexist sa mata ng iba.</p>
-<p>“Ate, ano ‘to?” tanong ko, hingal.</p>
+      <p>Tumingin ako sa phone ko.</p>
+      <p>2:55 PM.</p>
+      <p>3:00 PM ang interview.</p>
+      <p>Malayo pa ako.</p>
 
-<p>Tumingin siya sa’kin, diretso sa mata.</p>
-<p>“Five extra minutes,” sabi niya. “Pero once mo lang pwedeng gamitin. Ever.”</p>
+      <p>Nakita ko siya sa gilid, tahimik lang, parang hindi nag-eexist sa mata ng iba.</p>
+      <p>“Ate, ano ‘to?” tanong ko, hingal.</p>
 
-<p>“Like… sa buong buhay?”</p>
-<p>“Oo.”</p>
+      <p>Tumingin siya sa’kin, diretso sa mata.</p>
+      <p>“Five extra minutes,” sabi niya. “Pero once mo lang pwedeng gamitin. Ever.”</p>
 
-<p>Natawa ako. “Scam ‘to no?”</p>
-<p>Umiling siya. “Hindi ko kailangan ng marami. Sampung piso lang.”</p>
+      <p>“Like… sa buong buhay?”</p>
+      <p>“Oo.”</p>
 
-<p>Tumingin ulit ako sa oras.</p>
-<p>2:57 PM.</p>
+      <p>Natawa ako. “Scam ‘to no?”</p>
+      <p>Umiling siya. “Hindi ko kailangan ng marami. Sampung piso lang.”</p>
 
-<p>Kung tatakbo ako, baka umabot. Baka.</p>
-<p>Pero kung hindi?</p>
+      <p>Tumingin ulit ako sa oras.</p>
+      <p>2:57 PM.</p>
 
-<p>May sampu ako sa bulsa.</p>
-<p>Inabot ko.</p>
+      <p>Kung tatakbo ako, baka umabot. Baka.</p>
+      <p>Pero kung hindi?</p>
 
-<p>Kinuha niya, tapos inabot sa’kin yung maliit na timer.</p>
-<p>Old-school, parang pang-luto ng itlog.</p>
+      <p>May sampu ako sa bulsa.</p>
+      <p>Inabot ko.</p>
 
-<p>“Paano gamitin?”</p>
-<p>“Pag kailangan mo na,” sabi niya. “Iikot mo lang.”</p>
+      <p>Kinuha niya, tapos inabot sa’kin yung maliit na timer.</p>
+      <p>Old-school, parang pang-luto ng itlog.</p>
 
-<p>“Tapos?”</p>
-<p>“Titigil ang lahat. Ikaw lang ang gagalaw.”</p>
-<p>“Pero paalala,” dagdag niya, “hindi mo pwedeng ibalik ang mga sinabi. Hindi mo pwedeng burahin ang nangyari.”</p>
-<p>“Extra minutes lang. Hindi reset.”</p>
+      <p>“Paano gamitin?”</p>
+      <p>“Pag kailangan mo na,” sabi niya. “Iikot mo lang.”</p>
 
-<p>Tumakbo ako.</p>
-<p>3:02 PM na nung nasa harap ako ng building.</p>
-<p>Closed na yung pinto.</p>
-<p>May sign sa labas: <em>“Interview in progress.”</em></p>
+      <p>“Tapos?”</p>
+      <p>“Titigil ang lahat. Ikaw lang ang gagalaw.”</p>
+      <p>“Pero paalala,” dagdag niya, “hindi mo pwedeng ibalik ang mga sinabi. Hindi mo pwedeng burahin ang nangyari.”</p>
+      <p>“Extra minutes lang. Hindi reset.”</p>
 
-<p>Naramdaman ko yung bigat sa dibdib ko.</p>
-<p>Yung tipong isang hakbang na lang sana.</p>
+      <p>Tumakbo ako.</p>
+      <p>3:02 PM na nung nasa harap ako ng building.</p>
+      <p>Closed na yung pinto.</p>
+      <p>May sign sa labas: <em>“Interview in progress.”</em></p>
 
-<p>Hinawakan ko yung timer sa bulsa ko.</p>
+      <p>Naramdaman ko yung bigat sa dibdib ko.</p>
+      <p>Yung tipong isang hakbang na lang sana.</p>
 
-<p>Iikot ko na ba?</p>
+      <p>Hinawakan ko yung timer sa bulsa ko.</p>
 
-<p>Pero biglang may thought sa utak ko:</p>
-<p>Is this the moment?</p>
+      <p>Iikot ko na ba?</p>
 
-<p>Five minutes lang ang meron ako sa buong buhay ko.</p>
-<p>Gagamitin ko ba para sa late?</p>
+      <p>Pero biglang may thought sa utak ko:</p>
+      <p>Is this the moment?</p>
 
-<p>Hindi ko muna ginamit.</p>
-<p>Umupo ako sa hallway, tahimik.</p>
+      <p>Five minutes lang ang meron ako sa buong buhay ko.</p>
+      <p>Gagamitin ko ba para sa late?</p>
 
-<p>Makalipas ang ilang araw, may mas mabigat na nangyari.</p>
-<p>Nag-away kami ng best friend ko.</p>
-<p>Yung tipong hindi petty. Yung may mga salitang hindi mo na mababawi.</p>
-<p>“Bahala ka na,” sabi niya bago siya umalis.</p>
+      <p>Hindi ko muna ginamit.</p>
+      <p>Umupo ako sa hallway, tahimik.</p>
 
-<p>Pag-uwi ko, tahimik yung kwarto ko.</p>
-<p>Binasa ko ulit yung convo namin.</p>
-<p>Ang dami kong gustong idagdag.</p>
-<p>Ang dami kong gustong ayusin.</p>
+      <p>Makalipas ang ilang araw, may mas mabigat na nangyari.</p>
+      <p>Nag-away kami ng best friend ko.</p>
+      <p>Yung tipong hindi petty. Yung may mga salitang hindi mo na mababawi.</p>
+      <p>“Bahala ka na,” sabi niya bago siya umalis.</p>
 
-<p>Hinawakan ko ulit yung timer.</p>
+      <p>Pag-uwi ko, tahimik yung kwarto ko.</p>
+      <p>Binasa ko ulit yung convo namin.</p>
+      <p>Ang dami kong gustong idagdag.</p>
+      <p>Ang dami kong gustong ayusin.</p>
 
-<p>Iikot ko na ba?</p>
+      <p>Hinawakan ko ulit yung timer.</p>
 
-<p>Pero naalala ko yung sinabi niya.</p>
-<p>Extra minutes lang. Hindi reset.</p>
+      <p>Iikot ko na ba?</p>
 
-<p>Kahit tumigil ang mundo, hindi mabubura yung nasabi ko.</p>
-<p>Makakapagsalita ako ng mas maayos… pero nandun pa rin yung sugat.</p>
+      <p>Pero naalala ko yung sinabi niya.</p>
+      <p>Extra minutes lang. Hindi reset.</p>
 
-<p>Hindi ko pa rin ginamit.</p>
+      <p>Kahit tumigil ang mundo, hindi mabubura yung nasabi ko.</p>
+      <p>Makakapagsalita ako ng mas maayos… pero nandun pa rin yung sugat.</p>
 
-<p>Months passed.</p>
-<p>Nasa bag ko lang siya lagi, parang secret weapon.</p>
+      <p>Hindi ko pa rin ginamit.</p>
 
-<p>Hanggang sa isang gabi.</p>
-<p>Nasa ospital kami.</p>
-<p>Emergency.</p>
-<p>May flat na tunog sa monitor na hindi ko maintindihan pero alam kong delikado.</p>
+      <p>Months passed.</p>
+      <p>Nasa bag ko lang siya lagi, parang secret weapon.</p>
 
-<p>Tumingin ako sa oras sa wall clock.</p>
-<p>11:43 PM.</p>
+      <p>Hanggang sa isang gabi.</p>
+      <p>Nasa ospital kami.</p>
+      <p>Emergency.</p>
+      <p>May flat na tunog sa monitor na hindi ko maintindihan pero alam kong delikado.</p>
 
-<p>Nakikita ko yung pagod sa mukha ng isang taong mahal ko.</p>
-<p>Nakikita ko yung takot.</p>
+      <p>Tumingin ako sa oras sa wall clock.</p>
+      <p>11:43 PM.</p>
 
-<p>“Saglit lang,” sabi ng nurse, tapos may mga taong pumasok.</p>
+      <p>Nakikita ko yung pagod sa mukha ng isang taong mahal ko.</p>
+      <p>Nakikita ko yung takot.</p>
 
-<p>Biglang parang bumilis lahat.</p>
-<p>Mga yabag. Mga utos. Mga tunog.</p>
+      <p>“Saglit lang,” sabi ng nurse, tapos may mga taong pumasok.</p>
 
-<p>At ako, nakatayo lang.</p>
+      <p>Biglang parang bumilis lahat.</p>
+      <p>Mga yabag. Mga utos. Mga tunog.</p>
 
-<p>Hinugot ko yung timer.</p>
-<p>Ngayon ba?</p>
+      <p>At ako, nakatayo lang.</p>
 
-<p>Iikot ko ba para humaba pa ang sandali?</p>
-<p>Para may masabi pa ako?</p>
-<p>Para may mahawakan pa ako nang mas matagal?</p>
+      <p>Hinugot ko yung timer.</p>
+      <p>Ngayon ba?</p>
 
-<p>Huminga ako nang malalim.</p>
+      <p>Iikot ko ba para humaba pa ang sandali?</p>
+      <p>Para may masabi pa ako?</p>
+      <p>Para may mahawakan pa ako nang mas matagal?</p>
 
-<p>At dahan-dahan kong inikot yung timer.</p>
+      <p>Huminga ako nang malalim.</p>
 
-<p>Tahimik.</p>
-<p>Tumigil ang lahat.</p>
+      <p>At dahan-dahan kong inikot yung timer.</p>
 
-<p>Yung nurse, nakaangat pa rin ang kamay.</p>
-<p>Yung monitor, frozen sa isang linya.</p>
-<p>Yung ilaw, steady.</p>
+      <p>Tahimik.</p>
+      <p>Tumigil ang lahat.</p>
 
-<p>At ako lang ang gumagalaw.</p>
+      <p>Yung nurse, nakaangat pa rin ang kamay.</p>
+      <p>Yung monitor, frozen sa isang linya.</p>
+      <p>Yung ilaw, steady.</p>
 
-<p>Limang minuto.</p>
+      <p>At ako lang ang gumagalaw.</p>
 
-<p>Lumapit ako.</p>
-<p>Hinawakan ko yung kamay niya.</p>
-<p>Hindi siya gumalaw, pero mainit pa.</p>
+      <p>Limang minuto.</p>
 
-<p>“Salamat,” sabi ko.</p>
-<p>“Sorry kung minsan kulang.”</p>
-<p>“Mahal kita.”</p>
+      <p>Lumapit ako.</p>
+      <p>Hinawakan ko yung kamay niya.</p>
+      <p>Hindi siya gumalaw, pero mainit pa.</p>
 
-<p>Mga salitang hindi ko laging nasasabi.</p>
+      <p>“Salamat,” sabi ko.</p>
+      <p>“Sorry kung minsan kulang.”</p>
+      <p>“Mahal kita.”</p>
 
-<p>Pagtingin ko sa timer, paubos na.</p>
+      <p>Mga salitang hindi ko laging nasasabi.</p>
 
-<p>Hindi ko ginamit para baguhin ang outcome.</p>
-<p>Ginamit ko para hindi ko pagsisihan ang hindi ko nasabi.</p>
+      <p>Pagtingin ko sa timer, paubos na.</p>
 
-<p>Nung bumalik ang mundo, tuloy ang lahat.</p>
-<p>Hindi naging milagro.</p>
-<p>Pero hindi rin ako naiwan na puno ng what if.</p>
+      <p>Hindi ko ginamit para baguhin ang outcome.</p>
+      <p>Ginamit ko para hindi ko pagsisihan ang hindi ko nasabi.</p>
 
-<p>Paglabas ko ng ospital kinabukasan, hinanap ko yung babaeng nagbenta ng oras.</p>
-<p>Wala na siya sa ilalim ng LRT.</p>
+      <p>Nung bumalik ang mundo, tuloy ang lahat.</p>
+      <p>Hindi naging milagro.</p>
+      <p>Pero hindi rin ako naiwan na puno ng what if.</p>
 
-<p>Pero sa sahig, may maliit na karton na naiwan.</p>
-<p>Nakasulat:</p>
-<p><strong>“Hindi mo kailangan ng extra time para mabuhay nang totoo.”</strong></p>
+      <p>Paglabas ko ng ospital kinabukasan, hinanap ko yung babaeng nagbenta ng oras.</p>
+      <p>Wala na siya sa ilalim ng LRT.</p>
 
-<p>Minsan, sampung piso lang ang halaga ng paalala.</p>
-<p>Na ang oras, hindi para ipunin.</p>
-<p><strong>Kundi para gamitin—habang nandito pa.</strong></p>
+      <p>Pero sa sahig, may maliit na karton na naiwan.</p>
+      <p>Nakasulat:</p>
+      <p><strong>“Hindi mo kailangan ng extra time para mabuhay nang totoo.”</strong></p>
 
-      <div class="story-actions">
+      <p>Minsan, sampung piso lang ang halaga ng paalala.</p>
+      <p>Na ang oras, hindi para ipunin.</p>
+      <p><strong>Kundi para gamitin—habang nandito pa.</strong></p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
 
-        <a class="action-btn"
-           target="_blank"
-           href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/five-extra-minutes.html">
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Ffive-extra-minutes.html"
+        >
           Share on Facebook
         </a>
 
         <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
       </div>
     </article>
-
   </main>
 
+  <!-- Footer -->
   <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "five-extra-minutes";
+    window.currentStoryTags = ["mrt", "urban", "taglish"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
   <script>
     const btn = document.getElementById("copyLinkBtn");
+
     if (btn) {
       btn.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(window.location.href);
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/five-extra-minutes.html");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });
