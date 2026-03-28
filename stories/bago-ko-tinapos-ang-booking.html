@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Bago Ko Tinapos ang Booking</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="Isang Taglish short story tungkol sa isang delivery rider, mababang rating, at yung maliit na tanong na puwedeng magbago ng dating ng isang trabaho."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/bago-ko-tinapos-ang-booking" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Bago Ko Tinapos ang Booking" />
+  <meta
+    property="og:description"
+    content="After a hard delivery and a low rating, a rider starts replaying one quiet customer interaction and realizes doing things right does not always mean they felt right to the person receiving them."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/bago-ko-tinapos-ang-booking" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/bago-ko-tinapos-ang-booking.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/bago-ko-tinapos-ang-booking.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/bago-ko-tinapos-ang-booking.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Bago Ko Tinapos ang Booking" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="slice of life" />
+  <meta property="article:tag" content="delivery rider" />
+  <meta property="article:tag" content="metro manila" />
+  <meta property="article:tag" content="customer service" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bago Ko Tinapos ang Booking" />
+  <meta
+    name="twitter:description"
+    content="After a hard delivery and a low rating, a rider starts replaying one quiet customer interaction and realizes doing things right does not always mean they felt right to the person receiving them."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/bago-ko-tinapos-ang-booking.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Bago Ko Tinapos ang Booking",
+      "quote": "Hindi pala laging sapat na tama ka. Kailangan minsan, malinaw ka rin."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Bago Ko Tinapos ang Booking",
+      "description": "Isang Taglish short story tungkol sa isang delivery rider, mababang rating, at yung maliit na tanong na puwedeng magbago ng dating ng isang trabaho.",
+      "url": "https://hiddenspotcafe.com/stories/bago-ko-tinapos-ang-booking",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/bago-ko-tinapos-ang-booking"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/bago-ko-tinapos-ang-booking.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Bago Ko Tinapos ang Booking</h1>
+      <p>Isang delivery rider ang nakatanggap ng mababang rating matapos ang mahirap na booking, at doon lang niya naisip kung gaano kaliit pero kalaking bagay ang isang tanong bago umalis.</p>
+    </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#slice-of-life</span>
+        <span class="tag">#delivery-rider</span>
+        <span class="tag">#metro-manila</span>
+        <span class="tag">#customer-service</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#work-frustration</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>Okay naman yung delivery.</p>
+      <p>Kumpleto, on time—pero pagtingin ko sa app, mababa yung rating.</p>
+
+      <p>Nasa gilid ako noon ng isang convenience store sa may Sta. Mesa, naka-idle yung motor habang pula pa rin yung ilaw sa kabilang kanto.</p>
+      <p>Late afternoon pa lang pero yung pakiramdam, parang buong Metro Manila sabay-sabay umuwi.</p>
+
+      <p>Ganun naman madalas schedule ko.</p>
+      <p>Rush hour hanggang gabi, tapos halo-halong condo, office, bahay sa looban, minsan pickup sa mall na parang laging may nawawalang escalator kapag nagmamadali ka.</p>
+
+      <p>Delivery rider ako, at sanay na akong hindi dibdibin lahat.</p>
+      <p>Kapag may supladong guard, matagal na elevator, o customer na two minutes away daw pero nasa shower pa pala, iniiling ko na lang tapos next booking ulit.</p>
+
+      <p>May habit din ako na after every few deliveries, chine-check ko ratings.</p>
+      <p>Hindi dahil achiever ako. Gusto ko lang alam ko kung may sabit ba habang maaga pa.</p>
+
+      <p>Usually okay naman.</p>
+      <p>Four stars, five stars, minsan wala. Sapat na sa akin yung walang complaint.</p>
+
+      <p>Pero yung isang iyon, ang linaw.</p>
+      <p>Three stars. Walang comment. Mas nakakairita yata pag walang sinabing dahilan.</p>
+
+      <p>Inisip ko agad yung huli kong order.</p>
+      <p>Heavy traffic sa EDSA service road, dalawang beses akong napaikot dahil mali yung pin sa app, tapos yung instructions, &ldquo;sa may blue gate&rdquo; lang, e halos lahat naman ng gate doon mukhang bughaw pag alanganin na yung liwanag.</p>
+
+      <p>Pagdating ko, tumawag ako.</p>
+      <p>Mahina pa signal, tapos ang sabi lang sa akin, &ldquo;Wait lang po, pababa na.&rdquo;</p>
+
+      <p>Mga ganung eksena, normal na dapat.</p>
+      <p>Pero kapag pagod ka na at mainit pa yung helmet sa noo mo, kahit normal, nagiging konting inis din.</p>
+
+      <p>Bago pa yun, may isa pa akong delivery sa isang low-rise condo sa Quezon City.</p>
+      <p>Doon ko naalala si Mirelle.</p>
+
+      <p>Hindi ko siya kilala noon, syempre.</p>
+      <p>Pero naalala ko kasi siya yung customer na sobrang polite, to the point na parang ayaw nang humaba pa yung usapan.</p>
+
+      <p>Pagbaba niya sa lobby, naka-office clothes pa siya, may tote bag sa isang balikat, hawak na agad yung phone na parang may babalikan pang chat.</p>
+      <p>Sabi ko, &ldquo;Ma&rsquo;am, order po.&rdquo;</p>
+
+      <p>Ngumiti siya nang konti.</p>
+      <p>&ldquo;Thank you,&rdquo; sabi niya, tapos kinuha agad yung paper bag.</p>
+
+      <p>Wala namang masama doon.</p>
+      <p>Sa totoo lang, mas gusto nga naming riders yung mabilis at maayos.</p>
+
+      <p>Pero may napansin ako noon na hindi ko pinansin.</p>
+      <p>Pagkaabot ko ng order, may tinanong siya, mahina lang, parang &ldquo;complete naman po?&rdquo; o baka &ldquo;ito na lahat?&rdquo; Hindi ko na rin sigurado.</p>
+
+      <p>Ang sagot ko yata, &ldquo;Opo, ma&rsquo;am,&rdquo; habang nakatingin na ako sa app at pinipindot ko na yung complete.</p>
+      <p>Mabilis kasi ako gumalaw pag tuloy-tuloy bookings.</p>
+
+      <p>Hindi ko na chineck kung may gusto pa siyang i-verify.</p>
+      <p>Hindi ko rin tinanong kung okay na ba lahat bago ako umalis.</p>
+
+      <p>Pagkatapos noon, dumiretso ako sa mas magulong booking.</p>
+      <p>Yung may traffic, maling pin, at blue gate na hindi mo maintindihan.</p>
+
+      <p>Habang tinititigan ko yung three stars, dumating si Braven sa tabi ko.</p>
+      <p>Kapwa rider ko rin, madalas ko makasabay sa waiting areas, at laging parang galit kahit normal lang boses niya.</p>
+
+      <p>&ldquo;Ba&rsquo;t ka nakasimangot?&rdquo; sabi niya habang umiinom ng malamig na softdrink.</p>
+
+      <p>Pinakita ko yung screen.</p>
+      <p>&ldquo;May low rating. Wala namang obvious na mali.&rdquo;</p>
+
+      <p>Tiningnan niya sandali, tapos kibit-balikat.</p>
+      <p>&ldquo;Minsan trip lang nila yan. Minsan sa restaurant sila badtrip, sa rider bumabagsak.&rdquo;</p>
+
+      <p>Pwede naman.</p>
+      <p>Actually, yun din dapat ang easiest explanation.</p>
+
+      <p>Pero ewan ko.</p>
+      <p>Hindi siya kumapit.</p>
+
+      <p>May kung anong bumabalik sa isip ko.</p>
+      <p>Hindi yung traffic. Hindi yung blue gate. Kundi yung sandali sa lobby kasama si Mirelle.</p>
+
+      <p>Yung sobrang bilis ng palitan.</p>
+      <p>Yung pagiging polite niya na parang may gustong siguraduhin pero ayaw nang makaabala.</p>
+
+      <p>Tapos naisip ko, baka kaya ko siya naaalala dahil wala talaga akong kinonfirm.</p>
+      <p>Technically tama ang delivery ko, oo. Pero hindi ibig sabihin nun na klaro rin sa kabilang side yung nangyari.</p>
+
+      <p>That was the annoying part.</p>
+      <p>Hindi ako sigurado kung ako nga ba yung dahilan, pero biglang hindi na sapat sa akin yung &ldquo;wala naman akong mali.&rdquo;</p>
+
+      <p>May next booking agad sa app.</p>
+      <p>Pickup sa maliit na café, drop-off sa apartment building sa Sampaloc.</p>
+
+      <p>Habang naghihintay sa order, tahimik ako.</p>
+      <p>Si Braven, siyempre, hindi.</p>
+
+      <p>&ldquo;Pre, kung low rating lang yan, hayaan mo na,&rdquo; sabi niya. &ldquo;Hindi naman lahat kailangan i-analyze.&rdquo;</p>
+
+      <p>&ldquo;Oo nga,&rdquo; sabi ko.</p>
+      <p>Pero halatang hindi ako kumbinsido sa sarili kong sagot.</p>
+
+      <p>Nakuha ko yung susunod na order at bumiyahe ulit.</p>
+      <p>Dumidilim na, mas makintab na yung mga ilaw sa basang kalsada kahit hindi naman umuulan, at mas ramdam yung usok kapag bumabagal ang linya ng sasakyan.</p>
+
+      <p>Pagdating ko sa apartment, bumaba agad yung customer.</p>
+      <p>College kid yata, nakahoodie, hawak yung phone at wallet sa iisang kamay.</p>
+
+      <p>Inabot ko yung order.</p>
+      <p>Reflex na sana yung pag-tap ko sa complete.</p>
+
+      <p>Pero natigil ako.</p>
+
+      <p>&ldquo;Sir, okay na po ba? Complete naman?&rdquo; tanong ko.</p>
+
+      <p>Parang nagulat siya nang konti, tapos sinilip niya yung bag.</p>
+      <p>&ldquo;Ay, oo. Sandali.&rdquo;</p>
+
+      <p>Binuksan niya nang bahagya, tiningnan yung drinks, tapos tumango.</p>
+      <p>&ldquo;Okay na. Salamat, boss.&rdquo;</p>
+
+      <p>&ldquo;Sure po,&rdquo; sabi ko.</p>
+      <p>Awkward lang nang konti kasi sobrang liit na bagay, pero iba yung pakiramdam ng katahimikan pagkatapos.</p>
+
+      <p>Hindi dahil sure na akong maiiwasan ko na lahat ng low ratings.</p>
+      <p>At hindi rin dahil bigla akong naging perfect sa trabaho.</p>
+
+      <p>Mas simple lang.</p>
+      <p>May mga araw pala na hindi sapat yung maihatid mo lang nang tama yung order.</p>
+
+      <p>Kailangan din minsan maramdaman nung tao na tapos na nga, maayos nga, wala siyang hahabulin pag-akyat niya.</p>
+      <p>One small question. Isang segundo lang. Pero iba yung dating.</p>
+
+      <p>Umandar ulit ako pagkatapos noon.</p>
+      <p>Traffic pa rin, maingay pa rin, at sigurado akong may susunod ulit na booking na nakakairita.</p>
+
+      <p>Pero bago ko tinapos yung mga sumunod, napapahinto na ako kahit saglit.</p>
+      <p>Hindi para magpabibo. Para lang siguraduhin na pareho naming alam kung okay ba talaga.</p>
+
+      <p>At habang binabagtas ko yung susunod na kanto, doon ko lang naisip na minsan, hindi ka naman talaga nagkulang sa effort.</p>
+      <p>Hindi lang kayo nagtagpo sa parehong linaw.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fbago-ko-tinapos-ang-booking"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "bago-ko-tinapos-ang-booking";
+    window.currentStoryTags = ["slice-of-life", "delivery-rider", "metro-manila", "customer-service", "taglish", "work-frustration"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/bago-ko-tinapos-ang-booking");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
