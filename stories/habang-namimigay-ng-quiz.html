@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Habang Namimigay ng Quiz</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="Isang Taglish short story tungkol sa biglaang in-person quiz, working student pressure, at acceptance na hindi lahat kayang kontrolin."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/habang-namimigay-ng-quiz" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Habang Namimigay ng Quiz" />
+  <meta
+    property="og:description"
+    content="Biglang may quiz sa classroom, at habang nagpa-panic ang iba, doon ko na-realize na may mga bagay talagang hindi naaayos ng pagiging handa."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/habang-namimigay-ng-quiz" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/habang-namimigay-ng-quiz.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/habang-namimigay-ng-quiz.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/habang-namimigay-ng-quiz.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Habang Namimigay ng Quiz" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="surprise quiz" />
+  <meta property="article:tag" content="working student" />
+  <meta property="article:tag" content="academic life" />
+  <meta property="article:tag" content="slice of life" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Habang Namimigay ng Quiz" />
+  <meta
+    name="twitter:description"
+    content="Biglang may quiz sa classroom, at habang nagpa-panic ang iba, doon ko na-realize na may mga bagay talagang hindi naaayos ng pagiging handa."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/habang-namimigay-ng-quiz.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Habang Namimigay ng Quiz",
+      "quote": "Hindi lahat ng handa, sure. Hindi lahat ng kalmado, okay lang."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Habang Namimigay ng Quiz",
+      "description": "Isang Taglish short story tungkol sa biglaang in-person quiz, working student pressure, at acceptance na hindi lahat kayang kontrolin.",
+      "url": "https://hiddenspotcafe.com/stories/habang-namimigay-ng-quiz",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/habang-namimigay-ng-quiz"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/habang-namimigay-ng-quiz.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Habang Namimigay ng Quiz</h1>
+      <p>Biglang may quiz sa classroom, at habang nagpa-panic ang iba, doon ko na-realize na may mga bagay talagang hindi naaayos ng pagiging handa.</p>
+    </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#surprise-quiz</span>
+        <span class="tag">#working-student</span>
+        <span class="tag">#academic-life</span>
+        <span class="tag">#slice-of-life</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>Bigla na lang sinabi na may quiz.</p>
+      <p>Walang announcement, walang warning—parang may nakalimutan kang importante kahit hindi mo alam kung ano.</p>
+
+      <p>Automatic akong napahawak sa phone ko sa ilalim ng desk.</p>
+      <p>Baka may namiss akong post. Baka may late notice sa portal. Baka may sinend sa group chat na natabunan ng mga shift update at pagkain sa pantry.</p>
+
+      <p>Late morning pa lang nun pero parang humaba agad yung oras sa room.</p>
+      <p>Mainit sa state university building sa Quezon City, tapos kalahati sa amin parang naka-online mode pa rin ang utak dahil isang linggo kaming halos puro screen lang kaharap.</p>
+
+      <p>Working student ako, so routine na sa akin yung mag-check ng announcements bago umalis ng bahay.</p>
+      <p>Habang nagkakape, habang nasa jeep, minsan kahit nasa time-in line pa sa part-time job ko the night before, chine-check ko pa rin kung may biglang update.</p>
+
+      <p>Kaya nung sinabi ng prof na, “Clear your tables, quiz,” may kung anong kumalabog sa dibdib ko.</p>
+      <p>Hindi dahil sa quiz mismo. Doon ako nainis sa possibility na baka may na-miss ako.</p>
+
+      <p>Sa likod ko, si Sevryn agad ang unang nag-react.</p>
+      <p>“Sir, wait lang, wala pong sinabi,” bulong niya na hindi naman talaga bulong kasi rinig ng buong row.</p>
+
+      <p>Typical Sevryn.</p>
+      <p>Siya yung laging nasa group chat, laging may “Guys sure bang may pasok?” o “May nag-post na ba?” kahit alas-onse pa lang ng gabi.</p>
+
+      <p>Sa tabi ko naman si Amrix.</p>
+      <p>Tahimik lang gaya lagi, maaga lagi dumadating, at parang hindi mo maalalang nagsalita nang lampas dalawang sentence sa isang araw.</p>
+
+      <p>Ang weird lang, wala siyang kahit anong galaw.</p>
+      <p>Hindi siya nagbuklat ng notes. Hindi rin nag-scroll. Nakaupo lang siya nang diretso, tingin sa harap, parang ordinaryong attendance lang ang nangyayari.</p>
+
+      <p>Mas lalo tuloy akong kinabahan.</p>
+      <p>Kasi may mga taong nakakapanerbyos lalo kapag sobrang kalmado.</p>
+
+      <p>Habang inaayos ng prof yung stack ng papers, binuksan ko ulit notifications ko.</p>
+      <p>Class GC. Department page. LMS. Email. Kahit spam muntik ko nang tingnan.</p>
+
+      <p>Wala talaga.</p>
+      <p>Yung last update lang ay tungkol sa moved deadline ng reporting last week.</p>
+
+      <p>“Unfair naman nito,” sabi ni Sevryn sa hangin, habang naglalabas ng ballpen na parang kasalanan ng ballpen yung nangyayari.</p>
+      <p>“Sana man lang nag-warning.”</p>
+
+      <p>Hindi ko siya masagot.</p>
+      <p>Kasi totoo naman. Pero wala na ring sense makipag-agree habang nasa harap mo na yung test paper.</p>
+
+      <p>Nagsimula nang mamigay yung prof per row.</p>
+      <p>Yung tunog ng bond paper sa bawat desk, sobrang simple lang dapat, pero nung oras na yun parang countdown.</p>
+
+      <p>Pagdating ng papel sa amin, napatingin ako sandali kay Amrix.</p>
+      <p>Baka may secret reviewer siya sa ilalim ng upuan. Baka photographic memory. Baka sadyang gifted lang.</p>
+
+      <p>Wala.</p>
+      <p>Hinawakan lang niya yung papel at huminga nang normal.</p>
+
+      <p>That bothered me more than the quiz.</p>
+      <p>Kasi ako, prepared naman ako most days, pero never akong mukhang ganyan ka-steady pag may surprise.</p>
+
+      <p>Sinagutan ko na lang yung kaya ko.</p>
+      <p>May dalawang item na familiar, may ilan na kailangan kong balik-balikan, tapos may isang tanong na alam kong nabasa ko na pero ayaw magpakita ng exact wording sa utak ko.</p>
+
+      <p>Sa gilid, si Sevryn parang one bad breath away sa meltdown.</p>
+      <p>Minsan nagsusulat, minsan tumitigil, minsan tumitingin sa kisame na parang may sagot doon.</p>
+
+      <p>May moment na gusto kong matawa.</p>
+      <p>Hindi dahil funny. Kundi dahil sobrang kitang-kita kung paano kami tatlo nagkaiba ng reaction sa iisang papel.</p>
+
+      <p>Ako, naghahanap ng proof na may namiss ako.</p>
+      <p>Si Sevryn, galit sa biglang nangyari. Si Amrix, parang tinanggap na agad kahit hindi niya gusto.</p>
+
+      <p>Nung pinasa na namin, saka ko lang naramdaman yung pagod.</p>
+      <p>Hindi pala sa pagsagot. Sa buong time na pinipilit kong ibalik yung feeling na kontrolado ko yung sitwasyon.</p>
+
+      <p>Habang nag-aayos kami ng gamit, si Sevryn tuloy pa rin sa reklamo.</p>
+      <p>“Sana sinabi na lang kahapon. Nagpuyat pa ako sa ibang subject.”</p>
+
+      <p>Wala ring sumagot sa kanya nang diretso.</p>
+      <p>Yung iba nag-agree na lang gamit yung mukha. Yung iba ngumiti nang pagod.</p>
+
+      <p>Ako, imbes na umalis agad, napalingon kay Amrix.</p>
+      <p>Hindi ko rin alam bakit. Baka gusto ko lang malaman anong klaseng tao yung hindi natinag kahit konti.</p>
+
+      <p>“Pwede magtanong?” sabi ko.</p>
+
+      <p>Tumingin siya sa akin. “Hmm?”</p>
+
+      <p>“Paano ka naging kalmado?”</p>
+      <p>“Kanina. As in walang review, walang panic. Parang okay ka lang.”</p>
+
+      <p>Akala ko sasabihin niya na nag-advanced study siya.</p>
+      <p>O sanay na siya sa ganun. O maybe confident lang talaga siya.</p>
+
+      <p>Pero umiling siya.</p>
+      <p>“Hindi ako kalmado.”</p>
+
+      <p>Napatingin ako sa kanya nang maayos.</p>
+      <p>First time ko siguro siyang narinig magsabi ng higit sa isang deretsong thought.</p>
+
+      <p>Inayos niya yung zipper ng bag niya bago tumuloy.</p>
+      <p>“Pag nagpa-panic kasi ako, pareho lang naman outcome. Kabado na, sablay pa.”</p>
+
+      <p>Then he gave this small, almost embarrassed smile.</p>
+      <p>“So minsan ang ginagawa ko, hindi na ako nakikipag-away sa biglaang bagay. Sinasagutan ko na lang kung ano yung nandiyan.”</p>
+
+      <p>Simple lang yung pagkakasabi niya.</p>
+      <p>Parang hindi quote. Parang habit lang na matagal na niyang tinatry buhatin.</p>
+
+      <p>Hindi ako agad nakasagot.</p>
+      <p>Kasi ang ine-expect ko secret technique. Ang nakuha ko, parang tahimik na pag-amin na wala rin naman siyang control.</p>
+
+      <p>Doon ko lang napansin na may marka pala ng kuko sa gilid ng yellow pad niya.</p>
+      <p>May bahagyang punit din sa corner, parang kanina pa niya pinipigil yung sarili niyang kaba.</p>
+
+      <p>So hindi pala siya unaffected.</p>
+      <p>Mas sanay lang siyang hindi ipakita na nilalamon din siya ng uncertainty.</p>
+
+      <p>Natawa ako nang mahina.</p>
+      <p>“Akala ko ready ka talaga.”</p>
+
+      <p>“Akala ko rin ready ka,” sabi niya.</p>
+
+      <p>Napatingin ako sa phone ko na hawak ko pa rin.</p>
+      <p>Nandun pa rin yung binuksan kong notifications, parang hindi pa tapos ang paghahanap ko ng dapat sisihin.</p>
+
+      <p>“Check ako nang check,” sabi ko.</p>
+      <p>“Parang gusto kong patunayan na hindi ko kasalanan.”</p>
+
+      <p>Hindi siya ngumiti nang malaki.</p>
+      <p>Tumango lang siya, parang gets na niya agad.</p>
+
+      <p>“Gets,” sabi niya. “Comforting kasi pag may dahilan.”</p>
+
+      <p>Yun yung tumama.</p>
+      <p>Hindi dahil deep siya. Dahil sobrang totoo.</p>
+
+      <p>Habang naglalakad ako palabas ng room, naisip ko na kaya siguro ako sobrang kapit sa routine, sa reminders, sa pag-check ng updates, dahil gusto kong maniwala na kapag ginawa ko lahat nang tama, maiiwasan ko yung ganyang klaseng gulat.</p>
+
+      <p>Pero hindi pala ganun lagi.</p>
+      <p>May mga araw talagang maayos ka, kumpleto ka, responsible ka, tapos may ibabagsak pa rin sa desk mo na hindi mo napaghandaan.</p>
+
+      <p>At hindi ibig sabihin nun na nagkulang ka agad.</p>
+
+      <p>Sa hallway, naabutan namin si Sevryn na kinukwento pa rin sa isa pang kaklase kung gaano ka-stress yung nangyari.</p>
+      <p>Same building, same quiz, same late morning, pero iba-iba talaga kami ng dala pauwi.</p>
+
+      <p>Ako, hindi naman naging instantly chill after that.</p>
+      <p>Malamang magche-check pa rin ako ng announcements nang tatlong beses bago umalis.</p>
+
+      <p>Pero habang bumababa ako ng hagdan, mas magaan nang konti yung pakiramdam ko.</p>
+      <p>Hindi dahil sure akong pumasa ako. Hindi dahil na-justify ko yung surprise.</p>
+
+      <p>Kundi dahil may maliit na part sa akin na tumigil munang pilitin gawing predictable ang lahat.</p>
+      <p>At for that day, enough na muna yun.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fhabang-namimigay-ng-quiz"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "habang-namimigay-ng-quiz";
+    window.currentStoryTags = ["surprise-quiz", "working-student", "academic-life", "slice-of-life", "taglish"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/habang-namimigay-ng-quiz");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
