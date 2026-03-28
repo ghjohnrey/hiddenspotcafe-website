@@ -1326,139 +1326,265 @@ body {
   z-index: 99999;
 }
 
-/* LABEL: Going Out / Laundry Advice */
-.art-label {
-  font-size: 14px;              /* dati maliit lang */
-  font-weight: 600;             /* mas bold */
-  letter-spacing: 0.5px;        /* konting spacing para readable */
-  
-  color: rgba(255,255,255,0.95); /* mas solid white */
-  
-  background: rgba(0,0,0,0.35);  /* dark glass para readable sa image */
-  padding: 6px 10px;
-  border-radius: 999px;
-
-  backdrop-filter: blur(6px);   /* glass effect (same theme mo) */
-}
-
-
 /* =========================================================
-   APPEND ONLY — GLASS CONTENT PANEL FOR ADVICE IMAGE TEXT
+   APPEND ONLY — UNIFIED GLASS OVERLAY FOR ADVICE CARDS
    Goal:
-   - gawing iisang blurred/glass content card ang text sa ibabaw ng image
-   - kita pa rin ang image sa likod
-   - walang gagalaw sa lower advice list section
+   - Isama ang heading + description + bullet section sa iisang glass area
+   - Patangkadin ang image area
+   - Bawasan ang opacity ng glass para mas kita pa rin ang image
    ========================================================= */
 
-/* Advice image area */
+/* Make the whole card feel like one tall image-based card */
+.goout-card,
+.laundry-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Taller image area para may space ang buong glass content */
 .goout-card .advice-media,
 .laundry-card .advice-media {
+  min-height: 520px;
   display: flex;
-  align-items: flex-end;
-  padding: 24px;
-  box-sizing: border-box;
+  align-items: stretch;
+  border-bottom: 0;
 }
 
-/* Main text panel on top of image */
-.goout-card .art-copy,
-.laundry-card .art-copy {
-  position: absolute;
-  left: 24px;
-  right: auto;
-  bottom: 24px;
-  z-index: 4;
-  width: min(78%, 520px);
-  max-width: calc(100% - 48px);
-  padding: 18px 18px 16px;
-  border-radius: 22px;
-  background: rgba(10, 14, 28, 0.34);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-/* Stronger readability */
-.goout-card .art-copy h3,
-.laundry-card .art-copy h3 {
-  margin: 12px 0 10px;
-  font-size: clamp(2rem, 3vw, 3.15rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
-}
-
-.goout-card .art-copy p,
-.laundry-card .art-copy p {
-  margin: 0;
-  font-size: clamp(1rem, 1.15vw, 1.14rem);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
-}
-
-/* Keep label readable inside the same glass panel */
-.goout-card .art-copy .art-label,
-.laundry-card .art-copy .art-label {
-  display: inline-flex;
-  align-items: center;
-  margin: 0;
-  background: rgba(92, 48, 18, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
-}
-
-/* Slightly richer overlay so the panel blends nicely with image */
+/* Slightly lighter overlay para mas visible ang image */
 .goout-card .art-overlay,
 .laundry-card .art-overlay {
   background:
-    linear-gradient(180deg, rgba(8, 10, 20, 0.06) 0%, rgba(8, 10, 20, 0.14) 32%, rgba(8, 10, 20, 0.56) 100%),
-    radial-gradient(circle at top right, rgba(255, 180, 100, 0.12) 0%, rgba(255, 180, 100, 0) 30%);
+    linear-gradient(
+      180deg,
+      rgba(8, 10, 20, 0.05) 0%,
+      rgba(8, 10, 20, 0.10) 35%,
+      rgba(8, 10, 20, 0.26) 100%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(255, 180, 100, 0.10) 0%,
+      rgba(255, 180, 100, 0) 32%
+    );
 }
 
-/* Responsive */
-@media (max-width: 980px) {
+/* Put text area as a full glass panel inside the image */
+.goout-card .art-copy,
+.laundry-card .art-copy {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 28px;
+  bottom: 28px;
+  z-index: 5;
+  width: auto;
+  max-width: none;
+  padding: 22px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 24px;
+  background: rgba(18, 20, 34, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+/* Title */
+.goout-card .art-copy h3,
+.laundry-card .art-copy h3 {
+  margin: 14px 0 12px;
+  font-size: clamp(2.3rem, 3.4vw, 4.2rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* Description */
+.goout-card .art-copy p,
+.laundry-card .art-copy p {
+  margin: 0 0 22px;
+  font-size: clamp(1rem, 1.2vw, 1.16rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+  max-width: 94%;
+}
+
+/* Label */
+.goout-card .art-copy .art-label,
+.laundry-card .art-copy .art-label {
+  align-self: flex-start;
+  margin: 0;
+  background: rgba(92, 48, 18, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Move the lower list visually into the glass panel */
+.goout-card .advice-list,
+.laundry-card .advice-list {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  z-index: 6;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  pointer-events: none; /* purely visual/text layer */
+}
+
+/* Section heading inside glass */
+.goout-card .advice-list h4,
+.laundry-card .advice-list h4 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+/* Bullet list inside glass */
+.goout-card .advice-list ul,
+.laundry-card .advice-list ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.goout-card .advice-list li,
+.laundry-card .advice-list li {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.58;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.goout-card .advice-list li:last-child,
+.laundry-card .advice-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Hide the old bottom block space visually,
+   since the list is now overlayed inside the image */
+.goout-card > .advice-list,
+.laundry-card > .advice-list {
+  min-height: 0;
+}
+
+/* Keep the card body from showing as a separate heavy section */
+.goout-card,
+.laundry-card {
+  background: rgba(18, 18, 34, 0.34);
+}
+
+/* Desktop spacing refinement for long titles */
+@media (min-width: 981px) {
   .goout-card .art-copy,
   .laundry-card .art-copy {
-    width: min(86%, 560px);
+    padding-right: 28px;
+  }
+
+  .goout-card .advice-list,
+  .laundry-card .advice-list {
+    max-width: calc(100% - 56px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 980px) {
+  .goout-card .advice-media,
+  .laundry-card .advice-media {
+    min-height: 500px;
+  }
+
+  .goout-card .art-copy,
+  .laundry-card .art-copy {
+    left: 22px;
+    right: 22px;
+    top: 22px;
+    bottom: 22px;
+    padding: 20px;
+  }
+
+  .goout-card .advice-list,
+  .laundry-card .advice-list {
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
   }
 
   .goout-card .art-copy h3,
   .laundry-card .art-copy h3 {
-    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-size: clamp(2rem, 5vw, 3.1rem);
   }
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .goout-card .advice-media,
   .laundry-card .advice-media {
-    padding: 16px;
+    min-height: 520px;
   }
 
   .goout-card .art-copy,
   .laundry-card .art-copy {
     left: 16px;
     right: 16px;
+    top: 16px;
     bottom: 16px;
-    width: auto;
-    max-width: none;
     padding: 16px;
-    border-radius: 18px;
+    border-radius: 20px;
+    background: rgba(18, 20, 34, 0.22);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+
+  .goout-card .advice-list,
+  .laundry-card .advice-list {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
   }
 
   .goout-card .art-copy h3,
   .laundry-card .art-copy h3 {
-    font-size: clamp(1.55rem, 6vw, 2.1rem);
-    line-height: 1.08;
+    margin: 12px 0 10px;
+    font-size: clamp(1.75rem, 8vw, 2.4rem);
+    line-height: 1.06;
   }
 
   .goout-card .art-copy p,
   .laundry-card .art-copy p {
+    margin-bottom: 18px;
+    max-width: 100%;
     font-size: 0.98rem;
-    line-height: 1.58;
+    line-height: 1.6;
+  }
+
+  .goout-card .advice-list h4,
+  .laundry-card .advice-list h4 {
+    font-size: 0.98rem;
+    margin-bottom: 10px;
+  }
+
+  .goout-card .advice-list ul,
+  .laundry-card .advice-list ul {
+    padding-left: 20px;
+  }
+
+  .goout-card .advice-list li,
+  .laundry-card .advice-list li {
+    font-size: 0.96rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
   }
 }
