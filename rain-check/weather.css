@@ -1588,3 +1588,70 @@ body {
     margin-bottom: 8px;
   }
 }
+
+/* =========================================================
+   FIX — LIGHTER GLASS + BALANCED TYPO + RESTORE RADIUS
+   ========================================================= */
+
+/* Much lighter glass (around 5%) */
+.goout-card .art-copy,
+.laundry-card .art-copy {
+  background: rgba(18, 20, 34, 0.05) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* Reduce title size (para hindi overpowering) */
+.goout-card .art-copy h3,
+.laundry-card .art-copy h3 {
+  font-size: clamp(1.6rem, 2.2vw, 2.4rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Slightly tone down paragraph */
+.goout-card .art-copy p,
+.laundry-card .art-copy p {
+  font-size: 0.98rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Keep bullets readable but not noisy */
+.goout-card .advice-list li,
+.laundry-card .advice-list li {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Restore rounded corners (top and bottom consistent) */
+.goout-card .advice-media,
+.laundry-card .advice-media {
+  border-radius: 24px !important;
+}
+
+/* Remove visual break between image and lower part */
+.goout-card,
+.laundry-card {
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* Make sure overlay follows same curve */
+.goout-card .art-copy,
+.laundry-card .art-copy {
+  border-radius: 20px !important;
+}
+
+/* Slightly soften overlay gradient (para hindi madilim) */
+.goout-card .art-overlay,
+.laundry-card .art-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8,10,20,0.02) 0%,
+      rgba(8,10,20,0.06) 40%,
+      rgba(8,10,20,0.18) 100%
+    ) !important;
+}
