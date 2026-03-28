@@ -586,21 +586,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // BOTTOM SEARCH
-      if (bottomInput) {
-        // default suggestions when empty
-        renderTitleLinks("storySearchBottomResults", getRandomSuggestions(10));
+if (bottomInput) {
+  // empty by default because Suggested Stories already handles recommendations
+  clearResults("storySearchBottomResults");
 
-        bottomInput.addEventListener("input", () => {
-          const q = bottomInput.value.trim();
+  bottomInput.addEventListener("input", () => {
+    const q = bottomInput.value.trim();
 
-          if (!q) {
-            renderTitleLinks("storySearchBottomResults", getRandomSuggestions(10));
-            return;
-          }
+    if (!q) {
+      clearResults("storySearchBottomResults");
+      return;
+    }
 
-          renderTitleLinks("storySearchBottomResults", getSearchResults(q, 10));
-        });
-      }
+    renderTitleLinks("storySearchBottomResults", getSearchResults(q, 10));
+  });
+}
 
     } catch (error) {
       console.error("Search override failed", error);
