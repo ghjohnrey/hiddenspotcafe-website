@@ -1,166 +1,37 @@
-ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-PH">
 <head>
   <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
 
   <!-- Basic -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"
+     crossorigin="anonymous"></script>
   <!-- ✅ CHANGE: Story title -->
   <title>Ang Promise na Naiwan sa Platform</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten."
+  />
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
@@ -180,7 +51,10 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
 
   <!-- ✅ CHANGE: OG title/desc/url -->
   <meta property="og:title" content="Ang Promise na Naiwan sa Platform" />
-  <meta property="og:description" content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten." />
+  <meta
+    property="og:description"
+    content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten."
+  />
   <meta property="og:url" content="https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform" />
 
   <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
@@ -192,21 +66,56 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Hidden Spot Cafe story card: Ang Promise na Naiwan sa Platform" />
 
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="tenderreunion" />
+  <meta property="article:tag" content="commute" />
+  <meta property="article:tag" content="taglish" />
+  <meta property="article:tag" content="subtlehumor" />
+
   <!-- Twitter/X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ang Promise na Naiwan sa Platform" />
-  <meta name="twitter:description" content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten." />
+  <meta
+    name="twitter:description"
+    content="A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten."
+  />
   <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png" />
 
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
+  <!-- ✅ CHANGE: Worker OG data -->
   <script type="application/json" id="og-data">
     {
       "title": "Ang Promise na Naiwan sa Platform",
       "quote": "Minsan, akala mo nawala na ang isang bagay—hindi mo alam, may tinutupad lang pala itong lumang pangako."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Ang Promise na Naiwan sa Platform",
+      "description": "A short Taglish reunion story about a folded note, a missed train, and a promise that was never forgotten.",
+      "url": "https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/ang-promise-na-naiwan-sa-platform.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
     }
   </script>
 </head>
@@ -226,17 +135,16 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
         <a href="/menu/" class="nav-link">Menu</a>
         <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
         <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
       </div>
 
-      <div class="hamburger" id="hamburger">
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span>
         <span></span>
         <span></span>
       </div>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
     </div>
   </nav>
 
@@ -247,6 +155,19 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
       <h1>Ang Promise na Naiwan sa Platform</h1>
       <p>Short Taglish reunion story for students, commuters, and anyone who has ever felt left behind.</p>
     </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
 
     <article class="story-reading-card">
       <div class="story-meta">
@@ -260,16 +181,27 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
 
       <div class="story-divider" aria-hidden="true"></div>
 
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
       <p>Before sunrise, nasa campus gate na ako.</p>
       <p>Hindi dahil masipag ako. Nauna lang talaga akong pumasok para iwas sa mga kaklaseng parang laging alam ang next step sa buhay.</p>
+
       <p>Habang naglalakad ako sa tabi ng guardhouse, may nakita akong folded note sa sahig, bahagyang basa ng hamog.</p>
       <p>Akala ko resibo lang. Pero may pangalan.</p>
+
       <p><strong>“Para kay Lia. Huwag mong isipin na huli ka na.”</strong></p>
 
       <p>Lia ang nickname ko noong high school.</p>
       <p>Sa college, halos wala nang tumatawag sa akin n’un. Lahat “Eliana” na, o kaya “Uy, ikaw nga.”</p>
       <p>Kaya nung nakita ko ‘yon, huminto talaga ako.</p>
       <p>Binuklat ko pa. Sa loob, may isa pang sulat.</p>
+
       <p><strong>“Kung makita mo ’to, baka pwede mo pa ring kunin pabalik.”</strong></p>
 
       <p>“Wow,” bulong ko. “Cryptic. Kulang na lang treasure map.”</p>
@@ -299,6 +231,7 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
 
       <p>Lumapit ako. “Excuse me.”</p>
       <p>Pagharap niya, medyo nagulat pa siya. “Ah—hi?”</p>
+
       <p>Inangat ko ang keychain gamit ang tingin. “Saan mo nakuha ’yan?”</p>
       <p>Napakurap siya. “Ito?”</p>
       <p>“Hindi, yung electric fan.”</p>
@@ -352,6 +285,7 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
 
       <p>Natawa ako kahit napahiya. “That’s fair.”</p>
       <p>“Kanina sana, ikukuha kita ng kape. Kaso natakot ako.”</p>
+
       <p>“Sa’kin?”</p>
       <p>“Oo. College ka na. Baka sabihin mo, ‘Excuse me, kuya, who are you?’”</p>
 
@@ -373,6 +307,30 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
       <p>Minsan pala, akala mo may nawalan sa’yo.</p>
       <p>Ang totoo, may isang taong maingat lang na tinutupad ang sinabi mong biro lang noon—</p>
       <p>at biglang hindi na biro ngayon.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
 
       <div class="story-actions" aria-label="Story actions">
         <a class="action-btn" href="/stories/">← Back to Stories</a>
@@ -394,11 +352,36 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
 
   <!-- Footer -->
   <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
     <p>© 2026 Hidden Spot Cafe</p>
   </footer>
 
   <!-- Scripts -->
   <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "ang-promise-na-naiwan-sa-platform";
+    window.currentStoryTags = ["tenderreunion", "commute", "taglish", "subtlehumor"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
   <script>
     const btn = document.getElementById("copyLinkBtn");
 
@@ -408,8 +391,10 @@ ang-promise-na-naiwan-sa-platform<!DOCTYPE html>
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/ang-promise-na-naiwan-sa-platform");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });
