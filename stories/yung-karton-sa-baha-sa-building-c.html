@@ -1,409 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>Yung Karton sa Baha sa Building C</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="Yung Karton sa Baha sa Building C" property="og:title"/>
+<meta content="Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: Yung Karton sa Baha sa Building C" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="taglish" property="article:tag"/><meta content="flood" property="article:tag"/><meta content="campus" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>Yung Karton sa Baha sa Building C</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="Yung Karton sa Baha sa Building C" />
-  <meta property="og:description" content="Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Karton sa Baha sa Building C" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Yung Karton sa Baha sa Building C" />
-  <meta name="twitter:description" content="Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Yung Karton sa Baha sa Building C" name="twitter:title"/>
+<meta content="Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "Yung Karton sa Baha sa Building C",
       "quote": "Minsan, mas nakakatakot aminin ang mali kaysa tumawid sa baha."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Yung Karton sa Baha sa Building C",
+      "description": "Na-stranded kami sa school corridor habang tumataas ang tubig, pero hindi baha ang totoong dahilan kung bakit ayaw kong umalis.",
+      "url": "https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/yung-karton-sa-baha-sa-building-c.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>Yung Karton sa Baha sa Building C</h1>
+<p>Isang maulan na hapon sa campus na nauwi sa tahimik na pag-amin na matagal ko nang iniiwasan.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>Yung Karton sa Baha sa Building C</h1>
-      <p>Isang maulan na hapon sa campus na nauwi sa tahimik na pag-amin na matagal ko nang iniiwasan.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#campus</span>
         <span class="tag">#flood</span>
         <span class="tag">#taglish</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>At minsan, kahit tahimik kang tao, darating yung araw na wala ka nang magagawa kundi magsalita na rin.</p>
+<p>Mas takot lang talaga akong mauna yung katotohanan kaysa sa akin.</p>
+<p>Hindi pala.</p>
+<p>Akala ko kanina kaya ayaw kong umalis ay dahil natatakot ako sa baha.</p>
+<p>Pero iba na yung pakiramdam ko habang naglalakad kami palabas.</p>
+<p>May mga basang karton pa ring naiwan sa gilid, may mga tsinelas na kumakapit sa putik, at may amoy pa rin ng ulan sa concrete.</p>
+<p>Nang tuluyan nang humupa ang tubig at pwede na kaming lumabas, madilim na sa campus.</p>
+<p>Kasi totoo naman.</p>
+<p>Simple lang yung pagkakasabi niya, pero tumama.</p>
+<p>“Buti naman,” sabi niya. “Mas madali linisin ang putik kaysa konsensya.”</p>
+<p>Si Aling Mercy naman, kinuha ulit yung mop.</p>
+<p>Natawa ako, first time that afternoon.</p>
+<p>“Ayan,” sabi niya. “Mas nakakastress ka pa minsan kaysa sa deadline.”</p>
+<p>Napabuntong-hininga si Kris na parang siya rin yung naka-survive.</p>
+<p>Yung bigat ng pagtatago, hindi na siya kasing lakas ng ulan.</p>
+<p>Pero may nabawas.</p>
+<p>Wala namang instant relief sa ganun.</p>
+<p>Hindi ako gumaan agad nang todo.</p>
+<p>Tapos dumating din: “Gets. Naiinis ako, pero thank you sa pag-amin. Hanap tayo way tomorrow.”</p>
+<p>Siguro mga dalawang minuto lang, pero sa ganung oras parang haba na ng buhay mo.</p>
+<p>Matagal bago siya nag-reply.</p>
+<p>Sinabi ko lang diretso: ako ang nakabangga, ako ang natakot, ako ang hindi umamin agad, at sasagutin ko kung ano man yung kailangan para maayos o magawa ulit.</p>
+<p>Doon ko siya chinat, habang basa yung cuff ng polo ko at nanginginig nang konti yung daliri ko sa lamig.</p>
+<p>“Oo. Ngayon na bago pa ulit ako umatras.”</p>
+<p>“Ngayon na?”</p>
+<p>“Magme-message ako kay Lea,” sabi ko.</p>
+<p>Parang same sa excuse na matagal ko nang binubuo sa utak ko.</p>
+<p>Ang pangit na niya, wala nang chance maibalik sa dati.</p>
+<p>Tiningnan ko yung basang karton sa kamay ko.</p>
+<p>“Ano plano mo?” tanong ni Kris.</p>
+<p>Ebidenya na siya na may tinakasan akong maliit pero totoong kasalanan.</p>
+<p>Biglang hindi na siya simpleng basurang inaanod.</p>
+<p>Panel nga siya ng model ni Lea, at may sulat pa sa likod na section label na siya lang yung gumagamit.</p>
+<p>Pagkahugot ko, tama ako.</p>
+<p>Kinabahan ako habang hinihila ko yung lumulutang na piraso ng board papunta sa gilid.</p>
+<p>Hindi pa rin safe tumawid sa labas, pero abot na ng mop yung naipong debris sa may grill.</p>
+<p>Nung humina nang kaunti yung buhos at umatras nang konti yung tubig sa may pinto, bumaba kami tatlo hanggang landing.</p>
+<p>Baka pareho.</p>
+<p>Hindi ko alam kung karton ba ang tinutukoy niya o yung pag-amin.</p>
+<p>“Kung may gusto kang habulin, bilisan mo bago tuluyang lumayo,” sabi niya.</p>
+<p>Maya-maya, inusog niya sa akin yung mop handle na nakasandal sa pader.</p>
+<p>Si Aling Mercy, tahimik lang ulit.</p>
+<p>Hindi siya aksidente lang. Choice siya na pinalaki ko sa katahimikan.</p>
+<p>At ayun yung nakakainis sa ganung klaseng mali.</p>
+<p>“Alam ko,” sabi ko.</p>
+<p>Tapos napahawak siya sa noo. “Pwede mo naman kasing sabihin agad.”</p>
+<p>Pero ang una niyang sinabi, “Grabe ka, oo… pero kaya ka pala weird buong hapon.”</p>
+<p>Kasi honestly, deserve ko naman.</p>
+<p>Inexpect ko na sermon galing kay Kris.</p>
+<p>Sinabi ko lang na nabangga ko yung model ni Lea, na nakita ko yung panel, na tinago ko, at na malamang kaya may lumulutang na ganyang klaseng karton sa baha ay dahil ako yung nag-umpisa ng gulo.</p>
+<p>Hindi dramatic, walang background music, wala ring lumuhod na konsensya moment.</p>
+<p>Huminga ako nang malalim, tapos saka ako umamin.</p>
+<p>“Okay,” sabi niya, pagod na. “Anong hindi ko alam?”</p>
+<p>Napaupo si Kris sa stacked chairs sa gilid.</p>
+<p>Hindi ko alam kung napansin niya yung tingin ko sa karton o mukha lang talaga akong guilty buong oras.</p>
+<p>“May hinihintay ka bang maanod pabalik?” dagdag niya habang pinipiga yung basahan.</p>
+<p>May mga ganung sandali talaga na wala namang sumisigaw, pero pakiramdam mo nahuli ka.</p>
+<p>Ako rin.</p>
+<p>Natahimik si Kris.</p>
+<p>Hindi siya nakatingin sa akin diretso, pero parang ako lang ang kausap niya.</p>
+<p>“Hindi ‘yan dahil sa baha.”</p>
+<p>Bago pa ako makasagot, nagsalita si Aling Mercy mula sa likod namin.</p>
+<p>“Paolo,” sabi ni Kris, mas mahina na. “Bakit ayaw mong umalis?”</p>
+<p>Ngayon, heto siya, lumulutang palabas ng building na parang may sariling plano manghiya.</p>
+<p>Nag-iba ng room, sunod-sunod yung pinasa, tapos nagkunwari na lang akong hindi akin yung nakita kong piraso kanina sa studio floor.</p>
+<p>Kaso hindi ko na ginawa.</p>
+<p>Sabi ko sa sarili ko, aayusin ko kinabukasan bago niya makita.</p>
+<p>Wala nang tao noon, pagod na pagod na ako, at imbes na aminin ko sa group GC na nasira ko yung side wall ng model niya, tinabi ko lang yung nabasag na panel at umalis.</p>
+<p>Ang issue, part yun ng scale model ni Lea na nabangga ko kagabi sa studio.</p>
+<p>Hindi yung karton mismo ang issue.</p>
+<p>Sa akin galing yun.</p>
+<p>May maliit na sulok na may dark blue masking tape at manipis na linya ng itim na marker sa gitna.</p>
+<p>Kahit basa na at halos madurog na, kilala ko agad.</p>
+<p>Sa gitna no’n, may isang flat na piraso ng illustration board na umiikot-ikot sa agos.</p>
+<p>Nakatingin lang ako sa entrance kung saan dahan-dahang pumapasok yung tubig, kasama yung mga lumulutang na plastic cup, piraso ng dahon, at mga kartong galing kung saan.</p>
+<p>Hindi ko sinagot.</p>
+<p>Napatingin siya sa akin. “Ano’ng wait lang? Paolo, baha na nga.”</p>
+<p>“Wait lang,” sabi ko agad, mas mabilis kaysa dapat.</p>
+<p>“Baba na kaya tayo?” tanong ni Kris ulit.</p>
+<p>Yung corridor, amoy basang papel, floor wax, saka kape na malamig na sa tumbler ko.</p>
+<p>May tunog pa ng nagtutulakang monoblock chairs sa kabilang room, tapos may mga estudyanteng nagvi-video na agad para may ma-post mamaya.</p>
+<p>Palakas nang palakas yung ulan sa bubong.</p>
+<p>Hindi siya yung madaldal na staff na kakamustahin lahat, pero ramdam mong may napapansin siyang hindi mo napapansin sa sarili mo.</p>
+<p>Tahimik lang siyang nag-iipon ng basang basahan sa gilid, parang sanay na sa mga eksenang ganito.</p>
+<p>Doon ko rin unang napansin si Aling Mercy.</p>
+<p>“Baka humupa rin agad,” sagot ko, kahit kita ko naman na basa na hanggang second tile line yung sahig malapit sa dulo.</p>
+<p>“Paolo, sabihin mo nga na OA lang ‘to,” sabi niya habang sinisilip yung hagdan.</p>
+<p>Si Kris yung tipo na maaasahan mo sa groupwork pero one minor inconvenience away sa mini breakdown.</p>
+<p>Nasa corridor kami ni Kris no’n, pareho pang may dalang tube case at laptop bag.</p>
+<p>Kaso bandang alas singko, may nagtakbuhang students sa hallway ng Building C habang may sumisigaw na, “Huwag muna kayo baba, ang taas na ng tubig sa entrance!”</p>
+<p>Uwian lang dapat after plates, tapos balak ko lang dumaan ng printing shop bago sumakay.</p>
+<p>Hindi naman dapat dramatic yung hapon na yun.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>Hindi naman dapat dramatic yung hapon na yun.</p>
-      <p>Uwian lang dapat after plates, tapos balak ko lang dumaan ng printing shop bago sumakay.</p>
-      <p>Kaso bandang alas singko, may nagtakbuhang students sa hallway ng Building C habang may sumisigaw na, “Huwag muna kayo baba, ang taas na ng tubig sa entrance!”</p>
-
-      <p>Nasa corridor kami ni Kris no’n, pareho pang may dalang tube case at laptop bag.</p>
-      <p>Si Kris yung tipo na maaasahan mo sa groupwork pero one minor inconvenience away sa mini breakdown.</p>
-      <p>“Paolo, sabihin mo nga na OA lang ‘to,” sabi niya habang sinisilip yung hagdan.</p>
-      <p>“Baka humupa rin agad,” sagot ko, kahit kita ko naman na basa na hanggang second tile line yung sahig malapit sa dulo.</p>
-
-      <p>Doon ko rin unang napansin si Aling Mercy.</p>
-      <p>Tahimik lang siyang nag-iipon ng basang basahan sa gilid, parang sanay na sa mga eksenang ganito.</p>
-      <p>Hindi siya yung madaldal na staff na kakamustahin lahat, pero ramdam mong may napapansin siyang hindi mo napapansin sa sarili mo.</p>
-
-      <p>Palakas nang palakas yung ulan sa bubong.</p>
-      <p>May tunog pa ng nagtutulakang monoblock chairs sa kabilang room, tapos may mga estudyanteng nagvi-video na agad para may ma-post mamaya.</p>
-      <p>Yung corridor, amoy basang papel, floor wax, saka kape na malamig na sa tumbler ko.</p>
-
-      <p>“Baba na kaya tayo?” tanong ni Kris ulit.</p>
-      <p>“Wait lang,” sabi ko agad, mas mabilis kaysa dapat.</p>
-      <p>Napatingin siya sa akin. “Ano’ng wait lang? Paolo, baha na nga.”</p>
-
-      <p>Hindi ko sinagot.</p>
-      <p>Nakatingin lang ako sa entrance kung saan dahan-dahang pumapasok yung tubig, kasama yung mga lumulutang na plastic cup, piraso ng dahon, at mga kartong galing kung saan.</p>
-      <p>Sa gitna no’n, may isang flat na piraso ng illustration board na umiikot-ikot sa agos.</p>
-
-      <p>Kahit basa na at halos madurog na, kilala ko agad.</p>
-      <p>May maliit na sulok na may dark blue masking tape at manipis na linya ng itim na marker sa gitna.</p>
-      <p>Sa akin galing yun.</p>
-
-      <p>Hindi yung karton mismo ang issue.</p>
-      <p>Ang issue, part yun ng scale model ni Lea na nabangga ko kagabi sa studio.</p>
-      <p>Wala nang tao noon, pagod na pagod na ako, at imbes na aminin ko sa group GC na nasira ko yung side wall ng model niya, tinabi ko lang yung nabasag na panel at umalis.</p>
-      <p>Sabi ko sa sarili ko, aayusin ko kinabukasan bago niya makita.</p>
-
-      <p>Kaso hindi ko na ginawa.</p>
-      <p>Nag-iba ng room, sunod-sunod yung pinasa, tapos nagkunwari na lang akong hindi akin yung nakita kong piraso kanina sa studio floor.</p>
-      <p>Ngayon, heto siya, lumulutang palabas ng building na parang may sariling plano manghiya.</p>
-
-      <p>“Paolo,” sabi ni Kris, mas mahina na. “Bakit ayaw mong umalis?”</p>
-
-      <p>Bago pa ako makasagot, nagsalita si Aling Mercy mula sa likod namin.</p>
-      <p>“Hindi ‘yan dahil sa baha.”</p>
-      <p>Hindi siya nakatingin sa akin diretso, pero parang ako lang ang kausap niya.</p>
-
-      <p>Natahimik si Kris.</p>
-      <p>Ako rin.</p>
-      <p>May mga ganung sandali talaga na wala namang sumisigaw, pero pakiramdam mo nahuli ka.</p>
-
-      <p>“May hinihintay ka bang maanod pabalik?” dagdag niya habang pinipiga yung basahan.</p>
-      <p>Hindi ko alam kung napansin niya yung tingin ko sa karton o mukha lang talaga akong guilty buong oras.</p>
-
-      <p>Napaupo si Kris sa stacked chairs sa gilid.</p>
-      <p>“Okay,” sabi niya, pagod na. “Anong hindi ko alam?”</p>
-
-      <p>Huminga ako nang malalim, tapos saka ako umamin.</p>
-      <p>Hindi dramatic, walang background music, wala ring lumuhod na konsensya moment.</p>
-      <p>Sinabi ko lang na nabangga ko yung model ni Lea, na nakita ko yung panel, na tinago ko, at na malamang kaya may lumulutang na ganyang klaseng karton sa baha ay dahil ako yung nag-umpisa ng gulo.</p>
-
-      <p>Inexpect ko na sermon galing kay Kris.</p>
-      <p>Kasi honestly, deserve ko naman.</p>
-      <p>Pero ang una niyang sinabi, “Grabe ka, oo… pero kaya ka pala weird buong hapon.”</p>
-      <p>Tapos napahawak siya sa noo. “Pwede mo naman kasing sabihin agad.”</p>
-
-      <p>“Alam ko,” sabi ko.</p>
-      <p>At ayun yung nakakainis sa ganung klaseng mali.</p>
-      <p>Hindi siya aksidente lang. Choice siya na pinalaki ko sa katahimikan.</p>
-
-      <p>Si Aling Mercy, tahimik lang ulit.</p>
-      <p>Maya-maya, inusog niya sa akin yung mop handle na nakasandal sa pader.</p>
-      <p>“Kung may gusto kang habulin, bilisan mo bago tuluyang lumayo,” sabi niya.</p>
-
-      <p>Hindi ko alam kung karton ba ang tinutukoy niya o yung pag-amin.</p>
-      <p>Baka pareho.</p>
-
-      <p>Nung humina nang kaunti yung buhos at umatras nang konti yung tubig sa may pinto, bumaba kami tatlo hanggang landing.</p>
-      <p>Hindi pa rin safe tumawid sa labas, pero abot na ng mop yung naipong debris sa may grill.</p>
-      <p>Kinabahan ako habang hinihila ko yung lumulutang na piraso ng board papunta sa gilid.</p>
-
-      <p>Pagkahugot ko, tama ako.</p>
-      <p>Panel nga siya ng model ni Lea, at may sulat pa sa likod na section label na siya lang yung gumagamit.</p>
-      <p>Biglang hindi na siya simpleng basurang inaanod.</p>
-      <p>Ebidenya na siya na may tinakasan akong maliit pero totoong kasalanan.</p>
-
-      <p>“Ano plano mo?” tanong ni Kris.</p>
-
-      <p>Tiningnan ko yung basang karton sa kamay ko.</p>
-      <p>Ang pangit na niya, wala nang chance maibalik sa dati.</p>
-      <p>Parang same sa excuse na matagal ko nang binubuo sa utak ko.</p>
-
-      <p>“Magme-message ako kay Lea,” sabi ko.</p>
-      <p>“Ngayon na?”</p>
-      <p>“Oo. Ngayon na bago pa ulit ako umatras.”</p>
-
-      <p>Doon ko siya chinat, habang basa yung cuff ng polo ko at nanginginig nang konti yung daliri ko sa lamig.</p>
-      <p>Sinabi ko lang diretso: ako ang nakabangga, ako ang natakot, ako ang hindi umamin agad, at sasagutin ko kung ano man yung kailangan para maayos o magawa ulit.</p>
-
-      <p>Matagal bago siya nag-reply.</p>
-      <p>Siguro mga dalawang minuto lang, pero sa ganung oras parang haba na ng buhay mo.</p>
-      <p>Tapos dumating din: “Gets. Naiinis ako, pero thank you sa pag-amin. Hanap tayo way tomorrow.”</p>
-
-      <p>Hindi ako gumaan agad nang todo.</p>
-      <p>Wala namang instant relief sa ganun.</p>
-      <p>Pero may nabawas.</p>
-      <p>Yung bigat ng pagtatago, hindi na siya kasing lakas ng ulan.</p>
-
-      <p>Napabuntong-hininga si Kris na parang siya rin yung naka-survive.</p>
-      <p>“Ayan,” sabi niya. “Mas nakakastress ka pa minsan kaysa sa deadline.”</p>
-      <p>Natawa ako, first time that afternoon.</p>
-
-      <p>Si Aling Mercy naman, kinuha ulit yung mop.</p>
-      <p>“Buti naman,” sabi niya. “Mas madali linisin ang putik kaysa konsensya.”</p>
-
-      <p>Simple lang yung pagkakasabi niya, pero tumama.</p>
-      <p>Kasi totoo naman.</p>
-
-      <p>Nang tuluyan nang humupa ang tubig at pwede na kaming lumabas, madilim na sa campus.</p>
-      <p>May mga basang karton pa ring naiwan sa gilid, may mga tsinelas na kumakapit sa putik, at may amoy pa rin ng ulan sa concrete.</p>
-      <p>Pero iba na yung pakiramdam ko habang naglalakad kami palabas.</p>
-
-      <p>Akala ko kanina kaya ayaw kong umalis ay dahil natatakot ako sa baha.</p>
-      <p>Hindi pala.</p>
-      <p>Mas takot lang talaga akong mauna yung katotohanan kaysa sa akin.</p>
-      <p>At minsan, kahit tahimik kang tao, darating yung araw na wala ka nang magagawa kundi magsalita na rin.</p>
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-karton-sa-baha-sa-building-c"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-karton-sa-baha-sa-building-c" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "yung-karton-sa-baha-sa-building-c";
+    window.currentStoryTags = ["campus", "flood", "taglish"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -412,8 +313,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-karton-sa-baha-sa-building-c");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

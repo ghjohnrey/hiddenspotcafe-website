@@ -1,363 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>Yung Sobre sa Room 214</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="Yung Sobre sa Room 214" property="og:title"/>
+<meta content="May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: Yung Sobre sa Room 214" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="softmystery" property="article:tag"/><meta content="taglish" property="article:tag"/><meta content="campus" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>Yung Sobre sa Room 214</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="Yung Sobre sa Room 214" />
-  <meta property="og:description" content="May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Yung Sobre sa Room 214" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Yung Sobre sa Room 214" />
-  <meta name="twitter:description" content="May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Yung Sobre sa Room 214" name="twitter:title"/>
+<meta content="May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "Yung Sobre sa Room 214",
       "quote": "Minsan, kulang lang pala ang hawak mong detalye—hindi ang kabutihan ng tao."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Yung Sobre sa Room 214",
+      "description": "May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito.",
+      "url": "https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/yung-sobre-sa-room-214.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>Yung Sobre sa Room 214</h1>
+<p>May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>Yung Sobre sa Room 214</h1>
-      <p>May nakita akong nawawalang ebidensya sa bakanteng classroom, pero mali pala yung kwentong nabuo ko tungkol dito.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#campus</span>
         <span class="tag">#taglish</span>
         <span class="tag">#softmystery</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>At minsan, sapat na pala iyon para hindi mo maramdaman na huli ka sa buhay ng iba.</p>
+<p>Parang may iniwan lang talagang kwento para sa akin bago mag-holiday break.</p>
+<p>For the first time that day, hindi ko na naramdaman na ako yung naiwan.</p>
+<p>Pagdating ko sa entrance, huminto ako saglit at tiningnan yung rainwater na kumikislap sa semento.</p>
+<p>Sa isip ko, ang weird lang na yung akala kong ebidensya ng gulo, naging paalala pala na may mga kabutihang ginagawa tayo na matagal bago bumalik sa atin ang ibig sabihin.</p>
+<p>Bago ako umuwi, dumaan muna ako sa may exhibit board na hindi pa tapos ikabit.</p>
+<p>Minsan isang tingin lang, isang plate number, isang punit na resibo, gumawa na tayo agad ng version natin ng katotohanan.</p>
+<p>Na-realize ko na ang dami pala talagang dumadaan sa tapat ng gate na hindi natin kilala ang buong kwento.</p>
+<p>Pero iba na yung tingin ko sa kanila.</p>
+<p>Paglabas ko ulit ng faculty room, ganun pa rin yung hallway—orange pa rin yung ilaw ng sunset, may basa pa rin sa may entrance, at may mga estrangherong nagmamadaling umuwi.</p>
+<p>Ngumiti siya nang konti. “Minsan akala natin may masama, pero may taong matagal lang palang gustong magpasalamat.”</p>
+<p>Sabi ni Ma’am, “Kita mo? Kaya delikado ang kulang na detalye.”</p>
+<p>Yung misunderstanding na binuo ko sa loob ng limang minuto, unti-unting napalitan ng hiya at isang klaseng lungkot na hindi naman mabigat—parang lambot lang sa dibdib.</p>
+<p>Tahimik lang ako habang nagsasalita si Ma’am Leni.</p>
+<p>Nitong taon lang niya nalaman sa isang dating guard kung anong room at strand ang napuntahan ko dati, kaya bumalik siya at iniwan yung sulat, yung lumang clinic receipt, at yung picture sa student affairs bilang ambag sa exhibit na tungkol sa maliliit na kabutihan sa gate na hindi nakakalimutan ng ibang tao.</p>
+<p>Matagal niya raw akong hinanap sa campus records nang pabalik-balik siya sa school para magsundo.</p>
+<p>Hindi raw niya ako naabutan noon para magpasalamat kasi nagmamadali na akong umuwi, tapos lumipat pa ako ng section the next year.</p>
+<p>Yung driver na nakalagay ang plate number sa papel, siya pala yung tatay nung bata.</p>
+<p>Para sa akin maliit na abala lang siya sa isang mahabang araw.</p>
+<p>Sa totoo lang, nakalimutan ko na iyon.</p>
+<p>Naalala ko bigla, sobrang labo pero totoo nga—hinawakan ko lang yung payong ko sa ibabaw niya, inabot ko yung baon kong tissue, tapos sinamahan ko siya hanggang clinic habang hinihintay yung guard.</p>
+<p>Years ago pala, no’ng junior high pa ako, may batang babae na umiyak sa gate habang umuulan dahil nahilo siya sa school service at hindi niya makita agad yung ate niyang susundo sa kanya.</p>
+<p>Binasa niya sa akin yung note, at doon ko naramdaman yung hiya ko nang paunti-unti.</p>
+<p>Parang bumagal yung lahat pagkatapos no’n.</p>
+<p>“Hindi ito complaint.”</p>
+<p>“Akala ko hinahanap pa rin ’to,” sabi niya.</p>
+<p>Kinuha niya yung note, binuksan nang buo, tapos biglang lumambot yung expression niya.</p>
+<p>Doon ko lang inabot sa kanya nang maayos yung envelope.</p>
+<p>Tapos siguro halata sa mukha ko na may mali akong iniisip kasi agad niya akong pinahinto at dinala sa faculty room.</p>
+<p>Sabi ko, “Ma’am, nakita ko po yata yung nawawalang envelope.”</p>
+<p>Sakto namang andoon si Ma’am Leni, adviser namin, may hawak na stack ng papers at mukhang pauwi na rin.</p>
+<p>Paglabas ko, mas kumapal yung amoy ng basang semento at may naiwang guhit ng tubig mula sa entrance papunta sa hagdan.</p>
+<p>Kinuha ko yung envelope, nilagay sa bag ko, tapos lumabas ako sa hallway na parang may dala akong sikreto na hindi dapat ako ang humahawak.</p>
+<p>Hindi ko tinuloy basahin yung note.</p>
+<p>Hindi ko naman siya kilala, pero dahil kulang yung hawak kong detalye, bigla ko siyang ginawang kontrabida sa isip ko.</p>
+<p>Mas kinabahan pa ako no’ng naalala ko yung school service driver na ilang beses ko nang nakikitang nakatambay sa tapat ng gate kahit wala naman siyang sakay.</p>
+<p>Pumasok agad sa isip ko na baka may nangyaring hindi maganda sa gate, baka may driver na involved, at baka kaya may note kasi may gustong ituro na witness o may gustong magreklamo.</p>
+<p>Ewan ko kung pagod lang ako o dahil mag-isa ako, pero ang bilis gumawa ng utak ko ng kwento.</p>
+<p>Ako lang halos ang laging tinatawag na tahimik sa room, at nasa Room 214 pa ako mismo nakatayo no’n.</p>
+<p>Napatigil ako ro’n.</p>
+<p>May lumang clinic receipt, isang maliit na picture ng gate na kuha pa yata sa lumang phone, isang papel na may plate number ng school service, at isang folded note na ang unang kita ko lang agad ay, “Para sa tahimik na estudyante sa Room 214…”</p>
+<p>Binuksan ko siya, at ang laman niya hindi naman kasing tindi ng ini-expect ko pero mas lalo akong kinabahan.</p>
+<p>Parang biglang naging mas malamig yung room kahit ang init pa ng hallway.</p>
+<p>Ang una kong naisip, “Ayun na nga.”</p>
+<p>Yumuko ako, tapos may nakita akong manipis na brown envelope na medyo basa sa isang gilid at may sulat nga sa harap: GATE INCIDENT / EVIDENCE.</p>
+<p>No’ng iaayos ko na sana yung upuan sa likod, may sumabit na dulo ng sapatos ko sa ilalim ng teacher’s table.</p>
+<p>Sabi ng iba, evidence daw iyon para sa “Stories by the Gate” exhibit ng school, pero dahil may salitang EVIDENCE sa harap, siyempre mas naging exciting sa mga tao at kung anu-ano nang rumor ang naimbento.</p>
+<p>May pinag-uusapan na rin buong linggo tungkol sa isang nawawalang envelope mula sa student affairs.</p>
+<p>Medyo mabigat pakiramdam ko no’n kasi ang dami ko nang nakikitang stories ng iba na nasa bus na, nasa probinsya na, o nasa coffee shop na may caption na “finally break,” habang ako nasa classroom pa rin na amoy whiteboard marker.</p>
+<p>Habang nagliligpit ako ng mga naiwan naming index card sa Room 214, ang ingay ng ulan na tumutulo sa may bubong sa labas yung kasama ko.</p>
+<p>Isa ako sa mga naiwan, hindi dahil masipag ako, kundi dahil wala naman talaga akong hahabuling out-of-town plan tulad ng nasa class GC.</p>
+<p>Halos wala nang tao sa campus no’n kasi holiday eve na, at yung hallway sa building namin kulay kahel na dahil sa sunset na tumatama sa basang sahig malapit sa entrance.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>Halos wala nang tao sa campus no’n kasi holiday eve na, at yung hallway sa building namin kulay kahel na dahil sa sunset na tumatama sa basang sahig malapit sa entrance.</p>
-      <p>Isa ako sa mga naiwan, hindi dahil masipag ako, kundi dahil wala naman talaga akong hahabuling out-of-town plan tulad ng nasa class GC.</p>
-
-      <p>Habang nagliligpit ako ng mga naiwan naming index card sa Room 214, ang ingay ng ulan na tumutulo sa may bubong sa labas yung kasama ko.</p>
-      <p>Medyo mabigat pakiramdam ko no’n kasi ang dami ko nang nakikitang stories ng iba na nasa bus na, nasa probinsya na, o nasa coffee shop na may caption na “finally break,” habang ako nasa classroom pa rin na amoy whiteboard marker.</p>
-
-      <p>May pinag-uusapan na rin buong linggo tungkol sa isang nawawalang envelope mula sa student affairs.</p>
-      <p>Sabi ng iba, evidence daw iyon para sa “Stories by the Gate” exhibit ng school, pero dahil may salitang EVIDENCE sa harap, siyempre mas naging exciting sa mga tao at kung anu-ano nang rumor ang naimbento.</p>
-
-      <p>No’ng iaayos ko na sana yung upuan sa likod, may sumabit na dulo ng sapatos ko sa ilalim ng teacher’s table.</p>
-      <p>Yumuko ako, tapos may nakita akong manipis na brown envelope na medyo basa sa isang gilid at may sulat nga sa harap: GATE INCIDENT / EVIDENCE.</p>
-
-      <p>Ang una kong naisip, “Ayun na nga.”</p>
-      <p>Parang biglang naging mas malamig yung room kahit ang init pa ng hallway.</p>
-
-      <p>Binuksan ko siya, at ang laman niya hindi naman kasing tindi ng ini-expect ko pero mas lalo akong kinabahan.</p>
-      <p>May lumang clinic receipt, isang maliit na picture ng gate na kuha pa yata sa lumang phone, isang papel na may plate number ng school service, at isang folded note na ang unang kita ko lang agad ay, “Para sa tahimik na estudyante sa Room 214…”</p>
-
-      <p>Napatigil ako ro’n.</p>
-      <p>Ako lang halos ang laging tinatawag na tahimik sa room, at nasa Room 214 pa ako mismo nakatayo no’n.</p>
-
-      <p>Ewan ko kung pagod lang ako o dahil mag-isa ako, pero ang bilis gumawa ng utak ko ng kwento.</p>
-      <p>Pumasok agad sa isip ko na baka may nangyaring hindi maganda sa gate, baka may driver na involved, at baka kaya may note kasi may gustong ituro na witness o may gustong magreklamo.</p>
-
-      <p>Mas kinabahan pa ako no’ng naalala ko yung school service driver na ilang beses ko nang nakikitang nakatambay sa tapat ng gate kahit wala naman siyang sakay.</p>
-      <p>Hindi ko naman siya kilala, pero dahil kulang yung hawak kong detalye, bigla ko siyang ginawang kontrabida sa isip ko.</p>
-
-      <p>Hindi ko tinuloy basahin yung note.</p>
-      <p>Kinuha ko yung envelope, nilagay sa bag ko, tapos lumabas ako sa hallway na parang may dala akong sikreto na hindi dapat ako ang humahawak.</p>
-
-      <p>Paglabas ko, mas kumapal yung amoy ng basang semento at may naiwang guhit ng tubig mula sa entrance papunta sa hagdan.</p>
-      <p>Sakto namang andoon si Ma’am Leni, adviser namin, may hawak na stack ng papers at mukhang pauwi na rin.</p>
-
-      <p>Sabi ko, “Ma’am, nakita ko po yata yung nawawalang envelope.”</p>
-      <p>Tapos siguro halata sa mukha ko na may mali akong iniisip kasi agad niya akong pinahinto at dinala sa faculty room.</p>
-
-      <p>Doon ko lang inabot sa kanya nang maayos yung envelope.</p>
-      <p>Kinuha niya yung note, binuksan nang buo, tapos biglang lumambot yung expression niya.</p>
-
-      <p>“Akala ko hinahanap pa rin ’to,” sabi niya.</p>
-      <p>“Hindi ito complaint.”</p>
-
-      <p>Parang bumagal yung lahat pagkatapos no’n.</p>
-      <p>Binasa niya sa akin yung note, at doon ko naramdaman yung hiya ko nang paunti-unti.</p>
-
-      <p>Years ago pala, no’ng junior high pa ako, may batang babae na umiyak sa gate habang umuulan dahil nahilo siya sa school service at hindi niya makita agad yung ate niyang susundo sa kanya.</p>
-      <p>Naalala ko bigla, sobrang labo pero totoo nga—hinawakan ko lang yung payong ko sa ibabaw niya, inabot ko yung baon kong tissue, tapos sinamahan ko siya hanggang clinic habang hinihintay yung guard.</p>
-
-      <p>Sa totoo lang, nakalimutan ko na iyon.</p>
-      <p>Para sa akin maliit na abala lang siya sa isang mahabang araw.</p>
-
-      <p>Yung driver na nakalagay ang plate number sa papel, siya pala yung tatay nung bata.</p>
-      <p>Hindi raw niya ako naabutan noon para magpasalamat kasi nagmamadali na akong umuwi, tapos lumipat pa ako ng section the next year.</p>
-
-      <p>Matagal niya raw akong hinanap sa campus records nang pabalik-balik siya sa school para magsundo.</p>
-      <p>Nitong taon lang niya nalaman sa isang dating guard kung anong room at strand ang napuntahan ko dati, kaya bumalik siya at iniwan yung sulat, yung lumang clinic receipt, at yung picture sa student affairs bilang ambag sa exhibit na tungkol sa maliliit na kabutihan sa gate na hindi nakakalimutan ng ibang tao.</p>
-
-      <p>Tahimik lang ako habang nagsasalita si Ma’am Leni.</p>
-      <p>Yung misunderstanding na binuo ko sa loob ng limang minuto, unti-unting napalitan ng hiya at isang klaseng lungkot na hindi naman mabigat—parang lambot lang sa dibdib.</p>
-
-      <p>Sabi ni Ma’am, “Kita mo? Kaya delikado ang kulang na detalye.”</p>
-      <p>Ngumiti siya nang konti. “Minsan akala natin may masama, pero may taong matagal lang palang gustong magpasalamat.”</p>
-
-      <p>Paglabas ko ulit ng faculty room, ganun pa rin yung hallway—orange pa rin yung ilaw ng sunset, may basa pa rin sa may entrance, at may mga estrangherong nagmamadaling umuwi.</p>
-      <p>Pero iba na yung tingin ko sa kanila.</p>
-
-      <p>Na-realize ko na ang dami pala talagang dumadaan sa tapat ng gate na hindi natin kilala ang buong kwento.</p>
-      <p>Minsan isang tingin lang, isang plate number, isang punit na resibo, gumawa na tayo agad ng version natin ng katotohanan.</p>
-
-      <p>Bago ako umuwi, dumaan muna ako sa may exhibit board na hindi pa tapos ikabit.</p>
-      <p>Sa isip ko, ang weird lang na yung akala kong ebidensya ng gulo, naging paalala pala na may mga kabutihang ginagawa tayo na matagal bago bumalik sa atin ang ibig sabihin.</p>
-
-      <p>Pagdating ko sa entrance, huminto ako saglit at tiningnan yung rainwater na kumikislap sa semento.</p>
-      <p>For the first time that day, hindi ko na naramdaman na ako yung naiwan.</p>
-
-      <p>Parang may iniwan lang talagang kwento para sa akin bago mag-holiday break.</p>
-      <p>At minsan, sapat na pala iyon para hindi mo maramdaman na huli ka sa buhay ng iba.</p>
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-sobre-sa-room-214"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fyung-sobre-sa-room-214" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "yung-sobre-sa-room-214";
+    window.currentStoryTags = ["campus", "taglish", "softmystery"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -366,8 +273,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/yung-sobre-sa-room-214");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

@@ -1,209 +1,306 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The 7:42 Jeep</title>
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>The 7:42 Jeep</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="A short Taglish fantasy story for your commute." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/the-742-jeep.html" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="The 7:42 Jeep" property="og:title"/>
+<meta content="A short Taglish fantasy story for your commute." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/the-742-jeep.html" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/the-742-jeep.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-742-jeep.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-742-jeep.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: The 7:42 Jeep" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="taglish" property="article:tag"/><meta content="urban" property="article:tag"/><meta content="jeepney" property="article:tag"/>
 
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
 
-  <meta property="og:title" content="The 7:42 Jeep" />
-  <meta property="og:description" content="A short Taglish fantasy story for your commute." />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/the-742-jeep.html" />
+
+
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="The 7:42 Jeep" name="twitter:title"/>
+<meta content="A short Taglish fantasy story for your commute." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-742-jeep.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
+      "title": "The 7:42 Jeep",
+      "quote": "Kesa maging sakto sa isang buhay na hindi naman gumagalaw."
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The 7:42 Jeep",
+      "description": "A short Taglish fantasy story for your commute.",
+      "url": "https://hiddenspotcafe.com/stories/the-742-jeep.html",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/the-742-jeep.html"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/the-742-jeep.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
+  </script>
 </head>
-
 <body class="stories-page">
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>The 7:42 Jeep</h1>
+<p>Short Taglish fantasy read for commuters.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 2 min read</span>
 
-  <nav class="navbar">
-    <div class="nav-accent"></div>
 
-    <div class="nav-container">
-      <a href="/">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo">
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <main class="stories-container">
-
-    <header class="stories-hero">
-      <h1>The 7:42 Jeep</h1>
-      <p>Short Taglish fantasy read for commuters.</p>
-    </header>
-
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <span>⏱️ 2 min read</span>
         <span class="tag">#jeepney</span>
         <span class="tag">#urban</span>
         <span class="tag">#taglish</span>
       </div>
-
-      <div class="story-divider"></div>
-
-      <p>Every weekday, 7:42 AM, may jeep na dumadaan sa tapat ng bahay namin.</p>
-<p>Sakto. Hindi advanced. Hindi late. Parang may sariling relo.</p>
-<p>Green yung katawan niya, may kupas na sticker ng basketball team sa likod, tapos ang signboard: <strong>“SM North – Quiapo”</strong>.</p>
-
-<p>First year college ako nang mapansin ko siya.</p>
-<p>Same driver. Same blank face. Same eksaktong oras.</p>
-<p>Kahit baha. Kahit traffic. Kahit may rally sa kanto.</p>
-<p>7:42. Andyan siya.</p>
-
-<p>“Ang galing ng timing ni manong,” sabi ng friend ko minsan.</p>
-<p>Ngumiti lang ako, pero deep inside… parang may off.</p>
-
-<p>Kasi one time, nagising ako nang 7:50.</p>
-<p>Late na late na dapat ako.</p>
-<p>Pero paglabas ko ng gate, andun pa rin yung jeep.</p>
-<p>Naka-idle. Walang pasahero.</p>
-<p>Parang naghihintay.</p>
-
-<p>Sumakay ako.</p>
-<p>Pag-upo ko, napansin ko agad—walang ibang tao.</p>
-<p>Walang tugtog. Walang barker. Walang usual na ingay ng umaga.</p>
-
-<p>“SM North po,” sabi ko.</p>
-<p>Tumango si manong, pero hindi siya tumingin sa’kin.</p>
-
-<p>Umandar kami.</p>
-
-<p>After a few minutes, napansin ko… hindi familiar yung daan.</p>
-<p>Walang overpass. Walang mall. Walang billboard.</p>
-<p>Puro kalsada lang na parang hindi pa tapos gawin.</p>
-
-<p>“Manong, iba ata ruta natin?” tanong ko.</p>
-
-<p>Doon lang siya nagsalita.</p>
-<p>“Depende sa sasakay,” sabi niya.</p>
-
-<p>Kinabahan ako. “Anong ibig sabihin nun?”</p>
-
-<p>Hindi siya sumagot.</p>
-
-<p>Pagtingin ko sa signboard sa harap, nag-iba na yung nakasulat.</p>
-<p>Hindi na <strong>SM North – Quiapo</strong>.</p>
-<p>Nakalagay na ngayon: <strong>“7:42”</strong>.</p>
-
-<p>“Manong, joke ba ‘to?” pilit kong tumawa.</p>
-
-<p>Bigla siyang tumingin sa rearview mirror.</p>
-<p>Doon ko nakita yung mata niya.</p>
-<p>Hindi galit. Hindi masaya.</p>
-<p>Parang… walang laman.</p>
-
-<p>“Araw-araw ka kasing sakto,” sabi niya. “Same oras. Same routine. Same buhay.”</p>
-
-<p>Hindi ako makasagot.</p>
-
-<p>“Minsan,” dagdag niya, “kailangan mo pumili ng ibang destination.”</p>
-
-<p>Huminto yung jeep.</p>
-
-<p>Sa gitna ng wala.</p>
-
-<p>Sa labas, may karatula.</p>
-<p>Isang salita lang: <strong>“Stay.”</strong></p>
-
-<p>“Ano ‘to?” mahina kong tanong.</p>
-
-<p>“If you stay,” sabi ni manong, “hindi ka na malalate. Hindi ka na mag-ooverthink. Hindi ka na matatakot sa future.”</p>
-
-<p>Napaisip ako.</p>
-<p>Same routine everyday.</p>
-<p>Same commute.</p>
-<p>Same pagod.</p>
-
-<p>Safe.</p>
-
-<p>Pero… stuck.</p>
-
-<p>Tumunog yung maliit na bell sa jeep.</p>
-<p>Isang beses.</p>
-
-<p>“Or,” sabi niya, “pwede kang bumaba. Pero hindi ka na sasakay ulit dito.”</p>
-
-<p>Tiningnan ko yung kalsada sa labas.</p>
-<p>Madilim. Unknown. Walang kasiguraduhan.</p>
-
-<p>Pero buhay.</p>
-
-<p>Huminga ako nang malalim.</p>
-<p>“Para po,” sabi ko.</p>
-
-<p>Bumukas yung pinto.</p>
-
-<p>Tumalon ako palabas.</p>
-
-<p>Paglingon ko, wala na yung jeep.</p>
-<p>Wala ring bakas ng gulong.</p>
-
-<p>Nasa kanto ulit ako.</p>
-<p>Maaraw. Maingay. Normal.</p>
-
-<p>Tumingin ako sa phone ko.</p>
-<p>7:41 AM.</p>
-
-<p>Sa malayo, may paparating na jeep.</p>
-<p>Green. Kupas ang sticker.</p>
-
-<p>Pero this time, hindi ko hinintay mag-7:42.</p>
-
-<p>Naglakad ako papunta sa ibang sakayan.</p>
-
-<p>Late ako sa class.</p>
-<p>Napagalitan pa.</p>
-
-<p>Pero habang nakaupo ako sa likod, hingal at pawis, napangiti ako.</p>
-
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p><strong>Kesa maging sakto sa isang buhay na hindi naman gumagalaw.</strong> </p>
 <p>Kasi minsan, mas okay nang ma-late sa mundo…</p>
-<p><strong>Kesa maging sakto sa isang buhay na hindi naman gumagalaw.</strong> </p>
-       
+<p>Pero habang nakaupo ako sa likod, hingal at pawis, napangiti ako.</p>
+<p>Napagalitan pa.</p>
+<p>Late ako sa class.</p>
+<p>Naglakad ako papunta sa ibang sakayan.</p>
+<p>Pero this time, hindi ko hinintay mag-7:42.</p>
+<p>Green. Kupas ang sticker.</p>
+<p>Sa malayo, may paparating na jeep.</p>
+<p>7:41 AM.</p>
+<p>Tumingin ako sa phone ko.</p>
+<p>Maaraw. Maingay. Normal.</p>
+<p>Nasa kanto ulit ako.</p>
+<p>Wala ring bakas ng gulong.</p>
+<p>Paglingon ko, wala na yung jeep.</p>
+<p>Tumalon ako palabas.</p>
+<p>Bumukas yung pinto.</p>
+<p>“Para po,” sabi ko.</p>
+<p>Huminga ako nang malalim.</p>
+<p>Pero buhay.</p>
+<p>Madilim. Unknown. Walang kasiguraduhan.</p>
+<p>Tiningnan ko yung kalsada sa labas.</p>
+<p>“Or,” sabi niya, “pwede kang bumaba. Pero hindi ka na sasakay ulit dito.”</p>
+<p>Isang beses.</p>
+<p>Tumunog yung maliit na bell sa jeep.</p>
+<p>Pero… stuck.</p>
+<p>Safe.</p>
+<p>Same pagod.</p>
+<p>Same commute.</p>
+<p>Same routine everyday.</p>
+<p>Napaisip ako.</p>
+<p>“If you stay,” sabi ni manong, “hindi ka na malalate. Hindi ka na mag-ooverthink. Hindi ka na matatakot sa future.”</p>
+<p>“Ano ‘to?” mahina kong tanong.</p>
+<p>Isang salita lang: <strong>“Stay.”</strong></p>
+<p>Sa labas, may karatula.</p>
+<p>Sa gitna ng wala.</p>
+<p>Huminto yung jeep.</p>
+<p>“Minsan,” dagdag niya, “kailangan mo pumili ng ibang destination.”</p>
+<p>Hindi ako makasagot.</p>
+<p>“Araw-araw ka kasing sakto,” sabi niya. “Same oras. Same routine. Same buhay.”</p>
+<p>Parang… walang laman.</p>
+<p>Hindi galit. Hindi masaya.</p>
+<p>Doon ko nakita yung mata niya.</p>
+<p>Bigla siyang tumingin sa rearview mirror.</p>
+<p>“Manong, joke ba ‘to?” pilit kong tumawa.</p>
+<p>Nakalagay na ngayon: <strong>“7:42”</strong>.</p>
+<p>Hindi na <strong>SM North – Quiapo</strong>.</p>
+<p>Pagtingin ko sa signboard sa harap, nag-iba na yung nakasulat.</p>
+<p>Hindi siya sumagot.</p>
+<p>Kinabahan ako. “Anong ibig sabihin nun?”</p>
+<p>“Depende sa sasakay,” sabi niya.</p>
+<p>Doon lang siya nagsalita.</p>
+<p>“Manong, iba ata ruta natin?” tanong ko.</p>
+<p>Puro kalsada lang na parang hindi pa tapos gawin.</p>
+<p>Walang overpass. Walang mall. Walang billboard.</p>
+<p>After a few minutes, napansin ko… hindi familiar yung daan.</p>
+<p>Umandar kami.</p>
+<p>Tumango si manong, pero hindi siya tumingin sa’kin.</p>
+<p>“SM North po,” sabi ko.</p>
+<p>Walang tugtog. Walang barker. Walang usual na ingay ng umaga.</p>
+<p>Pag-upo ko, napansin ko agad—walang ibang tao.</p>
+<p>Sumakay ako.</p>
+<p>Parang naghihintay.</p>
+<p>Naka-idle. Walang pasahero.</p>
+<p>Pero paglabas ko ng gate, andun pa rin yung jeep.</p>
+<p>Late na late na dapat ako.</p>
+<p>Kasi one time, nagising ako nang 7:50.</p>
+<p>Ngumiti lang ako, pero deep inside… parang may off.</p>
+<p>“Ang galing ng timing ni manong,” sabi ng friend ko minsan.</p>
+<p>7:42. Andyan siya.</p>
+<p>Kahit baha. Kahit traffic. Kahit may rally sa kanto.</p>
+<p>Same driver. Same blank face. Same eksaktong oras.</p>
+<p>First year college ako nang mapansin ko siya.</p>
+<p>Green yung katawan niya, may kupas na sticker ng basketball team sa likod, tapos ang signboard: <strong>“SM North – Quiapo”</strong>.</p>
+<p>Sakto. Hindi advanced. Hindi late. Parang may sariling relo.</p>
+<p>Every weekday, 7:42 AM, may jeep na dumadaan sa tapat ng bahay namin.</p>
 
-      <div class="story-actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <a class="action-btn"
-           target="_blank"
-           href="https://www.facebook.com/sharer/sharer.php?u=https://hiddenspotcafe.com/stories/the-742-jeep.html">
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-742-jeep.html" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-
-  </main>
-
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "the-742-jeep";
+    window.currentStoryTags = ["jeepney", "urban", "taglish"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
+
     if (btn) {
       btn.addEventListener("click", async () => {
         try {
-          await navigator.clipboard.writeText(window.location.href);
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/the-742-jeep.html");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

@@ -1,412 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>The Queue Number That Wasn’t Mine</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="A short Taglish campus story about getting the wrong number and the right kind of pause." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="The Queue Number That Wasn’t Mine" property="og:title"/>
+<meta content="A short Taglish campus story about getting the wrong number and the right kind of pause." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: The Queue Number That Wasn’t Mine" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="lightmystery" property="article:tag"/><meta content="taglish" property="article:tag"/><meta content="campus" property="article:tag"/><meta content="school" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>The Queue Number That Wasn’t Mine</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="The Queue Number That Wasn’t Mine" />
-  <meta property="og:description" content="A short Taglish campus story about getting the wrong number and the right kind of pause." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Queue Number That Wasn’t Mine" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Queue Number That Wasn’t Mine" />
-  <meta name="twitter:description" content="A short Taglish campus story about getting the wrong number and the right kind of pause." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="The Queue Number That Wasn’t Mine" name="twitter:title"/>
+<meta content="A short Taglish campus story about getting the wrong number and the right kind of pause." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "The Queue Number That Wasn’t Mine",
       "quote": "Minsan, maling number lang ang kailangan para may tamang kumausap sa’yo."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Queue Number That Wasn’t Mine",
+      "description": "A short Taglish campus story about getting the wrong number and the right kind of pause.",
+      "url": "https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/queue-number-that-wasnt-mine.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>The Queue Number That Wasn’t Mine</h1>
+<p>Short Taglish campus story for people who keep saying “okay lang” kahit halatang hindi na.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>The Queue Number That Wasn’t Mine</h1>
-      <p>Short Taglish campus story for people who keep saying “okay lang” kahit halatang hindi na.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#school</span>
         <span class="tag">#campus</span>
         <span class="tag">#taglish</span>
         <span class="tag">#lightmystery</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>yung pahinga mo, dadaan muna sa maliit na error bago dumating sa’yo.</p>
+<p>O baka may mga araw talagang ganoon—</p>
+<p>Baka sabog lang kami pareho.</p>
+<p>Baka dumikit lang talaga yung papel.</p>
+<p>Hanggang ngayon, hindi ko pa rin alam paano kami parehong nagkamali sa parehong oras.</p>
+<p><strong>“Oo na. Thanks sa maling queue number.”</strong></p>
+<p>Typing ulit.</p>
+<p>Stop.</p>
+<p>Typing.</p>
+<p><strong>“Oo. Ikaw?”</strong></p>
+<p>Nag-reply ako.</p>
+<p>Tumingin ako sa screen, then natawa mag-isa sa gitna ng footbridge na parang ewan.</p>
+<p><strong>“Sorry wrong send HAHAHA”</strong></p>
+<p>After three seconds, may second message.</p>
+<p>Wala ring name sa note.</p>
+<p>Wala naman akong binigay na number sa clinic.</p>
+<p>Napatigil ako.</p>
+<p><strong>“Kumain ka ba talaga?”</strong></p>
+<p>Unknown number.</p>
+<p>Kinagabihan, habang nasa footbridge ako pauwi, may nag-vibrate sa phone ko.</p>
+<p>Pero humupa yung bigat.</p>
+<p>Hindi ako nag-collapse. Hindi rin ako naging suddenly okay.</p>
+<p>Nag-report ako nang hindi perfect, pero maayos.</p>
+<p>At for once, wala akong guilt na naramdaman.</p>
+<p>Nag-message ako sa groupmates ko na male-late ako ng konti.</p>
+<p>Bumili ako ng totoong meal, hindi biscuit at kape lang.</p>
+<p>Pero after that, kumain ako bago bumalik sa building.</p>
+<p>Hindi naman love story. Hindi rin life-changing moment na may dramatic soundtrack.</p>
+<p>Ewan ko ba kung bakit ako napangiti nang ganoon kaaga sa araw na yun.</p>
+<p><strong>“Binalik ko na rin yung 41 sa tray. Ayusin mo lunch mo today. – girl na may maling number din”</strong></p>
+<p>May sulat sa likod.</p>
+<p>Pero sa seat ko, may iniwang folded receipt galing vending machine.</p>
+<p>Akala ko umalis na.</p>
+<p>Paglabas ko, wala na siya sa upuan niya.</p>
+<p>“Kulangan ka sa kain at tulog,” sabi ng nurse, in the tone of someone who had said that exact sentence a thousand times.</p>
+<p>Pumasok ako sa clinic room, nagpacheck ng BP, pinainom ng tubig, pinaupo ng ten minutes.</p>
+<p>“Welcome. Go.”</p>
+<p>Natawa ako. “Salamat ha.”</p>
+<p>“Oo nga, pero ikaw yung mukhang mas malapit nang mag-blue screen.”</p>
+<p>“Hindi, sa’yo talaga ’to,” sabi ko.</p>
+<p>“Ikaw na ’yan,” sabi niya.</p>
+<p>Napatingin kami sa isa’t isa, tapos sabay sa hawak naming papel.</p>
+<p>Maya-maya, tinawag ng nurse ang number 14.</p>
+<p>About how weird it feels kapag sanay kang ikaw yung dependable one, tapos bigla mong mararamdaman na ubos ka rin pala.</p>
+<p>About lunch na laging napo-postpone hanggang maging dinner.</p>
+<p>About profs na mahilig magpa-‘gentle reminder’ na parang threat.</p>
+<p>For some reason, madali kaming nag-usap.</p>
+<p>Doon siya napangiti nang totoo.</p>
+<p>“Ang galing no?” sabi ko. “Isang maliit na bagay lang, tapos buong pagkatao mo na yung gustong mag-log out.”</p>
+<p>“Ako thesis consultation,” sabi niya. “One missing file lang naman. Pero grabe na agad yung panic ko, parang mawawala buong future ko.”</p>
+<p>“Same. Ayoko pa rin bumalik sa room namin. May reporting ako after lunch. Feeling ko kaya ko naman, pero hindi convinced yung katawan ko.”</p>
+<p>Tumango ako agad, parang matagal na kaming magkaibigan kahit first time ko siyang makita.</p>
+<p>“Honestly,” sagot niya, “baka okay lang din. Ayoko pa talagang bumalik sa building.”</p>
+<p>“Buti na lang tinanong mo,” sabi ko. “Kung hindi, baka mamaya pa tayong dalawa dito.”</p>
+<p>Hindi siya yung malakas na tawa. Yung pagod na tawa lang na parang ang absurd pero sakto lang sa araw mo.</p>
+<p>Napatigil kami, tapos sabay kaming natawa.</p>
+<p>Sure enough—<strong>41</strong>.</p>
+<p>Tiningnan niya yung papel niya. Binaliktad din niya.</p>
+<p>“So technically,” sabi ko, “ikaw ang may 41.”</p>
+<p><strong>14</strong> nga.</p>
+<p>Binaliktad ko.</p>
+<p>Doon ko lang napansin na yung print sa papel ko medyo tabingi. Parang dalawang ticket ang dumikit tapos ang nakuha ko pala yung nasa likod.</p>
+<p>“Actually,” sabi niya, “kanina ko pa iniisip bakit feeling ko mali yung hawak mo.”</p>
+<p>Natawa ako. “Ay, baliktad.”</p>
+<p><strong>14</strong>.</p>
+<p>Ipinakita niya yung kanya.</p>
+<p>Tiningnan ko ulit yung papel. “Oo. Ikaw?”</p>
+<p>“41 ka rin?” tanong niya.</p>
+<p>Huminga siya nang malalim, then tumingin sa hawak kong number.</p>
+<p>Girl siya. May hawak na brown envelope, may yellow highlighter marks pa sa fingers niya.</p>
+<p>Maya-maya, may umupo sa tabi ko.</p>
+<p>May dalawang students sa tapat ko—isang naka-PE uniform at isang mukhang puyat na engineering major kahit hindi ko alam kung engineering major nga siya. Alam mo yung ganung aura.</p>
+<p>Umupo ako sa plastic chair, backpack sa paa, phone sa kamay, trying to look normal.</p>
+<p>Labas: <strong>41</strong>.</p>
+<p>Pumindot ako.</p>
+<p>May maliit na machine sa gilid para sa queue number.</p>
+<p>Pagdating ko doon, malamig yung aircon, tahimik yung TV sa corner, at may amoy na halo ng alcohol at instant coffee.</p>
+<p>Kaya nag-excuse ako at dumiretso sa campus clinic.</p>
+<p>Habang nagno-notes yung prof, biglang nagdilim yung gilid ng paningin ko. Hindi naman totally himatay level, pero yung tipong alam mong kapag pinilit mo pang magpanggap na okay ka, ikaw rin ang mapapahiya.</p>
+<p>Last subject ko na dapat yun, pero hindi na ako umabot.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>Last subject ko na dapat yun, pero hindi na ako umabot.</p>
-      <p>Habang nagno-notes yung prof, biglang nagdilim yung gilid ng paningin ko. Hindi naman totally himatay level, pero yung tipong alam mong kapag pinilit mo pang magpanggap na okay ka, ikaw rin ang mapapahiya.</p>
-      <p>Kaya nag-excuse ako at dumiretso sa campus clinic.</p>
-
-      <p>Pagdating ko doon, malamig yung aircon, tahimik yung TV sa corner, at may amoy na halo ng alcohol at instant coffee.</p>
-      <p>May maliit na machine sa gilid para sa queue number.</p>
-      <p>Pumindot ako.</p>
-      <p>Labas: <strong>41</strong>.</p>
-
-      <p>Umupo ako sa plastic chair, backpack sa paa, phone sa kamay, trying to look normal.</p>
-      <p>May dalawang students sa tapat ko—isang naka-PE uniform at isang mukhang puyat na engineering major kahit hindi ko alam kung engineering major nga siya. Alam mo yung ganung aura.</p>
-
-      <p>Maya-maya, may umupo sa tabi ko.</p>
-      <p>Girl siya. May hawak na brown envelope, may yellow highlighter marks pa sa fingers niya.</p>
-      <p>Huminga siya nang malalim, then tumingin sa hawak kong number.</p>
-
-      <p>“41 ka rin?” tanong niya.</p>
-
-      <p>Tiningnan ko ulit yung papel. “Oo. Ikaw?”</p>
-
-      <p>Ipinakita niya yung kanya.</p>
-      <p><strong>14</strong>.</p>
-
-      <p>Natawa ako. “Ay, baliktad.”</p>
-
-      <p>“Actually,” sabi niya, “kanina ko pa iniisip bakit feeling ko mali yung hawak mo.”</p>
-
-      <p>Doon ko lang napansin na yung print sa papel ko medyo tabingi. Parang dalawang ticket ang dumikit tapos ang nakuha ko pala yung nasa likod.</p>
-      <p>Binaliktad ko.</p>
-      <p><strong>14</strong> nga.</p>
-
-      <p>“So technically,” sabi ko, “ikaw ang may 41.”</p>
-
-      <p>Tiningnan niya yung papel niya. Binaliktad din niya.</p>
-      <p>Sure enough—<strong>41</strong>.</p>
-
-      <p>Napatigil kami, tapos sabay kaming natawa.</p>
-
-      <p>Hindi siya yung malakas na tawa. Yung pagod na tawa lang na parang ang absurd pero sakto lang sa araw mo.</p>
-
-      <p>“Buti na lang tinanong mo,” sabi ko. “Kung hindi, baka mamaya pa tayong dalawa dito.”</p>
-
-      <p>“Honestly,” sagot niya, “baka okay lang din. Ayoko pa talagang bumalik sa building.”</p>
-
-      <p>Tumango ako agad, parang matagal na kaming magkaibigan kahit first time ko siyang makita.</p>
-      <p>“Same. Ayoko pa rin bumalik sa room namin. May reporting ako after lunch. Feeling ko kaya ko naman, pero hindi convinced yung katawan ko.”</p>
-
-      <p>“Ako thesis consultation,” sabi niya. “One missing file lang naman. Pero grabe na agad yung panic ko, parang mawawala buong future ko.”</p>
-
-      <p>“Ang galing no?” sabi ko. “Isang maliit na bagay lang, tapos buong pagkatao mo na yung gustong mag-log out.”</p>
-
-      <p>Doon siya napangiti nang totoo.</p>
-
-      <p>For some reason, madali kaming nag-usap.</p>
-      <p>About profs na mahilig magpa-‘gentle reminder’ na parang threat.</p>
-      <p>About lunch na laging napo-postpone hanggang maging dinner.</p>
-      <p>About how weird it feels kapag sanay kang ikaw yung dependable one, tapos bigla mong mararamdaman na ubos ka rin pala.</p>
-
-      <p>Maya-maya, tinawag ng nurse ang number 14.</p>
-
-      <p>Napatingin kami sa isa’t isa, tapos sabay sa hawak naming papel.</p>
-
-      <p>“Ikaw na ’yan,” sabi niya.</p>
-      <p>“Hindi, sa’yo talaga ’to,” sabi ko.</p>
-
-      <p>“Oo nga, pero ikaw yung mukhang mas malapit nang mag-blue screen.”</p>
-
-      <p>Natawa ako. “Salamat ha.”</p>
-
-      <p>“Welcome. Go.”</p>
-
-      <p>Pumasok ako sa clinic room, nagpacheck ng BP, pinainom ng tubig, pinaupo ng ten minutes.</p>
-      <p>“Kulangan ka sa kain at tulog,” sabi ng nurse, in the tone of someone who had said that exact sentence a thousand times.</p>
-
-      <p>Paglabas ko, wala na siya sa upuan niya.</p>
-      <p>Akala ko umalis na.</p>
-
-      <p>Pero sa seat ko, may iniwang folded receipt galing vending machine.</p>
-      <p>May sulat sa likod.</p>
-
-      <p><strong>“Binalik ko na rin yung 41 sa tray. Ayusin mo lunch mo today. – girl na may maling number din”</strong></p>
-
-      <p>Ewan ko ba kung bakit ako napangiti nang ganoon kaaga sa araw na yun.</p>
-
-      <p>Hindi naman love story. Hindi rin life-changing moment na may dramatic soundtrack.</p>
-      <p>Pero after that, kumain ako bago bumalik sa building.</p>
-      <p>Bumili ako ng totoong meal, hindi biscuit at kape lang.</p>
-      <p>Nag-message ako sa groupmates ko na male-late ako ng konti.</p>
-      <p>At for once, wala akong guilt na naramdaman.</p>
-
-      <p>Nag-report ako nang hindi perfect, pero maayos.</p>
-      <p>Hindi ako nag-collapse. Hindi rin ako naging suddenly okay.</p>
-      <p>Pero humupa yung bigat.</p>
-
-      <p>Kinagabihan, habang nasa footbridge ako pauwi, may nag-vibrate sa phone ko.</p>
-      <p>Unknown number.</p>
-
-      <p><strong>“Kumain ka ba talaga?”</strong></p>
-
-      <p>Napatigil ako.</p>
-      <p>Wala naman akong binigay na number sa clinic.</p>
-      <p>Wala ring name sa note.</p>
-
-      <p>After three seconds, may second message.</p>
-
-      <p><strong>“Sorry wrong send HAHAHA”</strong></p>
-
-      <p>Tumingin ako sa screen, then natawa mag-isa sa gitna ng footbridge na parang ewan.</p>
-
-      <p>Nag-reply ako.</p>
-
-      <p><strong>“Oo. Ikaw?”</strong></p>
-
-      <p>Typing.</p>
-      <p>Stop.</p>
-      <p>Typing ulit.</p>
-
-      <p><strong>“Oo na. Thanks sa maling queue number.”</strong></p>
-
-      <p>Hanggang ngayon, hindi ko pa rin alam paano kami parehong nagkamali sa parehong oras.</p>
-      <p>Baka dumikit lang talaga yung papel.</p>
-      <p>Baka sabog lang kami pareho.</p>
-      <p>O baka may mga araw talagang ganoon—</p>
-      <p>yung pahinga mo, dadaan muna sa maliit na error bago dumating sa’yo.</p>
-
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fqueue-number-that-wasnt-mine"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fqueue-number-that-wasnt-mine" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "queue-number-that-wasnt-mine";
+    window.currentStoryTags = ["school", "campus", "taglish", "lightmystery"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -415,8 +302,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/queue-number-that-wasnt-mine");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

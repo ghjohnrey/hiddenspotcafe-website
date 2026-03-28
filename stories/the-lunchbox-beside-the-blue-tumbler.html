@@ -1,421 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>The Lunchbox Beside the Blue tumbler</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="The Lunchbox Beside the Blue tumbler" property="og:title"/>
+<meta content="A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: The Lunchbox Beside the Blue tumbler" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="comedy" property="article:tag"/><meta content="urban" property="article:tag"/><meta content="taglish" property="article:tag"/><meta content="worklife" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>The Lunchbox Beside the Blue tumbler</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="The Lunchbox Beside the Blue tumbler" />
-  <meta property="og:description" content="A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Lunchbox Beside the Blue tumbler" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Lunchbox Beside the Blue tumbler" />
-  <meta name="twitter:description" content="A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="The Lunchbox Beside the Blue tumbler" name="twitter:title"/>
+<meta content="A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "The Lunchbox Beside the Blue tumbler",
       "quote": "Minsan, akala mo ini-ignore ka lang—hindi mo alam, inaayos ka pala nila ng konti."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Lunchbox Beside the Blue tumbler",
+      "description": "A short Taglish story about a forgotten lunchbox, a water refill station, and the kindness you almost miss.",
+      "url": "https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/the-lunchbox-beside-the-blue-tumbler.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>The Lunchbox Beside the Blue tumbler</h1>
+<p>Short Taglish story for young workers trying to survive deadlines, errands, and ordinary days.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>The Lunchbox Beside the Blue tumbler</h1>
-      <p>Short Taglish story for young workers trying to survive deadlines, errands, and ordinary days.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#worklife</span>
         <span class="tag">#taglish</span>
         <span class="tag">#urban</span>
         <span class="tag">#comedy</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>Pero somehow, mas magaan na yung araw.</p>
+<p>Mabigat pa rin pareho.</p>
+<p>Natawa ako mag-isa habang binubuhat ko yung tumbler at lunchbox.</p>
+<p>“Buti naman. Kasi kung pati ’yan makalimutan mo, hindi ko na alam paano ka uuwi.”</p>
+<p>Tinuro niya yung blue tumbler ko.</p>
+<p>“Oo,” sabi ko. “At okay na rin ako, medyo.”</p>
+<p>“Boss, okay na lunchbox?”</p>
+<p>Nakita ako ni kuya at ngumiti.</p>
+<p>Pag-uwi ko nang gabing iyon, dumaan ulit ako sa refill station.</p>
+<p>Minsan clip lang ng lunchbox. Minsan tawag mula sa water refill station. Minsan simpleng, “Ako na bahala mamaya,” na totoo naman pala.</p>
+<p>Hindi loud. Hindi speech. Hindi grand reveal.</p>
+<p>Pero habang nakatayo ako doon, may pandesal sa isang kamay at inayos na lunchbox sa kabila, narealize ko—may mga tao palang tahimik lang magmahal ng kapwa.</p>
+<p>Na ordinary lang ako sa paningin ng lahat.</p>
+<p>Na walang may pake.</p>
+<p>Kundi dahil minsan, ang bilis kong isipin na hindi ako pinapansin.</p>
+<p>Hindi dahil sa laman. Wala ngang laman.</p>
+<p>Tinitigan ko yung lunchbox ko na parang biglang naging mas mabigat kaysa dati.</p>
+<p>“At saka,” dagdag niya, “nakita ko yung lunchbox mo sa refill station kagabi nung kumuha ako ng tubig. Hindi ko na sinabi agad kasi pinaayos ko muna sa kapitbahay naming marunong magpalit ng clip.”</p>
+<p>“Gusto sana naming simple lang,” sabi niya. “Kaso sumabog nga yung adobo mo, so parang naging emergency repair mission muna.”</p>
+<p>Finalization pala ng papers ko. Kaya pala may mga bulung-bulungan. Kaya pala si Trina laging “mamaya.”</p>
+<p>Kaya pala ang weird ng lahat kahapon.</p>
+<p>Doon ko lang naalala.</p>
+<p>“Congrats,” sabi nung isa. “Regular ka na raw today.”</p>
+<p>Paglingon ko, nandoon din pala yung dalawa naming ka-opisina, may hawak na 3-in-1 coffee at pandesal.</p>
+<p>Napatawa ako bigla. Yung totoong tawa. Yung hindi pilit.</p>
+<p><strong>“Para hindi na tumagas ang adobo ng bayan.”</strong></p>
+<p>Nakasulat:</p>
+<p>Malinis. Tuyo. Pinalitan pa yung isang lock na laging sablay. At may maliit na masking tape sa ibabaw.</p>
+<p>Nandoon yung lunchbox ko.</p>
+<p>Hindi siya sumagot. Basta hinila niya lang ako papunta sa maliit naming pantry table.</p>
+<p>“Inaayos?”</p>
+<p>Tinaas niya yung kilay niya. “Kasi inaayos ko muna.”</p>
+<p>“Eh bakit hindi mo sinabi agad?”</p>
+<p>Hindi ko alam kung matatawa ako o lalo akong maiinis sa sarili ko.</p>
+<p>“Kasi noong nakaraang linggo, ikaw yung nagpa-picture sa atin sa harap ng station, tapos ako yung nag-tag sa story. Nakilala niya ako.”</p>
+<p>“Bakit ikaw?”</p>
+<p>“Kasi tumawag sa akin si kuya refill station.”</p>
+<p>“Paano mo alam?”</p>
+<p>Napatigil ako.</p>
+<p>“Hindi sa pantry naiwan,” sabi niya. “Sa water refill station.”</p>
+<p>“Wala kasi sa bag ko kagabi. Akala ko naiwan sa pantry.”</p>
+<p>Nakakahiya. Pero dahil committed na ako sa pagiging defensive, itinuloy ko pa rin.</p>
+<p>Hindi pala akin. Pareho lang ng kulay.</p>
+<p>Binaba niya sa table yung hawak niya.</p>
+<p>Bigla siyang natawa. “Aris, hindi mo ba tiningnan nang maayos?”</p>
+<p>“Yung lunchbox ko.”</p>
+<p>Tumingin siya sa akin. “Ha?”</p>
+<p>“Ah, nahanap mo?” sabi ko, medyo malamig.</p>
+<p>At dahil mahina ako sa detail at malakas ako sa assumption, naisip ko agad na akin iyon.</p>
+<p>Nauna si Trina sa pantry. Nakatayo siya sa may table. May hawak na lunchbox.</p>
+<p>Kaya kinabukasan, pagpasok ko pa lang sa office, naka-ready na akong mainis.</p>
+<p>Sabi niya, “Kahit anong mangyari, magbaon ka pa rin. Hindi pwedeng puro kape ang laman ng araw mo.”</p>
+<p>Pero bigay kasi iyon ng nanay ko noong unang pasok ko sa work.</p>
+<p>Hindi naman mamahalin yung lunchbox ko. Gasgas na yung takip, kupas na yung lock, at minsan ayaw nang sumara nang maayos.</p>
+<p>Tapos dahil irrational ang pagod, bigla kong naisip: <em>Baka itinapon na niya.</em></p>
+<p>Bumalik agad sa isip ko yung pantry. Yung adobo. Yung “Ako na bahala mamaya.” Yung pagiging tahimik ni Trina buong araw.</p>
+<p>Pero walang lunchbox.</p>
+<p>Binaliktad ko yung ecobag. Charger. Wallet. Alcohol. Resibo. Isang pirasong candy na hindi ko maalalang saan galing.</p>
+<p>“Ay, grabe.”</p>
+<p>Wala yung lunchbox ko.</p>
+<p>Pagpasok ko sa apartment, doon ko lang napansin.</p>
+<p>Kinuha ko yung tumbler, nagbayad, umuwi.</p>
+<p>“Boss, tapos na.”</p>
+<p>Tapos tinawag ako ni kuya.</p>
+<p>Habang hinihintay ko yung tumbler ko sa refill station, sumandal ako sa pader at nag-scroll. Walang message. Walang update. Walang kahit anong “uy okay ka lang?”</p>
+<p>Hindi ko alam kung ano ang ibig sabihin nun, pero dahil pagod ako, in-interpret ko agad as threat.</p>
+<p>Natawa yung dalawa naming ka-opisina. Si Trina, tahimik lang. Tumingin sa akin, tapos sabi, “Ako na bahala mamaya.”</p>
+<p>Binuksan ko yung baon ko sa pantry tapos tumalsik yung sabaw ng adobo sa polo ko. Hindi dramatic. Hindi cinematic. Nakakahiya lang talaga.</p>
+<p>Okay lang sana, kaso siya rin yung nakakita noong lunch ko kaninang tanghali.</p>
+<p>Seen lang sa chat. “Mamaya” sa tanong. Tapos sa pantry, dalawang beses akong dinaanan na parang hindi ako kilala.</p>
+<p>Pero that week, parang wala siyang time sa akin.</p>
+<p>Si Trina yung teammate ko na sobrang okay kausap noong first two weeks ko sa company. Siya yung unang nagturo sa akin kung aling printer ang hindi mo dapat asahan at kung aling pantry mug ang mukhang communal pero pag ginalaw mo, may magagalit.</p>
+<p>Badtrip ako kay Trina.</p>
+<p>Hindi dahil sa trabaho. Medyo sanay na rin.</p>
+<p>Hindi dahil sa boss. Sanay na ako sa “quick question” niyang laging nauuwi sa forty-minute task.</p>
+<p>Sa office pa lang, badtrip na ako buong araw.</p>
+<p>Natawa si kuya. Hindi ako natawa. Totoo kasi.</p>
+<p>“Oo nga. Kaya lalo akong kinakabahan.”</p>
+<p>“E sakto, sweldo na bukas ah.”</p>
+<p>“Pag may sweldo na,” sabi ko.</p>
+<p>“Boss, relax ka naman minsan,” sabi niya habang kinukuha yung tumbler ko.</p>
+<p>Mura na, may upuan pa sa labas, at kilala na ako nung kuya roon dahil ako raw yung “sir na laging mukhang may hinahabol kahit nakatayo lang.”</p>
+<p>Regular na route ko na talaga after office yung water refill station sa kanto. Doon ako nagpaparefill bago umuwi sa apartment para isang lakad na lang lahat.</p>
+<p>Naka-lanyard pa rin ako kahit pauwi na, may bitbit na blue na tumbler sa isang kamay at ecobag sa kabila. Sa loob nung ecobag: wallet, charger, resibo, at lunchbox kong amoy adobo pa rin kahit nahugasan na yata ng panahon.</p>
+<p>Yung tipong hindi pa tapos ang week pero pakiramdam mo naka-dalawang buwan ka na sa trabaho.</p>
+<p>By Thursday, ubos na ubos na ako.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>By Thursday, ubos na ubos na ako.</p>
-      <p>Yung tipong hindi pa tapos ang week pero pakiramdam mo naka-dalawang buwan ka na sa trabaho.</p>
-      <p>Naka-lanyard pa rin ako kahit pauwi na, may bitbit na blue na tumbler sa isang kamay at ecobag sa kabila. Sa loob nung ecobag: wallet, charger, resibo, at lunchbox kong amoy adobo pa rin kahit nahugasan na yata ng panahon.</p>
-
-      <p>Regular na route ko na talaga after office yung water refill station sa kanto. Doon ako nagpaparefill bago umuwi sa apartment para isang lakad na lang lahat.</p>
-      <p>Mura na, may upuan pa sa labas, at kilala na ako nung kuya roon dahil ako raw yung “sir na laging mukhang may hinahabol kahit nakatayo lang.”</p>
-
-      <p>“Boss, relax ka naman minsan,” sabi niya habang kinukuha yung tumbler ko.</p>
-      <p>“Pag may sweldo na,” sabi ko.</p>
-      <p>“E sakto, sweldo na bukas ah.”</p>
-      <p>“Oo nga. Kaya lalo akong kinakabahan.”</p>
-
-      <p>Natawa si kuya. Hindi ako natawa. Totoo kasi.</p>
-
-      <p>Sa office pa lang, badtrip na ako buong araw.</p>
-      <p>Hindi dahil sa boss. Sanay na ako sa “quick question” niyang laging nauuwi sa forty-minute task.</p>
-      <p>Hindi dahil sa trabaho. Medyo sanay na rin.</p>
-      <p>Badtrip ako kay Trina.</p>
-
-      <p>Si Trina yung teammate ko na sobrang okay kausap noong first two weeks ko sa company. Siya yung unang nagturo sa akin kung aling printer ang hindi mo dapat asahan at kung aling pantry mug ang mukhang communal pero pag ginalaw mo, may magagalit.</p>
-      <p>Pero that week, parang wala siyang time sa akin.</p>
-      <p>Seen lang sa chat. “Mamaya” sa tanong. Tapos sa pantry, dalawang beses akong dinaanan na parang hindi ako kilala.</p>
-
-      <p>Okay lang sana, kaso siya rin yung nakakita noong lunch ko kaninang tanghali.</p>
-      <p>Binuksan ko yung baon ko sa pantry tapos tumalsik yung sabaw ng adobo sa polo ko. Hindi dramatic. Hindi cinematic. Nakakahiya lang talaga.</p>
-      <p>Natawa yung dalawa naming ka-opisina. Si Trina, tahimik lang. Tumingin sa akin, tapos sabi, “Ako na bahala mamaya.”</p>
-
-      <p>Hindi ko alam kung ano ang ibig sabihin nun, pero dahil pagod ako, in-interpret ko agad as threat.</p>
-
-      <p>Habang hinihintay ko yung tumbler ko sa refill station, sumandal ako sa pader at nag-scroll. Walang message. Walang update. Walang kahit anong “uy okay ka lang?”</p>
-      <p>Tapos tinawag ako ni kuya.</p>
-
-      <p>“Boss, tapos na.”</p>
-
-      <p>Kinuha ko yung tumbler, nagbayad, umuwi.</p>
-      <p>Pagpasok ko sa apartment, doon ko lang napansin.</p>
-      <p>Wala yung lunchbox ko.</p>
-
-      <p>“Ay, grabe.”</p>
-      <p>Binaliktad ko yung ecobag. Charger. Wallet. Alcohol. Resibo. Isang pirasong candy na hindi ko maalalang saan galing.</p>
-      <p>Pero walang lunchbox.</p>
-
-      <p>Bumalik agad sa isip ko yung pantry. Yung adobo. Yung “Ako na bahala mamaya.” Yung pagiging tahimik ni Trina buong araw.</p>
-      <p>Tapos dahil irrational ang pagod, bigla kong naisip: <em>Baka itinapon na niya.</em></p>
-
-      <p>Hindi naman mamahalin yung lunchbox ko. Gasgas na yung takip, kupas na yung lock, at minsan ayaw nang sumara nang maayos.</p>
-      <p>Pero bigay kasi iyon ng nanay ko noong unang pasok ko sa work.</p>
-      <p>Sabi niya, “Kahit anong mangyari, magbaon ka pa rin. Hindi pwedeng puro kape ang laman ng araw mo.”</p>
-
-      <p>Kaya kinabukasan, pagpasok ko pa lang sa office, naka-ready na akong mainis.</p>
-
-      <p>Nauna si Trina sa pantry. Nakatayo siya sa may table. May hawak na lunchbox.</p>
-
-      <p>At dahil mahina ako sa detail at malakas ako sa assumption, naisip ko agad na akin iyon.</p>
-
-      <p>“Ah, nahanap mo?” sabi ko, medyo malamig.</p>
-
-      <p>Tumingin siya sa akin. “Ha?”</p>
-
-      <p>“Yung lunchbox ko.”</p>
-
-      <p>Bigla siyang natawa. “Aris, hindi mo ba tiningnan nang maayos?”</p>
-
-      <p>Binaba niya sa table yung hawak niya.</p>
-      <p>Hindi pala akin. Pareho lang ng kulay.</p>
-
-      <p>Nakakahiya. Pero dahil committed na ako sa pagiging defensive, itinuloy ko pa rin.</p>
-      <p>“Wala kasi sa bag ko kagabi. Akala ko naiwan sa pantry.”</p>
-
-      <p>“Hindi sa pantry naiwan,” sabi niya. “Sa water refill station.”</p>
-
-      <p>Napatigil ako.</p>
-      <p>“Paano mo alam?”</p>
-
-      <p>“Kasi tumawag sa akin si kuya refill station.”</p>
-
-      <p>“Bakit ikaw?”</p>
-
-      <p>“Kasi noong nakaraang linggo, ikaw yung nagpa-picture sa atin sa harap ng station, tapos ako yung nag-tag sa story. Nakilala niya ako.”</p>
-
-      <p>Hindi ko alam kung matatawa ako o lalo akong maiinis sa sarili ko.</p>
-
-      <p>“Eh bakit hindi mo sinabi agad?”</p>
-
-      <p>Tinaas niya yung kilay niya. “Kasi inaayos ko muna.”</p>
-
-      <p>“Inaayos?”</p>
-
-      <p>Hindi siya sumagot. Basta hinila niya lang ako papunta sa maliit naming pantry table.</p>
-
-      <p>Nandoon yung lunchbox ko.</p>
-      <p>Malinis. Tuyo. Pinalitan pa yung isang lock na laging sablay. At may maliit na masking tape sa ibabaw.</p>
-
-      <p>Nakasulat:</p>
-      <p><strong>“Para hindi na tumagas ang adobo ng bayan.”</strong></p>
-
-      <p>Napatawa ako bigla. Yung totoong tawa. Yung hindi pilit.</p>
-
-      <p>Paglingon ko, nandoon din pala yung dalawa naming ka-opisina, may hawak na 3-in-1 coffee at pandesal.</p>
-
-      <p>“Congrats,” sabi nung isa. “Regular ka na raw today.”</p>
-
-      <p>Doon ko lang naalala.</p>
-      <p>Kaya pala ang weird ng lahat kahapon.</p>
-      <p>Finalization pala ng papers ko. Kaya pala may mga bulung-bulungan. Kaya pala si Trina laging “mamaya.”</p>
-
-      <p>“Gusto sana naming simple lang,” sabi niya. “Kaso sumabog nga yung adobo mo, so parang naging emergency repair mission muna.”</p>
-
-      <p>“At saka,” dagdag niya, “nakita ko yung lunchbox mo sa refill station kagabi nung kumuha ako ng tubig. Hindi ko na sinabi agad kasi pinaayos ko muna sa kapitbahay naming marunong magpalit ng clip.”</p>
-
-      <p>Tinitigan ko yung lunchbox ko na parang biglang naging mas mabigat kaysa dati.</p>
-      <p>Hindi dahil sa laman. Wala ngang laman.</p>
-      <p>Kundi dahil minsan, ang bilis kong isipin na hindi ako pinapansin.</p>
-      <p>Na walang may pake.</p>
-      <p>Na ordinary lang ako sa paningin ng lahat.</p>
-
-      <p>Pero habang nakatayo ako doon, may pandesal sa isang kamay at inayos na lunchbox sa kabila, narealize ko—may mga tao palang tahimik lang magmahal ng kapwa.</p>
-      <p>Hindi loud. Hindi speech. Hindi grand reveal.</p>
-      <p>Minsan clip lang ng lunchbox. Minsan tawag mula sa water refill station. Minsan simpleng, “Ako na bahala mamaya,” na totoo naman pala.</p>
-
-      <p>Pag-uwi ko nang gabing iyon, dumaan ulit ako sa refill station.</p>
-      <p>Nakita ako ni kuya at ngumiti.</p>
-
-      <p>“Boss, okay na lunchbox?”</p>
-
-      <p>“Oo,” sabi ko. “At okay na rin ako, medyo.”</p>
-
-      <p>Tinuro niya yung blue tumbler ko.</p>
-      <p>“Buti naman. Kasi kung pati ’yan makalimutan mo, hindi ko na alam paano ka uuwi.”</p>
-
-      <p>Natawa ako mag-isa habang binubuhat ko yung tumbler at lunchbox.</p>
-      <p>Mabigat pa rin pareho.</p>
-      <p>Pero somehow, mas magaan na yung araw.</p>
-
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-lunchbox-beside-the-blue-tumbler"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-lunchbox-beside-the-blue-tumbler" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "the-lunchbox-beside-the-blue-tumbler";
+    window.currentStoryTags = ["worklife", "taglish", "urban", "comedy"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -424,8 +308,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/the-lunchbox-beside-the-blue-tumbler");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

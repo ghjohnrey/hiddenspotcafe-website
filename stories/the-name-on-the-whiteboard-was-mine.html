@@ -1,395 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>The Name on the Whiteboard Was Mine</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="A short Taglish classroom story about the weird comfort of being noticed at the right time." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="The Name on the Whiteboard Was Mine" property="og:title"/>
+<meta content="A short Taglish classroom story about the weird comfort of being noticed at the right time." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: The Name on the Whiteboard Was Mine" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="lightmystery" property="article:tag"/><meta content="taglish" property="article:tag"/><meta content="classroom" property="article:tag"/><meta content="school" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>The Name on the Whiteboard Was Mine</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="The Name on the Whiteboard Was Mine" />
-  <meta property="og:description" content="A short Taglish classroom story about the weird comfort of being noticed at the right time." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: The Name on the Whiteboard Was Mine" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Name on the Whiteboard Was Mine" />
-  <meta name="twitter:description" content="A short Taglish classroom story about the weird comfort of being noticed at the right time." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="The Name on the Whiteboard Was Mine" name="twitter:title"/>
+<meta content="A short Taglish classroom story about the weird comfort of being noticed at the right time." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "The Name on the Whiteboard Was Mine",
       "quote": "Minsan, isang simpleng “okay ka lang ba?” ang pinakaunang bagay na kailangan mong marinig."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "The Name on the Whiteboard Was Mine",
+      "description": "A short Taglish classroom story about the weird comfort of being noticed at the right time.",
+      "url": "https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/the-name-on-the-whiteboard-was-mine.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>The Name on the Whiteboard Was Mine</h1>
+<p>Short Taglish school story for students trying to act okay kahit halata namang hindi.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>The Name on the Whiteboard Was Mine</h1>
-      <p>Short Taglish school story for students trying to act okay kahit halata namang hindi.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#school</span>
         <span class="tag">#classroom</span>
         <span class="tag">#taglish</span>
         <span class="tag">#lightmystery</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>At minsan pala, sapat na iyon para maalala mong hindi mo kailangang buhatin mag-isa ang isang mabigat na araw.</p>
+<p>Kundi dahil may isang taong nag-abala magsulat ng limang salita sa whiteboard.</p>
+<p>Hindi dahil biglang okay na ako.</p>
+<p>Hindi dahil na-solve lahat.</p>
+<p>Pero somehow, mas magaan.</p>
+<p>Same campus. Same pagod. Same deadlines.</p>
+<p>Paglabas namin ng room, maingay ulit ang hallway. May tumatakbo pababa, may nagti-TikTok sa gilid, may amoy ng bagong pritong kwek-kwek galing sa labas ng gate.</p>
+<p>Natawa ako. Totoong tawa. Siguro first time that week.</p>
+<p>“Oo,” sabi niya. “Sobrang pangit.”</p>
+<p>“Ang pangit pala ng acting ko.”</p>
+<p>Natatawa akong napailing.</p>
+<p>“Kasi ikaw yung tipo ng taong laging nagsasabing okay lang. Kahit hindi naman.”</p>
+<p>Tinitigan niya ko na parang ang obvious ng sagot.</p>
+<p>“Paano mo nalaman na hindi ako okay?”</p>
+<p>Kibit-balikat siya. “Ako yung nagsulat. Ayoko lang sabihin kanina kasi baka di ka na pumasok.”</p>
+<p>“Ikaw?”</p>
+<p>Paglingon ko, si Mika.</p>
+<p>“Binura ko na yung nasa board. Baka ma-awkward ka pa lalo.”</p>
+<p>After class, habang nag-aayos ako ng gamit, may narinig akong boses sa likod.</p>
+<p>Hindi sa harap ng class, thankfully. Pero doon ko naramdaman na pagod na pagod na pala talaga ako.</p>
+<p>Ang weird, pero doon ako halos maiyak.</p>
+<p><em>Hurley, okay ka lang ba?</em></p>
+<p>At bigla ko na lang naisip yung sulat sa board kanina.</p>
+<p>Walang nagreklamo. Walang nambadtrip. Walang “arte naman.”</p>
+<p>Tumahimik yung room.</p>
+<p>“You can sit for one minute first,” sabi niya. “We’ll wait.”</p>
+<p>Napansin yata ni prof.</p>
+<p>Pero that day, paghawak ko pa lang ng report sheet, nanginginig na yung kamay ko.</p>
+<p>Dapat okay ako doon. Kaya ko naman magsalita sa harap.</p>
+<p>After lunch, may reporting kami.</p>
+<p>Minsan sa sobrang sanay mo maging functional, nakakagulat kapag may isang taong talagang tumingin.</p>
+<p>Pero ewan ko.</p>
+<p>As in normal. Sobrang normal.</p>
+<p>Si Mika busy sa fries niya. Yung dalawang nasa likod, nag-aaway tungkol sa ambagan. Yung class beadle, tulog na agad kahit break pa lang.</p>
+<p>Tumingin ako sa paligid.</p>
+<p>Parang may taong ilang araw nang napapansin na sobrang tahimik ko lately, pero hindi lang alam paano ako kakausapin.</p>
+<p>Hindi na siya creepy. Hindi na siya prank-level weird.</p>
+<p>Iba na yung kaba.</p>
+<p>Napaupo ako.</p>
+<p><strong>“Di mo kailangan magmukhang okay araw-araw.”</strong></p>
+<p>Isang line lang.</p>
+<p>Pagbukas ko, may punit na maliit na papel sa gitna.</p>
+<p>“Uy,” sabi ni Mika, inaabot sa’kin yung yellow pad ko. “Nahulog yata ’to sa bag mo.”</p>
+<p>Malinis na ulit, parang walang nangyari.</p>
+<p>Pagbalik ko, wala na yung sulat sa whiteboard.</p>
+<p>During break, lumabas ako saglit sa hallway para bumili ng tubig sa vending machine.</p>
+<p>Mas nakakakaba pala yung simpleng concern kaysa sa galit.</p>
+<p>Pero the whole time, naiisip ko pa rin yung sulat.</p>
+<p>Nagstart yung class na parang normal day lang. Attendance. Recitation. PowerPoint na sobrang liwanag sa mata.</p>
+<p>That was the weird part.</p>
+<p>Wala ring tumawa nang todo na parang prank lang.</p>
+<p>Wala namang umamin.</p>
+<p>“Fair point.”</p>
+<p>“Bakit naman ako tatanungin ni sir kung okay ako?”</p>
+<p>“Baka si sir?” sabi nung isa.</p>
+<p>“Hindi ah,” sabi ni Mika habang umuupo. “Ang aga ko kaya? Ikaw nga unang naabutan ko rito.”</p>
+<p>“Kayo ba nagsulat nito?” tanong ko, half-joke, half-ready ma-offend.</p>
+<p>That made it worse.</p>
+<p>Pagpasok nila, may ilang napatingin sa board, then napatingin sa’kin, then umiwas.</p>
+<p>Unti-unting dumating classmates ko.</p>
+<p>Kahit obvious na hindi.</p>
+<p><em>“Okay lang.”</em></p>
+<p>So ang default answer ko sa lahat ng nagtatanong lately was automatic:</p>
+<p>Deadline sa plates. May group work. May quiz. May problem pa sa bahay na hindi ko ma-explain nang maayos kahit sa sarili ko.</p>
+<p>Three nights na akong halos walang tulog.</p>
+<p>Nandoon pa rin.</p>
+<p>Tinitigan ko ulit.</p>
+<p>Nilapag ko yung bag ko sa upuan ko nang dahan-dahan, parang may sasabog kapag masyado akong biglaan gumalaw.</p>
+<p>Kaso wala naman kaming topic na ganyan. At isa lang naman ang Hurley sa section.</p>
+<p>Unang tingin ko, akala ko coincidence. Baka may ibang Hurley. Baka joke. Baka part ng lecture.</p>
+<p>Napatigil talaga ako sa pinto.</p>
+<p><strong>“Hurley, okay ka lang ba?”</strong></p>
+<p>At sa whiteboard, may nakasulat sa gitna gamit ang black marker:</p>
+<p>Open pa lang yung ilaw sa isang side ng classroom. Wala pa si prof. Wala pa halos tao.</p>
+<p>Pero that morning, tahimik.</p>
+<p>Usually, pagpasok ko, maingay na agad. May nagre-review, may nagchi-chismisan, may nagha-hanap ng charger na parang national emergency.</p>
+<p>Yung normal na college late lang—may dala kang kape, may kulang kang tulog, at may energy kang sapat lang para hindi humiga sa hallway.</p>
+<p>Late na naman ako pumasok sa Room 312, pero hindi yung dramatic na late.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>Late na naman ako pumasok sa Room 312, pero hindi yung dramatic na late.</p>
-      <p>Yung normal na college late lang—may dala kang kape, may kulang kang tulog, at may energy kang sapat lang para hindi humiga sa hallway.</p>
-      <p>Usually, pagpasok ko, maingay na agad. May nagre-review, may nagchi-chismisan, may nagha-hanap ng charger na parang national emergency.</p>
-      <p>Pero that morning, tahimik.</p>
-
-      <p>Open pa lang yung ilaw sa isang side ng classroom. Wala pa si prof. Wala pa halos tao.</p>
-      <p>At sa whiteboard, may nakasulat sa gitna gamit ang black marker:</p>
-      <p><strong>“Hurley, okay ka lang ba?”</strong></p>
-
-      <p>Napatigil talaga ako sa pinto.</p>
-      <p>Unang tingin ko, akala ko coincidence. Baka may ibang Hurley. Baka joke. Baka part ng lecture.</p>
-      <p>Kaso wala naman kaming topic na ganyan. At isa lang naman ang Hurley sa section.</p>
-
-      <p>Nilapag ko yung bag ko sa upuan ko nang dahan-dahan, parang may sasabog kapag masyado akong biglaan gumalaw.</p>
-      <p>Tinitigan ko ulit.</p>
-      <p>Nandoon pa rin.</p>
-
-      <p>Three nights na akong halos walang tulog.</p>
-      <p>Deadline sa plates. May group work. May quiz. May problem pa sa bahay na hindi ko ma-explain nang maayos kahit sa sarili ko.</p>
-      <p>So ang default answer ko sa lahat ng nagtatanong lately was automatic:</p>
-      <p><em>“Okay lang.”</em></p>
-
-      <p>Kahit obvious na hindi.</p>
-
-      <p>Unti-unting dumating classmates ko.</p>
-      <p>Pagpasok nila, may ilang napatingin sa board, then napatingin sa’kin, then umiwas.</p>
-      <p>That made it worse.</p>
-      <p>“Kayo ba nagsulat nito?” tanong ko, half-joke, half-ready ma-offend.</p>
-
-      <p>“Hindi ah,” sabi ni Mika habang umuupo. “Ang aga ko kaya? Ikaw nga unang naabutan ko rito.”</p>
-      <p>“Baka si sir?” sabi nung isa.</p>
-      <p>“Bakit naman ako tatanungin ni sir kung okay ako?”</p>
-      <p>“Fair point.”</p>
-
-      <p>Wala namang umamin.</p>
-      <p>Wala ring tumawa nang todo na parang prank lang.</p>
-      <p>That was the weird part.</p>
-
-      <p>Nagstart yung class na parang normal day lang. Attendance. Recitation. PowerPoint na sobrang liwanag sa mata.</p>
-      <p>Pero the whole time, naiisip ko pa rin yung sulat.</p>
-      <p>Mas nakakakaba pala yung simpleng concern kaysa sa galit.</p>
-
-      <p>During break, lumabas ako saglit sa hallway para bumili ng tubig sa vending machine.</p>
-      <p>Pagbalik ko, wala na yung sulat sa whiteboard.</p>
-      <p>Malinis na ulit, parang walang nangyari.</p>
-
-      <p>“Uy,” sabi ni Mika, inaabot sa’kin yung yellow pad ko. “Nahulog yata ’to sa bag mo.”</p>
-      <p>Pagbukas ko, may punit na maliit na papel sa gitna.</p>
-      <p>Isang line lang.</p>
-      <p><strong>“Di mo kailangan magmukhang okay araw-araw.”</strong></p>
-
-      <p>Napaupo ako.</p>
-      <p>Iba na yung kaba.</p>
-      <p>Hindi na siya creepy. Hindi na siya prank-level weird.</p>
-      <p>Parang may taong ilang araw nang napapansin na sobrang tahimik ko lately, pero hindi lang alam paano ako kakausapin.</p>
-
-      <p>Tumingin ako sa paligid.</p>
-      <p>Si Mika busy sa fries niya. Yung dalawang nasa likod, nag-aaway tungkol sa ambagan. Yung class beadle, tulog na agad kahit break pa lang.</p>
-      <p>As in normal. Sobrang normal.</p>
-
-      <p>Pero ewan ko.</p>
-      <p>Minsan sa sobrang sanay mo maging functional, nakakagulat kapag may isang taong talagang tumingin.</p>
-
-      <p>After lunch, may reporting kami.</p>
-      <p>Dapat okay ako doon. Kaya ko naman magsalita sa harap.</p>
-      <p>Pero that day, paghawak ko pa lang ng report sheet, nanginginig na yung kamay ko.</p>
-
-      <p>Napansin yata ni prof.</p>
-      <p>“You can sit for one minute first,” sabi niya. “We’ll wait.”</p>
-
-      <p>Tumahimik yung room.</p>
-      <p>Walang nagreklamo. Walang nambadtrip. Walang “arte naman.”</p>
-      <p>At bigla ko na lang naisip yung sulat sa board kanina.</p>
-
-      <p><em>Hurley, okay ka lang ba?</em></p>
-
-      <p>Ang weird, pero doon ako halos maiyak.</p>
-      <p>Hindi sa harap ng class, thankfully. Pero doon ko naramdaman na pagod na pagod na pala talaga ako.</p>
-
-      <p>After class, habang nag-aayos ako ng gamit, may narinig akong boses sa likod.</p>
-      <p>“Binura ko na yung nasa board. Baka ma-awkward ka pa lalo.”</p>
-
-      <p>Paglingon ko, si Mika.</p>
-
-      <p>“Ikaw?”</p>
-      <p>Kibit-balikat siya. “Ako yung nagsulat. Ayoko lang sabihin kanina kasi baka di ka na pumasok.”</p>
-      <p>“Paano mo nalaman na hindi ako okay?”</p>
-
-      <p>Tinitigan niya ko na parang ang obvious ng sagot.</p>
-      <p>“Kasi ikaw yung tipo ng taong laging nagsasabing okay lang. Kahit hindi naman.”</p>
-
-      <p>Natatawa akong napailing.</p>
-      <p>“Ang pangit pala ng acting ko.”</p>
-      <p>“Oo,” sabi niya. “Sobrang pangit.”</p>
-
-      <p>Natawa ako. Totoong tawa. Siguro first time that week.</p>
-
-      <p>Paglabas namin ng room, maingay ulit ang hallway. May tumatakbo pababa, may nagti-TikTok sa gilid, may amoy ng bagong pritong kwek-kwek galing sa labas ng gate.</p>
-      <p>Same campus. Same pagod. Same deadlines.</p>
-
-      <p>Pero somehow, mas magaan.</p>
-
-      <p>Hindi dahil na-solve lahat.</p>
-      <p>Hindi dahil biglang okay na ako.</p>
-      <p>Kundi dahil may isang taong nag-abala magsulat ng limang salita sa whiteboard.</p>
-
-      <p>At minsan pala, sapat na iyon para maalala mong hindi mo kailangang buhatin mag-isa ang isang mabigat na araw.</p>
-
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-name-on-the-whiteboard-was-mine"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fthe-name-on-the-whiteboard-was-mine" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "the-name-on-the-whiteboard-was-mine";
+    window.currentStoryTags = ["school", "classroom", "taglish", "lightmystery"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -398,8 +300,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/the-name-on-the-whiteboard-was-mine");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });

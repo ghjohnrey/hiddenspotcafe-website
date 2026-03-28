@@ -1,400 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+
+<html lang="en-PH">
 <head>
-  <!--
-  =====================================================================
-  ✅ Hidden Spot Cafe – STORY TEMPLATE (Zero-Error Checklist / Copy-Paste)
-  =====================================================================
-
-  GOAL:
-  - When you share a story link on Facebook, the preview should show:
-    ✅ Correct title
-    ✅ Correct description
-    ✅ Correct OG image (1200x630)
-    ✅ OG image text taken from your JSON script (#og-data)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 0 — Pick your SLUG FIRST (this prevents 90% of mistakes)
-  ---------------------------------------------------------------------
-  Slug rules (STRICT):
-  - lowercase only
-  - numbers allowed
-  - hyphen separated
-  - NO spaces
-  - NO special characters
-
-  Examples:
-  ✅ beep-card-feelings
-  ✅ fare-that-told-you-to-breathe
-  ✅ the-742-jeep
-  ❌ Fare That Told You to Breathe
-  ❌ fare_that_told_you
-
-  ---------------------------------------------------------------------
-  ✅ STEP 1 — File + URL MUST match the slug
-  ---------------------------------------------------------------------
-  Your final story URL MUST be ONE of these formats:
-
-  Option A (recommended, clean URL):
-  https://hiddenspotcafe.com/stories/<slug>
-
-  Option B (.html URL):
-  https://hiddenspotcafe.com/stories/<slug>.html
-
-  IMPORTANT:
-  - Your Worker tries BOTH. So either is okay.
-  - BUT your canonical tag + share links must match what you publish.
-
-  ---------------------------------------------------------------------
-  ✅ STEP 2 — REQUIRED edits in <head> for every story
-  ---------------------------------------------------------------------
-  Replace EVERY <slug> and EVERY title/description/quote:
-
-  (1) <title>...</title>
-  (2) <link rel="canonical" href="https://hiddenspotcafe.com/stories/<slug>" />
-      - canonical should match your final URL
-      - avoid redirects if possible
-
-  (3) Open Graph tags (Facebook/Discord/etc.)
-      - og:title (story title)
-      - og:description (one short sentence)
-      - og:url (final URL)
-
-  (4) OG Image tags (VERY IMPORTANT)
-      MUST be stable + exact slug match:
-      https://hiddenspotcafe.com/og/stories/<slug>.png
-
-      DO NOT do:
-      ❌ ?v=123
-      ❌ -v3
-      ❌ random filenames
-      unless you accept you’ll have to keep that URL forever.
-
-  (5) Twitter tags (recommended)
-      - twitter:image should match og:image
-
-  (6) OG DATA JSON (THIS FEEDS THE WORKER TEXT)
-      <script type="application/json" id="og-data">{...}</script>
-
-      Rules for JSON:
-      ✅ Double quotes only
-      ✅ No trailing commas
-      ✅ Keep it one-line friendly (avoid real line breaks inside strings)
-      ✅ Use normal quotes in text if possible
-
-      Minimum required fields:
-      - "quote": "..."
-
-      Optional:
-      - "title": "..." (Worker currently does not display title on image,
-                       but you can keep it for future)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 3 — REQUIRED edits in <body> for every story
-  ---------------------------------------------------------------------
-  (1) Hero content:
-      - <h1>Story Title</h1>
-      - Hero <p>Short description</p>
-
-  (2) Meta chips:
-      - read time
-      - tags (#tag)
-
-  (3) Share link + Copy link MUST match the final URL:
-      - Share URL must use your slug
-      - Copy button must copy the same final URL
-
-  ---------------------------------------------------------------------
-  ✅ STEP 4 — Other files you MUST update when publishing a new story
-  ---------------------------------------------------------------------
-  1) /stories/stories.json  (your grid/search/listing data)
-     - Add a new entry:
-       { title, slug, url, readTime, date, tags, excerpt, ogQuote(optional) }
-
-     IMPORTANT:
-     - JSON must be valid
-     - No trailing commas
-     - The "url" should match your actual story URL (either .html or clean)
-
-  2) /stories/index.html (or /stories/ page)
-     - If your listing is generated from stories.json, make sure it loads/updates.
-
-  3) (Optional but good) /sitemap.xml
-     - Add the new story URL (better discovery)
-
-  ---------------------------------------------------------------------
-  ✅ STEP 5 — Verification (do this every publish)
-  ---------------------------------------------------------------------
-  A) Open your story page:
-     https://hiddenspotcafe.com/stories/<slug>
-
-  B) Open your OG image directly:
-     https://hiddenspotcafe.com/og/stories/<slug>.png
-     - It MUST show a 1200x630 image (not logo, not 1x1)
-
-  C) Confirm Facebook UA sees the OG image tag:
-     Windows CMD:
-     curl -A "facebookexternalhit/1.1" -L "https://hiddenspotcafe.com/stories/<slug>" | findstr /i "og:image"
-
-  D) Confirm Worker source (GET request, not HEAD):
-     curl -A "facebookexternalhit/1.1" -i "https://hiddenspotcafe.com/og/stories/<slug>.png"
-     Look for:
-     X-OG-Source: html OR html-dot
-
-  E) Facebook Debugger:
-     - Scrape: https://hiddenspotcafe.com/stories/<slug>
-     - Click "Scrape Again" 2x
-
-  If FB Debugger still shows old preview:
-  - It may be caching the old image for that URL.
-  - Wait a bit, then "Scrape Again" again.
-  - (Your Worker now uses short cache to help updates.)
-
-  =====================================================================
-  END CHECKLIST
-  =====================================================================
+<!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
   -->
+<!-- Basic -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4977989670863396"></script>
+<!-- ✅ CHANGE: Story title -->
+<title>Pagkatapos ng Ulan sa Tapat ng Accounting Building</title>
+<!-- ✅ CHANGE: Standard SEO meta description -->
+<meta content="A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope." name="description"/>
+<!-- Performance hints -->
+<link crossorigin="" href="https://hiddenspotcafe.com" rel="preconnect"/>
+<link href="https://hiddenspotcafe.com" rel="dns-prefetch"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<link href="/stories/stories.css" rel="stylesheet"/>
+<!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+<link href="https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="en_PH" property="og:locale"/>
+<meta content="Hidden Spot Cafe" property="og:site_name"/>
+<meta content="article" property="og:type"/>
+<!-- ✅ CHANGE: OG title/desc/url -->
+<meta content="Pagkatapos ng Ulan sa Tapat ng Accounting Building" property="og:title"/>
+<meta content="A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope." property="og:description"/>
+<meta content="https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building" property="og:url"/>
+<!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+<meta content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" property="og:image"/>
+<meta content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" property="og:image:secure_url"/>
+<meta content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" property="og:image:url"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Hidden Spot Cafe story card: Pagkatapos ng Ulan sa Tapat ng Accounting Building" property="og:image:alt"/>
+<!-- ✅ CHANGE: Article metadata -->
+<meta content="Stories" property="article:section"/><meta content="quezon-city" property="article:tag"/><meta content="financial-drama" property="article:tag"/><meta content="taglish" property="article:tag"/>
 
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ✅ CHANGE: Story title -->
-  <title>Pagkatapos ng Ulan sa Tapat ng Accounting Building</title>
 
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
-  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/stories/stories.css" />
-
-  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
-  <link rel="canonical" href="https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building" />
-
-  <!-- Open Graph -->
-  <meta property="og:locale" content="en_PH" />
-  <meta property="og:site_name" content="Hidden Spot Cafe" />
-  <meta property="og:type" content="article" />
-
-  <!-- ✅ CHANGE: OG title/desc/url -->
-  <meta property="og:title" content="Pagkatapos ng Ulan sa Tapat ng Accounting Building" />
-  <meta property="og:description" content="A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope." />
-  <meta property="og:url" content="https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building" />
-
-  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
-  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" />
-  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" />
-  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Pagkatapos ng Ulan sa Tapat ng Accounting Building" />
-
-  <!-- Twitter/X -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pagkatapos ng Ulan sa Tapat ng Accounting Building" />
-  <meta name="twitter:description" content="A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope." />
-  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" />
-
-  <!--
-    Data for Worker OG renderer
-    - Worker extracts this JSON and uses "quote" as the text in the OG image.
-    - Keep valid JSON (double quotes only, no trailing comma).
-  -->
-  <script type="application/json" id="og-data">
-    {
+<!-- Twitter/X -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Pagkatapos ng Ulan sa Tapat ng Accounting Building" name="twitter:title"/>
+<meta content="A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope." name="twitter:description"/>
+<meta content="https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png" name="twitter:image"/>
+<!-- ✅ CHANGE: Worker OG data -->
+<script id="og-data" type="application/json">
+{
       "title": "Pagkatapos ng Ulan sa Tapat ng Accounting Building",
       "quote": "May mga taong tahimik lang, pero buhat nila pati problema mo."
-    }
+}
+  </script>
+<!-- ✅ CHANGE: BlogPosting schema -->
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Pagkatapos ng Ulan sa Tapat ng Accounting Building",
+      "description": "A short Taglish story about a student, a tricycle driver, and the quiet weight of unstable hope.",
+      "url": "https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building.png",
+      "inLanguage": "en-PH",
+      "author": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "Hidden Spot Cafe",
+            "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+            }
+      }
+}
   </script>
 </head>
-
 <body class="stories-page">
-  <!-- Navbar -->
-  <nav class="navbar" aria-label="Primary navigation">
-    <div class="nav-accent" aria-hidden="true"></div>
+<!-- Navbar -->
+<nav aria-label="Primary navigation" class="navbar">
+<div aria-hidden="true" class="nav-accent"></div>
+<div class="nav-container">
+<a aria-label="Go to homepage" href="/">
+<img alt="Hidden Spot Cafe Logo" src="/assets/images/logo/hsc-logo1.png"/>
+</a>
+<div class="nav-links" id="navLinks">
+<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="/menu/">Menu</a>
+<a aria-current="page" class="nav-link active" href="/stories/">Stories</a>
+<a class="nav-link" href="/rain-check/">Rain Check</a>
+<a class="nav-link" href="/about/">About</a>
+<a class="nav-link" href="/contact/">Contact</a>
+<a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+</div>
+<div aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<main class="stories-container">
+<header class="stories-hero">
+<!-- ✅ CHANGE: Title + short intro -->
+<h1>Pagkatapos ng Ulan sa Tapat ng Accounting Building</h1>
+<p>Short Taglish story about a quiet driver, a skeptical student, and the kind of help you notice too late.</p>
+</header>
+<div aria-label="Search another story" class="story-page-search story-page-search-top">
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchTop" placeholder="Search another story..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchTopResults"></div>
+</div>
+<article class="story-reading-card">
+<div class="story-meta">
+<!-- ✅ CHANGE: Read time + tags -->
+<span>⏱️ 3 min read</span>
 
-    <div class="nav-container">
-      <a href="/" aria-label="Go to homepage">
-        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
-      </a>
 
-      <div class="nav-links" id="navLinks">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/menu/" class="nav-link">Menu</a>
-        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
-        <a href="/rain-check/" class="nav-link">Rain Check</a>
-      </div>
 
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="stories-container">
-    <header class="stories-hero">
-      <!-- ✅ CHANGE: Title + short intro -->
-      <h1>Pagkatapos ng Ulan sa Tapat ng Accounting Building</h1>
-      <p>Short Taglish story about a quiet driver, a skeptical student, and the kind of help you notice too late.</p>
-    </header>
 
-    <article class="story-reading-card">
-      <div class="story-meta">
-        <!-- ✅ CHANGE: Read time + tags -->
-        <span>⏱️ 3 min read</span>
         <span class="tag">#taglish</span>
         <span class="tag">#financial-drama</span>
         <span class="tag">#quezon-city</span>
       </div>
+<div aria-hidden="true" class="story-divider"></div>
+<!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+<!-- ✅ CHANGE: FULL STORY CONTENT START --><p>Parang may mga bagay na hindi kailangang ipaliwanag nang mahaba para maramdaman mong totoo.</p>
+<p>Pero iba na yung katahimikan.</p>
+<p>Tumango lang siya, parehong tahimik gaya ng dati.</p>
+<p>Noong hapon na tumila rin sa wakas ang ulan sa tapat ng accounting building, bago ako bumaba, inabot ko ang bayad ko at sabi ko, “Kuya, salamat.”</p>
+<p>Mukha na siyang paalala na may mga taong tahimik lang, pero buhat nila pati problema mo habang iniisip mong sarili lang nila ang iniintindi nila.</p>
+<p>At tuwing naaalala ko yung pulang graph sa screen niya, hindi na siya mukhang kwento tungkol sa sugal o greed.</p>
+<p>Sa mukha na niya ako tumitingin.</p>
+<p>Simula noon, pag sumasakay ako sa tricycle niya, hindi na ako unang tumitingin sa phone holder sa gilid.</p>
+<p>Hanggang ngayon nga, dala ko pa rin.</p>
+<p>Pero buong linggo kong dala ’yon.</p>
+<p>Simple lang pagkakasabi niya, parang pamasahe lang ang pinag-uusapan.</p>
+<p>“Kapag kaya mo na,” sabi niya, “ipasa mo na lang sa ibang kinakapos.”</p>
+<p>Umiling siya.</p>
+<p>Sabi ko babayaran ko siya, kahit hulugan, kahit matagalan.</p>
+<p>Yung tahimik lang, halo sa ulan, habang dumadaan ang ibang tricycle na parang normal na hapon lang.</p>
+<p>Nakakahiya mang aminin, naiyak ako pero hindi yung dramatic.</p>
+<p>Kasama roon yung version ng pag-asa na ilang buwan niyang pinakain para sa pamilya niya, at para sa isang estudyanteng sakay lang naman araw-araw.</p>
+<p>Doon ko naintindihan na hindi lang pera ang nawala sa kanya nung bumagsak ang market.</p>
+<p>Mahina siyang tumawa. “Oo. Kaya nga inuna ko na ’to bago pa mawala lahat.”</p>
+<p>Sabi ko, “Eh bumagsak daw yung coin mo.”</p>
+<p>Kasi habang ako, tingin ko sa kanya driver na nagpapadala sa isang app na hindi niya maintindihan, siya pala itong tahimik na may binubuhat na problema na hindi naman kanya.</p>
+<p>Ang pangalawa, bigat.</p>
+<p>Ang una kong naramdaman, hiya.</p>
+<p>Hindi ko agad na-process lahat.</p>
+<p>Huminto siya saglit bago dagdagan, “Naalala kasi kita sa anak kong dating nag-aaral. Huminto rin dahil sa kulang.”</p>
+<p>Sabi niya, “Nung may kaunting kinita ako dati, inisip ko ipunin muna. Baka sakaling madagdagan. Para may maibigay ako pag kinulang ka.”</p>
+<p>Nung mga panahong akala ko trip-trip lang niya yung crypto app, may plano pala siya.</p>
+<p>Parang biglang lumiit yung buong kalsada.</p>
+<p>“Na-overhear ko lang noon sa phone mo, nung kausap mo classmate mo. Sabi mo baka ma-hold ka sa exam pag hindi ka nakaabot.”</p>
+<p>Hindi siya makatingin diretso sa akin.</p>
+<p>“Kuya, ano ’to?”</p>
+<p>Bumalik ako agad sa tricycle niya na parang hindi ko maramdaman yung ulan.</p>
+<p>Noel R. Villanueva.</p>
+<p>Nakita ko rin ang pangalan sa payer copy.</p>
+<p>Nabayaran na ang kulang ko sa tuition, exact amount, pati yung maliit na laboratory fee na akala ko next week ko pa poproblemahin.</p>
+<p>Pagbukas ko, official receipt ng school ang laman.</p>
+<p>Akala ko nagkamali siya ng tao.</p>
+<p>Sabi niya, “Baka hanapin ka sa registrar. Nasa loob yung resibo.”</p>
+<p>Inabot niya sa akin ang maliit na brown envelope, tiklop sa gilid at medyo basa.</p>
+<p>First time kong marinig pangalan ko sa bibig niya.</p>
+<p>“Aya.”</p>
+<p>Pababa na ako nang tawagin niya ako.</p>
+<p>Tapos binaba niya ako sa tapat ng accounting building, kung saan basang-basa ang hagdan at amoy papel na naulanan ang corridor.</p>
+<p>Tumango lang siya na parang sanay nang masabihan ng ganoon.</p>
+<p>Pagkasabi ko, naramdaman kong ang yabang pakinggan.</p>
+<p>Sabi ko, “Sinabi ko na sa ’yo, delikado ’yan.”</p>
+<p>Mahina boses niya nung sinabi niyang, “Pasensya na, medyo magulo lang isip ko nitong mga araw.”</p>
+<p>Nang makita ko ulit siya, mas payat tingnan at parang kulang sa tulog.</p>
+<p>Ewan ko bakit, pero mas tumama sa akin iyon kaysa dapat.</p>
+<p>Sa third day ko narinig sa isang driver na bumagsak daw nang malala yung coin na hawak ni Noel at simula no’n parang tulala raw ito habang bumibiyahe.</p>
+<p>Next day, wala pa rin.</p>
+<p>Kinabukasan, wala siya sa pila.</p>
+<p>Ngumiti siya, pero hindi umabot sa mata niya. “Konti na lang. Baka bumalik pa.”</p>
+<p>Nagbiro pa ako, “Kuya, cash out mo na bago ka ma-stress diyan.”</p>
+<p>Mas tahimik siya kaysa usual, at kahit hindi siya expressive, halata mong may kinakain siyang pag-aalala.</p>
+<p>One week, halos araw-araw pula yung graph sa phone niya.</p>
+<p>Hindi ko rin alam na may mga araw na mas mababa sinisingil niya sa akin kaysa sa ibang estudyante sa parehong ruta.</p>
+<p>Hindi ko alam na napapansin pala ni Noel na ilang beses akong nagbibilang ng barya bago sumakay.</p>
+<p>Minsan kalahati lang lunch ko, minsan naglalakad ako pauwi sa mas malayong kanto para makatipid sa pamasahe, minsan nagpapanggap akong okay lang kahit hindi na.</p>
+<p>Ang adjustment ko simple lang.</p>
+<p>Hindi ko sinabi sa bahay kasi alam kong gipit din sila, at ayoko nang dumagdag sa listahan ng mga problemang umiikot sa dining table gabi-gabi.</p>
+<p>Hindi naman sobrang laki, pero sapat para kabahan ako sa bawat reminder email ng school.</p>
+<p>Dalawang linggo na akong kulang sa pambayad sa remaining tuition ko.</p>
+<p>Sakto ring panahong iyon na ako naman yung may sariling tinatago.</p>
+<p>Kasi totoo rin naman.</p>
+<p>Wala akong naisagot.</p>
+<p>Akala ko doon na matatapos, pero bigla niyang sinabi, “Minsan mas mahirap umasa sa biyahe na pare-pareho lang ang kita.”</p>
+<p>Tumango lang siya.</p>
+<p>Sinagot ko siya ng, “Mahirap umasa sa bagay na ang bilis magbago.”</p>
+<p>Sabi niya, “Hindi ko nga gets lahat. Pero minsan kasi, kahit maliit lang puhunan mo, gusto mong isipin na may chance na lumaki.”</p>
+<p>Umulan noon nang biglaan, kaya naka-stop kami sa gilid habang naghihintay humina.</p>
+<p>Sabi ko minsan, “Bakit ka pa pumapasok diyan kung hindi mo naman gets?”</p>
+<p>Kapag pula, tahimik lang siya at parang mas ingat huminga.</p>
+<p>Kapag green ang tingin niya sa app, mas maayos tono niya, minsan may dagdag pa siyang sukli na eksakto kahit hindi ko na hinihingi.</p>
+<p>Hindi naman mahaba, pero sapat para mapansin kong may rhythm pala yung mood niya sa galaw ng market.</p>
+<p>Doon nagsimula yung maliit naming usapan araw-araw.</p>
+<p>Natigilan siya, tapos tumawa nang konti. “Halata ba?”</p>
+<p>“Crypto ba ’yan?” tanong ko, half-joke, half-inis.</p>
+<p>“Maliit lang, hija. Tinitingnan ko lang.”</p>
+<p>Napatingin siya sa rearview mirror at ngumiti nang alanganin.</p>
+<p>Sabi ko, “Lugi ka ba, Kuya?”</p>
+<p>May nakita akong pulang graph sa screen, tapos napamura siya nang mahina, yung tipong ayaw pa ring marinig ng ibang tao.</p>
+<p>Nag-vibrate phone niya at napatingin siya.</p>
+<p>Hanggang isang maulan na hapon, traffic sa may kanto, tapos kaming dalawa lang ang sakay dahil nagsiuwian na nang maaga yung iba.</p>
+<p>Akala ko noon online sabong, mobile game, o utang tracker.</p>
+<p>Minsan pag stoplight, sisilip siya saglit sa screen, tapos depende sa makikita niya, either mas magaang ang kamay niya sa silinyador o parang biglang tumatanda mukha niya ng dalawang taon.</p>
+<p>Kaya siguro napansin ko agad na may sinusundan siyang ibang numbers sa phone niya.</p>
+<p>Accounting student ako, so sanay ako tumingin sa numbers na parang may personal kaming away.</p>
+<p>Araw-araw ko siyang nasasakyan pag uwian, lalo na kapag kumakapal na naman yung ulap sa Quezon City at amoy basa na ang kalsada bago pa umulan.</p>
+<p>Simple lang siya magsalita, laging naka-faded na gray jacket kahit mainit, tapos may lumang phone holder sa gilid ng manibela na parang isang lubak na lang, bibigay na.</p>
+<p>Hindi siya yung tipong madaldal na nagtatanong kung anong course mo o kung saan ka bababa.</p>
+<p>Nung una, si Noel sa akin yung tahimik na tricycle driver lang na palaging nasa dulo ng pila sa may gate ng campus.</p>
 
-      <div class="story-divider" aria-hidden="true"></div>
-
-      <p>Nung una, si Noel sa akin yung tahimik na tricycle driver lang na palaging nasa dulo ng pila sa may gate ng campus.</p>
-      <p>Hindi siya yung tipong madaldal na nagtatanong kung anong course mo o kung saan ka bababa.</p>
-      <p>Simple lang siya magsalita, laging naka-faded na gray jacket kahit mainit, tapos may lumang phone holder sa gilid ng manibela na parang isang lubak na lang, bibigay na.</p>
-      <p>Araw-araw ko siyang nasasakyan pag uwian, lalo na kapag kumakapal na naman yung ulap sa Quezon City at amoy basa na ang kalsada bago pa umulan.</p>
-
-      <p>Accounting student ako, so sanay ako tumingin sa numbers na parang may personal kaming away.</p>
-      <p>Kaya siguro napansin ko agad na may sinusundan siyang ibang numbers sa phone niya.</p>
-      <p>Minsan pag stoplight, sisilip siya saglit sa screen, tapos depende sa makikita niya, either mas magaang ang kamay niya sa silinyador o parang biglang tumatanda mukha niya ng dalawang taon.</p>
-      <p>Akala ko noon online sabong, mobile game, o utang tracker.</p>
-
-      <p>Hanggang isang maulan na hapon, traffic sa may kanto, tapos kaming dalawa lang ang sakay dahil nagsiuwian na nang maaga yung iba.</p>
-      <p>Nag-vibrate phone niya at napatingin siya.</p>
-      <p>May nakita akong pulang graph sa screen, tapos napamura siya nang mahina, yung tipong ayaw pa ring marinig ng ibang tao.</p>
-      <p>Sabi ko, “Lugi ka ba, Kuya?”</p>
-
-      <p>Napatingin siya sa rearview mirror at ngumiti nang alanganin.</p>
-      <p>“Maliit lang, hija. Tinitingnan ko lang.”</p>
-      <p>“Crypto ba ’yan?” tanong ko, half-joke, half-inis.</p>
-      <p>Natigilan siya, tapos tumawa nang konti. “Halata ba?”</p>
-
-      <p>Doon nagsimula yung maliit naming usapan araw-araw.</p>
-      <p>Hindi naman mahaba, pero sapat para mapansin kong may rhythm pala yung mood niya sa galaw ng market.</p>
-      <p>Kapag green ang tingin niya sa app, mas maayos tono niya, minsan may dagdag pa siyang sukli na eksakto kahit hindi ko na hinihingi.</p>
-      <p>Kapag pula, tahimik lang siya at parang mas ingat huminga.</p>
-
-      <p>Sabi ko minsan, “Bakit ka pa pumapasok diyan kung hindi mo naman gets?”</p>
-      <p>Umulan noon nang biglaan, kaya naka-stop kami sa gilid habang naghihintay humina.</p>
-      <p>Sabi niya, “Hindi ko nga gets lahat. Pero minsan kasi, kahit maliit lang puhunan mo, gusto mong isipin na may chance na lumaki.”</p>
-      <p>Sinagot ko siya ng, “Mahirap umasa sa bagay na ang bilis magbago.”</p>
-
-      <p>Tumango lang siya.</p>
-      <p>Akala ko doon na matatapos, pero bigla niyang sinabi, “Minsan mas mahirap umasa sa biyahe na pare-pareho lang ang kita.”</p>
-      <p>Wala akong naisagot.</p>
-      <p>Kasi totoo rin naman.</p>
-
-      <p>Sakto ring panahong iyon na ako naman yung may sariling tinatago.</p>
-      <p>Dalawang linggo na akong kulang sa pambayad sa remaining tuition ko.</p>
-      <p>Hindi naman sobrang laki, pero sapat para kabahan ako sa bawat reminder email ng school.</p>
-      <p>Hindi ko sinabi sa bahay kasi alam kong gipit din sila, at ayoko nang dumagdag sa listahan ng mga problemang umiikot sa dining table gabi-gabi.</p>
-
-      <p>Ang adjustment ko simple lang.</p>
-      <p>Minsan kalahati lang lunch ko, minsan naglalakad ako pauwi sa mas malayong kanto para makatipid sa pamasahe, minsan nagpapanggap akong okay lang kahit hindi na.</p>
-      <p>Hindi ko alam na napapansin pala ni Noel na ilang beses akong nagbibilang ng barya bago sumakay.</p>
-      <p>Hindi ko rin alam na may mga araw na mas mababa sinisingil niya sa akin kaysa sa ibang estudyante sa parehong ruta.</p>
-
-      <p>One week, halos araw-araw pula yung graph sa phone niya.</p>
-      <p>Mas tahimik siya kaysa usual, at kahit hindi siya expressive, halata mong may kinakain siyang pag-aalala.</p>
-      <p>Nagbiro pa ako, “Kuya, cash out mo na bago ka ma-stress diyan.”</p>
-      <p>Ngumiti siya, pero hindi umabot sa mata niya. “Konti na lang. Baka bumalik pa.”</p>
-
-      <p>Kinabukasan, wala siya sa pila.</p>
-      <p>Next day, wala pa rin.</p>
-      <p>Sa third day ko narinig sa isang driver na bumagsak daw nang malala yung coin na hawak ni Noel at simula no’n parang tulala raw ito habang bumibiyahe.</p>
-      <p>Ewan ko bakit, pero mas tumama sa akin iyon kaysa dapat.</p>
-
-      <p>Nang makita ko ulit siya, mas payat tingnan at parang kulang sa tulog.</p>
-      <p>Mahina boses niya nung sinabi niyang, “Pasensya na, medyo magulo lang isip ko nitong mga araw.”</p>
-      <p>Sabi ko, “Sinabi ko na sa ’yo, delikado ’yan.”</p>
-      <p>Pagkasabi ko, naramdaman kong ang yabang pakinggan.</p>
-
-      <p>Tumango lang siya na parang sanay nang masabihan ng ganoon.</p>
-      <p>Tapos binaba niya ako sa tapat ng accounting building, kung saan basang-basa ang hagdan at amoy papel na naulanan ang corridor.</p>
-      <p>Pababa na ako nang tawagin niya ako.</p>
-      <p>“Aya.”</p>
-
-      <p>First time kong marinig pangalan ko sa bibig niya.</p>
-      <p>Inabot niya sa akin ang maliit na brown envelope, tiklop sa gilid at medyo basa.</p>
-      <p>Sabi niya, “Baka hanapin ka sa registrar. Nasa loob yung resibo.”</p>
-      <p>Akala ko nagkamali siya ng tao.</p>
-
-      <p>Pagbukas ko, official receipt ng school ang laman.</p>
-      <p>Nabayaran na ang kulang ko sa tuition, exact amount, pati yung maliit na laboratory fee na akala ko next week ko pa poproblemahin.</p>
-      <p>Nakita ko rin ang pangalan sa payer copy.</p>
-      <p>Noel R. Villanueva.</p>
-
-      <p>Bumalik ako agad sa tricycle niya na parang hindi ko maramdaman yung ulan.</p>
-      <p>“Kuya, ano ’to?”</p>
-      <p>Hindi siya makatingin diretso sa akin.</p>
-      <p>“Na-overhear ko lang noon sa phone mo, nung kausap mo classmate mo. Sabi mo baka ma-hold ka sa exam pag hindi ka nakaabot.”</p>
-
-      <p>Parang biglang lumiit yung buong kalsada.</p>
-      <p>Nung mga panahong akala ko trip-trip lang niya yung crypto app, may plano pala siya.</p>
-      <p>Sabi niya, “Nung may kaunting kinita ako dati, inisip ko ipunin muna. Baka sakaling madagdagan. Para may maibigay ako pag kinulang ka.”</p>
-      <p>Huminto siya saglit bago dagdagan, “Naalala kasi kita sa anak kong dating nag-aaral. Huminto rin dahil sa kulang.”</p>
-
-      <p>Hindi ko agad na-process lahat.</p>
-      <p>Ang una kong naramdaman, hiya.</p>
-      <p>Ang pangalawa, bigat.</p>
-      <p>Kasi habang ako, tingin ko sa kanya driver na nagpapadala sa isang app na hindi niya maintindihan, siya pala itong tahimik na may binubuhat na problema na hindi naman kanya.</p>
-
-      <p>Sabi ko, “Eh bumagsak daw yung coin mo.”</p>
-      <p>Mahina siyang tumawa. “Oo. Kaya nga inuna ko na ’to bago pa mawala lahat.”</p>
-      <p>Doon ko naintindihan na hindi lang pera ang nawala sa kanya nung bumagsak ang market.</p>
-      <p>Kasama roon yung version ng pag-asa na ilang buwan niyang pinakain para sa pamilya niya, at para sa isang estudyanteng sakay lang naman araw-araw.</p>
-
-      <p>Nakakahiya mang aminin, naiyak ako pero hindi yung dramatic.</p>
-      <p>Yung tahimik lang, halo sa ulan, habang dumadaan ang ibang tricycle na parang normal na hapon lang.</p>
-      <p>Sabi ko babayaran ko siya, kahit hulugan, kahit matagalan.</p>
-      <p>Umiling siya.</p>
-
-      <p>“Kapag kaya mo na,” sabi niya, “ipasa mo na lang sa ibang kinakapos.”</p>
-      <p>Simple lang pagkakasabi niya, parang pamasahe lang ang pinag-uusapan.</p>
-      <p>Pero buong linggo kong dala ’yon.</p>
-      <p>Hanggang ngayon nga, dala ko pa rin.</p>
-
-      <p>Simula noon, pag sumasakay ako sa tricycle niya, hindi na ako unang tumitingin sa phone holder sa gilid.</p>
-      <p>Sa mukha na niya ako tumitingin.</p>
-      <p>At tuwing naaalala ko yung pulang graph sa screen niya, hindi na siya mukhang kwento tungkol sa sugal o greed.</p>
-      <p>Mukha na siyang paalala na may mga taong tahimik lang, pero buhat nila pati problema mo habang iniisip mong sarili lang nila ang iniintindi nila.</p>
-
-      <p>Noong hapon na tumila rin sa wakas ang ulan sa tapat ng accounting building, bago ako bumaba, inabot ko ang bayad ko at sabi ko, “Kuya, salamat.”</p>
-      <p>Tumango lang siya, parehong tahimik gaya ng dati.</p>
-      <p>Pero iba na yung katahimikan.</p>
-      <p>Parang may mga bagay na hindi kailangang ipaliwanag nang mahaba para maramdaman mong totoo.</p>
-      <div class="story-actions" aria-label="Story actions">
-        <a class="action-btn" href="/stories/">← Back to Stories</a>
-
-        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
-        <a
-          class="action-btn"
-          target="_blank"
-          rel="noopener"
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagkatapos-ng-ulan-sa-tapat-ng-accounting-building"
-        >
+<!-- ✅ CHANGE: FULL STORY CONTENT END -->
+<div aria-hidden="true" class="story-divider"></div>
+<div aria-label="Read another story" class="story-page-search story-page-search-bottom">
+<h2 class="story-page-search-heading">Read another story</h2>
+<div class="story-page-search-bar">
+<span aria-hidden="true" class="story-page-search-icon">🔎</span>
+<input autocomplete="off" id="storySearchBottom" placeholder="Search stories here..." type="search"/>
+</div>
+<div class="story-page-search-results" id="storySearchBottomResults"></div>
+</div>
+<div aria-hidden="true" class="story-divider"></div>
+<section aria-labelledby="suggestedStoriesHeading" class="story-suggested-links">
+<h2 class="story-suggested-links-heading" id="suggestedStoriesHeading">Suggested Stories</h2>
+<div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+</section>
+<div aria-label="Story actions" class="story-actions">
+<a class="action-btn" href="/stories/">← Back to Stories</a>
+<!-- ✅ CHANGE: Facebook share link (slug must match) -->
+<a class="action-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpagkatapos-ng-ulan-sa-tapat-ng-accounting-building" rel="noopener" target="_blank">
           Share on Facebook
         </a>
-
-        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
-      </div>
-    </article>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 Hidden Spot Cafe</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/script.js"></script>
-  <script>
+<button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+</div>
+</article>
+</main>
+<!-- Footer -->
+<footer>
+<p>Located on the 3rd Floor – Message us before visiting</p>
+<p><a href="https://m.me/hiddenspotcafe" rel="noopener" target="_blank">Order via Messenger</a></p>
+<p>
+<a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+</p>
+<p>© 2026 Hidden Spot Cafe</p>
+</footer>
+<!-- Scripts -->
+<script src="/script.js"></script>
+<!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+<script>
+    window.currentStorySlug = "pagkatapos-ng-ulan-sa-tapat-ng-accounting-building";
+    window.currentStoryTags = ["taglish", "financial-drama", "quezon-city"];
+  </script>
+<script src="/stories/stories.js"></script>
+<script>
     const btn = document.getElementById("copyLinkBtn");
 
     if (btn) {
@@ -403,8 +313,10 @@
           // ✅ CHANGE: Copy link must match canonical/final URL
           await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/pagkatapos-ng-ulan-sa-tapat-ng-accounting-building");
           btn.textContent = "✅ Copied!";
-          setTimeout(() => (btn.textContent = "📎 Copy Link"), 1200);
-        } catch {
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
           alert("Copy failed. Please copy from the address bar.");
         }
       });
