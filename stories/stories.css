@@ -895,3 +895,19 @@ body.stories-page header:not(.stories-hero){
     font-size: 16px;
   }
 }
+
+/* =========================================================
+   FIX: Bottom search alignment inside story card
+   - Aligns search with story-reading-card width
+   ========================================================= */
+
+.story-reading-card .story-page-search {
+  max-width: 100%;   /* follow parent width */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.story-reading-card .story-page-search-bar {
+  width: 100%;
+  box-sizing: border-box;
+}
