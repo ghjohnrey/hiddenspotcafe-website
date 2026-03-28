@@ -897,17 +897,29 @@ body.stories-page header:not(.stories-hero){
 }
 
 /* =========================================================
-   FIX: Bottom search alignment inside story card
-   - Aligns search with story-reading-card width
+   FIX: Story page search alignment (top + bottom)
+   - Keeps both search boxes aligned with the story card width
    ========================================================= */
 
-.story-reading-card .story-page-search {
-  max-width: 100%;   /* follow parent width */
+.story-page-search{
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.story-page-search-bar{
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.story-reading-card .story-page-search{
+  max-width: 100%;
   margin-left: 0;
   margin-right: 0;
 }
 
-.story-reading-card .story-page-search-bar {
+.story-reading-card .story-page-search-bar{
   width: 100%;
   box-sizing: border-box;
 }
