@@ -800,3 +800,98 @@ body.stories-page header:not(.stories-hero){
     font-size: 13.5px;
   }
 }
+
+/* =========================================================
+   15) STATIC SUGGESTED STORY LINKS
+   - Real clickable internal links rendered after bottom search
+   - Uses unique class names to avoid collision with existing search UI
+   - Designed to match current premium dark story card system
+   ========================================================= */
+
+.story-suggested-links{
+  max-width: 860px;
+  margin: 0 auto 4px;
+}
+
+.story-suggested-links-heading{
+  margin: 0 0 12px;
+  font-size: 22px;
+  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+.story-suggested-links-list{
+  display: grid;
+  gap: 10px;
+}
+
+.story-suggested-link{
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 16px;
+  padding: 14px 14px;
+
+  background:
+    radial-gradient(circle at 20% 0%, rgba(176,108,255,0.12), transparent 52%),
+    linear-gradient(180deg, rgba(30,30,48,0.90), rgba(15,15,28,0.92));
+
+  border: 1px solid var(--border-soft);
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.24),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
+
+  transition: 0.22s ease;
+}
+
+.story-suggested-link:hover{
+  transform: translateY(-2px);
+  border-color: rgba(240,199,122,0.16);
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.30),
+    0 0 18px rgba(176,108,255,0.10);
+}
+
+.story-suggested-link-title{
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.story-suggested-link-empty{
+  border-radius: 16px;
+  padding: 14px 14px;
+  background:
+    linear-gradient(180deg, rgba(24,24,38,0.86), rgba(12,12,22,0.88));
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-size: 14px;
+  box-shadow:
+    0 10px 18px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(255,255,255,0.02) inset;
+}
+
+@media (min-width: 820px){
+  .story-suggested-links-list{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .story-suggested-links-heading{
+    font-size: 20px;
+  }
+
+  .story-suggested-link{
+    padding: 13px 13px;
+    border-radius: 14px;
+  }
+
+  .story-suggested-link-title{
+    font-size: 16px;
+  }
+}
