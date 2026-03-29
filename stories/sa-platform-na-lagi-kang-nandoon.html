@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Sa Platform na Lagi Kang Nandoon</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="Isang Taglish short story tungkol sa MRT-3 delays, rush hour routine, at isang tahimik na commuter na unti-unting naging bahagi ng araw ko."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/sa-platform-na-lagi-kang-nandoon" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Sa Platform na Lagi Kang Nandoon" />
+  <meta
+    property="og:description"
+    content="Sa gitna ng paulit-ulit na delay sa MRT-3, may isang taong hindi ko naman kilala pero unti-unting naging parte ng umaga ko."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/sa-platform-na-lagi-kang-nandoon" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/sa-platform-na-lagi-kang-nandoon.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/sa-platform-na-lagi-kang-nandoon.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/sa-platform-na-lagi-kang-nandoon.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Sa Platform na Lagi Kang Nandoon" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="commute slice of life" />
+  <meta property="article:tag" content="mrt-3" />
+  <meta property="article:tag" content="call center agent" />
+  <meta property="article:tag" content="rush hour" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sa Platform na Lagi Kang Nandoon" />
+  <meta
+    name="twitter:description"
+    content="Sa gitna ng paulit-ulit na delay sa MRT-3, may isang taong hindi ko naman kilala pero unti-unting naging parte ng umaga ko."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/sa-platform-na-lagi-kang-nandoon.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Sa Platform na Lagi Kang Nandoon",
+      "quote": "Minsan, may tao kang hindi naman kinakausap pero nawawala ang timpla ng araw mo kapag wala siya."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Sa Platform na Lagi Kang Nandoon",
+      "description": "Isang Taglish short story tungkol sa MRT-3 delays, rush hour routine, at isang tahimik na commuter na unti-unting naging bahagi ng araw ko.",
+      "url": "https://hiddenspotcafe.com/stories/sa-platform-na-lagi-kang-nandoon",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/sa-platform-na-lagi-kang-nandoon"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/sa-platform-na-lagi-kang-nandoon.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Sa Platform na Lagi Kang Nandoon</h1>
+      <p>Sa gitna ng paulit-ulit na delay sa MRT-3, may isang taong hindi ko naman kilala pero unti-unting naging parte ng umaga ko.</p>
+    </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#commute-slice-of-life</span>
+        <span class="tag">#mrt-3</span>
+        <span class="tag">#call-center-agent</span>
+        <span class="tag">#rush-hour</span>
+        <span class="tag">#silent-routine</span>
+        <span class="tag">#taglish</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>May mga tao talagang araw-araw mong nakikita, tapos parang may invisible rule na hanggang doon lang kayo.</p>
+      <p>Tingin. Abot ng tingin. Pero hindi aabot sa usap.</p>
+
+      <p>Sa MRT-3 North Avenue ko siya laging nakikita.</p>
+      <p>Weekday mornings, same rush, same sikip, same announcements na minsan mas mahaba pa kaysa actual na galaw ng tren.</p>
+
+      <p>Call center agent ako, mid-shift, pero maaga pa rin akong lumalabas kasi ayokong makipagpatayan sa mas late na rush.</p>
+      <p>Siya naman, hindi ko alam exact work niya, pero office type. Laging maayos blouse, naka-ID lace, tapos may mukha na parang gusto nang mainis pero pinipigilan lang.</p>
+
+      <p>First few days, extra lang siya sa paligid.</p>
+      <p>Isa sa maraming taong nakapila habang nakatitig sa arrival board na parang may mapipiga doon na mas magandang balita.</p>
+
+      <p>Pero habang tumatagal, napapansin ko na nasa halos parehong pwesto kami lagi.</p>
+      <p>Yung bandang hindi sobrang gitna, hindi rin dulo, sakto lang na may chance makasakay pag sinuwerte.</p>
+
+      <p>Kapag may announcement ng delay, sabay kaming napapatingala.</p>
+      <p>Kapag umuusad nang konti yung pila, sabay rin kaming one step forward, tapos hihinto ulit na parang wala namang nangyari.</p>
+
+      <p>Minsan napansin ko pa na pareho kaming nag-aadjust ng bag kapag sumisikip na.</p>
+      <p>Yung quick na hila sa strap, tapos konting side step para hindi madaganan ng katabi.</p>
+
+      <p>Hindi ko alam pangalan niya noon.</p>
+      <p>Sa isip ko lang siya tinatawag na girl sa platform na laging nandiyan.</p>
+
+      <p>May isang umaga na halos bente minutos na kaming naghihintay.</p>
+      <p>Mainit na, kahit umaga pa lang. Yung hangin sa platform parang galing na sa pagod ng lahat.</p>
+
+      <p>Naghanap ako sa usual spot niya.</p>
+      <p>Wala siya.</p>
+
+      <p>Ewan ko ba, pero parang may konting mali agad sa umaga ko.</p>
+      <p>Hindi naman malaki. Hindi dramatic. Parang may kulang lang sa paulit-ulit na eksena.</p>
+
+      <p>Sabi ko sa sarili ko, baka late lang.</p>
+      <p>O baka nakahanap na ng mas okay na pwesto. O baka nag-bus na lang, like any sane person.</p>
+
+      <p>Tapos biglang nag-ingay yung speaker.</p>
+      <p>&ldquo;Attention passengers, temporary platform change...&rdquo;</p>
+
+      <p>Ayun na.</p>
+      <p>Yung buong crowd gumalaw na parang iisang katawan na napilitan.</p>
+
+      <p>May konting banggaan, may mga sumisingit, may mga humihingi ng pasensya na hindi rin tunog sincere.</p>
+      <p>Napausog ako kasabay ng agos, hawak ko yung bag ko sa harap.</p>
+
+      <p>Pagtingin ko sa kanan, andun siya.</p>
+      <p>Mas malapit kaysa dati. Halos magkatabi na kami, parehong nainis sa nangyayari, parehong ayaw makipag-unahan pero mapipilitan pag hindi kumilos.</p>
+
+      <p>Nagkatinginan kami saglit.</p>
+      <p>Yung klaseng tingin na parang pareho kayong may gustong sabihin pero ayaw maunang maging weird.</p>
+
+      <p>May lalaking biglang sumiksik sa pagitan namin.</p>
+      <p>Napaatras siya nang konti, tapos muntik nang dumulas yung hawak niyang beep card.</p>
+
+      <p>Reflex lang yata, kasi ako na yung sumalo.</p>
+      <p>&ldquo;Sa inyo,&rdquo; sabi ko, sabay abot.</p>
+
+      <p>&ldquo;Thanks,&rdquo; sabi niya.</p>
+      <p>Tapos huminga siya nang mahaba. &ldquo;Parang every week na lang ganito.&rdquo;</p>
+
+      <p>Napatawa ako nang konti.</p>
+      <p>&ldquo;Oo nga. Parang tayo na yung nag-aadjust para sa train, hindi siya para sa atin.&rdquo;</p>
+
+      <p>Ngumiti siya.</p>
+      <p>First time ko siyang makitang hindi lang composed or impatient. Mukha lang siyang pagod. Same as everyone. Same as me.</p>
+
+      <p>&ldquo;Liane,&rdquo; sabi niya, parang biglang nahiya rin pagkatapos.</p>
+
+      <p>Inabot ko yung free hand ko kahit awkward sa sikip.</p>
+      <p>&ldquo;Arvin.&rdquo;</p>
+
+      <p>Hindi naman naging mahaba yung usapan after noon.</p>
+      <p>Actually, naputol agad kasi dumating din yung tren at bumalik ulit yung usual na survival mode ng mga tao.</p>
+
+      <p>Pero pagpasok namin, hindi na kami strangers na nasa parehong frame lang.</p>
+      <p>Nagkahiwalay pa rin kami ng pwesto sa loob, pero paminsan-minsan nagkakatama yung tingin namin na parang may continuation yung kanina.</p>
+
+      <p>Kinabukasan, mas maaga ako nang konti.</p>
+      <p>Nakita ko siya agad sa platform, nasa usual side niya.</p>
+
+      <p>Paglapit ko, umangat lang siya nang kaunti yung hawak niyang kape.</p>
+      <p>&ldquo;Mas malala today, feeling ko,&rdquo; sabi niya.</p>
+
+      <p>&ldquo;Mukha nga,&rdquo; sabi ko.</p>
+      <p>Yun lang, pero somehow sapat na.</p>
+
+      <p>Doon ko naisip na minsan hindi mo naman kailangang makilala nang buo yung isang tao para maging parte siya ng araw mo.</p>
+      <p>Minsan sapat na yung pareho kayong nandun, pareho kayong naghihintay, pareho kayong naaabala ng parehong delay.</p>
+
+      <p>At kapag bigla siyang wala sa pwesto niya, napapansin mo rin.</p>
+      <p>Kahit hindi mo naman dapat aminin sa sarili mo.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fsa-platform-na-lagi-kang-nandoon"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "sa-platform-na-lagi-kang-nandoon";
+    window.currentStoryTags = ["commute-slice-of-life", "mrt-3", "call-center-agent", "rush-hour", "silent-routine", "taglish"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/sa-platform-na-lagi-kang-nandoon");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
