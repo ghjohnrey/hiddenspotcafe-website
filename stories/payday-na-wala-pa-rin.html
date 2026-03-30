@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ CHANGE: Story title -->
+  <title>Payday Na, Wala Pa Rin</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description -->
+  <meta
+    name="description"
+    content="Isang Taglish short story tungkol sa dalawang magkaopisina na parehong naghihintay ng sweldo, pero magkaiba ang paraan ng pagharap sa uncertainty."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/payday-na-wala-pa-rin" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Payday Na, Wala Pa Rin" />
+  <meta
+    property="og:description"
+    content="Pareho kaming naghihintay ng notif sa banking app, pero doon ko lang napansin na may mga taong maingay sa kaba at may mga taong tahimik lang nag-aadjust."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/payday-na-wala-pa-rin" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/payday-na-wala-pa-rin.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/payday-na-wala-pa-rin.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/payday-na-wala-pa-rin.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Payday Na, Wala Pa Rin" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="office life" />
+  <meta property="article:tag" content="workplace realism" />
+  <meta property="article:tag" content="taglish" />
+  <meta property="article:tag" content="payday anxiety" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Payday Na, Wala Pa Rin" />
+  <meta
+    name="twitter:description"
+    content="Pareho kaming naghihintay ng notif sa banking app, pero doon ko lang napansin na may mga taong maingay sa kaba at may mga taong tahimik lang nag-aadjust."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/payday-na-wala-pa-rin.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Payday Na, Wala Pa Rin",
+      "quote": "Pareho kaming naghihintay, pero hindi pareho ng ingay."
+    }
+  </script>
+
+  <!-- ✅ CHANGE: BlogPosting schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Payday Na, Wala Pa Rin",
+      "description": "Isang Taglish short story tungkol sa dalawang magkaopisina na parehong naghihintay ng sweldo, pero magkaiba ang paraan ng pagharap sa uncertainty.",
+      "url": "https://hiddenspotcafe.com/stories/payday-na-wala-pa-rin",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hiddenspotcafe.com/stories/payday-na-wala-pa-rin"
+      },
+      "image": "https://hiddenspotcafe.com/og/stories/payday-na-wala-pa-rin.png",
+      "inLanguage": "en-PH",
+      "author": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Hidden Spot Cafe",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Payday Na, Wala Pa Rin</h1>
+      <p>Isang gabi sa office, pareho kaming naghihintay ng sweldo pero magkaiba pala kami ng paraan ng pagharap sa kaba.</p>
+    </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#office-life</span>
+        <span class="tag">#workplace-realism</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#payday-anxiety</span>
+        <span class="tag">#slice-of-life</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>Alam mo yung pakiramdam na payday na dapat, pero parang walang nangyayari kahit ilang refresh ka na?</p>
+
+      <p>Ganun si Ria nang gabing yun.</p>
+
+      <p>Halos wala nang tao sa office namin sa Ortigas, tapos yung ilaw sa isang side ng room naka-off na.</p>
+      <p>Yung natira na lang na tunog, keyboard ko, aircon, at yung mahina niyang buntong-hininga kada tingin sa phone.</p>
+
+      <p>Data encoder ako, so sanay na kong nakaupo hanggang late basta may hahabuling file.</p>
+      <p>Si Ria, admin assistant, nasa kabilang table lang at usually siya yung may energy pa kahit lampas uwian.</p>
+
+      <p>Pero that night, iba.</p>
+
+      <p>Bawat ilang minuto, binubuksan niya yung banking app niya.</p>
+      <p>Tapos lock screen. Tapos bukas ulit. Tapos refresh.</p>
+
+      <p>Wala pa rin.</p>
+
+      <p>&ldquo;Baka delayed lang,&rdquo; sabi niya, kahit hindi ko naman siya tinatanong.</p>
+      <p>&ldquo;Minsan diba late lang mag-post.&rdquo;</p>
+
+      <p>Um-oo lang ako.</p>
+      <p>Hindi dahil sure ako. Wala lang akong ibang masabi.</p>
+
+      <p>Sa totoo lang, naghihintay din ako.</p>
+      <p>Hindi ko lang pinapakita kasi ayokong marinig yung sarili kong nagbibilang ng problema out loud.</p>
+
+      <p>Naka-open sa isip ko yung buong weekend.</p>
+      <p>Bayad sa internet, grocery sa bahay, allowance ng bunso kong kapatid para sa lunes, tapos yung plano kong mag-jollibee sana pauwi kasi sabi ko sa sarili ko deserve ko naman pag payday.</p>
+
+      <p>Habang siya, refresh nang refresh, ako naman tahimik na nag-eedit ng budget sa notes app.</p>
+      <p>From &ldquo;mag-grocery ako after shift&rdquo; naging &ldquo;bukas na lang.&rdquo;</p>
+
+      <p>From &ldquo;mag-aangkas ako pauwi&rdquo; naging &ldquo;MRT pa rin.&rdquo;</p>
+
+      <p>From &ldquo;libre ko sarili ko kahit konti&rdquo; naging wala na lang.</p>
+
+      <p>&ldquo;Grabe no,&rdquo; sabi ni Ria, nakatingin pa rin sa screen. &ldquo;Ang saya maging adult. Every two weeks ka binibigyan ng chance ma-stress nang legal.&rdquo;</p>
+
+      <p>Usually matatawa ako sa ganun.</p>
+      <p>Pero natahimik lang ako.</p>
+
+      <p>Napatingin siya sa akin.</p>
+      <p>&ldquo;Uy, joke lang.&rdquo;</p>
+
+      <p>&ldquo;Oo,&rdquo; sabi ko. &ldquo;Gets.&rdquo;</p>
+
+      <p>Pagkatapos nun, nag-refresh ulit siya.</p>
+      <p>Nakita ko pa yung galaw ng thumb niya, parang mas madiin na kaysa kanina.</p>
+
+      <p>&ldquo;Wala pa rin,&rdquo; sabi niya, this time mas mahina.</p>
+
+      <p>May maliit na drawer siya sa table, tapos binuksan niya sandali.</p>
+      <p>Nakita ko yung isang biscuit pack saka coins na nakatabi sa ID lace niya.</p>
+
+      <p>Ordinary detail lang sana yun.</p>
+      <p>Kaso pagod na siguro kami pareho, kaya ang lakas ng tama sa akin.</p>
+
+      <p>&ldquo;May dinner ka pa?&rdquo; tanong ko.</p>
+
+      <p>Napakibit-balikat siya. &ldquo;Dapat oorder ako. Kaso tingnan natin kung may darating munang himala.&rdquo;</p>
+
+      <p>Ngumiti siya pagkatapos, pero bitin yung ngiti.</p>
+      <p>Doon ko lang napansin na hindi pala basta joke yung mga banat niya kanina.</p>
+
+      <p>Parang inuunahan lang niya yung hiya.</p>
+
+      <p>Tumingin ako sa monitor ko kahit tapos ko na halos yung trabaho.</p>
+      <p>Hindi ko rin alam bakit ang tagal kong magsalita. Baka kasi ayoko ring aminin na pareho kami.</p>
+
+      <p>&ldquo;May bakery pa sa baba,&rdquo; sabi ko. &ldquo;Tsaka may 7-Eleven sa kanto. Pwede tayong mag-settle muna sa mas mura tonight.&rdquo;</p>
+
+      <p>Napatingin siya sa akin nang diretso.</p>
+      <p>For a second, akala ko mao-offend siya.</p>
+
+      <p>&ldquo;As in tipid dinner?&rdquo; tanong niya.</p>
+
+      <p>&ldquo;Oo,&rdquo; sabi ko. &ldquo;Hindi naman forever. Tonight lang habang wala pa.&rdquo;</p>
+
+      <p>Huminga siya nang malalim.</p>
+      <p>Tapos tumawa nang konti, pero mas totoo na.</p>
+
+      <p>&ldquo;Sige,&rdquo; sabi niya. &ldquo;Mas honest pa yan kaysa sa pagpe-pretend ko na okay lang akong maghintay.&rdquo;</p>
+
+      <p>Nag-save ako ng file at pinatay ko yung monitor.</p>
+      <p>Pag tayo ko, chineck ko rin yung app ko isang beses. Wala pa rin.</p>
+
+      <p>Hindi ko na inulit.</p>
+
+      <p>Magkatabi kaming naglakad palabas ng office, dala yung magkaibang klase naming katahimikan.</p>
+      <p>Sa elevator, siya pa rin yung unang nagsalita.</p>
+
+      <p>&ldquo;Akala ko ang OA ko lang,&rdquo; sabi niya. &ldquo;Kasi refresh ako nang refresh.&rdquo;</p>
+
+      <p>&ldquo;Hindi,&rdquo; sabi ko. &ldquo;Ako nga di lang halata. Nagre-revise na ko ng buong buhay ko sa notes app kanina.&rdquo;</p>
+
+      <p>Doon siya natawa nang maayos.</p>
+      <p>Yung tipong hindi para pagtakpan yung kaba, kundi dahil may naka-gets sa kanya.</p>
+
+      <p>Paglabas namin ng building, iba na yung hangin.</p>
+      <p>Hindi dahil pumasok na yung sweldo. Wala pa rin naman.</p>
+
+      <p>Pero mas gumaan nang konti yung gabi.</p>
+      <p>Siguro dahil may mga tao palang nilalabas yung worry sa biro, tapos may mga tao namang tahimik lang na nag-aadjust ng plano.</p>
+
+      <p>Pareho lang pala kaming kinakabahan.</p>
+      <p>Magkaiba lang ng ingay.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fpayday-na-wala-pa-rin"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  -->
+  <script>
+    window.currentStorySlug = "payday-na-wala-pa-rin";
+    window.currentStoryTags = ["office-life", "workplace-realism", "taglish", "payday-anxiety", "slice-of-life"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/payday-na-wala-pa-rin");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
