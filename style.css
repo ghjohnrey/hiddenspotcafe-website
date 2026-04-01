@@ -880,3 +880,38 @@ footer a{
     border-radius:16px;
   }
 }
+
+/* =========================================================
+   17) CONTACT ACTION BUTTONS
+   - Appended for Call / Email / Messenger actions
+   - Matches the existing theme and stays mobile friendly
+   ========================================================= */
+
+.contact-action-group{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:22px;
+}
+
+.contact-action-btn{
+  margin-top:0;
+  min-width:170px;
+  text-align:center;
+}
+
+@media (max-width:768px){
+  .contact-action-group{
+    flex-direction:column;
+    align-items:stretch;
+    gap:12px;
+  }
+
+  .contact-action-btn{
+    width:100%;
+    min-width:0;
+    box-sizing:border-box;
+  }
+}
