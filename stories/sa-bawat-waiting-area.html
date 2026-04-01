@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+  <!--
+  STRICT TEMPLATE RULES
+  - Keep all structure, comments, classes, IDs, scripts, links, search blocks, and wrappers unless explicitly instructed.
+  - Edit only story-specific values marked with CHANGE.
+  - Keep title, descriptions, slug, canonical, og:url, og:image, share link, copy link, og-data, schema, and story context perfectly consistent.
+  - Slug rules: lowercase, hyphen-separated, no spaces, no special characters.
+  - Canonical, share link, copy link, and currentStorySlug must match the same final published URL/slug.
+  - og:image must use the exact stable slug path:
+    https://hiddenspotcafe.com/og/stories/<slug>.png
+  - Keep valid JSON in both #og-data and JSON-LD:
+    double quotes only, no trailing commas.
+  - Replace only the story paragraphs inside the FULL STORY CONTENT block.
+  - Keep /stories/stories.js and the STORY CONTEXT block if present.
+  - Keep the navbar aligned with the approved site-wide primary navigation unless the main site navigation itself changes.
+  - Keep the footer aligned with the approved site-wide footer structure unless the main site footer itself changes.
+  - Keep the top search block, bottom search block, Suggested Stories block, story actions block, navbar block, and footer block in place unless explicitly instructed otherwise.
+  -->
+
+  <!-- Basic -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+✅ CHANGE: Story title (SEO optimized)
+- Format: [Story Title] | [Keyword Context] | Hidden Spot Cafe
+- Include searchable keywords (e.g. Taglish Short Story, Office Story, Relatable Story)
+- Keep length ~50–60 characters if possible
+- Must still match the actual story title (do not change meaning)
+-->
+  <title>Sa Bawat Waiting Area</title>
+
+  <!-- ✅ CHANGE: Standard SEO meta description with searchable terms-->
+  <meta
+    name="description"
+    content="Isang Taglish short story tungkol sa job interviews, waiting areas, at tahimik na pagod ng mga aplikanteng hindi na nababalikan."
+  />
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://hiddenspotcafe.com" crossorigin />
+  <link rel="dns-prefetch" href="https://hiddenspotcafe.com" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/stories/stories.css" />
+
+  <!-- ✅ CHANGE: Canonical URL (must match final URL you publish) -->
+  <link rel="canonical" href="https://hiddenspotcafe.com/stories/sa-bawat-waiting-area" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_PH" />
+  <meta property="og:site_name" content="Hidden Spot Cafe" />
+  <meta property="og:type" content="article" />
+
+  <!-- ✅ CHANGE: OG title/desc/url -->
+  <meta property="og:title" content="Sa Bawat Waiting Area" />
+  <meta
+    property="og:description"
+    content="Sa dami ng interviews na pinuntahan ko, mas naging pamilyar pa minsan yung ibang aplikante kaysa sa mga kumpanyang hindi na nag-reply."
+  />
+  <meta property="og:url" content="https://hiddenspotcafe.com/stories/sa-bawat-waiting-area" />
+
+  <!-- ✅ CHANGE: OG Image (MUST match slug exactly, stable URL) -->
+  <meta property="og:image" content="https://hiddenspotcafe.com/og/stories/sa-bawat-waiting-area.png" />
+  <meta property="og:image:secure_url" content="https://hiddenspotcafe.com/og/stories/sa-bawat-waiting-area.png" />
+  <meta property="og:image:url" content="https://hiddenspotcafe.com/og/stories/sa-bawat-waiting-area.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hidden Spot Cafe story card: Sa Bawat Waiting Area" />
+
+  <!-- ✅ CHANGE: Article metadata -->
+  <meta property="article:section" content="Stories" />
+  <meta property="article:tag" content="career realism" />
+  <meta property="article:tag" content="slice of life" />
+  <meta property="article:tag" content="taglish" />
+  <meta property="article:tag" content="job hunt" />
+
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sa Bawat Waiting Area" />
+  <meta
+    name="twitter:description"
+    content="Sa dami ng interviews na pinuntahan ko, mas naging pamilyar pa minsan yung ibang aplikante kaysa sa mga kumpanyang hindi na nag-reply."
+  />
+  <meta name="twitter:image" content="https://hiddenspotcafe.com/og/stories/sa-bawat-waiting-area.png" />
+
+  <!-- ✅ CHANGE: Worker OG data -->
+  <script type="application/json" id="og-data">
+    {
+      "title": "Sa Bawat Waiting Area",
+      "quote": "Minsan, hindi pala ako lang yung iniwan sa seen."
+    }
+  </script>
+
+<!--
+✅ CHANGE: BlogPosting schema (STRICT JSON-LD RULES)
+
+- Keep structure EXACTLY the same
+- Do NOT remove or reorder fields
+- Do NOT add HTML comments inside JSON (invalid)
+
+REQUIRED CHANGES PER STORY:
+- headline → must match story title exactly
+- description → short SEO-friendly summary (1–2 sentences)
+- url → must match canonical URL exactly
+- mainEntityOfPage.@id → must match canonical URL exactly
+- image → must follow:
+  https://hiddenspotcafe.com/og/stories/<slug>.png
+
+✅ REQUIRED SEO FIELDS (DO NOT SKIP):
+- Add:
+  "datePublished": "YYYY-MM-DD",
+  "dateModified": "YYYY-MM-DD",
+
+- Use actual publish date
+- Update dateModified only if content is edited
+
+CONSISTENCY RULE:
+- headline, url, slug, og:image MUST all match the same story
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Sa Bawat Waiting Area",
+  "description": "Isang Taglish short story tungkol sa job interviews, waiting areas, at tahimik na pagod ng mga aplikanteng hindi na nababalikan.",
+  "url": "https://hiddenspotcafe.com/stories/sa-bawat-waiting-area",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hiddenspotcafe.com/stories/sa-bawat-waiting-area"
+  },
+  "image": "https://hiddenspotcafe.com/og/stories/sa-bawat-waiting-area.png",
+
+  "datePublished": "2026-04-01",
+  "dateModified": "2026-04-01",
+
+  "inLanguage": "en-PH",
+  "author": {
+    "@type": "Organization",
+    "name": "Hidden Spot Cafe"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hidden Spot Cafe",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hiddenspotcafe.com/assets/images/logo/hsc-logo1.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="stories-page">
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-accent" aria-hidden="true"></div>
+
+    <div class="nav-container">
+      <a href="/" aria-label="Go to homepage">
+        <img src="/assets/images/logo/hsc-logo1.png" alt="Hidden Spot Cafe Logo" />
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/menu/" class="nav-link">Menu</a>
+        <a href="/stories/" class="nav-link active" aria-current="page">Stories</a>
+        <a href="/rain-check/" class="nav-link">Rain Check</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/privacy-policy/" class="nav-link">Privacy Policy</a>
+      </div>
+
+      <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="stories-container">
+    <header class="stories-hero">
+      <!-- ✅ CHANGE: Title + short intro -->
+      <h1>Sa Bawat Waiting Area</h1>
+      <p>Sa dami ng interviews na pinuntahan ko, mas naging pamilyar pa minsan yung ibang aplikante kaysa sa mga kumpanyang hindi na nag-reply.</p>
+    </header>
+
+    <div class="story-page-search story-page-search-top" aria-label="Search another story">
+      <div class="story-page-search-bar">
+        <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+        <input
+          id="storySearchTop"
+          type="search"
+          placeholder="Search another story..."
+          autocomplete="off"
+        />
+      </div>
+      <div class="story-page-search-results" id="storySearchTopResults"></div>
+    </div>
+
+    <article class="story-reading-card">
+      <div class="story-meta">
+        <!-- ✅ CHANGE: Read time + tags -->
+        <span>⏱️ 3 min read</span>
+        <span class="tag">#career-realism</span>
+        <span class="tag">#slice-of-life</span>
+        <span class="tag">#taglish</span>
+        <span class="tag">#job-hunt</span>
+        <span class="tag">#office-waiting</span>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <!--
+      ✅ CHANGE: FULL STORY CONTENT
+      - Replace all paragraphs inside this block with the generated story.
+      - Keep paragraph format using <p>...</p> only.
+      - Do not remove, rename, or move the START/END markers.
+      - Do not add extra wrappers, headings, sections, or extra elements inside this block.
+      -->
+      <!-- ✅ CHANGE: FULL STORY CONTENT START -->
+      <p>May isang araw na parang pare-pareho lang yung hallway, kahit magkaibang building na yung pinuntahan ko.</p>
+      <p>Pare-pareho rin yung mga taong naghihintay. O baka napapansin ko lang sila ngayon.</p>
+
+      <p>Third interview ko na yata that week noon.</p>
+      <p>Nakaupo ako sa labas ng isang office sa Makati, hawak yung brown envelope ko na medyo lukot na sa gilid dahil ilang beses ko nang sinuksok sa bag.</p>
+
+      <p>Dati akong junior marketing staff.</p>
+      <p>Ngayon, ang pinaka-consistent ko na yata na routine ay magplantsa ng polo, bumiyahe nang maaga, at maghintay sa receptionist na tawagin yung pangalan ko.</p>
+
+      <p>Minsan sa lobby.</p>
+      <p>Minsan sa co-working space na ginawang recruitment area. Minsan sa café sa baba ng building kasi delayed daw yung interviewer.</p>
+
+      <p>Sa bawat upo, pare-pareho rin halos yung ginagawa ko.</p>
+      <p>Check ng email. Check ng phone. Check ulit kahit wala namang bagong lumalabas kundi promo at OTP.</p>
+
+      <p>Doon ko unang napansin si Mara.</p>
+      <p>Naka-light blue blouse siya, hawak din yung folder niya, tapos tahimik lang na nakatingin sa glass door na parang ayaw mapagod agad.</p>
+
+      <p>Hindi kami nag-usap noon.</p>
+      <p>Nagkatitigan lang saglit nang tinawag siya bago ako, tapos pareho kaming nagkunwaring may inaayos sa phone.</p>
+
+      <p>After two days, nakita ko ulit siya.</p>
+      <p>Ibang company naman, ibang floor, pero siya ulit. This time naka-cream cardigan na siya at mas halata yung eyebags niya.</p>
+
+      <p>Doon na ako medyo na-conscious.</p>
+      <p>Na baka kaya ko siya napapansin dahil mas madalas ko nang nakikita yung ibang aplikante kaysa sa actual na reply ng HR.</p>
+
+      <p>Pagkatapos ng bawat interview, pare-pareho rin kasi halos yung ending.</p>
+      <p>&ldquo;We&rsquo;ll get back to you.&rdquo; Tapos wala na.</p>
+
+      <p>Noong una, okay lang.</p>
+      <p>Iniisip ko normal lang, baka mabagal lang process. Baka may kasabay lang. Baka next week meron na.</p>
+
+      <p>Pero habang tumatagal, nagiging mas tahimik yung phone ko pagkatapos ng bawat &ldquo;we&rsquo;ll update you.&rdquo;</p>
+      <p>At mas maingay yung utak ko.</p>
+
+      <p>Baka may mali sa sagot ko.</p>
+      <p>Baka ang weird ng ngiti ko. Baka masyadong safe ako magsalita. Baka halata na kinakabahan ako kahit pinipilit kong hindi.</p>
+
+      <p>May one time pa na paglabas ko ng interview room, dumiretso ako sa CR hindi para umihi kundi para tingnan kung maayos pa ba yung itsura ko.</p>
+      <p>Akala mo naman may makukuha akong sagot sa salamin.</p>
+
+      <p>Nakita ko ulit si Mara mga sumunod na linggo.</p>
+      <p>Sa maliit na café naman sa ground floor ng isang building sa Ayala, yung tipong puro aplikante at employees on late lunch ang tao.</p>
+
+      <p>Umorder ako ng pinakamurang iced coffee.</p>
+      <p>Siya, hot latte na maliit lang. Pareho kaming tumingin sa counter number screen na parang may ibang mahalagang result na lalabas doon.</p>
+
+      <p>Nung paupo na ako, siya mismo yung nagsalita.</p>
+      <p>&ldquo;Ikaw rin yung nasa Ortigas office last week, &rsquo;di ba?&rdquo;</p>
+
+      <p>Napatawa ako nang konti.</p>
+      <p>&ldquo;Oo. Ikaw rin yung sa BGC before that.&rdquo;</p>
+
+      <p>Parang ang dali biglang aminin dahil pareho na naming alam.</p>
+      <p>Na oo, kami yung mga laging nasa waiting area. Kami yung laging maaga. Kami rin yung laging sinasabihang maghintay lang.</p>
+
+      <p>Umupo siya sa tapat ko kahit may ibang bakanteng table.</p>
+      <p>Medyo awkward pa nung una, parang pareho kaming hindi sure kung hanggang saan yung usapan.</p>
+
+      <p>&ldquo;May nag-reply na ba sa &rsquo;yo kahit isa?&rdquo; tanong niya.</p>
+      <p>Diretso lang, pero hindi bastos. Parang pagod na rin siyang magpaligoy.</p>
+
+      <p>Umiling ako.</p>
+      <p>&ldquo;Sa totoo lang, wala. Kahit rejection email minsan wala rin.&rdquo;</p>
+
+      <p>Tumango siya agad, parang may na-confirm.</p>
+      <p>&ldquo;Same. Minsan iniisip ko tuloy kung mali ba lahat ng sagot ko, or talagang ganito lang talaga.&rdquo;</p>
+
+      <p>Hindi ko agad nasagot.</p>
+      <p>Kasi yun mismo yung hindi ko masabi nang malakas sa sarili ko nitong mga nakaraang araw.</p>
+
+      <p>May dumaan na staff para maglinis ng katabing table.</p>
+      <p>May tumawag ng queue number. May blender sa counter. Normal na café sounds lang, pero parang mas luminaw bigla yung paligid.</p>
+
+      <p>&ldquo;Akala ko ako lang yung... ewan, paulit-ulit na ganito,&rdquo; sabi ko.</p>
+      <p>&ldquo;Parang every time na walang reply, automatic sa sarili ko agad bumabagsak yung sisi.&rdquo;</p>
+
+      <p>Si Mara napatingin sa cup niya.</p>
+      <p>&ldquo;Ako rin. Tapos kinabukasan, plantsa ulit. Smile ulit. Another elevator, another reception area.&rdquo;</p>
+
+      <p>Napangiti ako, hindi dahil nakakatawa talaga.</p>
+      <p>Pero may weird relief sa pakiramdam na marinig yung sarili mong pagod sa bibig ng ibang tao.</p>
+
+      <p>Wala kaming dramatic na napag-usapan pagkatapos nun.</p>
+      <p>Hindi rin kami nagbigay ng life advice sa isa&rsquo;t isa. Pareho siguro kaming wala sa mood ma-inspire.</p>
+
+      <p>Nagkumpara lang kami ng mga usual na tanong sa interview.</p>
+      <p>Kung ilang beses na naming narinig yung &ldquo;we&rsquo;ll let you know.&rdquo; Kung ilang beses na kaming napa-check ng spam folder na parang may himala roon.</p>
+
+      <p>Bago kami umalis, sabi niya, &ldquo;Good luck sa next.&rdquo;</p>
+      <p>Simple lang. Pero iba yung dating kasi alam niya talaga kung anong klaseng pagod yung dadalhin ko pauwi.</p>
+
+      <p>Sabi ko, &ldquo;Ikaw rin.&rdquo;</p>
+      <p>Tapos natawa kami pareho kasi parang obvious naman na may next pa.</p>
+
+      <p>Paglabas ko ng café, chineck ko ulit phone ko out of habit.</p>
+      <p>Wala pa ring bagong email.</p>
+
+      <p>Pero for the first time in weeks, hindi siya ganun kabigat tingnan.</p>
+      <p>Hindi dahil may sagot na. Kundi dahil may isa pang taong tahimik ding dumadaan sa parehong hallway, parehong elevator, parehong klase ng paghihintay.</p>
+
+      <p>Minsan pala, yung silence after interview, hindi agad ibig sabihin may kulang sa &rsquo;yo.</p>
+      <p>Minsan, marami lang talagang nakaupo sa iba&rsquo;t ibang waiting area, iniisip din yung iniisip mo.</p>
+      <!-- ✅ CHANGE: FULL STORY CONTENT END -->
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <div class="story-page-search story-page-search-bottom" aria-label="Read another story">
+        <h2 class="story-page-search-heading">Read another story</h2>
+        <div class="story-page-search-bar">
+          <span class="story-page-search-icon" aria-hidden="true">🔎</span>
+          <input
+            id="storySearchBottom"
+            type="search"
+            placeholder="Search stories here..."
+            autocomplete="off"
+          />
+        </div>
+        <div class="story-page-search-results" id="storySearchBottomResults"></div>
+      </div>
+
+      <div class="story-divider" aria-hidden="true"></div>
+
+      <section class="story-suggested-links" aria-labelledby="suggestedStoriesHeading">
+        <h2 id="suggestedStoriesHeading" class="story-suggested-links-heading">Suggested Stories</h2>
+        <div class="story-suggested-links-list" id="storySuggestedLinksList"></div>
+      </section>
+
+      <div class="story-actions" aria-label="Story actions">
+        <a class="action-btn" href="/stories/">← Back to Stories</a>
+
+        <!-- ✅ CHANGE: Facebook share link (slug must match) -->
+        <a
+          class="action-btn"
+          target="_blank"
+          rel="noopener"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhiddenspotcafe.com%2Fstories%2Fsa-bawat-waiting-area"
+        >
+          Share on Facebook
+        </a>
+
+        <button class="action-btn" id="copyLinkBtn" type="button">📎 Copy Link</button>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Located on the 3rd Floor – Message us before visiting</p>
+    <p><a href="https://m.me/hiddenspotcafe" target="_blank" rel="noopener">Order via Messenger</a></p>
+    <p>
+      <a href="/">Home</a> |
+      <a href="/menu/">Menu</a> |
+      <a href="/stories/">Stories</a> |
+      <a href="/rain-check/">Rain Check</a> |
+      <a href="/about/">About</a> |
+      <a href="/contact/">Contact</a> |
+      <a href="/privacy-policy/">Privacy Policy</a>
+    </p>
+    <p>© 2026 Hidden Spot Cafe</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/script.js"></script>
+
+  <!--
+  ✅ CHANGE: STORY CONTEXT FOR RELATED / SEARCH SYSTEM
+  - currentStorySlug MUST match the current story slug exactly.
+  - currentStoryTags MUST match the current story tags used by the page.
+  - Keep this block if the page uses /stories/stories.js.
+  -->
+  <script>
+    window.currentStorySlug = "sa-bawat-waiting-area";
+    window.currentStoryTags = ["career-realism", "slice-of-life", "taglish", "job-hunt", "office-waiting"];
+  </script>
+
+  <script src="/stories/stories.js"></script>
+
+  <script>
+    const btn = document.getElementById("copyLinkBtn");
+
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        try {
+          // ✅ CHANGE: Copy link must match canonical/final URL
+          await navigator.clipboard.writeText("https://hiddenspotcafe.com/stories/sa-bawat-waiting-area");
+          btn.textContent = "✅ Copied!";
+          setTimeout(() => {
+            btn.textContent = "📎 Copy Link";
+          }, 1200);
+        } catch (error) {
+          alert("Copy failed. Please copy from the address bar.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
