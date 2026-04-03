@@ -923,3 +923,22 @@ body.stories-page header:not(.stories-hero){
   width: 100%;
   box-sizing: border-box;
 }
+
+.story-body {
+  position: relative;
+  margin: 0;
+  padding: 1.25rem 0 0.25rem;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 31px,
+      rgba(255, 255, 255, 0.12) 32px
+    );
+}
+
+.story-body p {
+  position: relative;
+  z-index: 1;
+}
